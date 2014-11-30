@@ -1,0 +1,24 @@
+{% extends "AppBundle:admin:base.html.twig" %}
+{% block body %}
+<div class="content">
+    <div class="container">
+        {% block container %}
+        <div class="row">
+            <div class="col-md-12">
+                {% block workarea %}{% endblock %}
+                {% block contenido %}{% endblock %}
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+        {% endblock container %}
+    </div><!-- /.container -->
+</div><!-- .content -->
+
+
+{% if logout is not defined or logout is null %}
+    {% set logout_path = path('admin_logout') %}
+{% else %}
+    {% set logout_path = path('autogestion_logout') %}
+{% endif %}
+
+
+{% endblock body %}

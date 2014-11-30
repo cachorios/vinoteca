@@ -1,0 +1,76 @@
+{% extends "AppBundle:admin:layout.html.twig" %}
+    {% block id 'Usuario' %} 
+            {% block contenido -%}
+                {% embed '::portlet.html.twig' with {'titulo': 'Editar Usuario: ' ~ entity} %}
+                    {% block cuerpo %}
+                        <p></p>
+
+                        {{ form_start(edit_form) }}
+                        <div class="form-group">
+                            <label class="col-md-3">Avatar</label>
+
+                            <div class="col-md-7">
+                                <div class="fileupload fileupload-new" data-provides="fileupload"><input type="hidden"
+                                                                                                         value=""
+                                                                                                         name="">
+
+                                    <div class="fileupload-new thumbnail" style="width: 180px; height: 180px;">
+                                        <img src="{{ asset("uploads/usuarios/"~ entity.login ~".jpg" ) }}"
+                                             alt="Profile Avatar">
+                                    </div>
+                                    <div class="fileupload-preview fileupload-exists thumbnail"
+                                         style="max-width: 200px; max-height: 200px; line-height: 10px;"></div>
+                                    <div>
+                        <span class="btn btn-default btn-file">
+                          <span class="fileupload-new">Elija una Foto</span>
+                          <span class="fileupload-exists">Cambiar</span>
+                            {{ form_widget(edit_form.imagen) }}
+                        </span>
+                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">Quitar</a>
+                                    </div>
+                                    <!-- /div -->
+
+                                </div>
+                                <!-- /.fileupload -->
+
+                            </div>
+                            <!-- /.col -->
+
+                        </div>
+                        {{ form_widget(edit_form) }}
+
+                        <div class="col-sm-offset-2">
+                            <input type="submit" value="Guardar" class="btn btn-success">
+                        </div>
+
+                        {{ form_end(edit_form) }}
+
+
+
+                        <div class="row">
+
+                            <div class="col-md-2 col-md-offset-8 ">
+                                <div class="pull-right">
+                                    {{ form(delete_form) }}
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-1  ">
+                                <a href="{{ path('usuario') }}" class="btn btn-sm btn-default">
+                                    Ir a la lista
+                                </a>
+                            </div>
+
+                        </div>
+
+                    {% endblock %}
+                {% endembed %}
+
+                {% block stylesheets %}
+                    <link  href="{{ asset("bundles/rbsoftabmgenerador/css/laradmin.css") }}" rel="stylesheet">
+                    <link  href="{{ asset("bundles/rbsoftabmgenerador/fileupload/bootstrap-fileupload.css") }}" rel="stylesheet">
+                {% endblock %}
+
+
+            {% endblock contenido %}

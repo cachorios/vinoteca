@@ -1,0 +1,11 @@
+
+app_homepage:
+    prefix:  /
+    resource: "@AppBundle/Controller"
+
+admin_homepage:
+    path:  /admin/
+#    resource: "@UsuarioBundle/Controller"
+
+    defaults:  { _controller: UsuarioBundle:Usuario:Index}
+
