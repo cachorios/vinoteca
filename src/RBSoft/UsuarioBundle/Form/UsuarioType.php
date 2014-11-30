@@ -15,12 +15,12 @@ class UsuarioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('imagen', 'file', array(
-                    'mapped' => false,
+            ->add('imagen',null, array(
+                    'label' => 'Foto',
                     'required' => false
                 ))
             ->add('login')
-            ->add('email')
+            ->add('email','email')
             ->add('nombre')
             ->add('telefono')
             ->add('celular')

@@ -32,7 +32,7 @@ security:
                 login_path: admin_login
                 check_path: admin_login_check
     #                use_forward: true
-                default_target_path:            /
+                default_target_path:            /admin/
                 #Si fallo el login
                 #failure_path:    /
             logout:

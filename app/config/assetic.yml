@@ -33,6 +33,7 @@ assetic:
                 - bundles/app/css/admin/mvpready-admin.css
                 - bundles/app/css/admin/mvpready-flat.css
 
+                - bundles/rbsoftabmgenerador/fileupload//css/fileinput.min.css
 
                 - @lesses
 
@@ -53,7 +54,9 @@ assetic:
                 #-- Core JS --#
                 - bundles/app/js/admin/libs/jquery-1.10.2.min.js
                 - bundles/app/js/admin/libs/bootstrap.min.js
-                - bundles/rbsoftabmgenerador/fileupload/*.js
+
+#                Este lo sacamos de aqui porque el assetic modifica el path, es un error.
+#                - bundles/rbsoftabmgenerador/fileupload//js/fileinput.js
                 ##-- Plugin JS --##
 #                <script src="{{ asset('assets/js/plugins/flot/jquery.flot.js') }} "></script>
 #                <script src="{{ asset('assets/js/plugins/flot/jquery.flot.tooltip.min.js') }} "></script>

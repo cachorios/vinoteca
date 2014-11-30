@@ -28,7 +28,7 @@ class UsuarioController extends Controller
      * Lists all Usuario entities.
      *
      * @Route("/", name="usuario")
-     *
+     * @Method("GET")
      * @Template()
      */
     public function indexAction(Request $request)
@@ -108,12 +108,25 @@ class UsuarioController extends Controller
      */
     public function createAction(Request $request)
     {
+
         $entity = new Usuario();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $salt = md5(time());
+            $encoder = $this->container->get('security.encoder_factory')->getEncoder($entity);
+
+            $password =$entity->getLogin();
+            $password = $encoder->encodePassword($password , $salt);
+
+
+            $entity->setPassword($password);
+            $entity->setSalt($salt);
+
+            $entity->upload("uploads/usuarios/");
             $em->persist($entity);
             $em->flush();
 
@@ -253,8 +266,12 @@ class UsuarioController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
+            $entity->upload("uploads/usuarios/");
+
             $em->flush();
             $this->get('session')->getFlashBag()->add('success',"El Usuario $entity se actualizó correctamente.");
+
             return $this->redirect($this->generateUrl('usuario'));
         }
 

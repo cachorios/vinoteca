@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * Usuario
  *
@@ -89,6 +90,11 @@ class Usuario implements UserInterface
      *  @ORM\Column(name="fecha_alta", type="datetime")
      */
     private $fecha_alta;
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    private $imagen;
 
 
 //    /**
@@ -387,27 +393,52 @@ class Usuario implements UserInterface
         return $this->twitter;
     }
 
-//
-//
-//    /**
-//     * Sets file.
-//     *
-//     * @param UploadedFile $file
-//     */
-//    public function setImagen(UploadedFile $file = null)
-//    {
-//        $this->imagen = $file;
-//    }
-//
-//    /**
-//     * Get file.
-//     *
-//     * @return UploadedFile
-//     */
-//    public function getImagen()
-//    {
-//        return $this->imagen;
-//    }
 
+
+
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setImagen(UploadedFile $file = null)
+    {
+        $this->imagen = $file;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+
+    public function upload($dir)
+    {
+        if (null === $this->getImagen()) {
+            if(file_exists($dir.$this->getLogin().'.jpg'))
+                unlink($dir.$this->getLogin().'.jpg');
+            return;
+        }
+
+//        $this->getImagen()->move(
+//            $dir,
+//            $this->getImagen()->getClientOriginalName()
+//        );
+        if(file_exists($dir.$this->getLogin().'.'.$this->getImagen()->getClientOriginalExtension()))
+            unlink($dir.$this->getLogin().'.'.$this->getImagen()->getClientOriginalExtension());
+
+        $this->getImagen()->move(
+            $dir,
+            $this->getLogin().'.'.$this->getImagen()->getClientOriginalExtension()
+        );
+
+        $this->imagen = null;
+    }
 
 }
