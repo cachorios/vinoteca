@@ -1,0 +1,6 @@
+services:
+    categoria.listener.doctrine:
+        class: AppBundle\EventListener\CategoriaListener
+        tags:
+          - { name: doctrine.event_listener, event: prePersist, method: prePersist }
+          - { name: doctrine.event_listener, event: preUpdate,  method: preUpdate }
