@@ -12,7 +12,7 @@
 /composer.phar
 .idea/*
 composer.lock
-.idea/workspace.xml
-composer.lock
+/.idea/workspace.xml
+/composer.lock
 .idea/workspace.xml
 composer.lock
