@@ -27,6 +27,8 @@ assetic:
                 - bundles/app/css/admin/font-awesome.min.css
                 #-- Bootstrap CSS --#
                 - bundles/app/css/admin/bootstrap.min.css
+
+                - bundles/rbsoftabmgenerador/fileupload/*.css
                 #-- App CSS --#>
                 - bundles/app/css/admin/mvpready-admin.css
                 - bundles/app/css/admin/mvpready-flat.css
@@ -51,7 +53,7 @@ assetic:
                 #-- Core JS --#
                 - bundles/app/js/admin/libs/jquery-1.10.2.min.js
                 - bundles/app/js/admin/libs/bootstrap.min.js
-                - bundles/rbsoftabmgenerador/*
+                - bundles/rbsoftabmgenerador/fileupload/*.js
                 ##-- Plugin JS --##
 #                <script src="{{ asset('assets/js/plugins/flot/jquery.flot.js') }} "></script>
 #                <script src="{{ asset('assets/js/plugins/flot/jquery.flot.tooltip.min.js') }} "></script>
