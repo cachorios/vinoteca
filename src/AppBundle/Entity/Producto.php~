@@ -1,0 +1,110 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * Producto
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ProductoRepository")
+ */
+class Producto
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="codigo", type="integer")
+     */
+    private $codigo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=100)
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="marca", type="string", length=100)
+     */
+    private $marca;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descripcion", type="text")
+     */
+    private $descripcion;
+
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="precio", type="decimal", scale=2)
+     */
+    private $precio;
+
+    /**
+     * @var decimal
+     *
+     * @ORM\Column(name="iva", type="decimal", scale=2)
+     */
+    private $iva;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="activo", type="boolean")
+     */
+    private $activo;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ProductoImagen", mappedBy="producto")
+     */
+    private $imagenes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ProductoBonificacion", mappedBy="producto")
+     */
+    private $bonificaciones;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Categoria")
+     * @ORM\JoinTable(name="producto_categoria_groups",
+     *      joinColumns={@ORM\JoinColumn(name="producto_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="categoria_id", referencedColumnName="id")}
+     *      )
+     **/
+    private $categorias;
+
+
+    /**
+     * Creation time.
+     *
+     * @var \DateTime
+     */
+    protected $createdAt;
+    /**
+     * Last update time.
+     *
+     * @var \DateTime
+     */
+    protected $updatedAt;
+}
