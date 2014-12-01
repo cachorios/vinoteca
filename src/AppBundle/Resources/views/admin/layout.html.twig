@@ -20,5 +20,10 @@
     {% set logout_path = path('autogestion_logout') %}
 {% endif %}
 
-
 {% endblock body %}
+
+{% block javascript_footer %}
+    {{ parent() }}
+    {#Para upload#}
+    <script src="{{ asset('bundles/rbsoftabmgenerador/fileupload//js/fileinput.min.js')}} "></script>
+{% endblock %}

@@ -69,7 +69,7 @@ class Categoria
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Categoria", mappedBy="parent")
      **/
     private $children;
 

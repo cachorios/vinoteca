@@ -1,0 +1,35 @@
+{% block extends %}
+    {{ "{% extends 'AppBundle:admin:layout.html.twig' %}" }}
+{% endblock extends %}
+    {{ "{% block id '" ~entity~ "' %} "}}
+    {% block body %}
+        {{ "{% block contenido -%}" }}
+        {{ "{% embed '::portlet.html.twig' with {'titulo': 'Nuevo " ~  entity  ~ "' } %}" }}
+        {{ "    {% block in_header %} "}}
+        {% set hide_edit, hide_delete = true, true %}
+        <div class='pull-right'>
+            <div class="row">
+                {% include 'crud/views/others/record_actions.html.twig' %}
+            </div>
+        </div>
+        {{ "    {% endblock %}" }}
+
+        {{ "        {% block cuerpo %} " }}
+        <p>{#menseje acorde#}</p>
+        {{ '
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <div class="col-sm-offset-2">
+                    <input type="submit" value="Guardar" class="btn btn-success">
+                </div>
+
+            {{ form_end(form) }}
+        ' }}
+
+
+
+        {{ "{% endblock %} "}}
+        {{ "{% endembed %} "}}
+
+        {{ "{% endblock contenido %}" }}
+    {% endblock body %}
