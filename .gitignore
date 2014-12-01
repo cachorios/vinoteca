@@ -10,9 +10,12 @@
 /vendor/
 /bin/
 /composer.phar
-.idea/*
-composer.lock
+/.idea/*
 /.idea/workspace.xml
 /composer.lock
 .idea/workspace.xml
-composer.lock
+
+/web/bundles/*
+/web/assetic/*
+/web/js/*
+/web/css/*
