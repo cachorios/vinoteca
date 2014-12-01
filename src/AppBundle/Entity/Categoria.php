@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use RBSoft\UtilidadBundle\Libs\Util;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -14,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="categoria")
  * @ORM\Entity()
- * @DoctrineAssert\UniqueEntity(fields="name", message="categoria.nombre.duplicated")
+ * @DoctrineAssert\UniqueEntity(fields="nombre", message="categoria.nombre.duplicated")
  */
 class Categoria
 {
@@ -38,7 +39,6 @@ class Categoria
 
     /**
      * @ORM\Column(type="string")
-     * @Assert\NotBlank()
      */
     private $slug;
 
@@ -48,7 +48,7 @@ class Categoria
      * @ORM\Column(name="orden", type="integer")
      *
      */
-    private $orden;
+    private $orden = 0;
 
     /**
      * @var integer
@@ -66,8 +66,6 @@ class Categoria
      */
     private $root;
 
-
-
     /**
      * @ORM\OneToMany(targetEntity="Categoria", mappedBy="parent")
      **/
@@ -79,7 +77,24 @@ class Categoria
      **/
     private $parent;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="activo", type="boolean")
+     */
+    private $activo = true;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="visible", type="boolean")
+     */
+    private $visible = true;
+
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
     /**
      * Constructor
      */
@@ -107,7 +122,7 @@ class Categoria
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-
+        $this->slug = Util::getSlug($nombre);
         return $this;
     }
 
@@ -267,5 +282,51 @@ class Categoria
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * Set activo
+     *
+     * @param boolean $activo
+     * @return Producto
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+
+        return $this;
+    }
+
+    /**
+     * Get activo
+     *
+     * @return boolean
+     */
+    public function getActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * Set visible
+     *
+     * @param boolean $visible
+     * @return Producto
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    /**
+     * Get visible
+     *
+     * @return boolean
+     */
+    public function getVisible()
+    {
+        return $this->visible;
     }
 }

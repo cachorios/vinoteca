@@ -14,12 +14,10 @@ class CategoriaFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', 'filter_number_range')
             ->add('nombre', 'filter_text')
-            ->add('slug', 'filter_text')
-            ->add('orden', 'filter_number_range')
-            ->add('level', 'filter_number_range')
             ->add('root', 'filter_number_range')
+            ->add('activo', 'filter_boolean')
+            ->add('visible', 'filter_boolean')
         ;
 
         $listener = function(FormEvent $event)
@@ -38,7 +36,7 @@ class CategoriaFilterType extends AbstractType
 
             $event->getForm()->addError(new FormError('Filtro limpio'));
         };
-        $builder->addEventListener(FormEvents::POST_BIND, $listener);
+        $builder->addEventListener(FormEvents::POST_SUBMIT, $listener);
     }
 
     public function getName()

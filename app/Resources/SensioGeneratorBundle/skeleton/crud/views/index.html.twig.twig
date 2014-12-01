@@ -70,13 +70,13 @@
                 {%- elseif metadata.type in ['date', 'datetime'] %}
                     <td>{{ '{% if entity.' ~ field|replace({'_': ''}) ~ ' %}{{ entity.' ~ field|replace({'_': ''}) ~ '|date(\'Y-m-d H:i:s\') }}{% endif %}' }}</td>{{ '\n' }}
                 {%- elseif metadata.type in ['boolean'] %}
-                    <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ '? \'<span class="label label-success">Activo</span>\' : \'<span class=\"label label-default\">Desactivado</span>\'  }}' }}</td>
+                    <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ '? \'<span class="label label-success">Si</span>\' : \'<span class=\"label label-default\">No</span>\'  }}' }}</td>
                 {%- else %}
                     <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ ' }}' }}</td>{{ '\n' }}
                 {%- endif %}
 
                 {%- if loop.last %}
-                    <td >
+                    <td class="actions">
                     {%- include "crud/views/others/actions.html.twig" %}
                     </td>{{ '\n' }}
                 {%- endif %}

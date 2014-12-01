@@ -29,7 +29,7 @@
 
                 {%- elseif metadata.type in ['boolean'] %}
 
-                    <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ '? \'<span class="label label-success">Activo</span>\' : \'<span class=\"label label-default\">Desactivado</span>\'  }}' }}</td>
+                    <td>{{ '{{ entity.' ~ field|replace({'_': ''}) ~ '? \'<span class="label label-success">Si</span>\' : \'<span class=\"label label-default\">No</span>\'  }}' }}</td>
 
                 {%- else %}
 

@@ -56,6 +56,14 @@
                 <th class="show-header">Root</th>
                     <td>{{ entity.root }}</td>
             </tr>
+            <tr>
+                <th class="show-header">Activo</th>
+                    <td>{{ entity.activo? '<span class="label label-success">Activo</span>' : '<span class="label label-default">Desactivado</span>'  }}</td>
+            </tr>
+            <tr>
+                <th class="show-header">Visible</th>
+                    <td>{{ entity.visible? '<span class="label label-success">Activo</span>' : '<span class="label label-default">Desactivado</span>'  }}</td>
+            </tr>
         </tbody>
     </table>
 

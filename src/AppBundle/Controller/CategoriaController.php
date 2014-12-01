@@ -13,9 +13,6 @@ use AppBundle\Entity\Categoria;
 use AppBundle\Form\CategoriaType;
 use AppBundle\Form\CategoriaFilterType;
 
-
-
-
 /**
  * Categoria controller.
  *

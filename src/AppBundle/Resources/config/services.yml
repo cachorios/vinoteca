@@ -3,4 +3,5 @@ services:
         class: AppBundle\EventListener\CategoriaListener
         tags:
           - { name: doctrine.event_listener, event: prePersist, method: prePersist }
+          - { name: doctrine.event_listener, event: postPersist,  method: postPersist }
           - { name: doctrine.event_listener, event: preUpdate,  method: preUpdate }

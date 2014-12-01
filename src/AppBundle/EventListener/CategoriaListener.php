@@ -30,6 +30,17 @@ class CategoriaListener
 
         if ($entity instanceof Categoria) {
             $entity->setLevel($this->getLevel($entity));
+            $entity->setRoot(0);
+        }
+    }
+
+    public function postPersist(LifecycleEventArgs $args)
+    {
+        $entity = $args->getEntity();
+        $entityManager = $args->getEntityManager();
+
+        // tal vez sólo quieres actuar en alguna entidad "producto"
+        if ($entity instanceof Categoria) {
             $entity->setRoot($this->getRoot($entity));
         }
     }

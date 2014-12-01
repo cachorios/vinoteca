@@ -29,8 +29,10 @@
         
             {{ form_start(edit_form) }}
                 {{ form_widget(edit_form) }}
-                <div class="col-sm-offset-2">
-                    <input type="submit" value="Guardar" class="btn btn-success">
+                <div class="col-sm-offset-2 inner-actions">
+                    <input type="submit" value="Guardar" class="form-submit-button btn btn-sm btn-default btn-success">
+                    <a class="page-close-button btn btn-sm btn-default" href="{{ path('categoria')}}">Cerrar <span class="glyphicon glyphicon-remove"></span></a>
+
                 </div>
 
             {{ form_end(edit_form) }}
