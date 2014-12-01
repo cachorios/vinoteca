@@ -64,7 +64,7 @@
             <th class="{{ pager.isSorted('orden') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{'orden '|trans|upper }} </th>
             <th class="{{ pager.isSorted('level') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{'level '|trans|upper }} </th>
             <th class="{{ pager.isSorted('root') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{'root '|trans|upper }} </th>
-            <th style="width: 100px;">{{'Acciones'|trans|upper }}</th>
+            <th class="actions">{{'Acciones'|trans|upper }}</th>
 
         </tr>
         </thead>
@@ -78,14 +78,14 @@
                     <td>{{ entity.level }}</td>
                     <td>{{ entity.root }}</td>
                     <td >
-                            <div class="btn-group">
-                                <a href="{{ path('categoria_show', { 'id': entity.id }) }}" class="btn btn-xs btn-default" data-toggle="tooltip" data-placement="top" title="Ver mas información" >
-                                    <span class="glyphicon glyphicon-eye-open"></span>
-                                </a>
-                                <a href="{{ path('categoria_edit', { 'id': entity.id }) }}" class="btn btn-xs btn-default" data-toggle="tooltip" data-placement="top" title="Editar los datos" >
-                                    <span class="glyphicon glyphicon-edit"></span>
-                                </a>
-                            </div>
+<div class="btn-group">
+    <a href="{{ path('categoria_show', { 'id': entity.id }) }}" class="btn btn-xs btn-default" data-toggle="tooltip" data-placement="top" title="Ver mas información" >
+        <span class="glyphicon glyphicon-eye-open"></span>
+        </a>
+    <a href="{{ path('categoria_edit', { 'id': entity.id }) }}" class="btn btn-xs btn-default" data-toggle="tooltip" data-placement="top" title="Editar los datos" >
+        <span class="glyphicon glyphicon-edit"></span>
+        </a>
+</div>
                     </td>
         </tr>
         {% else %}

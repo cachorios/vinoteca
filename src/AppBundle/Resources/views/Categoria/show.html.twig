@@ -5,28 +5,24 @@
         {% block in_header %} 
         <div class='pull-right'>
         <div class="row">
-                <div class="col-md-1 col-md-offset-8 ">
+                <div class="col-md-1 ">
         <div class="pull-right">
             {{ form(delete_form) }}
         </div>
     </div>
-    <div class="col-md-1 ">
-        <div class="pull-left">
-            <a href="{{ path('categoria_edit', { 'id': entity.id }) }}"
-               class="btn btn-sm btn-default">
-                Editar
-            </a>
-
-        </div>
-    </div>
-
-
-
-<div class="col-md-1  ">
-    <a href="{{ path('categoria') }}" class="btn btn-sm btn-default">
-        Ir a la lista
+    <a href="{{ path('categoria_edit', { 'id': entity.id }) }}"
+       class="btn btn-sm btn-default">
+        Editar
     </a>
-</div>
+
+
+
+
+
+<a href="{{ path('categoria') }}" class="btn btn-sm btn-default">
+    Ir a la lista
+</a>
+
 
         </div>
     </div>

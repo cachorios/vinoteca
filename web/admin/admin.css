@@ -1,0 +1,17 @@
+.portlet-title, .content-title {
+    margin-bottom: 0.5em;
+}
+
+.table-striped caption {
+    border-bottom: 2px solid #a5ced8;
+    color: #5a6876;
+    font-weight: bold;
+    line-height: 30px;
+    padding-top: 0;
+    padding-bottom: 0.5em;
+    text-align: left;
+    text-transform: uppercase;
+}
+.table .actions {
+    text-align: right;
+}

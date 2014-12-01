@@ -58,7 +58,7 @@
             {%- for field, metadata in fields %}
             <th class="{{ "{{ pager.isSorted('"~  field ~ "') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}" }}"> {{ "{{'"~ field ~ " '|trans|upper }} "}}</th>{{ '\n' }}
             {%- endfor %}
-            <th style="width: 100px;">{{ "{{'Acciones'|trans|upper }}" }}</th>{{ '\n' }}
+            <th class="actions">{{ "{{'Acciones'|trans|upper }}" }}</th>{{ '\n' }}
         </tr>
         </thead>
         <tbody>
