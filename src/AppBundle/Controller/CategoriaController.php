@@ -25,7 +25,7 @@ class CategoriaController extends Controller
      * Lists all Categoria entities.
      *
      * @Route("/", name="categoria")
-     * @Method("GET")
+     * @Method({"GET","POST"})
      * @Template()
      */
     public function indexAction(Request $request)
@@ -65,7 +65,7 @@ class CategoriaController extends Controller
         $filterForm = $this->createForm(new CategoriaFilterType());
 
         $em = $this->getDoctrine()->getManager();
-        $queryBuilder = $em->getRepository('AppBundle:Categoria')->createQueryBuilder("q");
+        $queryBuilder = $em->getRepository('AppBundle:Categoria')->createQueryBuilder("q")->orderBy('q.root, q.level', 'ASC');
 
         // Reset filter
         if ($request->getMethod() == 'POST' && $request->get('submit-filter') == 'reset') {
@@ -99,7 +99,7 @@ class CategoriaController extends Controller
     /**
      * Creates a new Categoria entity.
      *
-     * @Route("/", name="categoria_create")
+     * @Route("/new", name="categoria_create")
      * @Method("POST")
      * @Template("AppBundle:Categoria:new.html.twig")
      */

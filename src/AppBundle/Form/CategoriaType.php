@@ -18,8 +18,12 @@ class CategoriaType extends AbstractType
             ->add('nombre')
             ->add('orden')
             ->add('parent')
-            ->add('visible')
-            ->add('activo')
+            ->add('visible', 'checkbox', array(
+                'label' => 'Es Visible?',
+                'required'  => false))
+            ->add('activo', 'checkbox', array(
+                'label'     => 'Es Activo?',
+                'required'  => false))
         ;
     }
     

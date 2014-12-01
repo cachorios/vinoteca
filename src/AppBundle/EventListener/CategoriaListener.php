@@ -41,7 +41,11 @@ class CategoriaListener
 
         // tal vez sólo quieres actuar en alguna entidad "producto"
         if ($entity instanceof Categoria) {
-            $entity->setRoot($this->getRoot($entity));
+            if ($entity->getRoot() == 0 ){
+                $entity->setRoot($this->getRoot($entity));
+                $entityManager->persist($entity);
+                $entityManager->flush();
+            }
         }
     }
 

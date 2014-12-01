@@ -19,3 +19,9 @@
     width:20%;
     background: #f1f1f1;
 }
+input[type="checkbox"], input[type="radio"] {
+    width:15px;
+    box-sizing: border-box;
+    padding: 0;
+}
+

@@ -234,7 +234,7 @@ class Categoria
      * @param \AppBundle\Entity\Category $children
      * @return Categoria
      */
-    public function addChild(\AppBundle\Entity\Category $children)
+    public function addChild(Categoria $children)
     {
         $this->children[] = $children;
 
@@ -246,7 +246,7 @@ class Categoria
      *
      * @param \AppBundle\Entity\Category $children
      */
-    public function removeChild(\AppBundle\Entity\Category $children)
+    public function removeChild(Categoria $children)
     {
         $this->children->removeElement($children);
     }
@@ -267,7 +267,7 @@ class Categoria
      * @param \AppBundle\Entity\Categoria $parent
      * @return Categoria
      */
-    public function setParent(\AppBundle\Entity\Categoria $parent = null)
+    public function setParent(Categoria $parent = null)
     {
         $this->parent = $parent;
 
