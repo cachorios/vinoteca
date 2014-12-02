@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Entity\CategoriaRepository;
 
 class CategoriaType extends AbstractType
 {
@@ -17,7 +18,18 @@ class CategoriaType extends AbstractType
         $builder
             ->add('nombre')
             ->add('orden')
-            ->add('parent')
+            ->add('parent', 'entity', array(
+                'label' => 'Padre',
+                'class' => 'AppBundle:Categoria',
+                'empty_value' => '',
+                'property' => 'getNodeNombre',
+                'required' => false,
+                'multiple' => false,
+                'query_builder' => function (CategoriaRepository $repository) {
+                    return $repository
+                        ->selectOrdenTree();
+                },))
+
             ->add('visible', 'checkbox', array(
                 'label' => 'Es Visible?',
                 'required'  => false))

@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Categoria
  *
  * @ORM\Table(name="categoria")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\CategoriaRepository")
  * @DoctrineAssert\UniqueEntity(fields="nombre", message="categoria.nombre.duplicated")
  */
 class Categoria
@@ -91,15 +91,27 @@ class Categoria
      */
     private $visible = true;
 
+    /**
+     * @ORM\OneToMany(targetEntity="MetadatoProducto", mappedBy="categoria")
+     */
+    private $metadatos;
+
     public function __toString()
     {
         return $this->getNombre();
     }
-    /**sf c
+
+    //para la vistas
+    public function getNodeNombre(){
+        return str_repeat("--",$this->level) . " " .$this->getNombre();
+    }
+
+    /**
      * Constructor
      */
     public function __construct()
     {
+        $this->metadatos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -331,11 +343,44 @@ class Categoria
     }
 
     /**
+<<<<<<< HEAD
      * Set
      * Solo para el fixture
      * Sacar cuando no se use mas
      */
     public function setId($id){
         $this->id = $id;
+=======
+     * Add metadatos
+     *
+     * @param \AppBundle\Entity\MetadatoProducto $metadatos
+     * @return Categoria
+     */
+    public function addMetadato(\AppBundle\Entity\MetadatoProducto $metadatos)
+    {
+        $this->metadatos[] = $metadatos;
+    
+        return $this;
+    }
+
+    /**
+     * Remove metadatos
+     *
+     * @param \AppBundle\Entity\MetadatoProducto $metadatos
+     */
+    public function removeMetadato(\AppBundle\Entity\MetadatoProducto $metadatos)
+    {
+        $this->metadatos->removeElement($metadatos);
+    }
+
+    /**
+     * Get metadatos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMetadatos()
+    {
+        return $this->metadatos;
+>>>>>>> dded4c7675d6caa9b065a0c7c1df0d7550d66010
     }
 }

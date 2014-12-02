@@ -26,7 +26,7 @@
                     {% endfor %}
                 {% endfor %}
 
-                <form method='post' action='.' class='form-horizontal'>
+                <form method='post' action='' class='form-horizontal'>
                     {% embed 'modal.html.twig' with { 'modal_id': 'filters', 'modal_titulo': 'Filtro de Categorias'} %}
                         {% block modal_contenido %}
                             {{ form_rest(filterform) }}
@@ -71,7 +71,7 @@
                     {% for entity in pager %}
                         <tr>
                             <td><a href="{{ path('categoria_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                            <td>{{ entity.nombre }}</td>
+                            <td>{{ entity.getNodeNombre() }}</td>
                             <td>{{ entity.slug }}</td>
                             <td>{{ entity.activo? '<span class="label label-success">Si</span>' : '<span class="label label-default">No</span>' }}</td>
                             <td>{{ entity.visible? '<span class="label label-success">Si</span>' : '<span class="label label-default">No</span>' }}</td>
