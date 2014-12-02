@@ -43,6 +43,13 @@ class Categoria
     private $slug;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="descripcion", type="text")
+     */
+    private $descripcion;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="orden", type="integer")
@@ -95,6 +102,16 @@ class Categoria
      * @ORM\OneToMany(targetEntity="MetadatoProducto", mappedBy="categoria")
      */
     private $metadatos;
+
+    /**
+     * @ORM\Column(type="string", length=150)
+     */
+    private $imagen;
+
+    /**
+     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     */
+    protected $updatedAt;
 
     public function __toString()
     {
@@ -373,5 +390,74 @@ class Categoria
     public function getMetadatos()
     {
         return $this->metadatos;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return Categoria
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+    
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string 
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set imagen
+     *
+     * @param string $imagen
+     * @return Categoria
+     */
+    public function setImagen($imagen)
+    {
+        $this->imagen = $imagen;
+    
+        return $this;
+    }
+
+    /**
+     * Get imagen
+     *
+     * @return string 
+     */
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Categoria
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

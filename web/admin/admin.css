@@ -1,6 +1,12 @@
 .portlet-title, .content-title {
     margin-bottom: 0.5em;
 }
+.table-striped caption .action-btn {
+    display: block;
+    float: right;
+    margin-left: 10px;
+    text-transform: none;
+}
 
 .table-striped caption {
     border-bottom: 2px solid #a5ced8;

@@ -37,21 +37,20 @@
                         </ul>
                         <div id="myTab1Content" class="tab-content">
                             <div id="datos" class="tab-pane fade active in">
-
                                 {{ form_widget(edit_form) }}
-                                <div class="col-sm-offset-2 inner-actions">
-                                    <input type="submit" value="Guardar"
-                                           class="form-submit-button btn btn-sm btn-default btn-success">
-                                    <a class="page-close-button btn btn-sm btn-default" href="{{ path('categoria') }}">Cerrar
-                                        <span class="glyphicon glyphicon-remove"></span></a>
-
-                                </div>
-
                             </div>
                             <div id="metadatos" class="tab-pane fade">
+
+                                {%  include 'AppBundle:admin/Categoria:_metadato_list.html.twig' %}
                             </div>
                         </div>
+                        <div class="col-sm-offset-2 inner-actions">
+                            <input type="submit" value="Guardar"
+                                   class="form-submit-button btn btn-sm btn-default btn-success">
+                            <a class="page-close-button btn btn-sm btn-default" href="{{ path('categoria') }}">Cerrar
+                                <span class="glyphicon glyphicon-remove"></span></a>
 
+                        </div>
                         {{ form_end(edit_form) }}
 
                     {% endblock %}

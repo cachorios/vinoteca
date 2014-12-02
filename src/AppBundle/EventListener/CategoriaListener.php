@@ -20,6 +20,7 @@ class CategoriaListener
         if ($entity instanceof Category) {
             $entity->setLevel($this->getLevel($entity));
             $entity->setRoot($this->getRoot($entity));
+            $entity->setUpdatedAt( new \DateTime());
             $em->getUnitOfWork()->recomputeSingleEntityChangeSet($em->getClassMetadata(get_class($entity)), $entity);
         }
     }
@@ -29,6 +30,7 @@ class CategoriaListener
         $entity = $args->getEntity();
 
         if ($entity instanceof Categoria) {
+            $entity->setUpdatedAt( new \DateTime());
             $entity->setLevel($this->getLevel($entity));
             $entity->setRoot(0);
         }
