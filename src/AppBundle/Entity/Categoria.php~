@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use RBSoft\UtilidadBundle\Libs\Util;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -13,8 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Categoria
  *
  * @ORM\Table(name="categoria")
- * @ORM\Entity()
- * @DoctrineAssert\UniqueEntity(fields="name", message="categoria.nombre.duplicated")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\CategoriaRepository")
+ * @DoctrineAssert\UniqueEntity(fields="nombre", message="categoria.nombre.duplicated")
  */
 class Categoria
 {
@@ -38,7 +39,6 @@ class Categoria
 
     /**
      * @ORM\Column(type="string")
-     * @Assert\NotBlank()
      */
     private $slug;
 
@@ -48,7 +48,7 @@ class Categoria
      * @ORM\Column(name="orden", type="integer")
      *
      */
-    private $orden;
+    private $orden = 0;
 
     /**
      * @var integer
@@ -66,10 +66,8 @@ class Categoria
      */
     private $root;
 
-
-
     /**
-     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Categoria", mappedBy="parent")
      **/
     private $children;
 
@@ -79,12 +77,41 @@ class Categoria
      **/
     private $parent;
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="activo", type="boolean")
+     */
+    private $activo = true;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="visible", type="boolean")
+     */
+    private $visible = true;
+
+    /**
+     * @ORM\OneToMany(targetEntity="MetadatoProducto", mappedBy="categoria")
+     */
+    private $metadatos;
+
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
+
+    //para la vistas
+    public function getNodeNombre(){
+        return str_repeat("--",$this->level) . " " .$this->getNombre();
+    }
 
     /**
      * Constructor
      */
     public function __construct()
     {
+        $this->metadatos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -107,7 +134,7 @@ class Categoria
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-
+        $this->slug = Util::getSlug($nombre);
         return $this;
     }
 
@@ -219,7 +246,7 @@ class Categoria
      * @param \AppBundle\Entity\Category $children
      * @return Categoria
      */
-    public function addChild(\AppBundle\Entity\Category $children)
+    public function addChild(Categoria $children)
     {
         $this->children[] = $children;
 
@@ -231,7 +258,7 @@ class Categoria
      *
      * @param \AppBundle\Entity\Category $children
      */
-    public function removeChild(\AppBundle\Entity\Category $children)
+    public function removeChild(Categoria $children)
     {
         $this->children->removeElement($children);
     }
@@ -252,7 +279,7 @@ class Categoria
      * @param \AppBundle\Entity\Categoria $parent
      * @return Categoria
      */
-    public function setParent(\AppBundle\Entity\Categoria $parent = null)
+    public function setParent(Categoria $parent = null)
     {
         $this->parent = $parent;
 
@@ -267,5 +294,51 @@ class Categoria
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * Set activo
+     *
+     * @param boolean $activo
+     * @return Producto
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+
+        return $this;
+    }
+
+    /**
+     * Get activo
+     *
+     * @return boolean
+     */
+    public function getActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * Set visible
+     *
+     * @param boolean $visible
+     * @return Producto
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    /**
+     * Get visible
+     *
+     * @return boolean
+     */
+    public function getVisible()
+    {
+        return $this->visible;
     }
 }

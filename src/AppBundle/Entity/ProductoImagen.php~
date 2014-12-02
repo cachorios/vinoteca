@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ProductoImagen
  *
- * @ORM\Table()
+ * @ORM\Table(name="producto_imagen")
  * @ORM\Entity
  */
 class ProductoImagen
@@ -56,5 +56,97 @@ class ProductoImagen
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return ProductoImagen
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+    
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Set file
+     *
+     * @param string $file
+     * @return ProductoImagen
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    
+        return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return string 
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * Set primario
+     *
+     * @param boolean $primario
+     * @return ProductoImagen
+     */
+    public function setPrimario($primario)
+    {
+        $this->primario = $primario;
+    
+        return $this;
+    }
+
+    /**
+     * Get primario
+     *
+     * @return boolean 
+     */
+    public function getPrimario()
+    {
+        return $this->primario;
+    }
+
+    /**
+     * Set producto
+     *
+     * @param \AppBundle\Entity\Producto $producto
+     * @return ProductoImagen
+     */
+    public function setProducto(\AppBundle\Entity\Producto $producto = null)
+    {
+        $this->producto = $producto;
+    
+        return $this;
+    }
+
+    /**
+     * Get producto
+     *
+     * @return \AppBundle\Entity\Producto 
+     */
+    public function getProducto()
+    {
+        return $this->producto;
     }
 }

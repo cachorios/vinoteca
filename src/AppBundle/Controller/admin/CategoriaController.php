@@ -1,12 +1,13 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\admin;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Knp\Component\Pager\Paginator;
 
 use AppBundle\Entity\Categoria;
@@ -101,7 +102,7 @@ class CategoriaController extends Controller
      *
      * @Route("/new", name="categoria_create")
      * @Method("POST")
-     * @Template("AppBundle:Categoria:new.html.twig")
+     * @Template("AppBundle:admin\Categoria:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -235,9 +236,9 @@ class CategoriaController extends Controller
     /**
      * Edits an existing Categoria entity.
      *
-     * @Route("/{id}", name="categoria_update")
+     * @Route("/{id}/edit", name="categoria_update")
      * @Method("PUT")
-     * @Template("AppBundle:Categoria:edit.html.twig")
+     * @Template("AppBundle:admin\Categoria:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ProductoBonificacion
  *
- * @ORM\Table()
+ * @ORM\Table(name="producto_bonificacion")
  * @ORM\Entity
  */
 class ProductoBonificacion
@@ -125,5 +125,28 @@ class ProductoBonificacion
     public function getTipo()
     {
         return $this->tipo;
+    }
+
+    /**
+     * Set producto
+     *
+     * @param \AppBundle\Entity\Producto $producto
+     * @return ProductoBonificacion
+     */
+    public function setProducto(\AppBundle\Entity\Producto $producto = null)
+    {
+        $this->producto = $producto;
+    
+        return $this;
+    }
+
+    /**
+     * Get producto
+     *
+     * @return \AppBundle\Entity\Producto 
+     */
+    public function getProducto()
+    {
+        return $this->producto;
     }
 }
