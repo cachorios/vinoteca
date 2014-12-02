@@ -95,7 +95,7 @@ class Categoria
     {
         return $this->getNombre();
     }
-    /**
+    /**sf c
      * Constructor
      */
     public function __construct()
