@@ -21,6 +21,24 @@ assetic:
 #                - @BricksUserBundle/Resources/less/*.less
 #                - @BricksMessageBundle/Resources/less/*.less
             filters: lessphp
+        stylesheets_frontend:
+            inputs:
+                #-- Bootstrap CSS --#
+                - bundles/app/css/frontend/bootstrap.min.css
+                #-- Font Awesome CSS --#
+                - bundles/app/css/admin/font-awesome.min.css
+
+                #-- App CSS --#>
+                - bundles/app/css/frontend/style.css
+                - bundles/app/css/frontend/responsive.css
+
+#                - bundles/rbsoftabmgenerador/fileupload//css/fileinput.min.css
+
+                - @lesses
+
+            filters:
+                - cssrewrite
+                - ?yui_css
         stylesheets:
             inputs:
                 #-- Font Awesome CSS --#
@@ -28,7 +46,6 @@ assetic:
                 #-- Bootstrap CSS --#
                 - bundles/app/css/admin/bootstrap.min.css
 
-                - bundles/rbsoftabmgenerador/fileupload/*.css
                 #-- App CSS --#>
                 - bundles/app/css/admin/mvpready-admin.css
                 - bundles/app/css/admin/mvpready-flat.css
@@ -75,7 +92,19 @@ assetic:
 #                <script src="{{ asset('bundles/autogestion/js/notifications.js') }}" type="text/javascript"></script>
 #                <script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
 
+        javascripts_footer_frontend:
+            inputs:
+                #-- Bootstrap core JavaScript
+                #-- Core JS --#
+                - bundles/app/js/admin/libs/jquery-1.10.2.min.js
 
+                - bundles/app/js/frontend/jquery-migrate-1.2.1.min.js
+
+                - bundles/app/js/admin/libs/bootstrap.min.js
+
+                - bundles/app/js/frontend/bootstrap-hover-dropdown.min.js
+                - bundles/app/js/frontend/jquery.magnific-popup.min.js
+                - bundles/app/js/frontend/custom.js
 
             filters:
                 - cssrewrite

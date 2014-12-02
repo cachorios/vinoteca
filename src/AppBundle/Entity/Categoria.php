@@ -329,4 +329,13 @@ class Categoria
     {
         return $this->visible;
     }
+
+    /**
+     * Set
+     * Solo para el fixture
+     * Sacar cuando no se use mas
+     */
+    public function setId($id){
+        $this->id = $id;
+    }
 }
