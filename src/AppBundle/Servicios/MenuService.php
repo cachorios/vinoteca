@@ -135,11 +135,13 @@ class MenuService
                 }
             }
         }
-        if(!$submenu1 == ''){
-            $subAux = str_replace("###TITULO###", "&nbsp;", self::MENU_ITEM_CON_TITULO);
-            $submenu1 = str_replace("###MENU###",$submenu1, $subAux);
+        if ($maxLevel > 1) {
+            if (!$submenu1 == '') {
+                $subAux = str_replace("###TITULO###", "&nbsp;", self::MENU_ITEM_CON_TITULO);
+                $submenu1 = str_replace("###MENU###", $submenu1, $subAux);
+            }
+            $menu = str_replace("###LABEL###", $submenu1.' '.$submenu2, self::MENU_SUBMENU_COMPUESTO);
         }
-
         return $menu;
     }
 
