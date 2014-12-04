@@ -34,17 +34,19 @@ class Categorias extends AbstractFixture implements OrderedFixtureInterface, Con
     public function load(ObjectManager $manager)
     {
         $cats = array(
-            array('id' => 1, 'nombre' => 'Vino',     'orden' => 1,    'level' => 0, 'root' => 0, 'activo' => 1, 'visible' => 1),
-            array('id' => 2, 'nombre' => 'Blanco',   'orden' => 3,    'level' => 1, 'root' => 0, 'activo' => 1, 'visible' => 1, 'parent_id' => 1),
-            array('id' => 3, 'nombre' => 'Tinto',    'orden' => 2,    'level' => 1, 'root' => 0, 'activo' => 1, 'visible' => 1, 'parent_id' => 1),
-            array('id' => 4, 'nombre' => 'Cerveza',  'orden' => 1000, 'level' => 0, 'root' => 0, 'activo' => 1, 'visible' => 1),
-            array('id' => 5, 'nombre' => 'Rubia',    'orden' => 1005, 'level' => 1, 'root' => 0, 'activo' => 1, 'visible' => 1, 'parent_id' => 4),
-            array('id' => 6, 'nombre' => 'Negra',    'orden' => 1015, 'level' => 1, 'root' => 0, 'activo' => 1, 'visible' => 1, 'parent_id' => 4),
-            array('id' => 7, 'nombre' => 'Malbec',   'orden' => 105,  'level' => 2, 'root' => 0, 'activo' => 1, 'visible' => 1, 'parent_id' => 3),
-            array('id' => 8, 'nombre' => 'Sirah',    'orden' => 115,  'level' => 2, 'root' => 0, 'activo' => 1, 'visible' => 1, 'parent_id' => 3),
-            array('id' => 100,'nombre' => 'Cigarro', 'orden' => 2000, 'level' => 0, 'root' => 0, 'activo' => 1, 'visible' => 1),
-            array('id' => 105, 'nombre' => 'Burley',  'orden' => 2005, 'level' => 1, 'root' => 0, 'activo' => 1, 'visible' => 1, 'parent_id' => 100),
-            array('id' => 115, 'nombre' => 'Criollo', 'orden' => 2015, 'level' => 1, 'root' => 0, 'activo' => 1, 'visible' => 1, 'parent_id' => 100),
+            array('nombre' => 'Vino',     'orden' => 1,    'activo' => 1, 'visible' => 1),
+            array('nombre' => 'Blanco',   'orden' => 3,    'activo' => 1, 'visible' => 1, 'parent_id' => 'Vino'),
+            array('nombre' => 'Tinto',    'orden' => 2,    'activo' => 1, 'visible' => 1, 'parent_id' => 'Vino'),
+            array('nombre' => 'Cerveza',  'orden' => 1000, 'activo' => 1, 'visible' => 1),
+            array('nombre' => 'Rubia',    'orden' => 1005, 'activo' => 1, 'visible' => 1, 'parent_id' => 'Cerveza'),
+            array('nombre' => 'Negra',    'orden' => 1015, 'activo' => 1, 'visible' => 1, 'parent_id' => 'Cerveza'),
+            array('nombre' => 'Malbec',   'orden' => 105,  'activo' => 1, 'visible' => 1, 'parent_id' => 'Tinto'),
+            array('nombre' => 'Sirah',    'orden' => 115,  'activo' => 1, 'visible' => 1, 'parent_id' => 'Tinto'),
+            array('nombre' => 'Tabaco',   'orden' => 2000, 'activo' => 1, 'visible' => 1),
+            array('nombre' => 'Burley',   'orden' => 2005,'activo' => 1, 'visible' => 1, 'parent_id' => 'Tabaco'),
+            array('nombre' => 'Criollo',  'orden' => 2015,'activo' => 1, 'visible' => 1, 'parent_id' => 'Tabaco'),
+
+            array('nombre' => 'Solo Menu',  'orden' => 3000,'activo' => 1, 'visible' => 1)
 
 
         );
@@ -52,21 +54,23 @@ class Categorias extends AbstractFixture implements OrderedFixtureInterface, Con
         foreach ($cats as $catArr) {
             $cat = new Categoria();
 
-            $cat->setId($catArr['id']);
+
             $cat->setNombre($catArr['nombre']);
-            $cat->setOrden($catArr['nombre']);
-            $cat->setLevel($catArr['level']);
-            $cat->setRoot($catArr['root']);
+            $cat->setOrden($catArr['orden']);
             $cat->setActivo($catArr['activo']);
             $cat->setVisible($catArr['visible']);
+
+
             if(isset($catArr['parent_id']))
-                $cat->setParent(  $manager->getRepository("AppBundle:Categoria")->find($catArr['parent_id']));
+                $cat->setParent($manager->getRepository("AppBundle:Categoria")->findOneBy(array("nombre" =>$catArr['parent_id'])));
+
 
             $manager->persist($cat);
+            $manager->flush();
         }
 
 
-        $manager->flush();
+
 
 
 

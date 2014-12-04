@@ -5,3 +5,7 @@ services:
           - { name: doctrine.event_listener, event: prePersist, method: prePersist }
           - { name: doctrine.event_listener, event: postPersist,  method: postPersist }
           - { name: doctrine.event_listener, event: preUpdate,  method: preUpdate }
+
+    menu.service:
+        class: AppBundle\Servicios\MenuService
+        arguments: [@service_container]

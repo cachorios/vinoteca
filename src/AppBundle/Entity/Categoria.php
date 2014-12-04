@@ -343,14 +343,16 @@ class Categoria
     }
 
     /**
-<<<<<<< HEAD
+
      * Set
      * Solo para el fixture
      * Sacar cuando no se use mas
      */
-    public function setId($id){
+    public function setId($id)
+    {
         $this->id = $id;
-=======
+    }
+        /*
      * Add metadatos
      *
      * @param \AppBundle\Entity\MetadatoProducto $metadatos
@@ -381,6 +383,5 @@ class Categoria
     public function getMetadatos()
     {
         return $this->metadatos;
->>>>>>> dded4c7675d6caa9b065a0c7c1df0d7550d66010
     }
 }

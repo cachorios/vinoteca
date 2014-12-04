@@ -1,0 +1,113 @@
+{% import ':includes:gen_menu.html.twig' as menu %}
+
+
+<nav id="main-menu" class="navbar" role="navigation">
+    <!-- Nav Header Starts -->
+    <div class="navbar-header">
+        <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-cat-collapse">
+            <span class="sr-only">Toggle Navigation</span>
+            <i class="fa fa-bars"></i>
+        </button>
+    </div>
+    <!-- Nav Header Ends -->
+    <!-- Navbar Cat collapse Starts -->
+    <div class="collapse navbar-collapse navbar-cat-collapse">
+        <ul class="nav navbar-nav">
+            {% for item in  items %}
+
+                {% if item.hijos | length == 0 %}
+                    {#barra sin submenu #}
+                    <li><a href="category-list.html">{{ item.item }}</a></li>
+                {% else %}
+                    {#barra con submenu #}
+                    <li class="dropdown">
+                        <a href="category-list.html" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="10">
+                            {{ item.item }}
+                        </a>
+
+                        {#Item o submenu segun el nivel (>3) pone titulo en el menu  como cabecera del submenu #}
+                        {% if item.nivel >3 %}
+                            {% for hijo in item.hijos %}
+                                {% if loop.index == 1  %}
+                                    <li class="dropdown">
+                                        <a href="category-list.html" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="10">{{ hijo.item }}</a>
+                                        <div class="dropdown-menu">
+                                            <div class="dropdown-inner">
+                                                <ul class="list-unstyled">
+
+                                {% else %}
+
+
+                                {% endif %}
+                                                    <li class="dropdown-header">Sub Category</li>
+                                                    <li><a tabindex="-1" href="#">item 1</a></li>
+                                                    <li><a tabindex="-1" href="#">item 2</a></li>
+                                                    <li><a tabindex="-1" href="#">item 3</a></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </ul>
+                            </div>
+                        </div>
+                        {% else %}
+                            <ul class="dropdown-menu" role="">
+                                {% for hijo in item.hijos %}
+                                    {#item#}
+                                    {#{% if hijo.hijos | length == 0 %}#}
+                                        <li><a tabindex="-1" href="#">{{ hijo.item }} </a></li>
+                                      {#{% endif %}#}
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+
+
+                    </li>
+
+                {% endif %}
+            {% endfor %}
+
+
+            <li class="dropdown">
+                <a href="category-list.html" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="10">Curry Powder</a>
+                <div class="dropdown-menu">
+                    <div class="dropdown-inner">
+                        <ul class="list-unstyled">
+                            <li class="dropdown-header">Sub Category</li>
+                            <li><a tabindex="-1" href="#">item 1</a></li>
+                            <li><a tabindex="-1" href="#">item 2</a></li>
+                            <li><a tabindex="-1" href="#">item 3</a></li>
+                        </ul>
+                        <ul class="list-unstyled">
+                            <li class="dropdown-header">Sub Category</li>
+                            <li><a tabindex="-1" href="#">item 1</a></li>
+                            <li><a tabindex="-1" href="#">item 2</a></li>
+                            <li><a tabindex="-1" href="#">item 3</a></li>
+                        </ul>
+                        <ul class="list-unstyled">
+                            <li class="dropdown-header">Sub Category</li>
+                            <li><a tabindex="-1" href="#">item 1</a></li>
+                            <li><a tabindex="-1" href="#">item 2</a></li>
+                            <li><a tabindex="-1" href="#">item 3</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+
+
+
+
+
+        </ul>
+    </div>
+    <!-- Navbar Cat collapse Ends -->
+</nav>
+
+
+
+
+    {#{{ item.hijos | length }}<br>#}
+
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller\frontent;
+namespace AppBundle\Controller\frontend;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -9,11 +9,30 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/hello/{name}")
+     * @Route("/", name="homepage")
      * @Template()
      */
-    public function indexAction($name)
+    public function indexAction()
     {
-        return array('name' => $name);
+
+        //ladybug_dump_die($this->get("menu.service")->getMenuFrontendItems());
+        ladybug_dump_die($this->get("menu.service")->makeMenu());
+        return array();
+    }
+
+
+    /**
+     * @Route("/getmenu", name="menu_frontend")
+     */
+    public function menufrontendAction()
+    {
+
+        return $this->render("AppBundle:frontend/Menu:menufrontend.html.twig",
+            array(
+                "items" =>$this->get("menu.service")->getMenuFrontendItems()
+            )
+        );
+        //return array("items" =>$this->get("menu.service")->getMenuFrontendItems());
+
     }
 }
