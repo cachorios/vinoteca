@@ -39,26 +39,25 @@ class MenuService
             <a href="###URL###" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="10">
                 ###LABEL###
             </a>
-            <ul class="dropdown-menu" role="menu">
-                ###SUBMENU###
-            </ul>
+            ###SUBMENU###
+
         </li>';
 
     CONST MENU_SUBMENU_SIMPLE = '
         <ul class="dropdown-menu" role="menu">
-            ###MENU###
+            ###SUBMENU###
         </ul>';
     CONST MENU_SUBMENU_COMPUESTO = '
-	<div class="dropdown-menu">
-		<div class="dropdown-inner">
-			###SUBMENU###
-		</div>
-	</div>
-    ';
+
+        <div class="dropdown-menu">
+            <div class="dropdown-inner">
+                ###SUBMENU###
+            </div>
+        </div>   ';
     CONST MENU_ITEM_CON_TITULO = '
         <ul class="list-unstyled">
             <li class="dropdown-header">###TITULO###</li>
-            ###MENU###
+            ###SUBMENU###
         </ul>
     ';
     private $contenedor;
@@ -88,6 +87,8 @@ class MenuService
     {
 
         if ($maxLevel == 0) {
+
+            //Directamente en barra
             $menu = str_replace("###URL###", '#', self::MENU_NAVBAR_ITEM);
             $menu = str_replace("###LABEL###", $CatBarra->getNombre(), $menu);
 
@@ -96,7 +97,6 @@ class MenuService
             $menu = str_replace("###LABEL###", $CatBarra->getNombre(), $menu);
 
             $menu = str_replace("###SUBMENU###", $this->makeSubmenu($em, $CatBarra, $maxLevel), $menu);
-
         }
 
         return $menu;
@@ -107,6 +107,7 @@ class MenuService
 
         $cats = $em->getRepository("AppBundle:Categoria")->getCategoriaItem($CatBarra->getId());
         $menu = "";
+
         $submenu1 = "";
         $submenu2 = "";
         foreach ($cats as $cat) {
@@ -115,7 +116,6 @@ class MenuService
                 $item = str_replace("###LABEL###", $cat->getNombre(), $item);
                 $menu .= $item;
             } else { //nivel = 2
-                $menu = "";
 
                 //Si tiene hijo se agrega subtitulo
                 if ($em->getRepository("AppBundle:Categoria")->tieneHijo($cat->getId())) {
@@ -124,24 +124,32 @@ class MenuService
                     $itemHijo = "";
                     foreach ($catHijos as $hijo) {
                         $item = str_replace("###URL###", '#', self::MENU_NAVBAR_ITEM);
-                        $item = str_replace("###LABEL###", $cat->getNombre(), $item);
+                        $item = str_replace("###LABEL###", $hijo->getNombre(), $item);
                         $itemHijo .= $item;
                     }
-                    $submenu2 .= str_replace('###MENU###', $itemHijo, $subAux);
+                    $submenu2 .= str_replace('###SUBMENU###', $itemHijo, $subAux);
+
                 } else {
                     $item = str_replace("###URL###", '#', self::MENU_NAVBAR_ITEM);
                     $item = str_replace("###LABEL###", $cat->getNombre(), $item);
                     $submenu1 .= $item;
+
                 }
             }
         }
-        if ($maxLevel > 1) {
-            if (!$submenu1 == '') {
+        if ($maxLevel ==  1) {
+            $menu = str_replace("###SUBMENU###", $menu, self::MENU_SUBMENU_SIMPLE);
+        }else {
+
+            if ( strlen($submenu1) > 0) {
                 $subAux = str_replace("###TITULO###", "&nbsp;", self::MENU_ITEM_CON_TITULO);
-                $submenu1 = str_replace("###MENU###", $submenu1, $subAux);
+                $submenu1 = str_replace("###SUBMENU###", $submenu1, $subAux);
+
             }
-            $menu = str_replace("###LABEL###", $submenu1.' '.$submenu2, self::MENU_SUBMENU_COMPUESTO);
+
+            $menu = str_replace("###SUBMENU###", $submenu1 . ' ' . $submenu2, self::MENU_SUBMENU_COMPUESTO);
         }
+
         return $menu;
     }
 
