@@ -99,7 +99,7 @@ class Categoria
     private $visible = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="MetadatoProducto", mappedBy="categoria")
+     * @ORM\OneToMany(targetEntity="MetadatoProducto", mappedBy="categoria",cascade={"persist", "remove"})
      */
     private $metadatos;
 
@@ -111,7 +111,15 @@ class Categoria
     /**
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
-    protected $updatedAt;
+    private $updatedAt;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="profundidad", type="integer")
+     *
+     */
+    private $profundidad = 0;
 
     public function __toString()
     {
@@ -469,5 +477,28 @@ class Categoria
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set profundidad
+     *
+     * @param integer $profundidad
+     * @return Categoria
+     */
+    public function setProfundidad($profundidad)
+    {
+        $this->profundidad = $profundidad;
+
+        return $this;
+    }
+
+    /**
+     * Get profundidad
+     *
+     * @return integer
+     */
+    public function getProfundidad()
+    {
+        return $this->profundidad;
     }
 }
