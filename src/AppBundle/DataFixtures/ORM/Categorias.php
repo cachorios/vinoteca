@@ -34,19 +34,18 @@ class Categorias extends AbstractFixture implements OrderedFixtureInterface, Con
     public function load(ObjectManager $manager)
     {
         $cats = array(
-            array('nombre' => 'Vino',     'orden' => 1,    'activo' => 1, 'visible' => 1),
-            array('nombre' => 'Blanco',   'orden' => 3,    'activo' => 1, 'visible' => 1, 'parent_id' => 'Vino'),
-            array('nombre' => 'Tinto',    'orden' => 2,    'activo' => 1, 'visible' => 1, 'parent_id' => 'Vino'),
-            array('nombre' => 'Cerveza',  'orden' => 1000, 'activo' => 1, 'visible' => 1),
-            array('nombre' => 'Rubia',    'orden' => 1005, 'activo' => 1, 'visible' => 1, 'parent_id' => 'Cerveza'),
-            array('nombre' => 'Negra',    'orden' => 1015, 'activo' => 1, 'visible' => 1, 'parent_id' => 'Cerveza'),
-            array('nombre' => 'Malbec',   'orden' => 105,  'activo' => 1, 'visible' => 1, 'parent_id' => 'Tinto'),
-            array('nombre' => 'Sirah',    'orden' => 115,  'activo' => 1, 'visible' => 1, 'parent_id' => 'Tinto'),
-            array('nombre' => 'Tabaco',   'orden' => 2000, 'activo' => 1, 'visible' => 1),
-            array('nombre' => 'Burley',   'orden' => 2005,'activo' => 1, 'visible' => 1, 'parent_id' => 'Tabaco'),
-            array('nombre' => 'Criollo',  'orden' => 2015,'activo' => 1, 'visible' => 1, 'parent_id' => 'Tabaco'),
-
-            array('nombre' => 'Solo Menu',  'orden' => 3000,'activo' => 1, 'visible' => 1)
+            array('nombre' => 'Vino',     'orden' => 1,     'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg' ),
+            array('nombre' => 'Blanco',   'orden' => 3,     'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg','parent_id' => 'Vino'),
+            array('nombre' => 'Tinto',    'orden' => 2,     'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg','parent_id' => 'Vino'),
+            array('nombre' => 'Cerveza',  'orden' => 1000,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg' ),
+            array('nombre' => 'Rubia',    'orden' => 1005,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg','parent_id' => 'Cerveza'),
+            array('nombre' => 'Negra',    'orden' => 1015,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg','parent_id' => 'Cerveza'),
+            array('nombre' => 'Malbec',   'orden' => 105,   'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg','parent_id' => 'Tinto'),
+            array('nombre' => 'Sirah',    'orden' => 115,   'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg','parent_id' => 'Tinto'),
+            array('nombre' => 'Tabaco',   'orden' => 2000,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg' ),
+            array('nombre' => 'Burley',   'orden' => 2005,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg','parent_id' => 'Tabaco'),
+            array('nombre' => 'Criollo',  'orden' => 2015,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg','parent_id' => 'Tabaco'),
+            array('nombre' => 'Solo Menu','orden' => 3000,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg' ),
 
 
         );
@@ -57,8 +56,10 @@ class Categorias extends AbstractFixture implements OrderedFixtureInterface, Con
 
             $cat->setNombre($catArr['nombre']);
             $cat->setOrden($catArr['orden']);
-            $cat->setActivo($catArr['activo']);
-            $cat->setVisible($catArr['visible']);
+            $cat->setActivo(1);
+            $cat->setVisible(1);
+            $cat->setDescripcion($catArr['descripcion']);
+            $cat->setImagen($catArr['imagen']);
 
 
             if(isset($catArr['parent_id']))

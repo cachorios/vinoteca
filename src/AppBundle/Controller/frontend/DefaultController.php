@@ -16,7 +16,8 @@ class DefaultController extends Controller
     {
 
         //ladybug_dump_die($this->get("menu.service")->getMenuFrontendItems());
-        ladybug_dump_die($this->get("menu.service")->makeMenu());
+//        ladybug_dump($this->get("menu.service")->makeMenu());
+//        $this->get("menu.service")->makeMenu();
         return array();
     }
 
@@ -27,9 +28,9 @@ class DefaultController extends Controller
     public function menufrontendAction()
     {
 
-        return $this->render("AppBundle:frontend/Menu:menufrontend.html.twig",
-            array(
-                "items" =>$this->get("menu.service")->getMenuFrontendItems()
+
+        return $this->render("AppBundle:frontend/Menu:menufrontend.html.twig", array(
+                "menu" =>$this->get("menu.service")->makeMenu()
             )
         );
         //return array("items" =>$this->get("menu.service")->getMenuFrontendItems());

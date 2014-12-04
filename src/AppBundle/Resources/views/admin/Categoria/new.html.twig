@@ -26,18 +26,36 @@
                         <p></p>
 
                         {{ form_start(form) }}
-                        {{ form_widget(form) }}
+                        <ul id="myTab1" class="nav nav-tabs">
+                            <li class="active">
+                                <a data-toggle="tab" href="#datos">Datos categoria</a>
+                            </li>
+                            <li class="">
+                                <a data-toggle="tab" href="#metadatos">Generar metadatos Producto</a>
+                            </li>
+                        </ul>
+                        <div id="myTab1Content" class="tab-content">
+                            <div id="datos" class="tab-pane fade active in">
+
+                                {{ form_widget(form) }}
+
+                            </div>
+                            <div id="metadatos" class="tab-pane fade">
+                                {% include 'AppBundle:admin/Categoria:_metadato_list.html.twig' %}
+                            </div>
+                        </div>
                         <div class="col-sm-offset-2 inner-actions">
-                            <button title="Guardar" class="form-submit-button btn btn-sm btn-default btn-success"
+                            <button title="Guardar"
+                                    class="form-submit-button btn btn-sm btn-default btn-success"
                                     value="save_and_add" name="save_mode" type="submit">Guardar <span
                                         class="glyphicon glyphicon-ok"></span></button>
-                            <button title="Guardar y Salir" class="form-submit-button btn btn-sm btn-default btn-info"
+                            <button title="Guardar y Salir"
+                                    class="form-submit-button btn btn-sm btn-default btn-info"
                                     value="save_and_close" name="save_mode" type="submit">Guardar y Salir <span
                                         class="glyphicon glyphicon-remove"></span></button>
                             <a class="page-close-button btn btn-sm btn-default" href="{{ path('categoria') }}">Cerrar
                                 <span class="glyphicon glyphicon-remove"></span></a>
                         </div>
-
                         {{ form_end(form) }}
 
 

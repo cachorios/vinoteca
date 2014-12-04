@@ -21,4 +21,38 @@ class CategoriaRepository extends EntityRepository
         return $qb;
 
     }
+
+    public function getBarraMenu()
+    {
+
+        return $this->_em->createQuery(
+            'SELECT c, ( SELECT max(d.level) FROM AppBundle:Categoria d WHERE d.root = c.id )
+             FROM  AppBundle:Categoria c
+             WHERE c.level = 0 AND c.activo = 1 AND c.visible = 1
+             ORDER BY c.orden'
+        )
+            ->getResult();
+    }
+    public function getCategoriaItem($padre)
+    {
+        return $this->_em->createQuery(
+            'SELECT c
+             FROM  AppBundle:Categoria c
+             WHERE c.parent = :padre AND c.activo = 1 AND c.visible = 1
+             ORDER BY c.orden'
+        )
+            ->setParameter("padre", $padre)
+            ->getResult();
+    }
+
+    public function tieneHijo($id){
+        return $this->_em->createQuery(
+            'SELECT count(c.id)
+             FROM  AppBundle:Categoria c
+             WHERE c.parent = :id
+             ORDER BY c.orden'
+        )
+            ->setParameter("id", $id)
+            ->getSingleScalarResult() > 0;
+    }
 }

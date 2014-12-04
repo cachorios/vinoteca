@@ -17,6 +17,7 @@ class CategoriaType extends AbstractType
     {
         $builder
             ->add('nombre')
+            ->add('descripcion')
             ->add('orden')
             ->add('parent', 'entity', array(
                 'label' => 'Padre',
@@ -36,6 +37,8 @@ class CategoriaType extends AbstractType
             ->add('activo', 'checkbox', array(
                 'label'     => 'Es Activo?',
                 'required'  => false))
+
+//            ->add('metadatos', 'collection', array('type' => new MetadataProductoType()));
         ;
     }
     

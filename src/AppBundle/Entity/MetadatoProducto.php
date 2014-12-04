@@ -45,15 +45,16 @@ class MetadatoProducto
     /**
      * @var array
      *
-     * @ORM\Column(name="coleccion", type="array")
+     * @ORM\Column(name="lista_valores", type="text")
      */
-    private $coleccion;
+    private $listaValores;
 
     /**
      * @ORM\ManyToOne(targetEntity="Categoria", inversedBy="metadatos")
      * @ORM\JoinColumn(name="categoria_id", referencedColumnName="id")
      */
     private $categoria;
+
 
     /**
      * Get id
@@ -135,26 +136,26 @@ class MetadatoProducto
     }
 
     /**
-     * Set coleccion
+     * Set listaValores
      *
-     * @param array $coleccion
+     * @param string $listaValores
      * @return MetadatoProducto
      */
-    public function setColeccion($coleccion)
+    public function setListaValores($listaValores)
     {
-        $this->coleccion = $coleccion;
+        $this->listaValores = $listaValores;
     
         return $this;
     }
 
     /**
-     * Get coleccion
+     * Get listaValores
      *
-     * @return array 
+     * @return string 
      */
-    public function getColeccion()
+    public function getListaValores()
     {
-        return $this->coleccion;
+        return $this->listaValores;
     }
 
     /**
