@@ -45,22 +45,30 @@ class CategoriaListener
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
 
-        // tal vez sólo quieres actuar en alguna entidad "producto"
+        // tal vez sólo quieres actuar en alguna entidad "Categoria"
         if ($entity instanceof Categoria) {
             if ($entity->getRoot() == 0 ){
                 $entity->setRoot($this->getRoot($entity));
                 $entityManager->persist($entity);
                 $entityManager->flush();
             }
+
             $this->resetCacheMenu();
         }
     }
 
     public function postUpdate(LifecycleEventArgs $args){
         $entity = $args->getEntity();
-        $entityManager = $args->getEntityManager();
+//        $entityManager = $args->getEntityManager();
         if ($entity instanceof Categoria) {
             $this->resetCacheMenu();
+            if ($entity->getId() != $entity->getRoot() ){
+
+//                $entity = $entityManager->find($entity->getRoot());
+//                $entityManager->persist($entity);
+//                $entityManager->flush();
+            }
+
         }
     }
 

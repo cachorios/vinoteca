@@ -8,12 +8,14 @@ use Doctrine\Common\Collections\Collection;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
+use RBSoft\UtilidadBundle\Libs\Util;
 
 /**
  * Producto
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ProductoRepository")
+ * @DoctrineAssert\UniqueEntity(fields="nombre", message="producto.nombre.duplicated")
  */
 class Producto
 {
@@ -39,6 +41,11 @@ class Producto
      * @ORM\Column(name="nombre", type="string", length=100)
      */
     private $nombre;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $slug;
 
     /**
      * @var string
@@ -157,7 +164,7 @@ class Producto
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+        $this->slug = Util::getSlug($nombre);
         return $this;
     }
 
@@ -429,5 +436,28 @@ class Producto
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Categoria
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

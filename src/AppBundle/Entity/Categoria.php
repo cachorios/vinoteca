@@ -99,7 +99,7 @@ class Categoria
     private $visible = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="MetadatoProducto", mappedBy="categoria")
+     * @ORM\OneToMany(targetEntity="MetadatoProducto", mappedBy="categoria",cascade={"persist", "remove"})
      */
     private $metadatos;
 
@@ -111,7 +111,8 @@ class Categoria
     /**
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
-    protected $updatedAt;
+    private $updatedAt;
+
 
     public function __toString()
     {
@@ -470,4 +471,5 @@ class Categoria
     {
         return $this->updatedAt;
     }
+
 }

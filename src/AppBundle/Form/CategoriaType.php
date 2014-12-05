@@ -16,11 +16,14 @@ class CategoriaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('imagen', 'file')
             ->add('nombre')
-            ->add('descripcion')
+            ->add('descripcion',null, array(
+                'label' => 'Descripción',
+            ))
             ->add('orden')
             ->add('parent', 'entity', array(
-                'label' => 'Padre',
+                'label' => 'Nodo padre',
                 'class' => 'AppBundle:Categoria',
                 'empty_value' => '',
                 'property' => 'getNodeNombre',
@@ -37,6 +40,14 @@ class CategoriaType extends AbstractType
             ->add('activo', 'checkbox', array(
                 'label'     => 'Es Activo?',
                 'required'  => false))
+
+            ->add('metadatos', 'collection', array(
+                    'type' => new MetadataProductoType(),
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'prototype' => true,
+                    'by_reference' => false,
+                    ))
 
 //            ->add('metadatos', 'collection', array('type' => new MetadataProductoType()));
         ;

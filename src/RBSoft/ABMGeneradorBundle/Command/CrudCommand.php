@@ -58,8 +58,9 @@ class CrudCommand extends GenerateDoctrineCrudCommand
 
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        $dialog = $this->getDialogHelper();
-        $dialog->writeSection($output, 'RBSoftABMGeneradorBundle');
+        $questionHelper = $this->getQuestionHelper();
+        $questionHelper->writeSection($output, 'Bienvenido a RBSoft CRUD generador');
+
 
         parent::interact($input, $output);
     }

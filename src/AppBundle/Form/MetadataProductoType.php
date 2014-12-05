@@ -17,7 +17,7 @@ class MetadataProductoType extends AbstractType
         $builder
             ->add('nombre')
             ->add('orden')
-            ->add('coleccion')
+            ->add('listaValores')
             ->add('filtrable', 'checkbox', array(
                 'label'     => 'Es filtrable?',
                 'required'  => false))

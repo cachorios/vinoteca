@@ -33,7 +33,8 @@ twig:
     strict_variables: "%kernel.debug%"
     form:
         resources:
-            - UtilidadBundle:Form:formsBootstrap3.html.twig
+            - :Form:bootstrap_3_horizontal_layout.html.twig
+#            - UtilidadBundle:Form:formsBootstrap3.html.twig
             - UtilidadBundle:Form:find.html.twig
             - :Form:form_div_layout.html.twig
             - UtilidadBundle:Form:fields-collections.html.twig

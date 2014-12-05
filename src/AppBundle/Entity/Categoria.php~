@@ -111,7 +111,15 @@ class Categoria
     /**
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
-    protected $updatedAt;
+    private $updatedAt;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="profundidad", type="integer")
+     *
+     */
+    private $profundidad;
 
     public function __toString()
     {
@@ -436,5 +444,51 @@ class Categoria
     public function getImagen()
     {
         return $this->imagen;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return Categoria
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * Set profundidad
+     *
+     * @param integer $profundidad
+     * @return Categoria
+     */
+    public function setProfundidad($profundidad)
+    {
+        $this->profundidad = $profundidad;
+
+        return $this;
+    }
+
+    /**
+     * Get profundidad
+     *
+     * @return integer
+     */
+    public function getProfundidad()
+    {
+        return $this->profundidad;
     }
 }

@@ -1,8 +1,12 @@
 
 app_frontend:
     prefix:  /
-    resource: "@AppBundle/Controller"
+    resource: "@AppBundle/Controller/frontend"
 
+
+app_admin:
+    prefix:  /admin/
+    resource: "@AppBundle/Controller/admin"
 
 admin_homepage:
     path:  /admin/

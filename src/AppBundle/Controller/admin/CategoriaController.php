@@ -17,7 +17,7 @@ use AppBundle\Form\CategoriaFilterType;
 /**
  * Categoria controller.
  *
- * @Route("/admin/categoria")
+ * @Route("/categoria/")
  */
 class CategoriaController extends Controller
 {
