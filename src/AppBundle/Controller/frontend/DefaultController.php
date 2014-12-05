@@ -5,6 +5,7 @@ namespace AppBundle\Controller\frontend;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Config\ConfigCache;
 
 class DefaultController extends Controller
 {
@@ -27,13 +28,27 @@ class DefaultController extends Controller
      */
     public function menufrontendAction()
     {
+        $dir = $this->container->get('kernel')->getCacheDir();
+        $file = $dir . DIRECTORY_SEPARATOR . 'RBSoft'.DIRECTORY_SEPARATOR.  'menu.html';
 
+        if (!file_exists($dir)) {
+            mkdir($dir);
+        }
+
+        $cache = new ConfigCache($file, false); // $this->container->get('kernel')->isDebug());
+
+        if (!$cache->isFresh()) {
+            $menu = $this->get("menu.service")->makeMenu();
+            $cache->write($menu);
+        } else {
+            $menu = file_get_contents((string) $cache);
+        }
 
         return $this->render("AppBundle:frontend/Menu:menufrontend.html.twig", array(
-                "menu" =>$this->get("menu.service")->makeMenu()
+                "menu" => $menu
             )
         );
-        //return array("items" =>$this->get("menu.service")->getMenuFrontendItems());
+
 
     }
 }

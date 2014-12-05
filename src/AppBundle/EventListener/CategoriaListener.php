@@ -8,9 +8,13 @@ use AppBundle\Entity\Categoria;
 
 class CategoriaListener
 {
-    public function __construct()
+    private $container;
+
+    public function __construct($container)
     {
+        $this->container = $container;
     }
+
 
     public function preUpdate(LifecycleEventArgs $args)
     {
@@ -48,6 +52,15 @@ class CategoriaListener
                 $entityManager->persist($entity);
                 $entityManager->flush();
             }
+            $this->resetCacheMenu();
+        }
+    }
+
+    public function postUpdate(LifecycleEventArgs $args){
+        $entity = $args->getEntity();
+        $entityManager = $args->getEntityManager();
+        if ($entity instanceof Categoria) {
+            $this->resetCacheMenu();
         }
     }
 
@@ -61,4 +74,13 @@ class CategoriaListener
         return $entity->getParent() == null ? $entity->getId() : $entity->getParent()->getRoot();
     }
 
+    private function resetCacheMenu()
+    {
+        $dir = $this->container->get('kernel')->getCacheDir();
+        $file = $dir . DIRECTORY_SEPARATOR . 'RBSoft'.DIRECTORY_SEPARATOR.  'menu.html';
+
+         if (file_exists($file)) {
+            unlink($file);
+        }
+    }
 }
