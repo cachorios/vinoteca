@@ -9,7 +9,7 @@ use AppBundle\Entity\CategoriaRepository;
 
 class CategoriaType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -18,7 +18,7 @@ class CategoriaType extends AbstractType
         $builder
             ->add('imagen', 'file')
             ->add('nombre')
-            ->add('descripcion',null, array(
+            ->add('descripcion', null, array(
                 'label' => 'Descripción',
             ))
             ->add('orden')
@@ -33,35 +33,37 @@ class CategoriaType extends AbstractType
                     return $repository
                         ->selectOrdenTree();
                 },))
-
             ->add('visible', 'checkbox', array(
                 'label' => 'Es Visible?',
-                'required'  => false))
+                'required' => false))
             ->add('activo', 'checkbox', array(
-                'label'     => 'Es Activo?',
-                'required'  => false))
-
+                'label' => 'Es Activo?',
+                'required' => false))
             ->add('metadatos', 'collection', array(
-                    'type' => new MetadataProductoType(),
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'prototype' => true,
-                    'by_reference' => false,
-                    ))
+                'type' => new MetadataProductoType(),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'prototype' => true,
+                'prototype_name' => '__name__',
 
-//            ->add('metadatos', 'collection', array('type' => new MetadataProductoType()));
+                'by_reference' => false,
+
+            ))//            ->add('metadatos', 'collection', array('type' => new MetadataProductoType()));
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function configureOptions(OptionsResolver  $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Categoria'
+            'data_class' => 'AppBundle\Entity\Categoria',
+            'cascade_validation' => true
         ));
     }
+
+
 
     /**
      * @return string

@@ -5,21 +5,17 @@
                 {% embed '::portlet.html.twig' with {'titulo': 'Editar Categoria: ' ~ entity} %}
                     {% block in_header %}
                         <div class='pull-right'>
-                            <div class="row">
 
-                                <div class="col-md-2 ">
-                                    <div class="pull-right">
-                                        {{ form(delete_form) }}
-                                    </div>
+                            <div class="col-md-2 ">
+                                <div class="pull-right">
+                                    {{ form(delete_form) }}
                                 </div>
-
-
-                                <a href="{{ path('categoria') }}" class="btn btn-sm btn-default">
-                                    Ir a la lista
-                                </a>
-
-
                             </div>
+
+                            <a href="{{ path('categoria') }}" class="btn btn-sm btn-default">
+                                Ir a la lista
+                            </a>
+
                         </div>
                     {% endblock %}
 
@@ -48,11 +44,7 @@
 
                             </div>
                             <div id="metadatos" class="tab-pane fade">
-
-                                {{ form_widget(edit_form.metadatos) }}
-
-
-                                {#{%  include 'AppBundle:admin/Categoria:_metadato_list.html.twig' %}#}
+                                {{  include('AppBundle:admin/Categoria:_metadato_list.html.twig', {'form': edit_form}) }}
                             </div>
                         </div>
                         <div class="col-sm-offset-2 inner-actions">
