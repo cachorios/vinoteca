@@ -20,7 +20,9 @@ class CategoriaType extends AbstractType
 
 
         $builder
-            ->add('imagen')
+            ->add('imagen', 'file',array(
+                'required' => false,
+            ))
             ->add('nombre')
             ->add('descripcion', null, array(
                 'label' => 'Descripción',

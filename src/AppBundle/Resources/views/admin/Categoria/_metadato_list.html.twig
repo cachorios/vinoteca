@@ -2,14 +2,15 @@
 
 
 <ul id="metadato-fields-list" data-prototype="{{ form_widget(form.metadatos.vars.prototype)|e }}">
-    {% for metadataField in form.metadatos %}
-        <li>
-            {#{{ form_errors(metadataField) }}#}
-            {{ form_widget(metadataField.nombre) }}
-            {{ form_widget(metadataField.orden) }}
-            {{ form_widget(metadataField.listaValores) }}
-            {{ form_widget(metadataField.filtrable) }}
-        </li>
-    {% endfor %}
+    {#{% for metadataField in form.metadatos %}#}
+        {#<li>#}
+            {#{#{{ form_errors(metadataField) }}#}
+            {#{{ form_widget(metadataField.nombre) }}#}
+            {#{{ form_widget(metadataField.orden) }}#}
+            {#{{ form_widget(metadataField.listaValores) }}#}
+            {#{{ form_widget(metadataField.predeterminado) }}#}
+            {#{{ form_widget(metadataField.filtrable) }}#}
+        {#</li>#}
+    {#{% endfor %}#}
 </ul>
 <a href="#" id="add-another-metadato">Add</a>
