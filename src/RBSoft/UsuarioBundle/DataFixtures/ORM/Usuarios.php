@@ -35,7 +35,7 @@ class Usuarios extends AbstractFixture implements OrderedFixtureInterface, Conta
     {
         $usuarios = array(
             array('login' => 'cachorios', 'nombre' => 'Luis Rios', 'email' => 'cachorios@gmail.com'),
-            array('login' => 'albertoe2000', 'nombre' => 'Albero Voeffray', 'email' => 'albertoe2000@gmail.com'),
+            array('login' => 'albertoe2003', 'nombre' => 'Albero Voeffray', 'email' => 'albertoe2003@gmail.com'),
             array('login' => 'rhfalero', 'nombre' => 'Raul H. Falero', 'email' => 'rhfalero@gmail.com'),
             array('login' => 'fabbrizuela', 'nombre' => 'Gallina Prolija', 'email' => 'fabbrizuela@hotmail.com'),
             array('login' => 'hectorhdc', 'nombre' => 'Hector Cabrera', 'email' => 'hector.d.cabrera@gmail.com'),

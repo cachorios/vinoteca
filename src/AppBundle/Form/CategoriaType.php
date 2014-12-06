@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Entity\CategoriaRepository;
+use RBSoft\UtilidadBundle\Form\DataTransformer\FileToStringTransformer;
 
 class CategoriaType extends AbstractType
 {
@@ -15,8 +16,11 @@ class CategoriaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $transformer = new FileToStringTransformer();
+
+
         $builder
-            ->add('imagen', 'file')
+            ->add('imagen')
             ->add('nombre')
             ->add('descripcion', null, array(
                 'label' => 'Descripción',
@@ -44,12 +48,15 @@ class CategoriaType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
-                'prototype_name' => '__name__',
+//                'prototype_name' => '__name__',
 
                 'by_reference' => false,
 
-            ))//            ->add('metadatos', 'collection', array('type' => new MetadataProductoType()));
+            ))
         ;
+
+        $builder->get("imagen")->addModelTransformer(new FileToStringTransformer());
+
     }
 
     /**

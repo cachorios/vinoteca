@@ -59,16 +59,8 @@ class CategoriaListener
 
     public function postUpdate(LifecycleEventArgs $args){
         $entity = $args->getEntity();
-//        $entityManager = $args->getEntityManager();
         if ($entity instanceof Categoria) {
             $this->resetCacheMenu();
-            if ($entity->getId() != $entity->getRoot() ){
-
-//                $entity = $entityManager->find($entity->getRoot());
-//                $entityManager->persist($entity);
-//                $entityManager->flush();
-            }
-
         }
     }
 

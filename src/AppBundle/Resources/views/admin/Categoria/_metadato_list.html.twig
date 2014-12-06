@@ -1,7 +1,7 @@
 {#{{ form_widget(form.metadatos) }}#}
 
 
-<ul id="email-fields-list" data-prototype="{{ form_widget(form.metadatos.vars.prototype)|e }}">
+<ul id="metadato-fields-list" data-prototype="{{ form_widget(form.metadatos.vars.prototype)|e }}">
     {% for metadataField in form.metadatos %}
         <li>
             {#{{ form_errors(metadataField) }}#}
@@ -12,3 +12,4 @@
         </li>
     {% endfor %}
 </ul>
+<a href="#" id="add-another-metadato">Add</a>

@@ -38,6 +38,7 @@ security:
             logout:
                 path: admin_logout
                 target: /
+                invalidate_session: false
 
             remember_me:
                 key: rbs1130492014

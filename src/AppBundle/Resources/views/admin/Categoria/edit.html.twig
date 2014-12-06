@@ -62,4 +62,9 @@
 
 
             {% endblock contenido %}
-    
+
+
+        {% block javascript_footer %}
+            {{ parent() }}
+            <script src="{{ asset('admin/admin.js')}} "></script>
+        {% endblock %}
