@@ -39,8 +39,10 @@
                                 {{ form_widget(form) }}
 
                             </div>
-                            <div id="metadatos" class="tab-pane fade">
-                                {% include 'AppBundle:admin/Categoria:_metadato_list.html.twig' %}
+                            <div id="metadatos" class="tab-content">
+                                <div >
+                                    {{ form_widget(form.metadatos) }}
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-offset-2 inner-actions">
@@ -64,23 +66,6 @@
             {% endblock contenido %}
 
         {% block javascript_footer %}
-            <script>
-                $("#appbundle_categoria_imagen").fileinput({
-                    {% set imagen_src = entity.imagen == null ? asset("images/default-image.png" ) : asset("uploads/categorias/" ~ entity.imagen  ) %}
-                    initialPreview: ["<img src='{{ imagen_src }}' class='file-preview-image'>"],
-                    overwriteInitial: true,
-                    showUpload: false,
-                    showCaption: false,
-                    browseClass: "btn btn-primary btn-sm",
-                    fileType: "any",
-                    allowedFileTypes: ['image'],
-                    'allowedFileExtensions': ['jpg', 'png', 'gif'],
-                    uploadLabel: 'Subir',
-                    removeLabel: 'Quitar',
-                    browseLabel: 'Explorar'
-                });
-            </script>
-
-            <script src="{{ asset('admin/admin.js')}} "></script>
+            {{ include('AppBundle:admin/Categoria:js.html.twig',{'form': form})  }}
 
         {% endblock %}

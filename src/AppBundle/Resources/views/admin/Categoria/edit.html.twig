@@ -5,139 +5,77 @@
 {#_categoria[metadatos]#}
 
 {% block _metadatos_metadato_filtrable_widget %}
-hola
+    hola
 
 {% endblock %}
 
-    {% block id 'Categoria' %} 
-            {% block contenido -%}
-                {% embed '::portlet.html.twig' with {'titulo': 'Editar Categoria: ' ~ entity} %}
-                    {% block in_header %}
-                        <div class='pull-right'>
+    {% block id 'Categoria' %}
+        {% block contenido -%}
+            {% embed '::portlet.html.twig' with {'titulo': 'Editar Categoria: ' ~ entity} %}
+                {% block in_header %}
+                    <div class='pull-right'>
 
-                            <div class="col-md-2 ">
-                                <div class="pull-right">
-                                    {{ form(delete_form) }}
-                                </div>
-                            </div>
-
-                            <a href="{{ path('categoria') }}" class="btn btn-sm btn-default">
-                                Ir a la lista
-                            </a>
-
-                        </div>
-                    {% endblock %}
-
-                    {% block cuerpo %}
-                        <p></p>
-                        {#{{ entity | ld() }}#}
-                        {{ form_start(edit_form) }}
-                        <ul id="myTab1" class="nav nav-tabs">
-                            <li class="active">
-                                <a data-toggle="tab" href="#datos">Datos categoria</a>
-                            </li>
-                            <li class="">
-                                <a data-toggle="tab" href="#metadatos">Generar metadatos Producto</a>
-                            </li>
-                        </ul>
-                        <div id="myTab1Content" class="tab-content">
-                            <div id="datos" class="tab-pane fade active in">
-
-                                {{ form_row(edit_form.imagen) }}
-                                {{ form_row(edit_form.nombre) }}
-                                {{ form_row(edit_form.descripcion) }}
-                                {{ form_row(edit_form.orden) }}
-                                {{ form_row(edit_form.parent) }}
-                                {{ form_row(edit_form.visible) }}
-                                {{ form_row(edit_form.activo) }}
-
-                            </div>
-                            <div id="metadatos" class="tab-pane fade">
-                                {%    include'AppBundle:admin/Categoria:_metadato_list.html.twig'%}
+                        <div class="col-md-2 ">
+                            <div class="pull-right">
+                                {{ form(delete_form) }}
                             </div>
                         </div>
-                        <div class="col-sm-offset-2 inner-actions">
-                            <input type="submit" value="Guardar"
-                                   class="form-submit-button btn btn-sm btn-default btn-success">
-                            <a class="page-close-button btn btn-sm btn-default" href="{{ path('categoria') }}">Cerrar
-                                <span class="glyphicon glyphicon-remove"></span></a>
+
+                        <a href="{{ path('categoria') }}" class="btn btn-sm btn-default">
+                            Ir a la lista
+                        </a>
+
+                    </div>
+                {% endblock %}
+
+                {% block cuerpo %}
+                    <p></p>
+                    {#{{ entity | ld() }}#}
+                    {{ form_start(edit_form) }}
+                    <ul id="myTab1" class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#datos">Datos categoria</a>
+                        </li>
+                        <li class="">
+                            <a data-toggle="tab" href="#metadatos">Generar metadatos Producto</a>
+                        </li>
+                    </ul>
+                    <div id="myTab1Content" class="tab-content">
+                        <div id="datos" class="tab-pane fade active in">
+
+                            {{ form_row(edit_form.imagen) }}
+                            {{ form_row(edit_form.nombre) }}
+                            {{ form_row(edit_form.descripcion) }}
+                            {{ form_row(edit_form.orden) }}
+                            {{ form_row(edit_form.parent) }}
+                            {{ form_row(edit_form.visible) }}
+                            {{ form_row(edit_form.activo) }}
 
                         </div>
-                        {{ form_widget(edit_form) }}
-                        {{ form_end(edit_form) }}
+                        <div id="metadatos" class="tab-pane fade">
+                            <div >
+                                {{ form_widget(edit_form.metadatos) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-2 inner-actions">
+                        <input type="submit" value="Guardar"
+                               class="form-submit-button btn btn-sm btn-default btn-success">
+                        <a class="page-close-button btn btn-sm btn-default" href="{{ path('categoria') }}">Cerrar
+                            <span class="glyphicon glyphicon-remove"></span></a>
 
-                    {% endblock %}
-                {% endembed %}
+                    </div>
+                    {{ form_widget(edit_form) }}
+                    {{ form_end(edit_form) }}
+
+                {% endblock %}
+            {% endembed %}
 
 
-            {% endblock contenido %}
+        {% endblock contenido %}
 
 
         {% block javascript_footer %}
-
-            <script type="text/javascript">
-                // keep track of how many email fields have been rendered
-                var fieldCount = '{{ edit_form.metadatos|length }}';
-
-                jQuery(document).ready(function() {
-//                    jQuery('#add-metadato').click(function(e) {
-//                        e.preventDefault();
-//
-//                        var fieldList = jQuery('#iten_list_metadatos_collection');
-//
-//                        // grab the prototype template
-//                        var newWidget = fieldList.attr('data-prototype');
-//                        // replace the "__name__" used in the id and name of the prototype
-//                        // with a number that's unique to your emails
-//                        // end name attribute looks like name="contact[emails][2]"
-//                        newWidget = newWidget.replace(/__name__/g, fieldCount);
-//                        // end name attribute looks like name="contact[emails][2]"
-//
-//                        fieldCount++;
-//
-//                        // create a new list element and add it to the list
-//                        var newLi = jQuery('<tr></tr>').html(newWidget);
-//
-//                        newLi.appendTo(fieldList);
-//                    });
-
-                    $(document).on('click', '#add-metadato', function (e) {
-                        e.preventDefault();
-                        var fieldList = jQuery('#iten_list_metadatos_collection');
-                        var newWidget = fieldList.attr('data-prototype');
-                        newWidget = newWidget.replace(/__name__/g, fieldCount);
-                        fieldCount++;
-                        var newLi = jQuery('<tr></tr>').html(newWidget);
-                        newLi.appendTo(fieldList);
-
-                    });
-
-                    $(document).on('click', '.remove-list-item', function (e) {
-                        e.preventDefault();
-                        var collectionHolder = $($(this)).parents('tr');
-                        collectionHolder.remove();
-                    });
-
-                })
-            </script>
-
-            <script>
-                $("#appbundle_categoria_imagen").fileinput({
-                {% set imagen_src = entity.imagen == null ? asset("images/default-image.png" ) : asset("uploads/categorias/" ~ entity.imagen  ) %}
-                    initialPreview: ["<img src='{{ imagen_src }}' class='file-preview-image'>"],
-                    overwriteInitial: true,
-                    showUpload: false,
-                    showCaption: false,
-                    browseClass: "btn btn-primary btn-sm",
-                    fileType: "any",
-                    allowedFileTypes: ['image'],
-                    'allowedFileExtensions': ['jpg', 'png', 'gif'],
-                    uploadLabel: 'Subir',
-                    removeLabel: 'Quitar',
-                    browseLabel: 'Explorar'
-                });
-            </script>
-
-            {#<script src="{{ asset('admin/admin.js')}} "></script>#}
+            {{ include('AppBundle:admin/Categoria:js.html.twig',{'form': edit_form})  }}
 
         {% endblock %}
