@@ -6,7 +6,6 @@
                         <div class='pull-right'>
                             <div class="row">
 
-
                                 <a href="{{ path('categoria') }}" class="btn btn-sm btn-default">
                                     Ir a la lista
                                 </a>
@@ -63,4 +62,25 @@
                 {% endembed %}
 
             {% endblock contenido %}
-    
+
+        {% block javascript_footer %}
+            <script>
+                $("#appbundle_categoria_imagen").fileinput({
+                    {% set imagen_src = entity.imagen == null ? asset("images/default-image.png" ) : asset("uploads/categorias/" ~ entity.imagen  ) %}
+                    initialPreview: ["<img src='{{ imagen_src }}' class='file-preview-image'>"],
+                    overwriteInitial: true,
+                    showUpload: false,
+                    showCaption: false,
+                    browseClass: "btn btn-primary btn-sm",
+                    fileType: "any",
+                    allowedFileTypes: ['image'],
+                    'allowedFileExtensions': ['jpg', 'png', 'gif'],
+                    uploadLabel: 'Subir',
+                    removeLabel: 'Quitar',
+                    browseLabel: 'Explorar'
+                });
+            </script>
+
+            <script src="{{ asset('admin/admin.js')}} "></script>
+
+        {% endblock %}

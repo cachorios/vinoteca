@@ -31,3 +31,10 @@ input[type="checkbox"], input[type="radio"] {
     padding: 0;
 }
 
+.table caption .action-btn {
+    display: block;
+    float: right;
+    margin-left: 10px;
+    text-transform: none;
+    margin-bottom: 5px;
+}

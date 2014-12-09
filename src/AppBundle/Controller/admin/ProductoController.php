@@ -19,7 +19,7 @@ use AppBundle\Form\ProductoFilterType;
 /**
  * Producto controller.
  *
- * @Route("/producto/")
+ * @Route("/producto")
  */
 class ProductoController extends Controller
 {

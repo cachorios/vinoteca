@@ -1,5 +1,14 @@
 {% extends 'AppBundle:admin:layout.html.twig' %}
 
+{% form_theme edit_form _self %}
+
+{#_categoria[metadatos]#}
+
+{% block _metadatos_metadato_filtrable_widget %}
+hola
+
+{% endblock %}
+
     {% block id 'Categoria' %} 
             {% block contenido -%}
                 {% embed '::portlet.html.twig' with {'titulo': 'Editar Categoria: ' ~ entity} %}
@@ -44,7 +53,7 @@
 
                             </div>
                             <div id="metadatos" class="tab-pane fade">
-                                {#{{  include('AppBundle:admin/Categoria:_metadato_list.html.twig', {'form': edit_form}) }}#}
+                                {%    include'AppBundle:admin/Categoria:_metadato_list.html.twig'%}
                             </div>
                         </div>
                         <div class="col-sm-offset-2 inner-actions">
@@ -65,6 +74,70 @@
 
 
         {% block javascript_footer %}
-            {{ parent() }}
-            <script src="{{ asset('admin/admin.js')}} "></script>
+
+            <script type="text/javascript">
+                // keep track of how many email fields have been rendered
+                var fieldCount = '{{ edit_form.metadatos|length }}';
+
+                jQuery(document).ready(function() {
+//                    jQuery('#add-metadato').click(function(e) {
+//                        e.preventDefault();
+//
+//                        var fieldList = jQuery('#iten_list_metadatos_collection');
+//
+//                        // grab the prototype template
+//                        var newWidget = fieldList.attr('data-prototype');
+//                        // replace the "__name__" used in the id and name of the prototype
+//                        // with a number that's unique to your emails
+//                        // end name attribute looks like name="contact[emails][2]"
+//                        newWidget = newWidget.replace(/__name__/g, fieldCount);
+//                        // end name attribute looks like name="contact[emails][2]"
+//
+//                        fieldCount++;
+//
+//                        // create a new list element and add it to the list
+//                        var newLi = jQuery('<tr></tr>').html(newWidget);
+//
+//                        newLi.appendTo(fieldList);
+//                    });
+
+                    $(document).on('click', '#add-metadato', function (e) {
+                        e.preventDefault();
+                        var fieldList = jQuery('#iten_list_metadatos_collection');
+                        var newWidget = fieldList.attr('data-prototype');
+                        newWidget = newWidget.replace(/__name__/g, fieldCount);
+                        fieldCount++;
+                        var newLi = jQuery('<tr></tr>').html(newWidget);
+                        newLi.appendTo(fieldList);
+
+                    });
+
+                    $(document).on('click', '.remove-list-item', function (e) {
+                        e.preventDefault();
+                        var collectionHolder = $($(this)).parents('tr');
+                        collectionHolder.remove();
+                    });
+
+                })
+            </script>
+
+            <script>
+                $("#appbundle_categoria_imagen").fileinput({
+                {% set imagen_src = entity.imagen == null ? asset("images/default-image.png" ) : asset("uploads/categorias/" ~ entity.imagen  ) %}
+                    initialPreview: ["<img src='{{ imagen_src }}' class='file-preview-image'>"],
+                    overwriteInitial: true,
+                    showUpload: false,
+                    showCaption: false,
+                    browseClass: "btn btn-primary btn-sm",
+                    fileType: "any",
+                    allowedFileTypes: ['image'],
+                    'allowedFileExtensions': ['jpg', 'png', 'gif'],
+                    uploadLabel: 'Subir',
+                    removeLabel: 'Quitar',
+                    browseLabel: 'Explorar'
+                });
+            </script>
+
+            {#<script src="{{ asset('admin/admin.js')}} "></script>#}
+
         {% endblock %}

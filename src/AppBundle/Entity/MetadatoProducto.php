@@ -211,4 +211,14 @@ class MetadatoProducto
     {
         return $this->predeterminado;
     }
+
+    /**
+     * Check if entity is empty.
+     *
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return empty($this->nombre);
+    }
 }

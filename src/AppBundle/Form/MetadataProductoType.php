@@ -4,7 +4,7 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class MetadataProductoType extends AbstractType
 {
@@ -16,32 +16,22 @@ class MetadataProductoType extends AbstractType
     {
         $builder
             ->add('nombre')
-            ->add('orden', 'hidden', array(
+            ->add('orden',null , array(
+
             ))
             ->add('listaValores', 'textarea', array(
-//                'label_render' => false,
                 'required' => false
             ))
             ->add('predeterminado', 'textarea', array(
                 'required' => false
             ))
             ->add('filtrable', 'checkbox', array(
-                'label'     => 'Es filtrable?',
+                'label'     => ' ',
+                'block_name' => 'metadato_filtrable',
                 'required'  => false))
         ;
     }
     
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function configureOptions(OptionsResolver  $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\MetadatoProducto'
-
-        ));
-    }
-
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
