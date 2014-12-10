@@ -45,10 +45,11 @@ class CategoriaType extends AbstractType
             ->add('activo', 'checkbox', array(
                 'label' => 'Es Activo?',
                 'required' => false))
-            ->add('metadatos', 'collection', array(
+            ->add('metadatos', 'metadato_collection', array(
                 'type' => new MetadataProductoType(),
                 'allow_add' => true,
                 'allow_delete' => true,
+                'delete_empty' => true,
                 'prototype' => true,
 //                'prototype_name' => '__name__',
 

@@ -31,24 +31,24 @@ class CategoriaController extends Controller
      */
     public function indexAction(Request $request)
     {
-    list($filterForm, $queryBuilder) = $this->filter($request);
-    $pager = $this->getPager($queryBuilder);
+        list($filterForm, $queryBuilder) = $this->filter($request);
+        $pager = $this->getPager($queryBuilder);
 
         return array(
-            'pager'         => $pager,
-            'filterform'    => $filterForm->createView(),
+            'pager' => $pager,
+            'filterform' => $filterForm->createView(),
         );
     }
 
     /**
-    * Crea el paginador Pagerfanta
-    * @param Request $request
-    * @return SlidingPagination
-    * @throws NotFoundHttpException
-    */
+     * Crea el paginador Pagerfanta
+     * @param Request $request
+     * @return SlidingPagination
+     * @throws NotFoundHttpException
+     */
     private function getPager($q)
     {
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
 
         $pagination = $paginator->paginate(
             $q,
@@ -92,7 +92,7 @@ class CategoriaController extends Controller
                 $filterData = $session->get('CategoriaControllerFilter');
                 $filterForm = $this->createForm(new CategoriaFilterType(), $filterData);
                 $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
-           }
+            }
         }
         return array($filterForm, $queryBuilder);
     }
@@ -112,29 +112,32 @@ class CategoriaController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $entity->upload("uploads/productos/");
+
             $em->persist($entity);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success',"El Categoria $entity se creó correctamente.");
-            if ($request->request->get('save_mode')== 'save_and_close') {
-                    return $this->redirect($this->generateUrl('categoria'));
-                }
-                return $this->redirect($this->generateUrl('categoria_new'));
+            $this->get('session')->getFlashBag()->add('success', "El Categoria $entity se creó correctamente.");
+            if ($request->request->get('save_mode') == 'save_and_close') {
+                return $this->redirect($this->generateUrl('categoria'));
+            }
+            return $this->redirect($this->generateUrl('categoria_new'));
         }
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-    * Creates a form to create a Categoria entity.
-    *
-    * @param Categoria $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a Categoria entity.
+     *
+     * @param Categoria $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(Categoria $entity)
     {
         $form = $this->createForm(new CategoriaType(), $entity, array(
@@ -156,11 +159,11 @@ class CategoriaController extends Controller
     public function newAction()
     {
         $entity = new Categoria();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -184,7 +187,7 @@ class CategoriaController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -210,19 +213,19 @@ class CategoriaController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Categoria entity.
-    *
-    * @param Categoria $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Categoria entity.
+     *
+     * @param Categoria $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Categoria $entity)
     {
         $form = $this->createForm(new CategoriaType(), $entity, array(
@@ -230,9 +233,10 @@ class CategoriaController extends Controller
             'method' => 'PUT',
         ));
 
-        
+
         return $form;
     }
+
     /**
      * Edits an existing Categoria entity.
      *
@@ -250,22 +254,40 @@ class CategoriaController extends Controller
             throw $this->createNotFoundException('Unable to find Categoria entity.');
         }
 
+        $originalMetadatos = new \Doctrine\Common\Collections\ArrayCollection();
+
+        foreach ($entity->getMetadatos() as $metadato) {
+            $originalMetadatos->add($metadato);
+        }
+
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
+            $entity->upload("uploads/productos/");
+
+            // remove the relationship between the tag and the Task
+            foreach ($originalMetadatos as $metadato) {
+                if (false === $entity->getMetadatos()->contains($metadato)) {
+                    $em->remove($metadato);
+                }
+            }
+
+            $em->persist($entity);
             $em->flush();
-            $this->get('session')->getFlashBag()->add('success',"El Categoria $entity se actualizó correctamente.");
+            $this->get('session')->getFlashBag()->add('success', "El Categoria $entity se actualizó correctamente.");
             return $this->redirect($this->generateUrl('categoria'));
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Categoria entity.
      *
@@ -306,12 +328,11 @@ class CategoriaController extends Controller
             ->setMethod('DELETE')
             ->add('submit', 'submit', array(
                 'label' => 'Delete',
-                'attr'  => array(
-                        'class' => 'btn btn-danger btn-sm'
+                'attr' => array(
+                    'class' => 'btn btn-danger btn-sm'
                 )
             ))
-            ->getForm()
-        ;
+            ->getForm();
     }
 
 }

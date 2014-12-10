@@ -4,9 +4,14 @@ services:
         arguments: [@service_container]
         tags:
             - { name: doctrine.event_listener, event: prePersist,   method: prePersist }
-            - { name: doctrine.event_listener, event: postPersist,method: postPersist }
-            - { name: doctrine.event_listener, event: preUpdate,  method: preUpdate }
-            - { name: doctrine.event_listener, event: postUpdate, method: postUpdate }
+            - { name: doctrine.event_listener, event: postPersist,  method: postPersist }
+            - { name: doctrine.event_listener, event: preUpdate,    method: preUpdate }
+            - { name: doctrine.event_listener, event: postUpdate,   method: postUpdate }
+
+    form.type.metadato_collection:
+        class: AppBundle\Form\Type\MetadatoCollectionType
+        tags:
+          - { name: "form.type", alias: "metadato_collection" }
 
     menu.service:
         class: AppBundle\Servicios\MenuService
@@ -16,3 +21,4 @@ services:
         class: AppBundle\Servicios\CacheWarmer\AppCacheWarmer
         tags:
             - { name: kernel.cache_warmer }
+

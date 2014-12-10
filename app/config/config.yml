@@ -37,6 +37,7 @@ twig:
 #            - UtilidadBundle:Form:formsBootstrap3.html.twig
             - UtilidadBundle:Form:find.html.twig
             - :Form:form_div_layout.html.twig
+            - AppBundle:Form:collection_metadatos.html.twig
 #            - UtilidadBundle:Form:fields-collections.html.twig
 
 

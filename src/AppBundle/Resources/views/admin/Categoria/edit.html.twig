@@ -1,70 +1,81 @@
 {% extends 'AppBundle:admin:layout.html.twig' %}
 
-    {% block id 'Categoria' %} 
-            {% block contenido -%}
-                {% embed '::portlet.html.twig' with {'titulo': 'Editar Categoria: ' ~ entity} %}
-                    {% block in_header %}
-                        <div class='pull-right'>
+{% form_theme edit_form _self %}
 
-                            <div class="col-md-2 ">
-                                <div class="pull-right">
-                                    {{ form(delete_form) }}
-                                </div>
-                            </div>
+{#_categoria[metadatos]#}
 
-                            <a href="{{ path('categoria') }}" class="btn btn-sm btn-default">
-                                Ir a la lista
-                            </a>
+{% block _metadatos_metadato_filtrable_widget %}
+    hola
 
-                        </div>
-                    {% endblock %}
+{% endblock %}
 
-                    {% block cuerpo %}
-                        <p></p>
-                        {#{{ entity | ld() }}#}
-                        {{ form_start(edit_form) }}
-                        <ul id="myTab1" class="nav nav-tabs">
-                            <li class="active">
-                                <a data-toggle="tab" href="#datos">Datos categoria</a>
-                            </li>
-                            <li class="">
-                                <a data-toggle="tab" href="#metadatos">Generar metadatos Producto</a>
-                            </li>
-                        </ul>
-                        <div id="myTab1Content" class="tab-content">
-                            <div id="datos" class="tab-pane fade active in">
+    {% block id 'Categoria' %}
+        {% block contenido -%}
+            {% embed '::portlet.html.twig' with {'titulo': 'Editar Categoria: ' ~ entity} %}
+                {% block in_header %}
+                    <div class='pull-right'>
 
-                                {{ form_row(edit_form.imagen) }}
-                                {{ form_row(edit_form.nombre) }}
-                                {{ form_row(edit_form.descripcion) }}
-                                {{ form_row(edit_form.orden) }}
-                                {{ form_row(edit_form.parent) }}
-                                {{ form_row(edit_form.visible) }}
-                                {{ form_row(edit_form.activo) }}
-
-                            </div>
-                            <div id="metadatos" class="tab-pane fade">
-                                {#{{  include('AppBundle:admin/Categoria:_metadato_list.html.twig', {'form': edit_form}) }}#}
+                        <div class="col-md-2 ">
+                            <div class="pull-right">
+                                {{ form(delete_form) }}
                             </div>
                         </div>
-                        <div class="col-sm-offset-2 inner-actions">
-                            <input type="submit" value="Guardar"
-                                   class="form-submit-button btn btn-sm btn-default btn-success">
-                            <a class="page-close-button btn btn-sm btn-default" href="{{ path('categoria') }}">Cerrar
-                                <span class="glyphicon glyphicon-remove"></span></a>
+
+                        <a href="{{ path('categoria') }}" class="btn btn-sm btn-default">
+                            Ir a la lista
+                        </a>
+
+                    </div>
+                {% endblock %}
+
+                {% block cuerpo %}
+                    <p></p>
+                    {#{{ entity | ld() }}#}
+                    {{ form_start(edit_form) }}
+                    <ul id="myTab1" class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#datos">Datos categoria</a>
+                        </li>
+                        <li class="">
+                            <a data-toggle="tab" href="#metadatos">Generar metadatos Producto</a>
+                        </li>
+                    </ul>
+                    <div id="myTab1Content" class="tab-content">
+                        <div id="datos" class="tab-pane fade active in">
+
+                            {{ form_row(edit_form.imagen) }}
+                            {{ form_row(edit_form.nombre) }}
+                            {{ form_row(edit_form.descripcion) }}
+                            {{ form_row(edit_form.orden) }}
+                            {{ form_row(edit_form.parent) }}
+                            {{ form_row(edit_form.visible) }}
+                            {{ form_row(edit_form.activo) }}
 
                         </div>
-                        {{ form_widget(edit_form) }}
-                        {{ form_end(edit_form) }}
+                        <div id="metadatos" class="tab-pane fade">
+                            <div >
+                                {{ form_widget(edit_form.metadatos) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-offset-2 inner-actions">
+                        <input type="submit" value="Guardar"
+                               class="form-submit-button btn btn-sm btn-default btn-success">
+                        <a class="page-close-button btn btn-sm btn-default" href="{{ path('categoria') }}">Cerrar
+                            <span class="glyphicon glyphicon-remove"></span></a>
 
-                    {% endblock %}
-                {% endembed %}
+                    </div>
+                    {{ form_widget(edit_form) }}
+                    {{ form_end(edit_form) }}
+
+                {% endblock %}
+            {% endembed %}
 
 
-            {% endblock contenido %}
+        {% endblock contenido %}
 
 
         {% block javascript_footer %}
-            {{ parent() }}
-            <script src="{{ asset('admin/admin.js')}} "></script>
+            {{ include('AppBundle:admin/Categoria:js.html.twig',{'form': edit_form})  }}
+
         {% endblock %}

@@ -34,18 +34,18 @@ class Categorias extends AbstractFixture implements OrderedFixtureInterface, Con
     public function load(ObjectManager $manager)
     {
         $cats = array(
-            array('nombre' => 'Vino',     'orden' => 1,     'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg' ),
-            array('nombre' => 'Blanco',   'orden' => 3,     'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg','parent_id' => 'Vino'),
-            array('nombre' => 'Tinto',    'orden' => 2,     'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg','parent_id' => 'Vino'),
-            array('nombre' => 'Cerveza',  'orden' => 1000,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg' ),
-            array('nombre' => 'Rubia',    'orden' => 1005,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg','parent_id' => 'Cerveza'),
-            array('nombre' => 'Negra',    'orden' => 1015,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg','parent_id' => 'Cerveza'),
-            array('nombre' => 'Malbec',   'orden' => 105,   'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg','parent_id' => 'Tinto'),
-            array('nombre' => 'Sirah',    'orden' => 115,   'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg','parent_id' => 'Tinto'),
-            array('nombre' => 'Tabaco',   'orden' => 2000,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg' ),
-            array('nombre' => 'Burley',   'orden' => 2005,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg','parent_id' => 'Tabaco'),
-            array('nombre' => 'Criollo',  'orden' => 2015,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg','parent_id' => 'Tabaco'),
-            array('nombre' => 'Solo Menu','orden' => 3000,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'upload/categoria/img1.jpg' ),
+            array('nombre' => 'Vino',     'orden' => 1,     'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg' ),
+            array('nombre' => 'Blanco',   'orden' => 3,     'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg','parent_id' => 'Vino'),
+            array('nombre' => 'Tinto',    'orden' => 2,     'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg','parent_id' => 'Vino'),
+            array('nombre' => 'Cerveza',  'orden' => 1000,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg' ),
+            array('nombre' => 'Rubia',    'orden' => 1005,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg','parent_id' => 'Cerveza'),
+            array('nombre' => 'Negra',    'orden' => 1015,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg','parent_id' => 'Cerveza'),
+            array('nombre' => 'Malbec',   'orden' => 105,   'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg','parent_id' => 'Tinto'),
+            array('nombre' => 'Sirah',    'orden' => 115,   'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg','parent_id' => 'Tinto'),
+            array('nombre' => 'Tabaco',   'orden' => 2000,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg' ),
+            array('nombre' => 'Burley',   'orden' => 2005,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg','parent_id' => 'Tabaco'),
+            array('nombre' => 'Criollo',  'orden' => 2015,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg','parent_id' => 'Tabaco'),
+            array('nombre' => 'Solo Menu','orden' => 3000,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg' ),
 
 
         );
