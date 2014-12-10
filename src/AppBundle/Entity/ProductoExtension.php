@@ -23,19 +23,19 @@ class ProductoExtension
 
     /**
      * @var AppBundle:Producto
-     * @ORM\ManyToOne(targetEntity="AppBundle:Producto")
+     * @ORM\ManyToOne(targetEntity="Producto")
      */
     private $producto;
 
     /**
      * @var AppBundle:MetadatoProducto
-     * @ORM\ManyToOne(targetEntity="AppBundle:MetadatoProducto")
+     * @ORM\ManyToOne(targetEntity="MetadatoProducto")
      */
     private $metadatoProductoId;
 
     /**
      * @var string
-     * @ORM\Column(name = "valor", type="Text" )
+     * @ORM\Column(name = "valor", type="text" )
      */
     private $valor;
 
@@ -56,7 +56,7 @@ class ProductoExtension
      * @param \Text $valor
      * @return ProductoExtension
      */
-    public function setValor(\Text $valor)
+    public function setValor($valor)
     {
         $this->valor = $valor;
 
