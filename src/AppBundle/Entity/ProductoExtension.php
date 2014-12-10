@@ -22,20 +22,20 @@ class ProductoExtension
     private $id;
 
     /**
-     * @var AppBundle:Producto
-     * @ORM\ManyToOne(targetEntity="AppBundle:Producto")
+     * @var Producto
+     * @ORM\ManyToOne(targetEntity="Producto")
      */
     private $producto;
 
     /**
-     * @var AppBundle:MetadatoProducto
-     * @ORM\ManyToOne(targetEntity="AppBundle:MetadatoProducto")
+     * @var MetadatoProducto
+     * @ORM\ManyToOne(targetEntity="MetadatoProducto")
      */
-    private $metadatoProductoId;
+    private $metadatoProducto;
 
     /**
      * @var string
-     * @ORM\Column(name = "valor", type="Text" )
+     * @ORM\Column(name = "valor", type="text" )
      */
     private $valor;
 
@@ -50,28 +50,8 @@ class ProductoExtension
         return $this->id;
     }
 
-    /**
-     * Set valor
-     *
-     * @param \Text $valor
-     * @return ProductoExtension
-     */
-    public function setValor(\Text $valor)
-    {
-        $this->valor = $valor;
 
-        return $this;
-    }
 
-    /**
-     * Get valor
-     *
-     * @return \Text 
-     */
-    public function getValor()
-    {
-        return $this->valor;
-    }
 
     /**
      * Set producto
@@ -89,7 +69,7 @@ class ProductoExtension
     /**
      * Get producto
      *
-     * @return \AppBundle\Entity\Producto
+     * @return \AppBundle\Entity\Producto 
      */
     public function getProducto()
     {
@@ -97,25 +77,48 @@ class ProductoExtension
     }
 
     /**
-     * Set metadatoProductoId
+     * Set metadatoProducto
      *
-     * @param \AppBundle\Entity\MetadatoProducto $metadatoProductoId
+     * @param \AppBundle\Entity\MetadatoProducto $metadatoProducto
      * @return ProductoExtension
      */
-    public function setMetadatoProductoId(\AppBundle\Entity\MetadatoProducto $metadatoProductoId = null)
+    public function setMetadatoProducto(\AppBundle\Entity\MetadatoProducto $metadatoProducto = null)
     {
-        $this->metadatoProductoId = $metadatoProductoId;
+        $this->metadatoProducto = $metadatoProducto;
 
         return $this;
     }
 
     /**
-     * Get metadatoProductoId
+     * Get metadatoProducto
      *
-     * @return \AppBundle\Entity\MetadatoProducto
+     * @return \AppBundle\Entity\MetadatoProducto 
      */
-    public function getMetadatoProductoId()
+    public function getMetadatoProducto()
     {
-        return $this->metadatoProductoId;
+        return $this->metadatoProducto;
+    }
+
+    /**
+     * Set valor
+     *
+     * @param string $valor
+     * @return ProductoExtension
+     */
+    public function setValor($valor)
+    {
+        $this->valor = $valor;
+
+        return $this;
+    }
+
+    /**
+     * Get valor
+     *
+     * @return string 
+     */
+    public function getValor()
+    {
+        return $this->valor;
     }
 }

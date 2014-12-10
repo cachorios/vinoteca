@@ -32,7 +32,7 @@ class MetadatoProducto extends AbstractFixture implements OrderedFixtureInterfac
 
     public function load(ObjectManager $manager)
     {
-        $cats = array(
+        $arrs = array(
             array('categoria' => 'vino', 'nombre' => 'Varietal',           'prederminado' => '',            'filtrable' => 1, 'orden' => 10, 'lista' => '' ),
             array('categoria' => 'vino', 'nombre' => 'Bodega',             'prederminado' => '',            'filtrable' => 1, 'orden' => 20, 'lista' => '' ),
             array('categoria' => 'vino', 'nombre' => 'Cata',               'prederminado' => '',            'filtrable' => 0, 'orden' => 30, 'lista' => '' ),
@@ -42,25 +42,29 @@ class MetadatoProducto extends AbstractFixture implements OrderedFixtureInterfac
             array('categoria' => 'vino', 'nombre' => 'Pais de Origen',     'prederminado' => 'Argentina',   'filtrable' => 1, 'orden' => 70, 'lista' => '' ),
             array('categoria' => 'vino', 'nombre' => 'Ciudad Origen',      'prederminado' => 'Mendoza',     'filtrable' => 1, 'orden' => 80, 'lista' => '' ),
 
+
+            array('categoria' => 'Cerveza', 'nombre' => 'Bodega',             'prederminado' => '',            'filtrable' => 1, 'orden' => 20, 'lista' => '' ),
+            array('categoria' => 'Cerveza', 'nombre' => 'Cata',               'prederminado' => '',            'filtrable' => 0, 'orden' => 30, 'lista' => '' ),
+            array('categoria' => 'Cerveza', 'nombre' => 'Maridaje',           'prederminado' => '',            'filtrable' => 0, 'orden' => 40, 'lista' => '' ),
+            array('categoria' => 'Cerveza', 'nombre' => 'Porcentaje Alcohol', 'prederminado' => '',             'filtrable' => 0, 'orden' => 50, 'lista' => '' ),
+            array('categoria' => 'Cerveza', 'nombre' => 'Volumen',            'prederminado' => '650cc',       'filtrable' => 0, 'orden' => 60, 'lista' => '' ),
+            array('categoria' => 'Cerveza', 'nombre' => 'Pais de Origen',     'prederminado' => 'Argentina',   'filtrable' => 1, 'orden' => 70, 'lista' => '' ),
+            array('categoria' => 'Cerveza', 'nombre' => 'Ciudad Origen',      'prederminado' => '',             'filtrable' => 1, 'orden' => 80, 'lista' => '' ),
+
         );
 
-        foreach ($cats as $catArr) {
-            $cat = new Categoria();
+        foreach ($arrs as $a) {
+            $o = new \AppBundle\Entity\MetadatoProducto();
+            
+            $o->setCategoria( $manager->getRepository("AppBundle:Categoria")->findOneByNombre($a['categoria']) );
+            $o->setNombre($a['nombre']);
+            $o->getPredeterminado($a['prederminado']);
+            $o->setFiltrable($a['filtrable']);
+            $o->setOrden($a['orden']);
+            $o->setListaValores($a['lista']);
 
 
-            $cat->setNombre($catArr['nombre']);
-            $cat->setOrden($catArr['orden']);
-            $cat->setActivo(1);
-            $cat->setVisible(1);
-            $cat->setDescripcion($catArr['descripcion']);
-            $cat->setImagen($catArr['imagen']);
-
-
-            if(isset($catArr['parent_id']))
-                $cat->setParent($manager->getRepository("AppBundle:Categoria")->findOneBy(array("nombre" =>$catArr['parent_id'])));
-
-
-            $manager->persist($cat);
+            $manager->persist($o);
             $manager->flush();
         }
 

@@ -21,18 +21,6 @@ class ProductoImagen
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre", type="string", length=100)
-     */
-    private $nombre;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="file", type="string", length=100)
-     */
     private $file;
 
     /**
@@ -44,7 +32,6 @@ class ProductoImagen
 
     /**
      * @ORM\ManyToOne(targetEntity="Producto", inversedBy="imagenes")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $producto;
 
@@ -56,52 +43,6 @@ class ProductoImagen
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set nombre
-     *
-     * @param string $nombre
-     * @return ProductoImagen
-     */
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
-    
-        return $this;
-    }
-
-    /**
-     * Get nombre
-     *
-     * @return string 
-     */
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
-
-    /**
-     * Set file
-     *
-     * @param string $file
-     * @return ProductoImagen
-     */
-    public function setFile($file)
-    {
-        $this->file = $file;
-    
-        return $this;
-    }
-
-    /**
-     * Get file
-     *
-     * @return string 
-     */
-    public function getFile()
-    {
-        return $this->file;
     }
 
     /**

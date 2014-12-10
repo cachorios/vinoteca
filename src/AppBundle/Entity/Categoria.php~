@@ -99,12 +99,12 @@ class Categoria
     private $visible = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="MetadatoProducto", mappedBy="categoria")
+     * @ORM\OneToMany(targetEntity="MetadatoProducto", mappedBy="categoria",cascade={"persist", "remove"})
      */
     private $metadatos;
 
     /**
-     * @ORM\Column(type="string", length=150)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $imagen;
 
@@ -113,13 +113,6 @@ class Categoria
      */
     private $updatedAt;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="profundidad", type="integer")
-     *
-     */
-    private $profundidad;
 
     public function __toString()
     {
@@ -368,6 +361,16 @@ class Categoria
     }
 
     /**
+
+     * Set
+     * Solo para el fixture
+     * Sacar cuando no se use mas
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+        /*
      * Add metadatos
      *
      * @param \AppBundle\Entity\MetadatoProducto $metadatos
@@ -469,26 +472,4 @@ class Categoria
         return $this->updatedAt;
     }
 
-    /**
-     * Set profundidad
-     *
-     * @param integer $profundidad
-     * @return Categoria
-     */
-    public function setProfundidad($profundidad)
-    {
-        $this->profundidad = $profundidad;
-
-        return $this;
-    }
-
-    /**
-     * Get profundidad
-     *
-     * @return integer
-     */
-    public function getProfundidad()
-    {
-        return $this->profundidad;
-    }
 }

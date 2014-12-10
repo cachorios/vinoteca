@@ -8,12 +8,14 @@ use Doctrine\Common\Collections\Collection;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
+use RBSoft\UtilidadBundle\Libs\Util;
 
 /**
  * Producto
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ProductoRepository")
+ * @DoctrineAssert\UniqueEntity(fields="nombre", message="producto.nombre.duplicated")
  */
 class Producto
 {
@@ -41,11 +43,10 @@ class Producto
     private $nombre;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="marca", type="string", length=100)
+     * @ORM\Column(type="string")
      */
-    private $marca;
+    private $slug;
+
 
     /**
      * @var string
@@ -85,14 +86,12 @@ class Producto
      */
     private $bonificaciones;
 
+
     /**
-     * @ORM\ManyToMany(targetEntity="Categoria")
-     * @ORM\JoinTable(name="producto_categoria_groups",
-     *      joinColumns={@ORM\JoinColumn(name="producto_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="categoria_id", referencedColumnName="id")}
-     *      )
+     *  var Categoria
+     *  @ORM\ManyToOne(targetEntity="Categoria")
      **/
-    private $categorias;
+    private $categoria;
 
 
     /**
@@ -112,7 +111,7 @@ class Producto
     {
         $this->imagenes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->bonificaciones = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->categorias = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
 
     /**
@@ -157,7 +156,7 @@ class Producto
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+        $this->slug = Util::getSlug($nombre);
         return $this;
     }
 
@@ -352,38 +351,6 @@ class Producto
         return $this->bonificaciones;
     }
 
-    /**
-     * Add categorias
-     *
-     * @param \AppBundle\Entity\Categoria $categorias
-     * @return Producto
-     */
-    public function addCategoria(\AppBundle\Entity\Categoria $categorias)
-    {
-        $this->categorias[] = $categorias;
-    
-        return $this;
-    }
-
-    /**
-     * Remove categorias
-     *
-     * @param \AppBundle\Entity\Categoria $categorias
-     */
-    public function removeCategoria(\AppBundle\Entity\Categoria $categorias)
-    {
-        $this->categorias->removeElement($categorias);
-    }
-
-    /**
-     * Get categorias
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getCategorias()
-    {
-        return $this->categorias;
-    }
 
     /**
      * Set createdAt
@@ -429,5 +396,54 @@ class Producto
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Categoria
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+
+ 
+
+    /**
+     * Set categoria
+     *
+     * @param \AppBundle\Entity\Categoria $categoria
+     * @return Producto
+     */
+    public function setCategoria(\AppBundle\Entity\Categoria $categoria = null)
+    {
+        $this->categoria = $categoria;
+
+        return $this;
+    }
+
+    /**
+     * Get categoria
+     *
+     * @return \AppBundle\Entity\Categoria 
+     */
+    public function getCategoria()
+    {
+        return $this->categoria;
     }
 }

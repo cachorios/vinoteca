@@ -47,12 +47,6 @@ class Producto
      */
     private $slug;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="marca", type="string", length=100)
-     */
-    private $marca;
 
     /**
      * @var string
@@ -92,14 +86,12 @@ class Producto
      */
     private $bonificaciones;
 
+
     /**
-     * @ORM\ManyToMany(targetEntity="Categoria")
-     * @ORM\JoinTable(name="producto_categoria_groups",
-     *      joinColumns={@ORM\JoinColumn(name="producto_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="categoria_id", referencedColumnName="id")}
-     *      )
+     *  var Categoria
+     *  @ORM\ManyToOne(targetEntity="Categoria")
      **/
-    private $categorias;
+    private $categoria;
 
 
     /**
@@ -119,7 +111,7 @@ class Producto
     {
         $this->imagenes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->bonificaciones = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->categorias = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
 
     /**
@@ -359,38 +351,6 @@ class Producto
         return $this->bonificaciones;
     }
 
-    /**
-     * Add categorias
-     *
-     * @param \AppBundle\Entity\Categoria $categorias
-     * @return Producto
-     */
-    public function addCategoria(\AppBundle\Entity\Categoria $categorias)
-    {
-        $this->categorias[] = $categorias;
-    
-        return $this;
-    }
-
-    /**
-     * Remove categorias
-     *
-     * @param \AppBundle\Entity\Categoria $categorias
-     */
-    public function removeCategoria(\AppBundle\Entity\Categoria $categorias)
-    {
-        $this->categorias->removeElement($categorias);
-    }
-
-    /**
-     * Get categorias
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getCategorias()
-    {
-        return $this->categorias;
-    }
 
     /**
      * Set createdAt
@@ -459,5 +419,31 @@ class Producto
     public function getSlug()
     {
         return $this->slug;
+    }
+
+
+ 
+
+    /**
+     * Set categoria
+     *
+     * @param \AppBundle\Entity\Categoria $categoria
+     * @return Producto
+     */
+    public function setCategoria(\AppBundle\Entity\Categoria $categoria = null)
+    {
+        $this->categoria = $categoria;
+
+        return $this;
+    }
+
+    /**
+     * Get categoria
+     *
+     * @return \AppBundle\Entity\Categoria 
+     */
+    public function getCategoria()
+    {
+        return $this->categoria;
     }
 }

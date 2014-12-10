@@ -29,6 +29,13 @@ class MetadatoProducto
     private $nombre;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="predeterminado", type="text", nullable=true)
+     */
+    private $predeterminado;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="filtrable", type="boolean")
@@ -42,10 +49,11 @@ class MetadatoProducto
      */
     private $orden;
 
+
     /**
      * @var array
      *
-     * @ORM\Column(name="lista_valores", type="text")
+     * @ORM\Column(name="lista_valores", type="text", nullable=true)
      */
     private $listaValores;
 
@@ -179,5 +187,28 @@ class MetadatoProducto
     public function getCategoria()
     {
         return $this->categoria;
+    }
+
+    /**
+     * Set predeterminado
+     *
+     * @param text $predeterminado
+     * @return MetadatoProducto
+     */
+    public function setPredeterminado($predeterminado)
+    {
+        $this->predeterminado = $predeterminado;
+
+        return $this;
+    }
+
+    /**
+     * Get predeterminado
+     *
+     * @return text
+     */
+    public function getPredeterminado()
+    {
+        return $this->predeterminado;
     }
 }
