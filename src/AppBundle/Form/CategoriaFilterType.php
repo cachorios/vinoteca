@@ -15,7 +15,7 @@ class CategoriaFilterType extends AbstractType
     {
         $builder
             ->add('nombre', 'filter_text')
-            ->add('root', 'filter_number_range')
+//            ->add('root', 'filter_number_range')
             ->add('activo', 'filter_boolean')
             ->add('visible', 'filter_boolean')
         ;

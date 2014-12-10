@@ -47,7 +47,6 @@ class Producto
      */
     private $slug;
 
-
     /**
      * @var string
      *
@@ -90,7 +89,7 @@ class Producto
     /**
      *  var Categoria
      *  @ORM\ManyToOne(targetEntity="Categoria")
-     **/
+     */
     private $categoria;
 
 
@@ -421,9 +420,6 @@ class Producto
         return $this->slug;
     }
 
-
- 
-
     /**
      * Set categoria
      *
@@ -433,7 +429,6 @@ class Producto
     public function setCategoria(\AppBundle\Entity\Categoria $categoria = null)
     {
         $this->categoria = $categoria;
-
         return $this;
     }
 

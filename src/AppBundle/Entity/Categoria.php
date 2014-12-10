@@ -115,7 +115,6 @@ class Categoria
      */
     private $updatedAt;
 
-
     public function __toString()
     {
         return $this->getNombre();

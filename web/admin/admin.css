@@ -38,3 +38,8 @@ input[type="checkbox"], input[type="radio"] {
     text-transform: none;
     margin-bottom: 5px;
 }
+.alert-info {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #447fe9;
+}

@@ -52,7 +52,6 @@ class ProductoExtension
 
 
 
-
     /**
      * Set producto
      *
@@ -62,9 +61,9 @@ class ProductoExtension
     public function setProducto(\AppBundle\Entity\Producto $producto = null)
     {
         $this->producto = $producto;
-
         return $this;
     }
+
 
     /**
      * Get producto
