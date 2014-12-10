@@ -85,10 +85,11 @@ class Producto
      */
     private $bonificaciones;
 
+
     /**
-     * @ORM\OneToOne(targetEntity="Categoria")
-     * @ORM\JoinColumn(name="cattegoria_id", referencedColumnName="id")
-     **/
+     *  var Categoria
+     *  @ORM\ManyToOne(targetEntity="Categoria")
+     */
     private $categoria;
 
 
@@ -109,6 +110,7 @@ class Producto
     {
         $this->imagenes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->bonificaciones = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
 
     /**
@@ -427,7 +429,6 @@ class Producto
     public function setCategoria(\AppBundle\Entity\Categoria $categoria = null)
     {
         $this->categoria = $categoria;
-    
         return $this;
     }
 

@@ -22,16 +22,16 @@ class ProductoExtension
     private $id;
 
     /**
-     * @var AppBundle:Producto
+     * @var Producto
      * @ORM\ManyToOne(targetEntity="Producto")
      */
     private $producto;
 
     /**
-     * @var AppBundle:MetadatoProducto
+     * @var MetadatoProducto
      * @ORM\ManyToOne(targetEntity="MetadatoProducto")
      */
-    private $metadatoProductoId;
+    private $metadatoProducto;
 
     /**
      * @var string
@@ -50,10 +50,58 @@ class ProductoExtension
         return $this->id;
     }
 
+
+
+    /**
+     * Set producto
+     *
+     * @param \AppBundle\Entity\Producto $producto
+     * @return ProductoExtension
+     */
+    public function setProducto(\AppBundle\Entity\Producto $producto = null)
+    {
+        $this->producto = $producto;
+        return $this;
+    }
+
+
+    /**
+     * Get producto
+     *
+     * @return \AppBundle\Entity\Producto 
+     */
+    public function getProducto()
+    {
+        return $this->producto;
+    }
+
+    /**
+     * Set metadatoProducto
+     *
+     * @param \AppBundle\Entity\MetadatoProducto $metadatoProducto
+     * @return ProductoExtension
+     */
+    public function setMetadatoProducto(\AppBundle\Entity\MetadatoProducto $metadatoProducto = null)
+    {
+        $this->metadatoProducto = $metadatoProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get metadatoProducto
+     *
+     * @return \AppBundle\Entity\MetadatoProducto 
+     */
+    public function getMetadatoProducto()
+    {
+        return $this->metadatoProducto;
+    }
+
     /**
      * Set valor
      *
-     * @param \Text $valor
+     * @param string $valor
      * @return ProductoExtension
      */
     public function setValor($valor)
@@ -66,56 +114,10 @@ class ProductoExtension
     /**
      * Get valor
      *
-     * @return \Text 
+     * @return string 
      */
     public function getValor()
     {
         return $this->valor;
-    }
-
-    /**
-     * Set producto
-     *
-     * @param \AppBundle\Entity\Producto $producto
-     * @return ProductoExtension
-     */
-    public function setProducto(\AppBundle\Entity\Producto $producto = null)
-    {
-        $this->producto = $producto;
-
-        return $this;
-    }
-
-    /**
-     * Get producto
-     *
-     * @return \AppBundle\Entity\Producto
-     */
-    public function getProducto()
-    {
-        return $this->producto;
-    }
-
-    /**
-     * Set metadatoProductoId
-     *
-     * @param \AppBundle\Entity\MetadatoProducto $metadatoProductoId
-     * @return ProductoExtension
-     */
-    public function setMetadatoProductoId(\AppBundle\Entity\MetadatoProducto $metadatoProductoId = null)
-    {
-        $this->metadatoProductoId = $metadatoProductoId;
-
-        return $this;
-    }
-
-    /**
-     * Get metadatoProductoId
-     *
-     * @return \AppBundle\Entity\MetadatoProducto
-     */
-    public function getMetadatoProductoId()
-    {
-        return $this->metadatoProductoId;
     }
 }

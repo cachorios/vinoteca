@@ -46,6 +46,10 @@ class Producto
      * @ORM\Column(type="string")
      */
     private $slug;
+<<<<<<< HEAD
+
+=======
+>>>>>>> 120c51567f9e43f539afba6eafb5afe8e47b8af6
 
     /**
      * @var string
@@ -85,10 +89,21 @@ class Producto
      */
     private $bonificaciones;
 
+
     /**
+<<<<<<< HEAD
+     *  var Categoria
+     *  @ORM\ManyToOne(targetEntity="Categoria")
+     **/
+=======
      * @ORM\OneToOne(targetEntity="Categoria")
      * @ORM\JoinColumn(name="cattegoria_id", referencedColumnName="id")
      **/
+<<<<<<< HEAD
+=======
+
+>>>>>>> 120c51567f9e43f539afba6eafb5afe8e47b8af6
+>>>>>>> origin/master
     private $categoria;
 
 
@@ -109,6 +124,10 @@ class Producto
     {
         $this->imagenes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->bonificaciones = new \Doctrine\Common\Collections\ArrayCollection();
+<<<<<<< HEAD
+
+=======
+>>>>>>> 120c51567f9e43f539afba6eafb5afe8e47b8af6
     }
 
     /**
@@ -348,6 +367,7 @@ class Producto
         return $this->bonificaciones;
     }
 
+<<<<<<< HEAD
 
     /**
      * Set createdAt
@@ -384,6 +404,8 @@ class Producto
     
         return $this;
     }
+=======
+>>>>>>> 120c51567f9e43f539afba6eafb5afe8e47b8af6
 
     /**
      * Get updatedAt
@@ -418,6 +440,12 @@ class Producto
         return $this->slug;
     }
 
+<<<<<<< HEAD
+=======
+
+ 
+
+>>>>>>> origin/master
     /**
      * Set categoria
      *
@@ -427,7 +455,11 @@ class Producto
     public function setCategoria(\AppBundle\Entity\Categoria $categoria = null)
     {
         $this->categoria = $categoria;
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> origin/master
         return $this;
     }
 
@@ -440,4 +472,30 @@ class Producto
     {
         return $this->categoria;
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     * @return Categoria
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+>>>>>>> origin/master
 }
