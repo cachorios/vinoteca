@@ -50,13 +50,6 @@ class Producto
     /**
      * @var string
      *
-     * @ORM\Column(name="marca", type="string", length=100)
-     */
-    private $marca;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="descripcion", type="text")
      */
     private $descripcion;

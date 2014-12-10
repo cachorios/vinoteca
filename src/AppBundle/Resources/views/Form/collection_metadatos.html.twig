@@ -32,9 +32,8 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="99">
-                        <span>Sin datos.</span>
-                    </td>
+                    <td class="last-row" colspan="100"
+                        style="text-align: center;">{{ 'sin resultados'|trans }}</td>
                 </tr>
             {% endfor %}
 
