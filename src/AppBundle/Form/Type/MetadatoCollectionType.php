@@ -10,13 +10,6 @@ use Symfony\Component\Form\AbstractType;
 class MetadatoCollectionType extends AbstractType
 {
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-//        $builder->addEventSubscriber(
-//            new MetadataCollectionTypeSubscriber()
-//        );
-    }
-
     /**
      * {@inheritdoc}
      */

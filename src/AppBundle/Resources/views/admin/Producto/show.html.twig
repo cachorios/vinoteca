@@ -1,85 +1,82 @@
-    {% extends 'AppBundle:admin:layout.html.twig' %}
+{% extends 'AppBundle:admin:layout.html.twig' %}
 
     {% block contenido -%}
-    {% embed '::portlet.html.twig' with {'titulo': 'Ver Producto: ' ~ entity} %}
-        {% block in_header %} 
-        <div class='pull-right'>
-        <div class="row">
-                <div class="col-md-1 ">
-        <div class="pull-right">
-            {{ form(delete_form) }}
-        </div>
-    </div>
-    <a href="{{ path('producto_edit', { 'id': entity.id }) }}"
-       class="btn btn-sm btn-default">
-        Editar
-    </a>
+        {% embed '::portlet.html.twig' with {'titulo': 'Ver Producto: ' ~ entity} %}
+            {% block in_header %}
+                <div class='pull-right'>
+                    <div class="row">
+                        <div class="col-md-1 ">
+                            <div class="pull-right">
+                                {{ form(delete_form) }}
+                            </div>
+                        </div>
+                        <a href="{{ path('producto_edit', { 'id': entity.id }) }}"
+                           class="btn btn-sm btn-default">
+                            Editar
+                        </a>
 
 
+                        <a href="{{ path('producto') }}" class="btn btn-sm btn-default">
+                            Ir a la lista
+                        </a>
 
 
+                    </div>
+                </div>
+            {% endblock %}
+            {% block cuerpo %}
+                <p></p>
 
-<a href="{{ path('producto') }}" class="btn btn-sm btn-default">
-    Ir a la lista
-</a>
-
-
-        </div>
-    </div>
-        {% endblock %}
-            {% block cuerpo %} 
-    <p></p>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th class="show-header">Id</th>
-                    <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th class="show-header">Codigo</th>
-                    <td>{{ entity.codigo }}</td>
-            </tr>
-            <tr>
-                <th class="show-header">Nombre</th>
-                    <td>{{ entity.nombre }}</td>
-            </tr>
-            <tr>
-                <th class="show-header">Slug</th>
-                    <td>{{ entity.slug }}</td>
-            </tr>
-            <tr>
-                <th class="show-header">Marca</th>
-                    <td>{{ entity.marca }}</td>
-            </tr>
-            <tr>
-                <th class="show-header">Descripcion</th>
-                    <td>{{ entity.descripcion }}</td>
-            </tr>
-            <tr>
-                <th class="show-header">Precio</th>
-                    <td>{{ entity.precio }}</td>
-            </tr>
-            <tr>
-                <th class="show-header">Iva</th>
-                    <td>{{ entity.iva }}</td>
-            </tr>
-            <tr>
-                <th class="show-header">Activo</th>
-                    <td>{{ entity.activo? '<span class="label label-success">Si</span>' : '<span class="label label-default">No</span>'  }}</td>
-            </tr>
-            <tr>
-                <th class="show-header">Createdat</th>
-                    <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th class="show-header">Updatedat</th>
-                    <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
-            </tr>
-        </tbody>
-    </table>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th class="show-header">Id</th>
+                        <td>{{ entity.id }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Codigo</th>
+                        <td>{{ entity.codigo }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Nombre</th>
+                        <td>{{ entity.nombre }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Slug</th>
+                        <td>{{ entity.slug }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Marca</th>
+                        <td>{{ entity.marca }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Descripcion</th>
+                        <td>{{ entity.descripcion }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Precio</th>
+                        <td>{{ entity.precio }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Iva</th>
+                        <td>{{ entity.iva }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Activo</th>
+                        <td>{{ entity.activo? '<span class="label label-success">Si</span>' : '<span class="label label-default">No</span>' }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Createdat</th>
+                        <td>{{ entity.createdAt|date('Y-m-d H:i:s') }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Updatedat</th>
+                        <td>{{ entity.updatedAt|date('Y-m-d H:i:s') }}</td>
+                    </tr>
+                    </tbody>
+                </table>
 
 
-    {% endblock %} 
-    {% endembed %} 
+            {% endblock %}
+        {% endembed %}
     {% endblock contenido %}

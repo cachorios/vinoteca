@@ -89,7 +89,6 @@ class Producto
      * @ORM\OneToOne(targetEntity="Categoria")
      * @ORM\JoinColumn(name="cattegoria_id", referencedColumnName="id")
      **/
-
     private $categoria;
 
 
@@ -417,5 +416,28 @@ class Producto
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set categoria
+     *
+     * @param \AppBundle\Entity\Categoria $categoria
+     * @return Producto
+     */
+    public function setCategoria(\AppBundle\Entity\Categoria $categoria = null)
+    {
+        $this->categoria = $categoria;
+    
+        return $this;
+    }
+
+    /**
+     * Get categoria
+     *
+     * @return \AppBundle\Entity\Categoria 
+     */
+    public function getCategoria()
+    {
+        return $this->categoria;
     }
 }
