@@ -17,7 +17,6 @@ class MetadataProductoType extends AbstractType
         $builder
             ->add('nombre')
             ->add('orden',null , array(
-
             ))
             ->add('listaValores', 'textarea', array(
                 'required' => false

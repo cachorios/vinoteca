@@ -21,6 +21,9 @@ class ProductoImagen
      */
     private $id;
 
+    /**
+     * @ORM\Column(type="string", length=200)
+     */
     private $file;
 
     /**
@@ -34,6 +37,11 @@ class ProductoImagen
      * @ORM\ManyToOne(targetEntity="Producto", inversedBy="imagenes")
      */
     private $producto;
+
+    public function __toString()
+    {
+        return $this->getFile();
+    }
 
     /**
      * Get id
@@ -89,5 +97,28 @@ class ProductoImagen
     public function getProducto()
     {
         return $this->producto;
+    }
+
+    /**
+     * Set file
+     *
+     * @param string $file
+     * @return ProductoImagen
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    
+        return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return string 
+     */
+    public function getFile()
+    {
+        return $this->file;
     }
 }

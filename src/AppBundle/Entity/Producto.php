@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
-use RBSoft\UtilidadBundle\Libs\Util;
+
 
 /**
  * Producto
@@ -92,6 +92,10 @@ class Producto
      */
     private $categoria;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ProductoExtencion", mappedBy="producto", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $extenciones;
 
     /**
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
@@ -103,6 +107,11 @@ class Producto
      */
     protected $updatedAt;
 
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
+
     /**
      * Constructor
      */
@@ -110,7 +119,7 @@ class Producto
     {
         $this->imagenes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->bonificaciones = new \Doctrine\Common\Collections\ArrayCollection();
-
+        $this->extenciones = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -155,7 +164,6 @@ class Producto
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-        $this->slug = Util::getSlug($nombre);
         return $this;
     }
 
@@ -169,28 +177,6 @@ class Producto
         return $this->nombre;
     }
 
-    /**
-     * Set marca
-     *
-     * @param string $marca
-     * @return Producto
-     */
-    public function setMarca($marca)
-    {
-        $this->marca = $marca;
-    
-        return $this;
-    }
-
-    /**
-     * Get marca
-     *
-     * @return string 
-     */
-    public function getMarca()
-    {
-        return $this->marca;
-    }
 
     /**
      * Set descripcion
@@ -440,5 +426,38 @@ class Producto
     public function getCategoria()
     {
         return $this->categoria;
+    }
+
+    /**
+     * Add extenciones
+     *
+     * @param \AppBundle\Entity\ProductoExtencion $extenciones
+     * @return Producto
+     */
+    public function addExtencione(\AppBundle\Entity\ProductoExtencion $extenciones)
+    {
+        $this->extenciones[] = $extenciones;
+    
+        return $this;
+    }
+
+    /**
+     * Remove extenciones
+     *
+     * @param \AppBundle\Entity\ProductoExtencion $extenciones
+     */
+    public function removeExtencione(\AppBundle\Entity\ProductoExtencion $extenciones)
+    {
+        $this->extenciones->removeElement($extenciones);
+    }
+
+    /**
+     * Get extenciones
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExtenciones()
+    {
+        return $this->extenciones;
     }
 }

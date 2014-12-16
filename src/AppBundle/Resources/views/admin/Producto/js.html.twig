@@ -1,6 +1,34 @@
-<script src="{{ asset('bundles/app/js/admin/plugins/tableDnD/jquery.tablednd.js') }} "></script>
 <script type="text/javascript">
-    jQuery(document).ready(function () {
+    $("#appbundle_producto_images").fileinput({
+        {#{% set imagen_src = entity.imagen == null ? asset("images/default-image.png" ) : asset("uploads/categorias/" ~ entity.imagen  ) %}#}
+        {#initialPreview: ["<img src='{{ imagen_src }}' class='file-preview-image'>"],#}
+        overwriteInitial: true,
+        showUpload: false,
+        showCaption: false,
+        browseClass: "btn btn-primary btn-sm",
+        fileType: "any",
+        allowedFileTypes: ['image'],
+        'allowedFileExtensions': ['jpg', 'png', 'gif'],
+        uploadLabel: 'Subir',
+        removeLabel: 'Quitar',
+        browseLabel: 'Explorar'
+    });
+</script>
 
+<script type="text/javascript">
+    $('select[id$=appbundle_producto_categoria]').change(function () {
+        $.ajax({
+            type: "GET",
+            data: "data=" + $(this).val(),
+            url: "{{ path('producto_extencion') }}",
+            success: function (msg) {
+                if (msg != '') {
+                    $('#info-acicional').html(msg);
+                }
+                else {
+                    $('#info-acicional').html('Sin Formulario');
+                }
+            }
+        });
     });
 </script>

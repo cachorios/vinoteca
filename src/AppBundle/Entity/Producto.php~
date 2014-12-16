@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
-use RBSoft\UtilidadBundle\Libs\Util;
+
 
 /**
  * Producto
@@ -46,10 +46,6 @@ class Producto
      * @ORM\Column(type="string")
      */
     private $slug;
-<<<<<<< HEAD
-
-=======
->>>>>>> 120c51567f9e43f539afba6eafb5afe8e47b8af6
 
     /**
      * @var string
@@ -91,21 +87,15 @@ class Producto
 
 
     /**
-<<<<<<< HEAD
      *  var Categoria
      *  @ORM\ManyToOne(targetEntity="Categoria")
-     **/
-=======
-     * @ORM\OneToOne(targetEntity="Categoria")
-     * @ORM\JoinColumn(name="cattegoria_id", referencedColumnName="id")
-     **/
-<<<<<<< HEAD
-=======
-
->>>>>>> 120c51567f9e43f539afba6eafb5afe8e47b8af6
->>>>>>> origin/master
+     */
     private $categoria;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ProductoExtencion", mappedBy="producto", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $extenciones;
 
     /**
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
@@ -117,6 +107,11 @@ class Producto
      */
     protected $updatedAt;
 
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
+
     /**
      * Constructor
      */
@@ -124,10 +119,7 @@ class Producto
     {
         $this->imagenes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->bonificaciones = new \Doctrine\Common\Collections\ArrayCollection();
-<<<<<<< HEAD
 
-=======
->>>>>>> 120c51567f9e43f539afba6eafb5afe8e47b8af6
     }
 
     /**
@@ -172,7 +164,6 @@ class Producto
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-        $this->slug = Util::getSlug($nombre);
         return $this;
     }
 
@@ -186,28 +177,6 @@ class Producto
         return $this->nombre;
     }
 
-    /**
-     * Set marca
-     *
-     * @param string $marca
-     * @return Producto
-     */
-    public function setMarca($marca)
-    {
-        $this->marca = $marca;
-    
-        return $this;
-    }
-
-    /**
-     * Get marca
-     *
-     * @return string 
-     */
-    public function getMarca()
-    {
-        return $this->marca;
-    }
 
     /**
      * Set descripcion
@@ -367,7 +336,6 @@ class Producto
         return $this->bonificaciones;
     }
 
-<<<<<<< HEAD
 
     /**
      * Set createdAt
@@ -404,8 +372,6 @@ class Producto
     
         return $this;
     }
-=======
->>>>>>> 120c51567f9e43f539afba6eafb5afe8e47b8af6
 
     /**
      * Get updatedAt
@@ -440,12 +406,6 @@ class Producto
         return $this->slug;
     }
 
-<<<<<<< HEAD
-=======
-
- 
-
->>>>>>> origin/master
     /**
      * Set categoria
      *
@@ -455,11 +415,6 @@ class Producto
     public function setCategoria(\AppBundle\Entity\Categoria $categoria = null)
     {
         $this->categoria = $categoria;
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> origin/master
         return $this;
     }
 
@@ -472,30 +427,4 @@ class Producto
     {
         return $this->categoria;
     }
-<<<<<<< HEAD
-=======
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Categoria
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
->>>>>>> origin/master
 }
