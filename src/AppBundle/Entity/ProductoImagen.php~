@@ -21,6 +21,9 @@ class ProductoImagen
      */
     private $id;
 
+    /**
+     * @ORM\Column(type="string", length=200)
+     */
     private $file;
 
     /**
@@ -34,6 +37,11 @@ class ProductoImagen
      * @ORM\ManyToOne(targetEntity="Producto", inversedBy="imagenes")
      */
     private $producto;
+
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
 
     /**
      * @var string

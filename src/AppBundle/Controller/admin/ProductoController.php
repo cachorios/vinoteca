@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\admin;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -104,7 +105,7 @@ class ProductoController extends Controller
      *
      * @Route("/new", name="producto_create")
      * @Method("POST")
-     * @Template("AppBundle:Producto:new.html.twig")
+     * @Template("AppBundle:admin\Producto:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -240,7 +241,7 @@ class ProductoController extends Controller
      *
      * @Route("/{id}/edit", name="producto_update")
      * @Method("PUT")
-     * @Template("AppBundle:Producto:edit.html.twig")
+     * @Template("AppBundle:admin\Producto:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -316,4 +317,25 @@ class ProductoController extends Controller
         ;
     }
 
+    /**
+     * Displays a form to edit an existing Producto entity.
+     *
+     * @Route("/form/extencion", name="producto_extencion")
+     * @Method("GET")
+     */
+    public function formExtencionAction()
+    {
+
+//        $selected = $this->get('request')->query->get('data');
+
+//        $em = $this->container->get('doctrine.orm.entity_manager');
+
+        $html = 'hola';
+
+//        return New Response($html);
+
+// create a simple Response with a 200 status code (the default)
+        $response = new Response('Hello ', Response::HTTP_OK);
+        return $response;
+    }
 }

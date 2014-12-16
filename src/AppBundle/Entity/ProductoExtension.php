@@ -22,8 +22,7 @@ class ProductoExtension
     private $id;
 
     /**
-     * @var Producto
-     * @ORM\ManyToOne(targetEntity="Producto")
+     * @ORM\ManyToOne(targetEntity="Producto", inversedBy="extenciones")
      */
     private $producto;
 
@@ -49,8 +48,6 @@ class ProductoExtension
     {
         return $this->id;
     }
-
-
 
     /**
      * Set producto

@@ -22,8 +22,12 @@ class ProductoExtension
     private $id;
 
     /**
+<<<<<<< HEAD
      * @var Producto
      * @ORM\ManyToOne(targetEntity="Producto")
+=======
+     * @ORM\ManyToOne(targetEntity="Producto", inversedBy="extenciones")
+>>>>>>> 5776fa1b5d68ac4357096fb74c1d3d9f74c24477
      */
     private $producto;
 
@@ -50,9 +54,12 @@ class ProductoExtension
         return $this->id;
     }
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 5776fa1b5d68ac4357096fb74c1d3d9f74c24477
     /**
      * Set producto
      *
@@ -62,10 +69,17 @@ class ProductoExtension
     public function setProducto(\AppBundle\Entity\Producto $producto = null)
     {
         $this->producto = $producto;
+<<<<<<< HEAD
 
         return $this;
     }
 
+=======
+        return $this;
+    }
+
+
+>>>>>>> 5776fa1b5d68ac4357096fb74c1d3d9f74c24477
     /**
      * Get producto
      *

@@ -21,6 +21,9 @@ class ProductoImagen
      */
     private $id;
 
+    /**
+     * @ORM\Column(type="string", length=200)
+     */
     private $file;
 
     /**
@@ -34,6 +37,11 @@ class ProductoImagen
      * @ORM\ManyToOne(targetEntity="Producto", inversedBy="imagenes")
      */
     private $producto;
+
+    public function __toString()
+    {
+        return $this->getFile();
+    }
 
     /**
      * @var string
@@ -99,6 +107,7 @@ class ProductoImagen
     }
 
     /**
+<<<<<<< HEAD
      * Set extension
      *
      * @param string $extension
@@ -108,10 +117,22 @@ class ProductoImagen
     {
         $this->extension = $extension;
 
+=======
+     * Set file
+     *
+     * @param string $file
+     * @return ProductoImagen
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    
+>>>>>>> 5776fa1b5d68ac4357096fb74c1d3d9f74c24477
         return $this;
     }
 
     /**
+<<<<<<< HEAD
      * Get extension
      *
      * @return string 
@@ -119,5 +140,14 @@ class ProductoImagen
     public function getExtension()
     {
         return $this->extension;
+=======
+     * Get file
+     *
+     * @return string 
+     */
+    public function getFile()
+    {
+        return $this->file;
+>>>>>>> 5776fa1b5d68ac4357096fb74c1d3d9f74c24477
     }
 }
