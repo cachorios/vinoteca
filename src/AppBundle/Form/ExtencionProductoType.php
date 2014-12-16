@@ -18,7 +18,9 @@ class ExtencionProductoType extends AbstractType
     {
 
         $builder
-            ->add('valor', null, array());
+            ->add('valor', null, array(
+
+            ));
     }
 
     /**

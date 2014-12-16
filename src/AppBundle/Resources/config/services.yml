@@ -25,7 +25,7 @@ services:
         tags:
           - { name: "form.type", alias: "metadato_collection" }
 
-    form.type.metadato_collection:
+    form.type.extencion_collection:
         class: AppBundle\Form\Type\ExtencionCollectionType
         tags:
           - { name: "form.type", alias: "extencion_collection" }

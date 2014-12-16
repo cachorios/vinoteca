@@ -93,7 +93,7 @@ class Producto
     private $categoria;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProductoExtencion", mappedBy="producto", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="ProductoExtension", mappedBy="producto", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $extenciones;
 
@@ -446,7 +446,7 @@ class Producto
      * @param \AppBundle\Entity\ProductoExtencion $extenciones
      * @return Producto
      */
-    public function addExtencione(\AppBundle\Entity\ProductoExtencion $extenciones)
+    public function addExtencione(\AppBundle\Entity\ProductoExtension $extenciones)
     {
         $this->extenciones[] = $extenciones;
     
@@ -458,7 +458,7 @@ class Producto
      *
      * @param \AppBundle\Entity\ProductoExtencion $extenciones
      */
-    public function removeExtencione(\AppBundle\Entity\ProductoExtencion $extenciones)
+    public function removeExtencione(\AppBundle\Entity\ProductoExtension $extenciones)
     {
         $this->extenciones->removeElement($extenciones);
     }
