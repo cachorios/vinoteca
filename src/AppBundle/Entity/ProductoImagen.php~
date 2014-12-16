@@ -36,6 +36,13 @@ class ProductoImagen
     private $producto;
 
     /**
+     * @var string
+     * @ORM\Column(name="extension", type="string", length=3)
+     */
+    private $extension;
+
+    
+    /**
      * Get id
      *
      * @return integer 

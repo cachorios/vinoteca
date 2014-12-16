@@ -42,37 +42,38 @@
     {% endspaceless %}
 {% endblock metadato_collection_widget %}
 
-    {% macro metadato_collection_fields(widget) %}
-        {% if 'prototype' in widget.vars|keys %}
-            {% set form = widget.vars.prototype %}
-            {% set name = widget.vars.prototype.vars.name %}
-        {% else %}
-            {% set form = widget %}
-            {% set name = widget.vars.full_name %}
-        {% endif %}
 
-            <td>
-                {{ form_widget(form.nombre) }}
-                {#{{ form_widget(form.orden, {'attr': {'style': 'display:none !important' }}) }}#}
-                {{ form_widget(form.orden) }}
+{% macro metadato_collection_fields(widget) %}
+    {% if 'prototype' in widget.vars|keys %}
+        {% set form = widget.vars.prototype %}
+        {% set name = widget.vars.prototype.vars.name %}
+    {% else %}
+        {% set form = widget %}
+        {% set name = widget.vars.full_name %}
+    {% endif %}
 
-            </td>
-            <td>{{ form_widget(form.listaValores) }}</td>
-            <td>{{ form_widget(form.predeterminado) }}</td>
-            <td>{{ form_widget(form.filtrable) }}</td>
-            <td>
-                <div class="btn-group">
-                    <a data-message="Are you sure you want to delete this column?" data-collection-action="delete"
-                       title="Delete column" class="btn btn-default btn-xs remove-list-item"
-                       href="javascript: void(0);">
-                        <i class="glyphicon glyphicon-trash"></i>
-                    </a>
+        <td>
+            {{ form_widget(form.nombre) }}
+            {#{{ form_widget(form.orden, {'attr': {'style': 'display:none !important' }}) }}#}
+            {{ form_widget(form.orden) }}
 
-                    <span title="Move column" class="dragHandle">
-                        <i class="glyphicon glyphicon-list"></i>
-                    </span>
-                </div>
-            </td>
+        </td>
+        <td>{{ form_widget(form.listaValores) }}</td>
+        <td>{{ form_widget(form.predeterminado) }}</td>
+        <td>{{ form_widget(form.filtrable) }}</td>
+        <td>
+            <div class="btn-group">
+                <a data-message="Are you sure you want to delete this column?" data-collection-action="delete"
+                   title="Delete column" class="btn btn-default btn-xs remove-list-item"
+                   href="javascript: void(0);">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
 
-    {% endmacro %}
+                <span title="Move column" class="dragHandle">
+                    <i class="glyphicon glyphicon-list"></i>
+                </span>
+            </div>
+        </td>
+
+{% endmacro %}
 

@@ -32,11 +32,12 @@ class ProductoImagen extends AbstractFixture implements OrderedFixtureInterface,
 
     public function load(ObjectManager $manager)
     {
+        $webdir = $this->container->get('kernel')->getRootDir() . '/../web';
         $arrs = array(
-                array('producto' =>'01',),
-                array('producto' =>'02',),
-                array('producto' =>'03',),
-                array('producto' =>'04',),
+                array('producto' =>'01','imagen'=>'Bonarda Lote Especial.png'),
+                array('producto' =>'02','imagen'=>'CICLOS TARDIO.jpg'),
+                array('producto' =>'03','imagen'=>'EMMA ZUCCARDI.jpg'),
+                array('producto' =>'04','imagen'=>'Encuentro 7 Vineyards.jpg'),
                 array('producto' =>'05',),
                 array('producto' =>'06',),
                 array('producto' =>'07',),
@@ -54,9 +55,21 @@ class ProductoImagen extends AbstractFixture implements OrderedFixtureInterface,
             $o = new \AppBundle\Entity\ProductoImagen();
             $o->setPrimario(true);
             $o->setProducto($manager->getRepository("AppBundle:Producto")->findOneByCodigo($a['producto']));
+            if(isset($a['imagen']))
+                $o->setExtension(substr($a['imagen'],-3));
+            else
+                $o->setExtension('jpg');
 
             $manager->persist($o);
             $manager->flush();
+
+            if(isset($a['imagen'])){
+                //ld('uploads/res/'.$a['imagen'], 'uploads/productos/'.$o->getId(). substr($a['imagen'],-4));
+                copy($webdir.'/uploads/res/'.$a['imagen'], $webdir.'/uploads/productos/'.$o->getId(). substr($a['imagen'],-4) );
+            }
+
+
+
         }
 
 

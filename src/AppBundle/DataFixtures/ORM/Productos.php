@@ -66,7 +66,8 @@ El silencio mágico, el cielo estrellado y un sol radiante e intenso llenan de e
 
             $prod->setCodigo($prodArr['codigo']);
             $prod->setNombre($prodArr['nombre']);
-            //$prod->setC
+            $prod->setCategoria($manager->getRepository("AppBundle:Categoria")->findOneByNombre($prodArr['cat']));
+
             $prod->setDescripcion($prodArr['desc']);
             $prod->setPrecio($prodArr['precio']);
             $prod->setIva($prodArr['iva']);

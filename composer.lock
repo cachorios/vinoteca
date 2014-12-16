@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "149403c3d7203d05eac1ab504d0e9077",
+    "hash": "5a5f2f903543d038c2b86748c5c330a4",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1184,16 +1184,16 @@
         },
         {
             "name": "kriswallsmith/assetic",
-            "version": "v1.2.0",
+            "version": "v1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kriswallsmith/assetic.git",
-                "reference": "df991c124a2212371443b586a1be767500036dee"
+                "reference": "b20efe38845d20458702f97f3ff625d80805897b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/df991c124a2212371443b586a1be767500036dee",
-                "reference": "df991c124a2212371443b586a1be767500036dee",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/b20efe38845d20458702f97f3ff625d80805897b",
+                "reference": "b20efe38845d20458702f97f3ff625d80805897b",
                 "shasum": ""
             },
             "require": {
@@ -1254,7 +1254,7 @@
                 "compression",
                 "minification"
             ],
-            "time": "2014-10-14 14:45:32"
+            "time": "2014-12-12 05:04:05"
         },
         {
             "name": "lexik/form-filter-bundle",
@@ -2262,16 +2262,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "2.6.x-dev",
+            "version": "v2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "0a09eaf609f193c3d0bc680449ea9ad0eeb52c24"
+                "reference": "d805dfd67950848ec0338b4acd75777b340977b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/0a09eaf609f193c3d0bc680449ea9ad0eeb52c24",
-                "reference": "0a09eaf609f193c3d0bc680449ea9ad0eeb52c24",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/d805dfd67950848ec0338b4acd75777b340977b7",
+                "reference": "d805dfd67950848ec0338b4acd75777b340977b7",
                 "shasum": ""
             },
             "require": {
@@ -2374,7 +2374,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2014-12-08 11:33:14"
+            "time": "2014-12-03 16:40:43"
         },
         {
             "name": "twig/extensions",
@@ -2632,7 +2632,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "symfony/symfony": 20,
         "doctrine/doctrine-fixtures-bundle": 20,
         "doctrine/data-fixtures": 20,
         "friendsofsymfony/jsrouting-bundle": 0,
@@ -2640,6 +2639,7 @@
         "jms/translation-bundle": 20
     },
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.3"
     },

@@ -29,18 +29,18 @@ class Producto
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="codigo", type="integer")
-     */
-    private $codigo;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=100)
      */
     private $nombre;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="codigo", type="integer")
+     */
+    private $codigo;
 
     /**
      * @ORM\Column(type="string")
@@ -440,5 +440,17 @@ class Producto
     public function getCategoria()
     {
         return $this->categoria;
+    }
+
+    public function getImagenActiva()
+    {
+
+        $img = "no_image.jpg";
+        foreach($this->getImagenes() as $imgen){
+            if($imgen->getPrimario()){
+                $img = $imgen->getId().'.'.$imgen->getExtension();
+            }
+        }
+        return $img;
     }
 }

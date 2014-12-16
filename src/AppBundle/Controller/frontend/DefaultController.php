@@ -16,6 +16,8 @@ class DefaultController extends Controller
     public function indexAction()
     {
 
+
+
         //ladybug_dump_die($this->get("menu.service")->getMenuFrontendItems());
 //        ladybug_dump($this->get("menu.service")->makeMenu());
 //        $this->get("menu.service")->makeMenu();
@@ -50,5 +52,18 @@ class DefaultController extends Controller
         );
 
 
+    }
+
+
+    /**
+     * @Route("/ultimosproductos", name="ultimosproductos")
+     *
+     *  @Template()
+     */
+    public function ultimosProductosAction(){
+        $em = $this->getDoctrine()->getManager();
+        $prods = $em->getRepository("AppBundle:Producto")->getUltimos();
+
+        return array("prods" => $prods);
     }
 }

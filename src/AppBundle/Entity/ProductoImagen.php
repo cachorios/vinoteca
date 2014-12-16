@@ -36,6 +36,13 @@ class ProductoImagen
     private $producto;
 
     /**
+     * @var string
+     * @ORM\Column(name="extension", type="string", length=3)
+     */
+    private $extension;
+
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -89,5 +96,28 @@ class ProductoImagen
     public function getProducto()
     {
         return $this->producto;
+    }
+
+    /**
+     * Set extension
+     *
+     * @param string $extension
+     * @return ProductoImagen
+     */
+    public function setExtension($extension)
+    {
+        $this->extension = $extension;
+
+        return $this;
+    }
+
+    /**
+     * Get extension
+     *
+     * @return string 
+     */
+    public function getExtension()
+    {
+        return $this->extension;
     }
 }
