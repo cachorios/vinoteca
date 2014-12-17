@@ -428,18 +428,18 @@ class Producto
         return $this->categoria;
     }
 
-<<<<<<< HEAD
     public function getImagenActiva()
     {
 
         $img = "no_image.jpg";
-        foreach($this->getImagenes() as $imgen){
-            if($imgen->getPrimario()){
-                $img = $imgen->getId().'.'.$imgen->getExtension();
+        foreach ($this->getImagenes() as $imgen) {
+            if ($imgen->getPrimario()) {
+                $img = $imgen->getId() . '.' . $imgen->getExtension();
             }
         }
+
         return $img;
-=======
+    }
     /**
      * Add extenciones
      *
@@ -471,6 +471,5 @@ class Producto
     public function getExtenciones()
     {
         return $this->extenciones;
->>>>>>> 5776fa1b5d68ac4357096fb74c1d3d9f74c24477
     }
 }

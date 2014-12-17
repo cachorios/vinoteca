@@ -107,7 +107,6 @@ class ProductoImagen
     }
 
     /**
-<<<<<<< HEAD
      * Set extension
      *
      * @param string $extension
@@ -116,8 +115,8 @@ class ProductoImagen
     public function setExtension($extension)
     {
         $this->extension = $extension;
-
-=======
+    }
+    /**
      * Set file
      *
      * @param string $file
@@ -127,12 +126,10 @@ class ProductoImagen
     {
         $this->file = $file;
     
->>>>>>> 5776fa1b5d68ac4357096fb74c1d3d9f74c24477
         return $this;
     }
 
     /**
-<<<<<<< HEAD
      * Get extension
      *
      * @return string 
@@ -140,7 +137,9 @@ class ProductoImagen
     public function getExtension()
     {
         return $this->extension;
-=======
+    }
+
+    /**
      * Get file
      *
      * @return string 
@@ -148,6 +147,6 @@ class ProductoImagen
     public function getFile()
     {
         return $this->file;
->>>>>>> 5776fa1b5d68ac4357096fb74c1d3d9f74c24477
+
     }
 }
