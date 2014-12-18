@@ -68,6 +68,7 @@ class Categorias extends AbstractFixture implements OrderedFixtureInterface, Con
 
             $manager->persist($cat);
             $manager->flush();
+            $this->addReference($cat->getNombre(), $cat);
         }
 
 

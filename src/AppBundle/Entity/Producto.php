@@ -36,9 +36,9 @@ class Producto
     private $nombre;
 
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="codigo", type="integer")
+     * @ORM\Column(name="codigo", type="string", length=20 )
      */
     private $codigo;
 
@@ -135,20 +135,19 @@ class Producto
     /**
      * Set codigo
      *
-     * @param integer $codigo
+     * @param string $codigo
      * @return Producto
      */
     public function setCodigo($codigo)
     {
         $this->codigo = $codigo;
-    
         return $this;
     }
 
     /**
      * Get codigo
      *
-     * @return integer 
+     * @return string
      */
     public function getCodigo()
     {

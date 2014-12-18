@@ -48,13 +48,12 @@ class ProductoImagen extends AbstractFixture implements OrderedFixtureInterface,
                 array('producto' =>'12',),
                 array('producto' =>'13',),
                 array('producto' =>'15',),
-
         );
 
         foreach ($arrs as $a) {
             $o = new \AppBundle\Entity\ProductoImagen();
             $o->setPrimario(true);
-            $o->setProducto($manager->getRepository("AppBundle:Producto")->findOneByCodigo($a['producto']));
+            $o->setProducto( $this->getReference('prod-'.$a['producto']) );
             if(isset($a['imagen']))
                 $o->setExtension(substr($a['imagen'],-3));
             else
@@ -64,7 +63,6 @@ class ProductoImagen extends AbstractFixture implements OrderedFixtureInterface,
             $manager->flush();
 
             if(isset($a['imagen'])){
-                //ld('uploads/res/'.$a['imagen'], 'uploads/productos/'.$o->getId(). substr($a['imagen'],-4));
                 copy($webdir.'/uploads/res/'.$a['imagen'], $webdir.'/uploads/productos/'.$o->getId(). substr($a['imagen'],-4) );
             }
 
@@ -79,3 +77,5 @@ class ProductoImagen extends AbstractFixture implements OrderedFixtureInterface,
 
     }
 }
+
+

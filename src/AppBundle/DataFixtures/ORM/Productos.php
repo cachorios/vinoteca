@@ -64,9 +64,11 @@ El silencio mágico, el cielo estrellado y un sol radiante e intenso llenan de e
         foreach ($prods as $prodArr) {
             $prod = new Producto();
 
+
             $prod->setCodigo($prodArr['codigo']);
+
             $prod->setNombre($prodArr['nombre']);
-            $prod->setCategoria($manager->getRepository("AppBundle:Categoria")->findOneByNombre($prodArr['cat']));
+            $prod->setCategoria($this->getReference($prodArr['cat']));
 
             $prod->setDescripcion($prodArr['desc']);
             $prod->setPrecio($prodArr['precio']);
@@ -76,6 +78,11 @@ El silencio mágico, el cielo estrellado y un sol radiante e intenso llenan de e
             $prod->setUpdatedAt(new \DateTime('now'));
             $manager->persist($prod);
             $manager->flush();
+
+            if(!$this->hasReference('prod-'.$prodArr['codigo'] )){
+                $this->addReference('prod-'.$prodArr['codigo'], $prod);
+            }
+
         }
 
 

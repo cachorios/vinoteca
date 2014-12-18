@@ -22,7 +22,7 @@ class ProductoImagen
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=200)
+     * @ ORM\Column(type="string", length=200)
      */
     private $file;
 
