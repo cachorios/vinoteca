@@ -34,8 +34,11 @@ services:
         class: AppBundle\Servicios\MenuService
         arguments: [@service_container]
 
-    app.cache_warmer:
-        class: AppBundle\Servicios\CacheWarmer\AppCacheWarmer
-        tags:
-            - { name: kernel.cache_warmer }
+#    app.cache_warmer:
+#        class: AppBundle\Servicios\CacheWarmer\AppCacheWarmer
+#        tags:
+#            - { name: kernel.cache_warmer }
 
+    setting.service:
+            class: AppBundle\Servicios\Setting
+            arguments: [@doctrine.orm.entity_manager]

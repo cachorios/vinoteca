@@ -35,8 +35,11 @@ class Categorias extends AbstractFixture implements OrderedFixtureInterface, Con
     {
         $cats = array(
             array('nombre' => 'Vino',     'orden' => 1,     'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg' ),
-            array('nombre' => 'Blanco',   'orden' => 3,     'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg','parent_id' => 'Vino'),
-            array('nombre' => 'Tinto',    'orden' => 2,     'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg','parent_id' => 'Vino'),
+            array('nombre' => 'Vino Blanco',   'orden' => 3,     'descripcion' =>'<p>El vino blanco es un tipo de vino obtenido por la fermentación de mosto sin cascarillas ni semillas, elaborado a partir de variedades de uvas blancas (blanco de blancos) o de negros de pulpa blanca (blanco de negros).</p>
+<p>Si el mosto tiene más de 272 gramos de azúcar por litro, se obtendrá un vino dulce natural (con un mínimo de 8 grados). Si tiene menos de 5 y el dulce no se nota en el paladar, entonces se trata de un blanco seco.</p>
+<p>No se debe utilizar nunca a menos de 8 grados, ya que si la temperatura fuera inferior, la copa se empaña fácilmente y no se pueden apreciar bien la transparencia y los matices del color.</p>
+<p>Se cultiva al menos desde los últimos 2500 años. Ha acompañado el desarrollo económico y colonizado todo el mundo cuyos habitantes son bebedores de vino: Europa, América, Oceanía, y en menor medida Asia y África por razones religiosas y climáticas.</p>', 'imagen' => 'blanco.jpg','parent_id' => 'Vino'),
+            array('nombre' => 'Vino Tinto',    'orden' => 2,     'descripcion' =>'<p>El vino tinto es un tipo de vino procedente mayormente de mostos de uvas tintas, con la elaboración pertinente para conseguir la difusión de la materia colorante que contienen los hollejos de la uva.</p><p> En función del tiempo de envejecimiento que se realice en la barrica y en la botella, pueden obtenerse vinos jóvenes, crianzas, reservas o grandes reservas.</p>', 'imagen' => 'tinto.jpg','parent_id' => 'Vino'),
             array('nombre' => 'Cerveza',  'orden' => 1000,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg' ),
             array('nombre' => 'Rubia',    'orden' => 1005,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg','parent_id' => 'Cerveza'),
             array('nombre' => 'Negra',    'orden' => 1015,  'descripcion' =>'Descripcion de la categoria', 'imagen' => 'img1.jpg','parent_id' => 'Cerveza'),

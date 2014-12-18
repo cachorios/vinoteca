@@ -36,7 +36,7 @@ class MenuService
     CONST MENU_NAVBAR_ITEM = '<li><a href="###URL###">###LABEL###</a></li>';
     CONST MENU_NAVBAR_SUBMENU = '
         <li class="dropdown">
-            <a href="###URL###" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="10">
+            <a href="###URL###" class="dropdown-toggle" data-toggle="dropdown----" data-hover="dropdown" data-delay="10">
                 ###LABEL###
             </a>
             ###SUBMENU###
@@ -56,7 +56,7 @@ class MenuService
         </div>   ';
     CONST MENU_ITEM_CON_TITULO = '
         <ul class="list-unstyled">
-            <li class="dropdown-header">###TITULO###</li>
+            <li class="dropdown-header"><a href="###URL###" style="color: #252a2f;">###TITULO###</a></li>
             ###SUBMENU###
         </ul>
     ';
@@ -85,15 +85,16 @@ class MenuService
 
     private function makeBarra(EntityManager $em, Categoria $CatBarra, $maxLevel)
     {
+        $route = $this->contenedor->get('router');
 
         if ($maxLevel == 0) {
 
             //Directamente en barra
-            $menu = str_replace("###URL###", '#', self::MENU_NAVBAR_ITEM);
+            $menu = str_replace("###URL###", $route->generate('productos',array('id' => $CatBarra->getId())) , self::MENU_NAVBAR_ITEM);
             $menu = str_replace("###LABEL###", $CatBarra->getNombre(), $menu);
 
         } else {
-            $menu = str_replace("###URL###", "#", self::MENU_NAVBAR_SUBMENU);
+            $menu = str_replace("###URL###", $route->generate('productos',array('id' => $CatBarra->getId())), self::MENU_NAVBAR_SUBMENU);
             $menu = str_replace("###LABEL###", $CatBarra->getNombre(), $menu);
 
             $menu = str_replace("###SUBMENU###", $this->makeSubmenu($em, $CatBarra, $maxLevel), $menu);
@@ -104,7 +105,7 @@ class MenuService
 
     private function makeSubmenu(EntityManager $em, Categoria $CatBarra, $maxLevel)
     {
-
+        $route = $this->contenedor->get('router');
         $cats = $em->getRepository("AppBundle:Categoria")->getCategoriaItem($CatBarra->getId());
         $menu = "";
 
@@ -112,25 +113,26 @@ class MenuService
         $submenu2 = "";
         foreach ($cats as $cat) {
             if ($maxLevel == 1) {
-                $item = str_replace("###URL###", '#', self::MENU_NAVBAR_ITEM);
+                $item = str_replace("###URL###", $route->generate('productos',array('id' => $cat->getId())) , self::MENU_NAVBAR_ITEM);
                 $item = str_replace("###LABEL###", $cat->getNombre(), $item);
                 $menu .= $item;
             } else { //nivel = 2
 
                 //Si tiene hijo se agrega subtitulo
                 if ($em->getRepository("AppBundle:Categoria")->tieneHijo($cat->getId())) {
-                    $subAux = str_replace("###TITULO###", $cat->getNombre(), self::MENU_ITEM_CON_TITULO);
+                    $subAux = str_replace("###URL###", $route->generate('productos',array('id' => $cat->getId())), self::MENU_ITEM_CON_TITULO);
+                    $subAux = str_replace("###TITULO###", $cat->getNombre(), $subAux);
                     $catHijos = $em->getRepository("AppBundle:Categoria")->getCategoriaItem($cat->getId());
                     $itemHijo = "";
                     foreach ($catHijos as $hijo) {
-                        $item = str_replace("###URL###", '#', self::MENU_NAVBAR_ITEM);
+                        $item = str_replace("###URL###", $route->generate('productos',array('id' => $hijo->getId())) , self::MENU_NAVBAR_ITEM);
                         $item = str_replace("###LABEL###", $hijo->getNombre(), $item);
                         $itemHijo .= $item;
                     }
                     $submenu2 .= str_replace('###SUBMENU###', $itemHijo, $subAux);
 
                 } else {
-                    $item = str_replace("###URL###", '#', self::MENU_NAVBAR_ITEM);
+                    $item = str_replace("###URL###", $route->generate('productos',array('id' => $cat->getId())), self::MENU_NAVBAR_ITEM);
                     $item = str_replace("###LABEL###", $cat->getNombre(), $item);
                     $submenu1 .= $item;
 
