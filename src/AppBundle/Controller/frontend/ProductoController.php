@@ -54,8 +54,14 @@ class ProductoController extends  Controller {
             $q,
             $this->get('request')->query->get('page', 1)/*page number*/,
             4,/*limit per page*/
-            array('distinct' => false)
+            array(
+                'distinct' => false,
+                'pagination' => 'twitter_bootstrap_v3_pagination.html.twig'
+
+            )
         );
+        $pagination->setTemplate('KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig');
+
         return $pagination;
 
     }
