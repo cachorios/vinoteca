@@ -54,7 +54,7 @@
 
         <td>
             {{ form_widget(form.nombre) }}
-            {#{{ form_widget(form.orden, {'attr': {'style': 'display:none !important' }}) }}#}
+            {{ form_widget(form.orden, {'attr': {'style': 'display:none !important' }}) }}
             {{ form_widget(form.orden) }}
 
         </td>
@@ -77,3 +77,33 @@
 
 {% endmacro %}
 
+{#
+*****************************************************************
+#}
+
+{% block extencion_collection_widget %}
+    {% spaceless %}
+
+        {% for field in form.children %}
+
+            {{ _self.extencion_collection_fields(field) }}
+
+        {% endfor %}
+
+    {% endspaceless %}
+{% endblock extencion_collection_widget %}
+
+
+{% macro extencion_collection_fields(widget) %}
+    {% if 'prototype' in widget.vars|keys %}
+        {% set form = widget.vars.prototype %}
+        {% set name = widget.vars.prototype.vars.name %}
+    {% else %}
+        {% set form = widget %}
+        {% set name = widget.vars.full_name %}
+    {% endif %}
+
+    {{ form_widget(form) }}
+
+    {#{{ widget |ld  }}#}
+{% endmacro %}

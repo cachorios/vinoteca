@@ -24,21 +24,21 @@ class AddProductoExtencionListener implements EventSubscriberInterface
     /**
      * @var EntityManager
      */
-    private $om;
+    private $em;
 
     /**
      * @param factory FormFactoryInterface
      */
-    public function __construct(FormFactoryInterface $factory, ObjectManager $om)
+    public function __construct(FormFactoryInterface $factory, EntityManager $em)
     {
         $this->factory = $factory;
-        $this->om = $om;
+        $this->em = $em;
     }
 
     public static function getSubscribedEvents()
     {
         return array(
-            FormEvents::PRE_SUBMIT => 'preBind',
+//            FormEvents::PRE_SUBMIT => 'preBind',
             FormEvents::PRE_SET_DATA => 'preSetData',
         );
     }
@@ -56,7 +56,14 @@ class AddProductoExtencionListener implements EventSubscriberInterface
             return;
         }
 
+        if (null == $data->getCategoria()) {
+            return;
+        }
+
+
 //        ld($data);
+//        ld($data->getCategoria()->getMetadatos()->count());
+
     }
 
     public function preBind(FormEvent $event)

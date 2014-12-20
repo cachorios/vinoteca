@@ -7,14 +7,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Knp\Component\Pager\Paginator;
 
 use AppBundle\Entity\Producto;
 use AppBundle\Form\ProductoType;
 use AppBundle\Form\ProductoFilterType;
-
-
 
 
 /**
@@ -34,24 +33,24 @@ class ProductoController extends Controller
      */
     public function indexAction(Request $request)
     {
-    list($filterForm, $queryBuilder) = $this->filter($request);
-    $pager = $this->getPager($queryBuilder);
+        list($filterForm, $queryBuilder) = $this->filter($request);
+        $pager = $this->getPager($queryBuilder);
 
         return array(
-            'pager'         => $pager,
-            'filterform'    => $filterForm->createView(),
+            'pager' => $pager,
+            'filterform' => $filterForm->createView(),
         );
     }
 
     /**
-    * Crea el paginador Pagerfanta
-    * @param Request $request
-    * @return SlidingPagination
-    * @throws NotFoundHttpException
-    */
+     * Crea el paginador Pagerfanta
+     * @param Request $request
+     * @return SlidingPagination
+     * @throws NotFoundHttpException
+     */
     private function getPager($q)
     {
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
 
         $pagination = $paginator->paginate(
             $q,
@@ -95,7 +94,7 @@ class ProductoController extends Controller
                 $filterData = $session->get('ProductoControllerFilter');
                 $filterForm = $this->createForm(new ProductoFilterType(), $filterData);
                 $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
-           }
+            }
         }
         return array($filterForm, $queryBuilder);
     }
@@ -118,29 +117,29 @@ class ProductoController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success',"El Producto $entity se creó correctamente.");
-            if ($request->request->get('save_mode')== 'save_and_close') {
-                    return $this->redirect($this->generateUrl('producto'));
-                }
-                return $this->redirect($this->generateUrl('producto_new'));
+            $this->get('session')->getFlashBag()->add('success', "El Producto $entity se creó correctamente.");
+            if ($request->request->get('save_mode') == 'save_and_close') {
+                return $this->redirect($this->generateUrl('producto'));
+            }
+            return $this->redirect($this->generateUrl('producto_new'));
         }
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-    * Creates a form to create a Producto entity.
-    *
-    * @param Producto $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a Producto entity.
+     *
+     * @param Producto $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(Producto $entity)
     {
-        $form = $this->createForm(new ProductoType(), $entity, array(
+        $form = $this->createForm(new ProductoType($this->getDoctrine()->getManager()), $entity, array(
             'action' => $this->generateUrl('producto_create'),
             'method' => 'POST',
         ));
@@ -159,11 +158,11 @@ class ProductoController extends Controller
     public function newAction()
     {
         $entity = new Producto();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -187,7 +186,7 @@ class ProductoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -213,29 +212,30 @@ class ProductoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Producto entity.
-    *
-    * @param Producto $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Producto entity.
+     *
+     * @param Producto $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Producto $entity)
     {
-        $form = $this->createForm(new ProductoType(), $entity, array(
+        $form = $this->createForm(new ProductoType($this->getDoctrine()->getManager()), $entity, array(
             'action' => $this->generateUrl('producto_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
-        
+
         return $form;
     }
+
     /**
      * Edits an existing Producto entity.
      *
@@ -259,16 +259,17 @@ class ProductoController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-            $this->get('session')->getFlashBag()->add('success',"El Producto $entity se actualizó correctamente.");
+            $this->get('session')->getFlashBag()->add('success', "El Producto $entity se actualizó correctamente.");
             return $this->redirect($this->generateUrl('producto'));
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Producto entity.
      *
@@ -309,12 +310,11 @@ class ProductoController extends Controller
             ->setMethod('DELETE')
             ->add('submit', 'submit', array(
                 'label' => 'Delete',
-                'attr'  => array(
-                        'class' => 'btn btn-danger btn-sm'
+                'attr' => array(
+                    'class' => 'btn btn-danger btn-sm'
                 )
             ))
-            ->getForm()
-        ;
+            ->getForm();
     }
 
     /**

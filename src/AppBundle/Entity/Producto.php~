@@ -29,18 +29,18 @@ class Producto
     private $id;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="codigo", type="integer")
-     */
-    private $codigo;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=100)
      */
     private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codigo", type="string", length=20 )
+     */
+    private $codigo;
 
     /**
      * @ORM\Column(type="string")
@@ -93,9 +93,9 @@ class Producto
     private $categoria;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProductoExtencion", mappedBy="producto", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="ProductoExtension", mappedBy="producto", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    private $extenciones;
+    private $extencion;
 
     /**
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
@@ -119,7 +119,7 @@ class Producto
     {
         $this->imagenes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->bonificaciones = new \Doctrine\Common\Collections\ArrayCollection();
-
+        $this->extencion = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -135,20 +135,19 @@ class Producto
     /**
      * Set codigo
      *
-     * @param integer $codigo
+     * @param string $codigo
      * @return Producto
      */
     public function setCodigo($codigo)
     {
         $this->codigo = $codigo;
-    
         return $this;
     }
 
     /**
      * Get codigo
      *
-     * @return integer 
+     * @return string
      */
     public function getCodigo()
     {
@@ -427,4 +426,18 @@ class Producto
     {
         return $this->categoria;
     }
+
+    public function getImagenActiva()
+    {
+
+        $img = "no_image.jpg";
+        foreach ($this->getImagenes() as $imgen) {
+            if ($imgen->getPrimario()) {
+                $img = $imgen->getId() . '.' . $imgen->getExtension();
+            }
+        }
+
+        return $img;
+    }
+
 }

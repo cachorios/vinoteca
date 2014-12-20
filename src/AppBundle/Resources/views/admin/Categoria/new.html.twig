@@ -36,7 +36,13 @@
                         <div id="myTab1Content" class="tab-content">
                             <div id="datos" class="tab-pane fade active in">
 
-                                {{ form_widget(form) }}
+                                {{ form_row(form.imagen) }}
+                                {{ form_row(form.nombre) }}
+                                {{ form_row(form.descripcion) }}
+                                {{ form_row(form.orden) }}
+                                {{ form_row(form.parent) }}
+                                {{ form_row(form.visible) }}
+                                {{ form_row(form.activo) }}
 
                             </div>
                             <div id="metadatos" class="tab-content">
@@ -58,6 +64,7 @@
                             <a class="page-close-button btn btn-sm btn-default" href="{{ path('categoria') }}">Cerrar
                                 <span class="glyphicon glyphicon-remove"></span></a>
                         </div>
+                        {{ form_widget(form) }}
                         {{ form_end(form) }}
 
 

@@ -95,7 +95,7 @@ class Producto
     /**
      * @ORM\OneToMany(targetEntity="ProductoExtension", mappedBy="producto", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    private $extenciones;
+    private $extencion;
 
     /**
      * @ORM\Column(name="created_at", type="datetime", nullable=false)
@@ -119,7 +119,7 @@ class Producto
     {
         $this->imagenes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->bonificaciones = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->extenciones = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->extencion = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -439,36 +439,38 @@ class Producto
 
         return $img;
     }
+
+
     /**
-     * Add extenciones
+     * Add extencion
      *
-     * @param \AppBundle\Entity\ProductoExtencion $extenciones
+     * @param \AppBundle\Entity\ProductoExtension $extencion
      * @return Producto
      */
-    public function addExtencione(\AppBundle\Entity\ProductoExtension $extenciones)
+    public function addExtencion(\AppBundle\Entity\ProductoExtension $extencion)
     {
-        $this->extenciones[] = $extenciones;
-    
+        $this->extencion[] = $extencion;
+
         return $this;
     }
 
     /**
-     * Remove extenciones
+     * Remove extencion
      *
-     * @param \AppBundle\Entity\ProductoExtencion $extenciones
+     * @param \AppBundle\Entity\ProductoExtension $extencion
      */
-    public function removeExtencione(\AppBundle\Entity\ProductoExtension $extenciones)
+    public function removeExtencion(\AppBundle\Entity\ProductoExtension $extencion)
     {
-        $this->extenciones->removeElement($extenciones);
+        $this->extencion->removeElement($extencion);
     }
 
     /**
-     * Get extenciones
+     * Get extencion
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getExtenciones()
+    public function getExtencion()
     {
-        return $this->extenciones;
+        return $this->extencion;
     }
 }
