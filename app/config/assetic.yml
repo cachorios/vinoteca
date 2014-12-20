@@ -23,11 +23,6 @@ assetic:
             filters: lessphp
         stylesheets_frontend:
             inputs:
-                #-- Bootstrap CSS --#
-                - bundles/app/css/frontend/bootstrap.min.css
-                #-- Font Awesome CSS --#
-                - bundles/app/css/admin/font-awesome.min.css
-
                 #-- App CSS --#>
                 - bundles/app/css/frontend/style.css
                 - bundles/app/css/frontend/responsive.css

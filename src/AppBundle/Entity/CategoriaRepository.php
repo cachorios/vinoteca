@@ -55,4 +55,18 @@ class CategoriaRepository extends EntityRepository
             ->setParameter("id", $id)
             ->getSingleScalarResult() > 0;
     }
+
+
+    public function getDescendientes(Categoria $cat){
+        $hijos = array();
+        if($cat->getChildren()->count()>0 ) {
+            foreach($cat->getChildren() as $childCat){
+                $hijos = array_merge($hijos,$this->getDescendientes($childCat));
+            }
+        }else{
+            $hijos[] = $cat->getId();
+        }
+
+        return $hijos;
+    }
 }

@@ -29,8 +29,12 @@ class ProductoController extends  Controller {
     */
     public function getProductosAction(Request $request, Categoria $categoria){
 
-        //list($filterForm, $queryBuilder) = $this->filter($request, $categoria);
-        $queryBuilder = $this->filter($request, $categoria);
+        /**
+         * @var Doctrine/EntityManager
+         */
+        $em = $this->getDoctrine()->getManager();
+        $hijos = $em->getRepository("AppBundle:Categoria")->getDescendientes($categoria);
+        $queryBuilder = $this->filter($request, $hijos);
         $pager = $this->getPager($queryBuilder);
 
         return array(
@@ -66,15 +70,17 @@ class ProductoController extends  Controller {
 
     }
 
-    private function filter(Request $request, Categoria $cat)
+    private function filter(Request $request, $hijos)
     {
         $session = $request->getSession();
         //$filterForm = $this->createForm(new CategoriaFilterType());
 
         $em = $this->getDoctrine()->getManager();
         $queryBuilder = $em->getRepository('AppBundle:Producto')->createQueryBuilder("q")
-            ->where('q.categoria = '. $cat->getId() )
-            ->orderBy('q.nombre', 'ASC');
+            ->where('q.categoria IN( :ids ) ' )
+            ->orderBy('q.nombre', 'ASC')
+            ->setParameter('ids' , $hijos)
+        ;
 
         // Reset filter
         if ($request->getMethod() == 'POST' && $request->get('submit-filter') == 'reset') {

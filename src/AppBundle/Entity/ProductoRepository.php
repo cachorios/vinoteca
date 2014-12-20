@@ -27,4 +27,9 @@ class ProductoRepository extends EntityRepository
 
         return $consulta->getResult();
     }
+
+
+    public function getProductos(Categoria $cat){
+
+    }
 }
