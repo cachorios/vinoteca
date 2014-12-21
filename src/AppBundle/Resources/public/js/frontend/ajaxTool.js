@@ -52,5 +52,5 @@ $.ajaxSetup({
 //
 $(window).load(function(){
     //showIndicador();
- //   hideIndocador();
+    hideIndocador();
 })
