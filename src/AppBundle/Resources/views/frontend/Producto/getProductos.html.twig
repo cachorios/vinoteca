@@ -5,7 +5,6 @@
 {#{{ render(path("ultimosproductos")) }}#}
 {#{% endblock pre_body %}#}
 
-
 {% block workarea -%}
     <div class="row">
         <!-- Primary Content Starts -->
@@ -37,10 +36,10 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="display">
-                            <a href="category-list.html" class="active">
+                            <a href="#"  onclick="return ProductochangeView({{ cat.id }},'lista');" class="active">
                                 <i class="fa fa-th-list" title="" data-original-title="List View"></i>
                             </a>
-                            <a href="category-grid.html">
+                            <a href="#" onclick="return ProductochangeView({{ cat.id }},'gird');"  >
                                 <i class="fa fa-th" title="" data-original-title="Grid View"></i>
                             </a>
                         </div>
@@ -69,59 +68,7 @@
             </div>
             {#<!-- Product List Display Starts -->#}
             <div class="row lista_producto">
-                {% for entity in pager %}
-                    <div class="col-xs-12">
-                        <div class="product-col list clearfix">
-                            <div class="image">
-                                <img src="{{ asset('uploads/productos/'~entity.imagenActiva) }}" width="230"
-                                     height="180" alt="product" class="img-responsive">
-                            </div>
-                            <div class="caption">
-                                <h4><a href="product-full.html">{{ entity.nombre }}</a></h4>
-
-                                <div class="description">
-                                    {{ entity.descripcion | raw }}
-                                </div>
-                                <div class="price">
-                                    {#<p class="price-tax">Ex Tax: $279.99</p>#}
-                                    {% if setting.descuentoGlobal == 0 %}
-                                        <span class="price-new">$ {{ '%8.2f'  | format(entity.precio ) }}</span>
-                                    {% else %}
-                                        <span class="price-new">$ {{ '%8.2f'  | format(entity.precio - entity.precio * setting.descuentoGlobal/100 ) }}</span>
-                                        <span class="price-old">$ {{ '%8.2f'  | format(entity.precio ) }}</span>
-                                    {% endif %}
-                                </div>
-                                <div class="cart-button button-group">
-                                    <button type="button" title="" class="btn btn-wishlist"
-                                            data-original-title="Wishlist">
-                                        <i class="fa fa-heart"></i>
-                                    </button>
-                                    <button type="button" title="" class="btn btn-compare"
-                                            data-original-title="Compare">
-                                        <i class="fa fa-bar-chart-o"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-cart">
-                                        {{ 'Agregar a la cesta' | trans }}
-                                        <i class="fa fa-shopping-cart"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-
-                <div class="col-lg-9">
-                    {{ knp_pagination_render(pager) }}
-
-                </div>
-                <div class="col-lg-3">
-
-
-                </div>
-
-                {#<!-- Product Filter Ends -->#}
-
-
+                {{ include('@App/frontend/Producto/productosAjax.html.twig') }}
             </div>
         </div>
         {#<!-- Primary Content Ends -->#}
@@ -132,4 +79,39 @@
         {#<!-- Sidebar Ends -->#}
     </div>
     <br><br>
+    <script type="text/javascript">
+
+        /**
+         * Llama ajax para poblar
+         * @param cat
+         * @param view
+         * @returns {boolean}
+         * @constructor
+         */
+        ProductochangeView = function(cat, view ){
+
+            $(this).sibling().each(function(){
+                alert("1");
+            });
+            $(this).parent().sibling().each(function(){
+                alert("2");
+            });
+            
+
+
+
+            $.ajax({
+                url: Routing.generate('productos',{'id': cat, 'vista': view}),
+                context: document.body,
+                success: function(data){
+                    $(".lista_producto").html(data);
+                }
+
+            }).done(function() {
+                $( this ).addClass( "done" );
+            });
+
+            return false;
+        }
+    </script>
 {% endblock %}

@@ -26,6 +26,8 @@ assetic:
                 #-- App CSS --#>
                 - bundles/app/css/frontend/style.css
                 - bundles/app/css/frontend/responsive.css
+                - bundles/app/css/frontend/main.css
+
 
 #                - bundles/rbsoftabmgenerador/fileupload//css/fileinput.min.css
 
@@ -57,6 +59,7 @@ assetic:
 #                - %kernel.root_dir%/../web/assets/js/jquery-ui.js
 
                 - bundles/fosjsrouting/js/router.js
+                - bundles/app/js/frontend/ajaxTool.js
             filters:
                 - cssrewrite
                 - ?yui_js
@@ -64,7 +67,7 @@ assetic:
             inputs:
                 #-- Bootstrap core JavaScript
                 #-- Core JS --#
-                - bundles/app/js/admin/libs/jquery-1.10.2.min.js
+
                 - bundles/app/js/admin/libs/bootstrap.min.js
 
 #                Este lo sacamos de aqui porque el assetic modifica el path, es un error.

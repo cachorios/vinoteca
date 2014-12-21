@@ -1,0 +1,35 @@
+<div class="col-md-4 col-sm-6">
+    <div class="product-col">
+        <div class="image">
+            <img src="{{ asset('uploads/productos/'~entity.imagenActiva) }}"  style="width: 230px"  alt="product" class="img-responsive">
+        </div>
+
+        <div class="caption">
+            <h4><a href="product.html">{{ entity.nombre }}</a></h4>
+            <div class="description">
+                {{ entity.descripcion | raw | truncate(70, false, '...') }}
+            </div>
+            <div class="price">
+                {% if setting.descuentoGlobal == 0 %}
+                    <span class="price-new">$ {{ '%8.2f'  | format(entity.precio ) }}</span>
+                {% else %}
+                    <span class="price-new">$ {{ '%8.2f'  | format(entity.precio - entity.precio * setting.descuentoGlobal/100 ) }}</span>
+                    <span class="price-old">$ {{ '%8.2f'  | format(entity.precio ) }}</span>
+                {% endif %}
+            </div>
+            <div class="cart-button button-group">
+                <button class="btn btn-wishlist" title="" type="button" data-original-title="Wishlist">
+                    <i class="fa fa-heart"></i>
+                </button>
+                <button class="btn btn-compare" title="" type="button" data-original-title="Compare">
+                    <i class="fa fa-bar-chart-o"></i>
+                </button>
+                <button class="btn btn-cart" type="button">
+                    Add to cart
+                    <i class="fa fa-shopping-cart"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -22,12 +22,16 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ProductoController extends  Controller {
 
+
     /**
-    * @Route("/productos/{id}", name="productos")
-    * @Template()
+    * @Route("/productos/{id}/vista/{vista}",
+     *  requirements={"id" = "\d+"},
+     *  defaults={"vista" = "lista"},
+     *  name="productos",
+     *  options={"expose"=true} )
     * @ParamConverter("categoria", class="AppBundle:Categoria")
     */
-    public function getProductosAction(Request $request, Categoria $categoria){
+    public function getProductosAction(Request $request, Categoria $categoria, $vista){
 
         /**
          * @var Doctrine/EntityManager
@@ -35,13 +39,24 @@ class ProductoController extends  Controller {
         $em = $this->getDoctrine()->getManager();
         $hijos = $em->getRepository("AppBundle:Categoria")->getDescendientes($categoria);
         $queryBuilder = $this->filter($request, $hijos);
-        $pager = $this->getPager($queryBuilder);
+        $pager = $this->getPager($queryBuilder,$vista);
 
-        return array(
-            "cat" => $categoria,
-            'pager' => $pager,
-            'setting' => $this->get("setting.service")->getSetting()
-        );
+
+        if($request->isXmlHttpRequest()){
+            return $this->render("@App/frontend/Producto/productosAjax.html.twig",array(
+                    "cat" => $categoria,
+                    'pager' => $pager,
+                    'setting' => $this->get("setting.service")->getSetting(),
+                    'vista' => $vista
+                ));
+        }else{
+            return $this->render("@App/frontend/Producto/getProductos.html.twig",array(
+                "cat" => $categoria,
+                'pager' => $pager,
+                'setting' => $this->get("setting.service")->getSetting(),
+                'vista' => $vista
+            ));
+        }
     }
 
     /**
@@ -50,14 +65,14 @@ class ProductoController extends  Controller {
      * @return SlidingPagination
      * @throws NotFoundHttpException
      */
-    private function getPager($q)
+    private function getPager($q,$vista)
     {
         $paginator = $this->get('knp_paginator');
 
         $pagination = $paginator->paginate(
             $q,
             $this->get('request')->query->get('page', 1)/*page number*/,
-            4,/*limit per page*/
+            ($vista == 'lista' ? 4 : 6),
             array(
                 'distinct' => false,
                 'pagination' => 'twitter_bootstrap_v3_pagination.html.twig'
