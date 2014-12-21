@@ -24,10 +24,11 @@ assetic:
         stylesheets_frontend:
             inputs:
                 #-- App CSS --#>
+
                 - bundles/app/css/frontend/style.css
                 - bundles/app/css/frontend/responsive.css
-                - bundles/app/css/frontend/main.css
 
+                - bundles/app/css/frontend/main.css
 
 #                - bundles/rbsoftabmgenerador/fileupload//css/fileinput.min.css
 
@@ -94,7 +95,7 @@ assetic:
             inputs:
                 #-- Bootstrap core JavaScript
                 #-- Core JS --#
-                - bundles/app/js/admin/libs/jquery-1.10.2.min.js
+#                - bundles/app/js/admin/libs/jquery-1.10.2.min.js
 
                 - bundles/app/js/frontend/jquery-migrate-1.2.1.min.js
 

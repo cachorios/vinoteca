@@ -11,8 +11,8 @@ var cntShow = 0;
 var showIndicador = function(){
     $("#veil").show();
     $("#prLoading").show();
-    cntShow = cntShow + 1;
-    //console.log(cntShow);
+    //cntShow = cntShow + 1;
+    console.log(cntShow);
 }
 
 var hideIndocador = function(){
@@ -20,22 +20,37 @@ var hideIndocador = function(){
     //console.log(cntShow);
     if(cntShow <= 0){
         cntShow = 0;
-        $("#veil").hide();
         $("#prLoading").hide();
+        $("#veil").fadeOut(5000);
     }
 }
-showIndicador();
+//showIndicador();
 
-$(document).ready(function(){
-    hideIndocador();
-})
+//$(document).ready(function(){
+//    //hideIndocador();
+//})
 
 //Llamadas Ajax de jQuery
-jQuery(document).ajaxStop(function(){
+$(document).ajaxStop(function(){
     hideIndocador();
 });
 
-jQuery(document).ajaxStart(function() {
+$(document).ajaxStart(function() {
     showIndicador();
 });
-
+//
+$.ajaxSetup({
+    global: true,
+    beforeSend: function() {
+        showIndicador();
+    },
+    complete: function(){
+        hideIndocador();
+    },
+    success: function() {}
+});
+//
+$(window).load(function(){
+    //showIndicador();
+ //   hideIndocador();
+})

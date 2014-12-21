@@ -36,10 +36,11 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="display">
-                            <a href="#"  onclick="return ProductochangeView({{ cat.id }},'lista');" class="active">
+                            {#onclick="return ProductochangeView({{ cat.id }},'lista');"#}
+                            <a href="#"  class="active" data-modo="lista" data-categoria="{{ cat.id }}" >
                                 <i class="fa fa-th-list" title="" data-original-title="List View"></i>
                             </a>
-                            <a href="#" onclick="return ProductochangeView({{ cat.id }},'gird');"  >
+                            <a href="#" data-modo="grid"  data-categoria="{{ cat.id }}"  >
                                 <i class="fa fa-th" title="" data-original-title="Grid View"></i>
                             </a>
                         </div>
@@ -81,6 +82,15 @@
     <br><br>
     <script type="text/javascript">
 
+        $(function(){
+           $('body').on('click','[data-modo]',function(e){
+//               showIndicador();
+               $(this).siblings().removeClass('active');
+               $(this).addClass('active');
+               ProductochangeView($(this).data('categoria'), $(this).data('modo'));
+               e.preventDefault();
+            });
+        });
         /**
          * Llama ajax para poblar
          * @param cat
@@ -89,17 +99,7 @@
          * @constructor
          */
         ProductochangeView = function(cat, view ){
-
-            $(this).sibling().each(function(){
-                alert("1");
-            });
-            $(this).parent().sibling().each(function(){
-                alert("2");
-            });
-            
-
-
-
+            $("#cargando").css("display", "inline");
             $.ajax({
                 url: Routing.generate('productos',{'id': cat, 'vista': view}),
                 context: document.body,
@@ -108,7 +108,8 @@
                 }
 
             }).done(function() {
-                $( this ).addClass( "done" );
+//                hideIndocador();
+
             });
 
             return false;
