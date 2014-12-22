@@ -24,11 +24,11 @@ assetic:
         stylesheets_frontend:
             inputs:
                 #-- App CSS --#>
-
+                - bundles/app/css/frontend/main.css
                 - bundles/app/css/frontend/style.css
                 - bundles/app/css/frontend/responsive.css
 
-                - bundles/app/css/frontend/main.css
+
 
 #                - bundles/rbsoftabmgenerador/fileupload//css/fileinput.min.css
 

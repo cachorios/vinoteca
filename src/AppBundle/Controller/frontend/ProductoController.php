@@ -26,7 +26,7 @@ class ProductoController extends  Controller {
     /**
     * @Route("/productos/{id}/vista/{vista}/orden/{orden}/ver/{ver}",
      *  requirements={"id" = "\d+"},
-     *  defaults={"vista" = "lista", "orden" = "0", "ver" = "3"},
+     *  defaults={"vista" = "lista", "orden" = "0", "ver" = 3},
      *  name="productos",
      *  options={"expose"=true} )
     * @ParamConverter("categoria", class="AppBundle:Categoria")
@@ -39,7 +39,7 @@ class ProductoController extends  Controller {
         $em = $this->getDoctrine()->getManager();
         $hijos = $em->getRepository("AppBundle:Categoria")->getDescendientes($categoria);
         $queryBuilder = $this->filter($request, $hijos, $orden);
-        $pager = $this->getPager($queryBuilder,$vista, $ver);
+        $pager = $this->getPager($queryBuilder, $ver);
 
 
         if($request->isXmlHttpRequest()){
@@ -62,7 +62,7 @@ class ProductoController extends  Controller {
      * @return SlidingPagination
      * @throws NotFoundHttpException
      */
-    private function getPager($q,$vista, $ver)
+    private function getPager($q,$ver)
     {
         $paginator = $this->get('knp_paginator');
 

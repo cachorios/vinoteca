@@ -17,11 +17,6 @@
     <meta name="author" content="RBSoft">
 
 
-    {% stylesheets '@stylesheets_frontend' %}
-    <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
-    {% endstylesheets %}
-
-
     <!-- Google Web Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,300,700"
           rel="stylesheet" type="text/css">
@@ -35,6 +30,11 @@
 
     {# se coloca temporalmente #}
     <link rel="stylesheet" href="{{ asset( 'admin/admin.css') }}">
+
+    {% stylesheets '@stylesheets_frontend' %}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+
 
     <script src="{{ asset("bundles/app/js/frontend/modernizr.js") }}"></script>
 
@@ -87,7 +87,7 @@
                 <div class="header-links">
                     <ul class="nav navbar-nav pull-left">
                         <li>
-                            <a href="index.html">
+                            <a href="{{ path("homepage") }}">
                                 <i class="fa fa-home" title="Home"></i>
 											<span class="hidden-sm hidden-xs">
 												Home
@@ -195,8 +195,8 @@
                 <!-- Logo Starts -->
                 <div class="col-md-6">
                     <div id="logo">
-                        <a href="index.html"><img src="{{ asset("images/wnfried_logo_frontend.png") }}"
-                                                  title="Spice Shoppe" alt="Spice Shoppe" class="img-responsive"/></a>
+                        <a href="{{ path("homepage") }}"><img src="{{ asset("images/wnfried_logo_frontend.png") }}"
+                                                  title="Cabañas Banfried" alt="Cabañas Banfried" class="img-responsive"/></a>
                     </div>
                 </div>
                 <!-- Logo Starts -->

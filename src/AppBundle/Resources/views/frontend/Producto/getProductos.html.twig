@@ -6,6 +6,7 @@
 {#{% endblock pre_body %}#}
 
 {% block workarea -%}
+
     <div class="row">
         <!-- Primary Content Starts -->
         <div class="col-md-9">
@@ -36,10 +37,10 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="display">
-                            <a href="#"  class="active" data-modo="lista" data-categoria="{{ cat.id }}" >
+                            <a href="#"  class="{{ vista == 'lista' ? 'active' }}" data-modo="lista" data-categoria="{{ cat.id }}" >
                                 <i class="fa fa-th-list" title="" data-original-title="List View"></i>
                             </a>
-                            <a href="#" data-modo="grid"  data-categoria="{{ cat.id }}"  >
+                            <a href="#" class="{{ vista == 'grid' ? 'active' }}" data-modo="grid"  data-categoria="{{ cat.id }}"  >
                                 <i class="fa fa-th" title="" data-original-title="Grid View"></i>
                             </a>
                         </div>
@@ -67,14 +68,59 @@
                 </div>
             </div>
             {#<!-- Product List Display Starts -->#}
-            <div class="row lista_producto">
+            <div class="lista_producto">
                 {{ include('@App/frontend/Producto/productosAjax.html.twig') }}
             </div>
+
+
         </div>
         {#<!-- Primary Content Ends -->#}
         {#<!-- Sidebar Starts -->#}
         <div class="col-md-3">
-
+            <h3 class="side-heading">Filtros</h3>
+            <div class="list-group">
+                <div class="list-group-item">
+                    Rango de precio
+                </div>
+                <div class="list-group-item">
+                    <div class="filter-group">
+                        <label class="checkbox">
+                            <input type="checkbox" checked="checked" value="br1" name="filter1">
+                            Brand Name 1
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" value="br2" name="filter2">
+                            Brand Name 2
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" value="br2" name="filter2">
+                            Brand Name 3
+                        </label>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    Marca
+                </div>
+                <div class="list-group-item">
+                    <div class="filter-group">
+                        <label class="radio">
+                            <input type="radio" checked="checked" value="mr1" name="filter-manuf">
+                            Manufacturer Name 1
+                        </label>
+                        <label class="radio">
+                            <input type="radio" value="mr2" name="filter-manuf">
+                            Manufacturer Name 2
+                        </label>
+                        <label class="radio">
+                            <input type="radio" value="mr3" name="filter-manuf">
+                            Manufacturer Name 3
+                        </label>
+                    </div>
+                </div>
+                <div class="list-group-item">
+                    <button class="btn btn-warning" type="button">Filter</button>
+                </div>
+            </div>
         </div>
         {#<!-- Sidebar Ends -->#}
     </div>
@@ -85,9 +131,8 @@
            $('body').on('click','[data-modo]',function(e){
                $(this).siblings().removeClass('active');
                $(this).addClass('active');
-//               ProductochangeView($(this).data('categoria'), $(this).data('modo'), $("#cboOrden").val(), $("#cboLargo").val());
-               ProductochangeView();
-               e.preventDefault();
+                ProductochangeView();
+                e.preventDefault();
             });
 
 
@@ -109,7 +154,6 @@
          * @returns {boolean}
          * @constructor
          */
-//        ProductochangeView = function(cat, view, orden, largo ){
         ProductochangeView = function(){
             var modo = "", cat = '';
             $('[data-modo]').each(function(index){
@@ -117,7 +161,6 @@
                     modo = $(this).data('modo');
                     cat = $(this).data('categoria');
                 }
-
             })
 
             //ProductochangeView(cat, modo, $("#cboOrden").val(), $("#cboLargo").val());
