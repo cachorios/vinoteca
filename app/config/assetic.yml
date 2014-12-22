@@ -28,8 +28,6 @@ assetic:
                 - bundles/app/css/frontend/style.css
                 - bundles/app/css/frontend/responsive.css
 
-
-
 #                - bundles/rbsoftabmgenerador/fileupload//css/fileinput.min.css
 
                 - @lesses
@@ -70,7 +68,7 @@ assetic:
                 #-- Bootstrap core JavaScript
                 #-- Core JS --#
 
-                - bundles/app/js/admin/libs/bootstrap.min.js
+                - bundles/app/js/libs/bootstrap.min.js
 
 #                Este lo sacamos de aqui porque el assetic modifica el path, es un error.
 #                - bundles/rbsoftabmgenerador/fileupload//js/fileinput.js
@@ -96,14 +94,11 @@ assetic:
             inputs:
                 #-- Bootstrap core JavaScript
                 #-- Core JS --#
-#                - bundles/app/js/admin/libs/jquery-1.10.2.min.js
 
-                - bundles/app/js/frontend/jquery-migrate-1.2.1.min.js
+                - bundles/app/js/libs/bootstrap.min.js
 
-                - bundles/app/js/admin/libs/bootstrap.min.js
-
-                - bundles/app/js/frontend/bootstrap-hover-dropdown.min.js
-                - bundles/app/js/frontend/jquery.magnific-popup.min.js
+                - bundles/app/js/libs/bootstrap-hover-dropdown.min.js
+                - bundles/app/js/libs/jquery.magnific-popup.min.js
                 - bundles/app/js/frontend/custom.js
 
             filters:

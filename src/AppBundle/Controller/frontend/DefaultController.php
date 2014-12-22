@@ -2,10 +2,13 @@
 
 namespace AppBundle\Controller\frontend;
 
+use AppBundle\Entity\Categoria;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Config\ConfigCache;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -65,5 +68,60 @@ class DefaultController extends Controller
         $prods = $em->getRepository("AppBundle:Producto")->getUltimos();
 
         return array("prods" => $prods);
+    }
+
+    /**
+     * @Route("/slideproducto/{id}", name="slideproducto")
+     * @ParamConverter("categoria", class="AppBundle:Categoria")
+     * @return Response
+     */
+    public function filtroProducto(Categoria $categoria)
+    {
+        $dir = $this->container->get('kernel')->getCacheDir();
+        $file = $dir . DIRECTORY_SEPARATOR . 'RBSoft'.DIRECTORY_SEPARATOR.  'filtroproducto.html';
+
+        if (!file_exists($dir)) {
+            mkdir($dir);
+        }
+
+        $cache = new ConfigCache($file, false);
+
+        if (!$cache->isFresh()) {
+            /**
+             * @var Doctrine/EntityManager
+             */
+            $em = $this->getDoctrine()->getEntityManager();
+            $hijos = $em->getRepository("AppBundle:Categoria")->getDescendientes($categoria);
+
+            $res = $em->createQuery("
+                SELECT m.nombre,e.valor,count(e.valor) as cant
+                FROM  AppBundle:ProductoExtension e
+                  JOIN e.producto p
+                  JOIN e.metadatoProducto m
+                WHERE m.filtrable = TRUE and not e.valor = '' and p.categoria in(:cats)
+                GROUP BY m.nombre,e.valor
+                ORDER BY m.nombre ASC
+            ")
+                ->setParameter('cats', $hijos)
+                ->getArrayResult();
+
+            $slidebar = $this->renderView("AppBundle:frontend/Producto:slidebar_filtro.html.twig", array(
+                    "datos" => $this->arrToStrSlider($res)));
+            $cache->write($slidebar);
+        } else {
+            $slidebar = file_get_contents((string) $cache);
+        }
+
+        return  new Response($slidebar);
+
+    }
+
+    private function arrToStrSlider($dato)
+    {
+        $slider = array();
+        foreach($dato as $d){
+            $slider[$d['nombre']][] = array('valor' => $d['valor'], 'cant' => $d['cant']);
+        }
+        return $slider;
     }
 }

@@ -37,6 +37,7 @@ class ProductoController extends  Controller {
          * @var Doctrine/EntityManager
          */
         $em = $this->getDoctrine()->getManager();
+
         $hijos = $em->getRepository("AppBundle:Categoria")->getDescendientes($categoria);
         $queryBuilder = $this->filter($request, $hijos, $orden);
         $pager = $this->getPager($queryBuilder, $ver);
@@ -130,4 +131,6 @@ class ProductoController extends  Controller {
         return  $queryBuilder;
         //return array($filterForm, $queryBuilder);
     }
+
+
 } 

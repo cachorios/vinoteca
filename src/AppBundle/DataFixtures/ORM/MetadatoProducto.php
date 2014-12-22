@@ -33,30 +33,47 @@ class MetadatoProducto extends AbstractFixture implements OrderedFixtureInterfac
     public function load(ObjectManager $manager)
     {
         $arrs = array(
-            array('categoria' => 'vino', 'nombre' => 'Varietal',           'prederminado' => '',            'filtrable' => 1, 'orden' => 10, 'lista' => '' ),
-            array('categoria' => 'vino', 'nombre' => 'Bodega',             'prederminado' => '',            'filtrable' => 1, 'orden' => 20, 'lista' => '' ),
-            array('categoria' => 'vino', 'nombre' => 'Cata',               'prederminado' => '',            'filtrable' => 0, 'orden' => 30, 'lista' => '' ),
-            array('categoria' => 'vino', 'nombre' => 'Maridaje',           'prederminado' => '',            'filtrable' => 0, 'orden' => 40, 'lista' => '' ),
-            array('categoria' => 'vino', 'nombre' => 'Porcentaje Alcohol', 'prederminado' => '14.6',        'filtrable' => 0, 'orden' => 50, 'lista' => '' ),
-            array('categoria' => 'vino', 'nombre' => 'Volumen',            'prederminado' => '750cc',       'filtrable' => 0, 'orden' => 60, 'lista' => '' ),
-            array('categoria' => 'vino', 'nombre' => 'Pais de Origen',     'prederminado' => 'Argentina',   'filtrable' => 1, 'orden' => 70, 'lista' => '' ),
-            array('categoria' => 'vino', 'nombre' => 'Ciudad Origen',      'prederminado' => 'Mendoza',     'filtrable' => 1, 'orden' => 80, 'lista' => '' ),
+            array('categoria' => 'Tinto', 'nombre' => 'Varietal',           'prederminado' => '',            'filtrable' => 1, 'orden' => 10, 'lista' => '' ),
+            array('categoria' => 'Tinto', 'nombre' => 'Bodega',             'prederminado' => '',            'filtrable' => 1, 'orden' => 20, 'lista' => '' ),
+            array('categoria' => 'Tinto', 'nombre' => 'Cata',               'prederminado' => '',            'filtrable' => 0, 'orden' => 30, 'lista' => '' ),
+            array('categoria' => 'Tinto', 'nombre' => 'Maridaje',           'prederminado' => '',            'filtrable' => 0, 'orden' => 40, 'lista' => '' ),
+            array('categoria' => 'Tinto', 'nombre' => 'Porcentaje Alcohol', 'prederminado' => '14.6',        'filtrable' => 0, 'orden' => 50, 'lista' => '' ),
+            array('categoria' => 'Tinto', 'nombre' => 'Volumen',            'prederminado' => '750cc',       'filtrable' => 0, 'orden' => 60, 'lista' => '' ),
+            array('categoria' => 'Tinto', 'nombre' => 'Pais de Origen',     'prederminado' => 'Argentina',   'filtrable' => 1, 'orden' => 70, 'lista' => '' ),
+            array('categoria' => 'Tinto', 'nombre' => 'Ciudad Origen',      'prederminado' => 'Mendoza',     'filtrable' => 1, 'orden' => 80, 'lista' => '' ),
 
+            array('categoria' => 'Blanco', 'nombre' => 'Varietal',           'prederminado' => '',            'filtrable' => 1, 'orden' => 10, 'lista' => '' ),
+            array('categoria' => 'Blanco', 'nombre' => 'Bodega',             'prederminado' => '',            'filtrable' => 1, 'orden' => 20, 'lista' => '' ),
+            array('categoria' => 'Blanco', 'nombre' => 'Cata',               'prederminado' => '',            'filtrable' => 0, 'orden' => 30, 'lista' => '' ),
+            array('categoria' => 'Blanco', 'nombre' => 'Maridaje',           'prederminado' => '',            'filtrable' => 0, 'orden' => 40, 'lista' => '' ),
+            array('categoria' => 'Blanco', 'nombre' => 'Porcentaje Alcohol', 'prederminado' => '14.6',        'filtrable' => 0, 'orden' => 50, 'lista' => '' ),
+            array('categoria' => 'Blanco', 'nombre' => 'Volumen',            'prederminado' => '750cc',       'filtrable' => 0, 'orden' => 60, 'lista' => '' ),
+            array('categoria' => 'Blanco', 'nombre' => 'Pais de Origen',     'prederminado' => 'Argentina',   'filtrable' => 1, 'orden' => 70, 'lista' => '' ),
+            array('categoria' => 'Blanco', 'nombre' => 'Ciudad Origen',      'prederminado' => 'Mendoza',     'filtrable' => 1, 'orden' => 80, 'lista' => '' ),
 
-            array('categoria' => 'Cerveza', 'nombre' => 'Bodega',             'prederminado' => '',            'filtrable' => 1, 'orden' => 20, 'lista' => '' ),
-            array('categoria' => 'Cerveza', 'nombre' => 'Cata',               'prederminado' => '',            'filtrable' => 0, 'orden' => 30, 'lista' => '' ),
-            array('categoria' => 'Cerveza', 'nombre' => 'Maridaje',           'prederminado' => '',            'filtrable' => 0, 'orden' => 40, 'lista' => '' ),
-            array('categoria' => 'Cerveza', 'nombre' => 'Porcentaje Alcohol', 'prederminado' => '',             'filtrable' => 0, 'orden' => 50, 'lista' => '' ),
-            array('categoria' => 'Cerveza', 'nombre' => 'Volumen',            'prederminado' => '650cc',       'filtrable' => 0, 'orden' => 60, 'lista' => '' ),
-            array('categoria' => 'Cerveza', 'nombre' => 'Pais de Origen',     'prederminado' => 'Argentina',   'filtrable' => 1, 'orden' => 70, 'lista' => '' ),
-            array('categoria' => 'Cerveza', 'nombre' => 'Ciudad Origen',      'prederminado' => '',             'filtrable' => 1, 'orden' => 80, 'lista' => '' ),
+            array('categoria' => 'Rubia', 'nombre' => 'Bodega',             'prederminado' => '',            'filtrable' => 1, 'orden' => 20, 'lista' => '' ),
+            array('categoria' => 'Rubia', 'nombre' => 'Cata',               'prederminado' => '',            'filtrable' => 0, 'orden' => 30, 'lista' => '' ),
+            array('categoria' => 'Rubia', 'nombre' => 'Maridaje',           'prederminado' => '',            'filtrable' => 0, 'orden' => 40, 'lista' => '' ),
+            array('categoria' => 'Rubia', 'nombre' => 'Porcentaje Alcohol', 'prederminado' => '',             'filtrable' => 0, 'orden' => 50, 'lista' => '' ),
+            array('categoria' => 'Rubia', 'nombre' => 'Volumen',            'prederminado' => '650cc',       'filtrable' => 0, 'orden' => 60, 'lista' => '' ),
+            array('categoria' => 'Rubia', 'nombre' => 'Pais de Origen',     'prederminado' => 'Argentina',   'filtrable' => 1, 'orden' => 70, 'lista' => '' ),
+            array('categoria' => 'Rubia', 'nombre' => 'Ciudad Origen',      'prederminado' => '',             'filtrable' => 1, 'orden' => 80, 'lista' => '' ),
+
+            array('categoria' => 'Negra', 'nombre' => 'Bodega',             'prederminado' => '',            'filtrable' => 1, 'orden' => 20, 'lista' => '' ),
+            array('categoria' => 'Negra', 'nombre' => 'Cata',               'prederminado' => '',            'filtrable' => 0, 'orden' => 30, 'lista' => '' ),
+            array('categoria' => 'Negra', 'nombre' => 'Maridaje',           'prederminado' => '',            'filtrable' => 0, 'orden' => 40, 'lista' => '' ),
+            array('categoria' => 'Negra', 'nombre' => 'Porcentaje Alcohol', 'prederminado' => '',             'filtrable' => 0, 'orden' => 50, 'lista' => '' ),
+            array('categoria' => 'Negra', 'nombre' => 'Volumen',            'prederminado' => '650cc',       'filtrable' => 0, 'orden' => 60, 'lista' => '' ),
+            array('categoria' => 'Negra', 'nombre' => 'Pais de Origen',     'prederminado' => 'Argentina',   'filtrable' => 1, 'orden' => 70, 'lista' => '' ),
+            array('categoria' => 'Negra', 'nombre' => 'Ciudad Origen',      'prederminado' => '',             'filtrable' => 1, 'orden' => 80, 'lista' => '' ),
 
         );
 
         foreach ($arrs as $a) {
             $o = new \AppBundle\Entity\MetadatoProducto();
             
-            $o->setCategoria( $manager->getRepository("AppBundle:Categoria")->findOneByNombre($a['categoria']) );
+            //$o->setCategoria( $manager->getRepository("AppBundle:Categoria")->findOneByNombre($a['categoria']) );
+            $o->setCategoria( $this->getReference($a['categoria']))            ;
             $o->setNombre($a['nombre']);
             $o->getPredeterminado($a['prederminado']);
             $o->setFiltrable($a['filtrable']);
@@ -66,6 +83,7 @@ class MetadatoProducto extends AbstractFixture implements OrderedFixtureInterfac
 
             $manager->persist($o);
             $manager->flush();
+            $this->addReference($o->getCategoria()->getNombre().'-'.$o->getNombre(), $o);
         }
 
 

@@ -1,0 +1,44 @@
+<h3 class="side-heading">Filtros</h3>
+
+<div class="list-group">
+    <div class="list-group-item">
+        Rango de precios
+    </div>
+    <div class="list-group-item">
+        <div class="filter-group">
+            {% for i in 0..9   %}
+            <label class="checkbox">
+                <input type="checkbox"  value="{{ i }}" name="precio[]">
+                ${{  i*100 }} - ${{  i*100 + 99 }}
+            </label>
+            {% endfor %}
+            <label class="checkbox">
+                <input type="checkbox"  value="10" name="precio[]">
+                $1000 y mas...
+            </label>
+        </div>
+    </div>
+
+    {% for codigo, grupo in datos %}
+        {% if grupo | length >1 %}
+        <div class="list-group-item">
+            {{ codigo  }}
+        </div>
+
+        <div class="list-group-item">
+            <div class="filter-group">
+                {% for item in grupo %}
+                <label class="checkbox">
+                    <input type="checkbox"  value="{{ item.valor }}" name="{{codigo}}[]">
+                    {{ item.valor }} <span class="badge badge-primary"> {{ item.cant }}</span>
+                </label>
+                {% endfor %}
+
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+    <div class="list-group-item">
+        <button type="button" class="btn btn-warning">Aplicar</button>
+    </div>
+</div>

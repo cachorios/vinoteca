@@ -77,50 +77,7 @@
         {#<!-- Primary Content Ends -->#}
         {#<!-- Sidebar Starts -->#}
         <div class="col-md-3">
-            <h3 class="side-heading">Filtros</h3>
-            <div class="list-group">
-                <div class="list-group-item">
-                    Rango de precio
-                </div>
-                <div class="list-group-item">
-                    <div class="filter-group">
-                        <label class="checkbox">
-                            <input type="checkbox" checked="checked" value="br1" name="filter1">
-                            Brand Name 1
-                        </label>
-                        <label class="checkbox">
-                            <input type="checkbox" value="br2" name="filter2">
-                            Brand Name 2
-                        </label>
-                        <label class="checkbox">
-                            <input type="checkbox" value="br2" name="filter2">
-                            Brand Name 3
-                        </label>
-                    </div>
-                </div>
-                <div class="list-group-item">
-                    Marca
-                </div>
-                <div class="list-group-item">
-                    <div class="filter-group">
-                        <label class="radio">
-                            <input type="radio" checked="checked" value="mr1" name="filter-manuf">
-                            Manufacturer Name 1
-                        </label>
-                        <label class="radio">
-                            <input type="radio" value="mr2" name="filter-manuf">
-                            Manufacturer Name 2
-                        </label>
-                        <label class="radio">
-                            <input type="radio" value="mr3" name="filter-manuf">
-                            Manufacturer Name 3
-                        </label>
-                    </div>
-                </div>
-                <div class="list-group-item">
-                    <button class="btn btn-warning" type="button">Filter</button>
-                </div>
-            </div>
+            {{ render(path("slideproducto",{'id': cat.id})) }}
         </div>
         {#<!-- Sidebar Ends -->#}
     </div>
