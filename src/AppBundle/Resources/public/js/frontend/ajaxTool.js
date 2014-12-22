@@ -11,8 +11,8 @@ var cntShow = 0;
 var showIndicador = function(){
     $("#veil").show();
     $("#prLoading").show();
-    //cntShow = cntShow + 1;
-    console.log(cntShow);
+    cntShow = cntShow + 1;
+    //console.log(cntShow);
 }
 
 var hideIndocador = function(){
@@ -21,7 +21,7 @@ var hideIndocador = function(){
     if(cntShow <= 0){
         cntShow = 0;
         $("#prLoading").hide();
-        $("#veil").fadeOut(5000);
+        $("#veil").fadeOut(800);
     }
 }
 //showIndicador();
@@ -51,6 +51,6 @@ $.ajaxSetup({
 });
 //
 $(window).load(function(){
-    //showIndicador();
+
     hideIndocador();
 })

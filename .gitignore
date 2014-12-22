@@ -19,5 +19,6 @@
 /web/assetic/*
 /web/js/*
 /web/css/*
-.idea/workspace.xml
+/web/uploads/productos/*
+
 composer.lock
