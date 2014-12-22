@@ -24,39 +24,36 @@ class ProductoController extends  Controller {
 
 
     /**
-    * @Route("/productos/{id}/vista/{vista}",
+    * @Route("/productos/{id}/vista/{vista}/orden/{orden}/ver/{ver}",
      *  requirements={"id" = "\d+"},
-     *  defaults={"vista" = "lista"},
+     *  defaults={"vista" = "lista", "orden" = "0", "ver" = "3"},
      *  name="productos",
      *  options={"expose"=true} )
     * @ParamConverter("categoria", class="AppBundle:Categoria")
     */
-    public function getProductosAction(Request $request, Categoria $categoria, $vista){
+    public function getProductosAction(Request $request, Categoria $categoria, $vista, $orden, $ver){
 
         /**
          * @var Doctrine/EntityManager
          */
         $em = $this->getDoctrine()->getManager();
         $hijos = $em->getRepository("AppBundle:Categoria")->getDescendientes($categoria);
-        $queryBuilder = $this->filter($request, $hijos);
-        $pager = $this->getPager($queryBuilder,$vista);
+        $queryBuilder = $this->filter($request, $hijos, $orden);
+        $pager = $this->getPager($queryBuilder,$vista, $ver);
 
 
         if($request->isXmlHttpRequest()){
-            return $this->render("@App/frontend/Producto/productosAjax.html.twig",array(
-                    "cat" => $categoria,
-                    'pager' => $pager,
-                    'setting' => $this->get("setting.service")->getSetting(),
-                    'vista' => $vista
-                ));
+            $template = "@App/frontend/Producto/productosAjax.html.twig";
         }else{
-            return $this->render("@App/frontend/Producto/getProductos.html.twig",array(
+            $template = "@App/frontend/Producto/getProductos.html.twig";
+        }
+
+        return $this->render($template,array(
                 "cat" => $categoria,
                 'pager' => $pager,
                 'setting' => $this->get("setting.service")->getSetting(),
                 'vista' => $vista
             ));
-        }
     }
 
     /**
@@ -65,14 +62,14 @@ class ProductoController extends  Controller {
      * @return SlidingPagination
      * @throws NotFoundHttpException
      */
-    private function getPager($q,$vista)
+    private function getPager($q,$vista, $ver)
     {
         $paginator = $this->get('knp_paginator');
 
         $pagination = $paginator->paginate(
             $q,
             $this->get('request')->query->get('page', 1)/*page number*/,
-            ($vista == 'lista' ? 4 : 6),
+            $ver,
             array(
                 'distinct' => false,
                 'pagination' => 'twitter_bootstrap_v3_pagination.html.twig'
@@ -85,7 +82,7 @@ class ProductoController extends  Controller {
 
     }
 
-    private function filter(Request $request, $hijos)
+    private function filter(Request $request, $hijos, $orden)
     {
         $session = $request->getSession();
         //$filterForm = $this->createForm(new CategoriaFilterType());
@@ -93,9 +90,16 @@ class ProductoController extends  Controller {
         $em = $this->getDoctrine()->getManager();
         $queryBuilder = $em->getRepository('AppBundle:Producto')->createQueryBuilder("q")
             ->where('q.categoria IN( :ids ) ' )
-            ->orderBy('q.nombre', 'ASC')
             ->setParameter('ids' , $hijos)
         ;
+        if($orden == 1){
+            $queryBuilder->orderBy('q.nombre', 'ASC');
+        }elseif($orden == 2){
+            $queryBuilder->orderBy('q.nombre', 'DESC');
+        }else{
+            $queryBuilder->orderBy('q.id', 'ASC');
+        }
+
 
         // Reset filter
         if ($request->getMethod() == 'POST' && $request->get('submit-filter') == 'reset') {

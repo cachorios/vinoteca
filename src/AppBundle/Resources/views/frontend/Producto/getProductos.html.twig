@@ -36,7 +36,6 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="display">
-                            {#onclick="return ProductochangeView({{ cat.id }},'lista');"#}
                             <a href="#"  class="active" data-modo="lista" data-categoria="{{ cat.id }}" >
                                 <i class="fa fa-th-list" title="" data-original-title="List View"></i>
                             </a>
@@ -49,20 +48,20 @@
                         <label class="control-label">{{ "Orden" | trans }}</label>
                     </div>
                     <div class="col-md-3 text-right">
-                        <select class="form-control">
-                            <option value="default" selected="selected">{{ "Predeterminado" | trans }}</option>
-                            <option value="NAZ">{{ "Nombre (A - Z)" | trans }}</option>
-                            <option value="NZA">{{ "Nombre (Z - A)" | trans }}</option>
+                        <select class="form-control" id="cboOrden">
+                            <option value="0" selected="selected">{{ "Predeterminado" | trans }}</option>
+                            <option value="1">{{ "Nombre (A - Z)" | trans }}</option>
+                            <option value="2">{{ "Nombre (Z - A)" | trans }}</option>
                         </select>
                     </div>
                     <div class="col-md-1 text-right">
                         <label class="control-label">{{ 'Ver' | trans }}</label>
                     </div>
                     <div class="col-md-2 text-right">
-                        <select class="form-control">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
+                        <select class="form-control" id="cboLargo">
                             <option value="3" selected="selected">3</option>
+                            <option value="6">6</option>
+                            <option value="9">9</option>
                         </select>
                     </div>
                 </div>
@@ -84,13 +83,25 @@
 
         $(function(){
            $('body').on('click','[data-modo]',function(e){
-//               showIndicador();
                $(this).siblings().removeClass('active');
                $(this).addClass('active');
-               ProductochangeView($(this).data('categoria'), $(this).data('modo'));
+//               ProductochangeView($(this).data('categoria'), $(this).data('modo'), $("#cboOrden").val(), $("#cboLargo").val());
+               ProductochangeView();
                e.preventDefault();
             });
+
+
+            $('#cboOrden').change(function(e){
+                ProductochangeView();
+            });
+
+            $('#cboLargo').change(function(e){
+                ProductochangeView();
+            });
+
         });
+
+
         /**
          * Llama ajax para poblar
          * @param cat
@@ -98,10 +109,21 @@
          * @returns {boolean}
          * @constructor
          */
-        ProductochangeView = function(cat, view ){
+//        ProductochangeView = function(cat, view, orden, largo ){
+        ProductochangeView = function(){
+            var modo = "", cat = '';
+            $('[data-modo]').each(function(index){
+                if($(this).hasClass('active')){
+                    modo = $(this).data('modo');
+                    cat = $(this).data('categoria');
+                }
+
+            })
+
+            //ProductochangeView(cat, modo, $("#cboOrden").val(), $("#cboLargo").val());
             $("#cargando").css("display", "inline");
             $.ajax({
-                url: Routing.generate('productos',{'id': cat, 'vista': view}),
+                url: Routing.generate('productos',{'id': cat, 'vista': modo, 'orden': $("#cboOrden").val(), 'ver':  $("#cboLargo").val()}),
                 context: document.body,
                 success: function(data){
                     $(".lista_producto").html(data);
