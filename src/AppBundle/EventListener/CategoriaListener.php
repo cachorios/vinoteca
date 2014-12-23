@@ -31,6 +31,9 @@ class CategoriaListener
             $entity->setLevel($this->getLevel($entity));
             $entity->setRoot($this->getRoot($entity));
             $entity->setUpdatedAt( new \DateTime());
+            if(is_null($entity->getOrden())){
+                $entity->setOrden(0);
+            }
 
             $em->getUnitOfWork()->recomputeSingleEntityChangeSet($em->getClassMetadata(get_class($entity)), $entity);
         }
@@ -44,6 +47,9 @@ class CategoriaListener
             $entity->setUpdatedAt( new \DateTime());
             $entity->setLevel($this->getLevel($entity));
             $entity->setRoot(0);
+            if(is_null($entity->getOrden())){
+                $entity->setOrden(0);
+            }
         }
     }
 

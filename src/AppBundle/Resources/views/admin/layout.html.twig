@@ -13,13 +13,6 @@
     </div><!-- /.container -->
 </div><!-- .content -->
 
-
-{% if logout is not defined or logout is null %}
-    {% set logout_path = path('admin_logout') %}
-{% else %}
-    {% set logout_path = path('autogestion_logout') %}
-{% endif %}
-
 {% endblock body %}
 
 {% block javascript_footer %}

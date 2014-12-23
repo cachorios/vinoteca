@@ -1,44 +1,31 @@
 {% block metadato_collection_widget %}
     {% spaceless %}
 
-        <table id="iten_list_{{ name }}_collection" style="display: table;"
-               class="grid table-hover table table-bordered table-condensed "
-               data-prototype="{{ _self.metadato_collection_fields(form)|escape }}">
-            <caption>
+        <a id="add-metadato" href="#" title="Añadir un nuevo metadato"
+           class="btn btn-default btn-primary btn-sm action-btn add-list-item">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+        </a>
 
-                <a id="add-metadato" href="#" title="Añadir un nuevo metadato"
-                   class="btn btn-default btn-primary btn-sm action-btn add-list-item">
-                    <span class="glyphicon glyphicon-plus-sign"></span>
-                </a>
 
-            </caption>
+        <div class='row'>
+            <div class='col-sm-12'>
+                <ul id="iten_list_{{ name }}_collection"
+                    data-prototype="{{ _self.metadato_collection_fields(form)|escape }}">
 
-            <thead>
-            <tr>
-                <th>{{ 'nombre'|trans|upper }}</th>
-                {#<th>{{ 'orden'|trans|upper }}</th>#}
-                <th>{{ 'listaValores'|trans|upper }}</th>
-                <th>{{ 'predeterminado'|trans|upper }}</th>
-                <th>{{ 'filtrable'|trans|upper }}</th>
-                <th class="actions">{{ 'Acciones'|trans|upper }}</th>
-            </tr>
-            </thead>
+                    {% for field in form.children %}
+                        <li>
+                            {{ _self.metadato_collection_fields(field) }}
+                        </li>
+                        {#{% else %}#}
+                        {#<li>{{ 'sin resultados'|trans }}</li>#}
+                    {% endfor %}
 
-            <tbody>
 
-            {% for field in form.children %}
-                <tr>
-                    {{ _self.metadato_collection_fields(field) }}
-                </tr>
-            {% else %}
-                <tr>
-                    <td class="last-row" colspan="100"
-                        style="text-align: center;">{{ 'sin resultados'|trans }}</td>
-                </tr>
-            {% endfor %}
+                </ul>
+            </div>
+        </div>
 
-            </tbody>
-        </table>
+
     {% endspaceless %}
 {% endblock metadato_collection_widget %}
 
@@ -52,58 +39,47 @@
         {% set name = widget.vars.full_name %}
     {% endif %}
 
-        <td>
-            {{ form_widget(form.nombre) }}
-            {{ form_widget(form.orden, {'attr': {'style': 'display:none !important' }}) }}
-            {{ form_widget(form.orden) }}
 
-        </td>
-        <td>{{ form_widget(form.listaValores) }}</td>
-        <td>{{ form_widget(form.predeterminado) }}</td>
-        <td>{{ form_widget(form.filtrable) }}</td>
-        <td>
-            <div class="btn-group">
-                <a data-message="Are you sure you want to delete this column?" data-collection-action="delete"
-                   title="Delete column" class="btn btn-default btn-xs remove-list-item"
-                   href="javascript: void(0);">
-                    <i class="glyphicon glyphicon-trash"></i>
-                </a>
+    <fieldset>
+        <legend>Formulario</legend>
 
-                <span title="Move column" class="dragHandle">
-                    <i class="glyphicon glyphicon-list"></i>
-                </span>
-            </div>
-        </td>
+        {{ form_row(form.orden) }}
+        {{ form_row(form.nombre) }}
+        {{ form_row(form.requerido) }}
+    </fieldset>
+
+    <div class='row'>
+        <div class='col-sm-6'>
+            <fieldset>
+                <legend>Valores</legend>
+                {{ form_row(form.listaValores) }}
+                {{ form_row(form.predeterminado) }}
+            </fieldset>
+        </div>
+        <div class='col-sm-6'>
+            <fieldset>
+                <legend>Filtrable</legend>
+                {{ form_row(form.filtrable) }}
+            </fieldset>
+        </div>
+    </div>
+
+    {{ form_widget(form) }}
+
+    <div class="btn-group">
+        <a data-message="Are you sure you want to delete this column?" data-collection-action="delete"
+           title="Delete column" class="btn btn-default btn-xs remove-list-item"
+           href="javascript: void(0);">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+
+        <span title="Move column" class="dragHandle">
+        <i class="glyphicon glyphicon-list"></i>
+        </span>
+    </div>
 
 {% endmacro %}
 
 {#
 *****************************************************************
 #}
-
-{% block extencion_collection_widget %}
-    {% spaceless %}
-
-        {% for field in form.children %}
-
-            {{ _self.extencion_collection_fields(field) }}
-
-        {% endfor %}
-
-    {% endspaceless %}
-{% endblock extencion_collection_widget %}
-
-
-{% macro extencion_collection_fields(widget) %}
-    {% if 'prototype' in widget.vars|keys %}
-        {% set form = widget.vars.prototype %}
-        {% set name = widget.vars.prototype.vars.name %}
-    {% else %}
-        {% set form = widget %}
-        {% set name = widget.vars.full_name %}
-    {% endif %}
-
-    {{ form_widget(form) }}
-
-    {#{{ widget |ld  }}#}
-{% endmacro %}

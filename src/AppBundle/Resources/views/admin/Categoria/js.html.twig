@@ -8,7 +8,7 @@
             var newWidget = fieldList.attr('data-prototype');
             newWidget = newWidget.replace(/__name__/g, fieldCount);
             fieldCount++;
-            var newLi = jQuery('<tr></tr>').html(newWidget);
+            var newLi = jQuery('<li></li>').html(newWidget);
             newLi.appendTo(fieldList);
 
         });

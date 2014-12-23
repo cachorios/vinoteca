@@ -30,7 +30,6 @@
 
                 {% block cuerpo %}
                     <p></p>
-                    {#{{ entity | ld() }}#}
                     {{ form_start(edit_form) }}
                     <ul id="myTab1" class="nav nav-tabs">
                         <li class="active">
@@ -54,7 +53,7 @@
                         </div>
                         <div id="metadatos" class="tab-pane fade">
                             {% include'AppBundle:admin/Categoria:_metadato_list.html.twig' %}
-                            <div >
+                            <div>
                                 {{ form_widget(edit_form.metadatos) }}
                             </div>
                         </div>
@@ -77,6 +76,6 @@
 
 
         {% block javascript_footer %}
-            {{ include('AppBundle:admin/Categoria:js.html.twig',{'form': edit_form})  }}
+            {{ include('AppBundle:admin/Categoria:js.html.twig',{'form': edit_form}) }}
 
         {% endblock %}
