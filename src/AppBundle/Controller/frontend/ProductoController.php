@@ -10,6 +10,7 @@ namespace AppBundle\Controller\frontend;
 
 
 use AppBundle\Entity\Categoria;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -33,13 +34,17 @@ class ProductoController extends  Controller {
     */
     public function getProductosAction(Request $request, Categoria $categoria, $vista, $orden, $ver){
 
+
+        $toFilter = $request->get('filtro') ;
+
         /**
          * @var Doctrine/EntityManager
          */
         $em = $this->getDoctrine()->getManager();
 
         $hijos = $em->getRepository("AppBundle:Categoria")->getDescendientes($categoria);
-        $queryBuilder = $this->filter($request, $hijos, $orden);
+
+        $queryBuilder = $this->filter($request, $hijos, $orden,$toFilter);
         $pager = $this->getPager($queryBuilder, $ver);
 
 
@@ -53,7 +58,8 @@ class ProductoController extends  Controller {
                 "cat" => $categoria,
                 'pager' => $pager,
                 'setting' => $this->get("setting.service")->getSetting(),
-                'vista' => $vista
+                'vista' => $vista,
+                'filtro' => $toFilter
             ));
     }
 
@@ -83,12 +89,15 @@ class ProductoController extends  Controller {
 
     }
 
-    private function filter(Request $request, $hijos, $orden)
+    private function filter(Request $request, $hijos, $orden, $tofilter)
     {
         $session = $request->getSession();
         //$filterForm = $this->createForm(new CategoriaFilterType());
-
+        /**
+         * @var Doctrine/EntityManager
+         */
         $em = $this->getDoctrine()->getManager();
+
         $queryBuilder = $em->getRepository('AppBundle:Producto')->createQueryBuilder("q")
             ->where('q.categoria IN( :ids ) ' )
             ->setParameter('ids' , $hijos)
@@ -101,36 +110,57 @@ class ProductoController extends  Controller {
             $queryBuilder->orderBy('q.id', 'ASC');
         }
 
+        if(count($tofilter)>0) {
+            $tofilter = $this->prepareFilter($tofilter);
+            foreach ($tofilter as $key => $filter) {
 
-        // Reset filter
-        if ($request->getMethod() == 'POST' && $request->get('submit-filter') == 'reset') {
-            $session->remove('ProductoEndControllerFilter');
-        }
-
-        // Filter action
-        /*
-        if ($request->getMethod() == 'POST' && $request->get('submit-filter') == 'Aplicar') {
-            // Bind values from the request
-          //  $filterForm->handleRequest($request);
-
-            if ($filterForm->isValid()) {
-                $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
-                // Save filter to session
-                $filterData = $filterForm->getData();
-                $session->set('ProductoEndControllerFilter', $filterData);
-            }
-        } else {
-            // Get filter from session
-            if ($session->has('CategoriaControllerFilter')) {
-                $filterData = $session->get('CategoriaControllerFilter');
-                $filterForm = $this->createForm(new CategoriaFilterType(), $filterData);
-                $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
+                if ($key == 'precio' ) {
+                    $precio = $filter;
+                    $porc = $this->get("setting.service")->getSetting()->getDescuentoGlobal();
+                    $coef = 1 +  $porc/100;
+                    if ($precio >= 0 && $precio <= 10) {
+                        $queryBuilder
+                            ->andWhere("q.precio   between :p1 and :p2  ")
+                            ->setParameter('p1', 100 * $precio * $coef)
+                            ->setParameter('p2', (100 * $precio + 99.99) * $coef);
+                    }
+                }else{
+                    $subquery = $this->createSubQuery( substr($key,2) );
+                    $queryBuilder
+                        ->andWhere($queryBuilder->expr()->exists($subquery->getDql()))
+                        ->setParameter('clave'.substr($key,2), $filter[0])
+                        ->setParameter('valores'.substr($key,2), $filter[1]);
+                }
             }
         }
-        */
+
         return  $queryBuilder;
-        //return array($filterForm, $queryBuilder);
     }
 
+    private function createSubQuery($key){
+        $em = $this->getDoctrine()->getManager();
+        $subquery = $em->createQuery("
+                      SELECT 1 FROM AppBundle:ProductoExtension e$key JOIN e$key.metadatoProducto m$key
+                      where m$key.nombre = :clave$key AND
+                            e$key.valor in(:valores$key ) AND
+                            e$key.producto = q.id");
+        return $subquery;
+    }
+
+    private function prepareFilter($filter)
+    {
+        $f = array();
+
+        foreach($filter as $key => $valores){
+            if($key == 'precio')
+                $f[$key] = $valores;
+            elseif(substr($key,0,1)=='g')
+                $name = $valores;
+            else
+               $f['m_'.substr($key,2)] = array($name, $valores);
+        }
+
+        return $f;
+    }
 
 } 

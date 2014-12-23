@@ -82,6 +82,7 @@
         {#<!-- Sidebar Ends -->#}
     </div>
     <br><br>
+
     <script type="text/javascript">
 
         $(function(){
@@ -136,5 +137,28 @@
 
             return false;
         }
+
+        $(document).ready(function(e){
+
+            {% for k,v in filtro  %}
+                {% if k == 'precio' %}
+                    $("#id{{ v }}",'#form_filtro').prop('checked',true);
+                {% else  %}
+                    $("input",'#form_filtro').each(function(i){
+
+                        if($(this).prop('name') == 'filtro[{{ k }}][]'){
+                            {% for l in v %}
+                                if($(this).val() == '{{ l }}'){
+                                    $(this).prop('checked',true);
+                                }
+                            {% endfor %}
+                        }
+
+                    });
+                {% endif %}
+            {% endfor %}
+
+
+        });
     </script>
 {% endblock %}

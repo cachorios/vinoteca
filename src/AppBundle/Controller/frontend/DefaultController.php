@@ -78,7 +78,7 @@ class DefaultController extends Controller
     public function filtroProducto(Categoria $categoria)
     {
         $dir = $this->container->get('kernel')->getCacheDir();
-        $file = $dir . DIRECTORY_SEPARATOR . 'RBSoft'.DIRECTORY_SEPARATOR.  'filtroproducto.html';
+        $file = $dir . DIRECTORY_SEPARATOR . 'RBSoft'.DIRECTORY_SEPARATOR.  'filtroproducto_'.$categoria->getId().'.html';
 
         if (!file_exists($dir)) {
             mkdir($dir);
@@ -94,7 +94,7 @@ class DefaultController extends Controller
             $hijos = $em->getRepository("AppBundle:Categoria")->getDescendientes($categoria);
 
             $res = $em->createQuery("
-                SELECT m.nombre,e.valor,count(e.valor) as cant
+                SELECT m.id,m.nombre,e.valor,count(e.valor) as cant
                 FROM  AppBundle:ProductoExtension e
                   JOIN e.producto p
                   JOIN e.metadatoProducto m
@@ -119,8 +119,14 @@ class DefaultController extends Controller
     private function arrToStrSlider($dato)
     {
         $slider = array();
+        $id = 'ninguno';
+        $nombre = 'ninguno';
         foreach($dato as $d){
-            $slider[$d['nombre']][] = array('valor' => $d['valor'], 'cant' => $d['cant']);
+            if($nombre != $d['nombre'] ){
+                $nombre = $d['nombre'];
+                $id = $d['id'];
+            }
+            $slider[$d['nombre']][] = array('id' =>$id, 'valor' => $d['valor'], 'cant' => $d['cant']);
         }
         return $slider;
     }
