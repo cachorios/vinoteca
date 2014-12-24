@@ -10,6 +10,7 @@ namespace AppBundle\Controller\frontend;
 
 
 use AppBundle\Entity\Categoria;
+use AppBundle\Entity\Producto;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -161,6 +162,22 @@ class ProductoController extends  Controller {
         }
 
         return $f;
+    }
+
+    /**
+     * @Route("/productofull/{id}",
+     *  requirements={"id" = "\d+"},
+     *  name="productofull",
+     *  options={"expose"=true} )
+     * @ParamConverter("producto", class="AppBundle:Producto")
+     */
+    public function productofullAction(Producto $producto){
+
+        return $this->render("@App/frontend/Producto/producto_full.html.twig",
+            array(
+                "producto" => $producto,
+                'setting' => $this->get("setting.service")->getSetting(),
+            ));
     }
 
 } 

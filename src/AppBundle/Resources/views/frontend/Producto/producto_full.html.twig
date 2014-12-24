@@ -1,0 +1,123 @@
+{% extends 'AppBundle:frontend:layout_with_sidebar.html.twig' %}
+
+{#{% block pre_body %}#}
+{#{% include "@App/frontend/includes/carrusel.html.twig" %}#}
+{#{{ render(path("ultimosproductos")) }}#}
+{#{% endblock pre_body %}#}
+
+{% block workarea -%}
+    <ol class="breadcrumb">
+        <li><a href="index.html">Home</a></li>
+        <li class="active">Spices &amp; Herbs</li>
+    </ol>
+    <div class="row product-info full">
+        <!-- Left Starts -->
+        <div class="col-sm-4 images-block">
+            <a href="images/product-images/big-pimg1.jpg">
+                <img src="{{ asset('uploads/productos/'~producto.imagenActiva) }}" style="width: 100%" alt="producto" class="img-responsive  thumbnail">
+            </a>
+            <ul class="list-unstyled list-inline">
+                <li>
+                    <a href="images/product-images/big-pimg2.jpg">
+                        <img class="img-responsive thumbnail" alt="Image" src="images/product-images/thumb1.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="images/product-images/big-pimg3.jpg">
+                        <img class="img-responsive thumbnail" alt="Image" src="images/product-images/thumb2.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="images/product-images/big-pimg4.jpg">
+                        <img class="img-responsive thumbnail" alt="Image" src="images/product-images/thumb3.jpg">
+                    </a>
+                </li>
+                <li>
+                    <a href="images/product-images/big-pimg4.jpg">
+                        <img class="img-responsive thumbnail" alt="Image" src="images/product-images/thumb4.jpg">
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- Left Ends -->
+        <!-- Right Starts -->
+        <div class="col-sm-8 product-details">
+            <div class="panel-smart">
+                <!-- Product Name Starts -->
+                <h2>{{ producto.nombre }}</h2>
+                <!-- Product Name Ends -->
+                <hr>
+                <p>{{ producto.descripcion }}
+                </p>
+                <!-- Manufacturer Starts -->
+                <ul class="list-unstyled manufacturer">
+                    <li>
+                        <span>Categorìa:</span> {{ producto.categoria.nombre }}
+                    </li>
+                    <li><span>Código:</span> {{ producto.codigo }}</li>
+                    <li><span>Ranking:</span> 80</li>
+                    <li>
+                        <span>Disponibilidad:</span>  <strong class="label label-danger">{{ 'Sin Sock' }}</strong>
+                    </li>
+                </ul>
+                <!-- Manufacturer Ends -->
+                <hr>
+                <!-- Price Starts -->
+                <div class="price">
+                    <span class="price-head">Precio :</span>
+                    {% if setting.descuentoGlobal == 0 %}
+                        <span class="price-new">$ {{ '%8.2f'  | format(producto.precio ) }}</span>
+                    {% else %}
+                        <span class="price-new">$ {{ '%8.2f'  | format(producto.precio - producto.precio * setting.descuentoGlobal/100 ) }}</span>
+                        <span class="price-old">$ {{ '%8.2f'  | format(producto.precio ) }}</span>
+                    {% endif %}
+
+
+                </div>
+                <!-- Price Ends -->
+                <hr>
+
+
+                <!-- Available Options Starts -->
+                <div class="options">
+                    <h3>Mas información</h3>
+                    <table class="table">
+                        {% for dato in producto.extencion  %}
+                            <tr>
+                                <th class="col-md-3" style="background-color: #f7f7f7;">{{ dato.metadatoProducto.nombre }}</th>
+                                <td class="col-md-9">{{  dato.valor }}</td>
+
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+                <hr>
+                <div class="options">
+                    <h3>Comprar</h3>
+                    <div class="form-group">
+                        <label for="input-quantity" class="control-label text-uppercase">Cantidad:</label>
+                        <input type="text" class="form-control" id="input-quantity" size="2" value="1" name="quantity">
+                    </div>
+
+                    <div class="cart-button button-group">
+                        <button class="btn btn-wishlist" title="" type="button" data-original-title="Wishlist">
+                            <i class="fa fa-heart"></i>
+                        </button>
+                        <button class="btn btn-compare" title="" type="button" data-original-title="Compare">
+                            <i class="fa fa-bar-chart-o"></i>
+                        </button>
+                        <button class="btn btn-cart" type="button">
+                            Agregar a la cesta
+                            <i class="fa fa-shopping-cart"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- Available Options Ends -->
+            </div>
+        </div>
+        <!-- Right Ends -->
+    </div>
+    <br>
+
+
+{% endblock %}

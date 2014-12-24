@@ -7,10 +7,10 @@ assetic:
     java: %java_path%
     filters:
         cssrewrite: ~
-        yui_css:
-            jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.6.jar
-        yui_js:
-            jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.6.jar
+#        yui_css:
+#            jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.6.jar
+#        yui_js:
+#            jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.6.jar
         lessphp: ~
     assets:
         lesses:
@@ -34,7 +34,7 @@ assetic:
 
             filters:
                 - cssrewrite
-                - ?yui_css
+#                - ?yui_css
         stylesheets:
             inputs:
                 #-- Font Awesome CSS --#
@@ -52,7 +52,7 @@ assetic:
 
             filters:
                 - cssrewrite
-                - ?yui_css
+#                - ?yui_css
         javascripts_header:
             inputs:
 #                - %kernel.root_dir%/../web/assets/js/jquery-ui.js
@@ -62,7 +62,7 @@ assetic:
 
             filters:
                 - cssrewrite
-                - ?yui_js
+#                - ?yui_js
         javascripts_footer:
             inputs:
                 #-- Bootstrap core JavaScript
@@ -103,4 +103,4 @@ assetic:
 
             filters:
                 - cssrewrite
-                - ?yui_js
+#                - ?yui_js
