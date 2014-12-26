@@ -15,8 +15,25 @@
 
         $(document).on('click', '.remove-list-item', function (e) {
             e.preventDefault();
-            var collectionHolder = $($(this)).parents('tr');
+            var collectionHolder = $($(this)).parents('li');
             collectionHolder.remove();
+        });
+
+        $(document).on('click', '.collection-collapsed', function (e) {
+            e.preventDefault();
+            var fieldset = $(this).parent();
+            var legend = $(this);
+            var span = legend.children('span');
+            var div = fieldset.children('div.collapsible');
+
+            if( div.css('display') == "none" ){
+                span.removeClass("glyphicon glyphicon-plus");
+                span.addClass("glyphicon glyphicon-minus")
+            }else{
+                span.removeClass("glyphicon glyphicon-minus");
+                span.addClass("glyphicon glyphicon-plus")
+            }
+            div.toggle();
         });
 
     })
@@ -36,23 +53,5 @@
         uploadLabel: 'Subir',
         removeLabel: 'Quitar',
         browseLabel: 'Explorar'
-    });
-</script>
-
-<script src="{{ asset('bundles/app/js/admin/plugins/tableDnD/jquery.tablednd.js') }} "></script>
-<script type="text/javascript">
-    $('#iten_list_metadatos_collection').tableDnD({
-        dragHandle: ".dragHandle",
-        onDrop: function (table, row) {
-
-            var rows = table.tBodies[0].rows;
-
-            for (var i = 0; i < rows.length; i++) {
-                var row = rows[i];
-                var cell = row.cells[0];
-//                var id = cell.find('imput:first').attr('id');
-            }
-
-        }
     });
 </script>

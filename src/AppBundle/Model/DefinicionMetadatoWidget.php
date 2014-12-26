@@ -16,9 +16,8 @@ class DefinicionMetadatoWidget {
 
     static function getMetadatoFilterWidget(){
         return array(
-            0 => '',
-            1 => '',
-            2 => '',
+            0 => 'Textos',
+            1 => 'Numeros',
         );
     }
 } 

@@ -6,18 +6,15 @@
             <span class="glyphicon glyphicon-plus-sign"></span>
         </a>
 
-
         <div class='row'>
             <div class='col-sm-12'>
                 <ul id="iten_list_{{ name }}_collection"
-                    data-prototype="{{ _self.metadato_collection_fields(form)|escape }}">
+                    data-prototype="{{ _self.metadato_collection_fields(form, false)|escape }}">
 
                     {% for field in form.children %}
                         <li>
                             {{ _self.metadato_collection_fields(field) }}
                         </li>
-                        {#{% else %}#}
-                        {#<li>{{ 'sin resultados'|trans }}</li>#}
                     {% endfor %}
 
 
@@ -30,7 +27,7 @@
 {% endblock metadato_collection_widget %}
 
 
-{% macro metadato_collection_fields(widget) %}
+{% macro metadato_collection_fields(widget, collapsed = true ) %}
     {% if 'prototype' in widget.vars|keys %}
         {% set form = widget.vars.prototype %}
         {% set name = widget.vars.prototype.vars.name %}
@@ -39,47 +36,47 @@
         {% set name = widget.vars.full_name %}
     {% endif %}
 
-
-    <fieldset>
-        <legend>Formulario</legend>
-
-        {{ form_row(form.orden) }}
-        {{ form_row(form.nombre) }}
-        {{ form_row(form.requerido) }}
-    </fieldset>
-
-    <div class='row'>
-        <div class='col-sm-6'>
-            <fieldset>
-                <legend>Valores</legend>
-                {{ form_row(form.listaValores) }}
-                {{ form_row(form.predeterminado) }}
-            </fieldset>
-        </div>
-        <div class='col-sm-6'>
-            <fieldset>
-                <legend>Filtrable</legend>
-                {{ form_row(form.filtrable) }}
-            </fieldset>
-        </div>
-    </div>
-
-    {{ form_widget(form) }}
-
-    <div class="btn-group">
+    <div class="zero-clipboard">
         <a data-message="Are you sure you want to delete this column?" data-collection-action="delete"
-           title="Delete column" class="btn btn-default btn-xs remove-list-item"
+           title="Delete column"
+           class="btn btn-default btn-xs remove-list-item btn-clipboard"
            href="javascript: void(0);">
             <i class="glyphicon glyphicon-trash"></i>
         </a>
-
-        <span title="Move column" class="dragHandle">
-        <i class="glyphicon glyphicon-list"></i>
-        </span>
     </div>
 
+
+    <div class="row ">
+        <div class="col-md-4">
+            <fieldset class="coolfieldset">
+                <legend class="collection-collapsed"><span class="collapsible-indicator {{  collapsed == true ? "glyphicon glyphicon-plus" : "glyphicon glyphicon-minus" }}"></span>Formulario</legend>
+                {{ form_row(form.nombre) }}
+                <div class="collapsible" style="{{  collapsed == true ? "display: none;" : "display: block;" }}">
+                    {{ form_row(form.orden) }}
+                    {{ form_row(form.requerido) }}
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="col-md-8">
+            <fieldset class="coolfieldset">
+                <legend class="collection-collapsed"><span class="collapsible-indicator {{  collapsed == true ? "glyphicon glyphicon-plus" : "glyphicon glyphicon-minus" }}"></span>Filtrable</legend>
+                <div class="collapsible" style="{{  collapsed == true ? "display: none;" : "display: block;" }}">
+                    {{ form_row(form.filtrable) }}
+                </div>
+            </fieldset>
+            <fieldset class="coolfieldset">
+                <legend class="collection-collapsed"><span class="collapsible-indicator {{  collapsed == true ? "glyphicon glyphicon-plus" : "glyphicon glyphicon-minus" }} "></span>Valores</legend>
+                <div class="collapsible" style="{{  collapsed == true ? "display: none;" : "display: block;" }}">
+                    {{ form_row(form.listaValores) }}
+                    {{ form_row(form.predeterminado) }}
+                </div>
+            </fieldset>
+        </div>
+
+    </div>
+
+    {{ form_widget(form) }}
 {% endmacro %}
 
-{#
-*****************************************************************
-#}
+

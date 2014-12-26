@@ -15,7 +15,7 @@ class DefinicionMetadatoFilter {
 
     static function getMetadatoFilterType(){
         return array(
-            0 => 'Sin Filtro',
+            0 => 'No',
             1 => 'Radio',
             2 => 'Check',
         );

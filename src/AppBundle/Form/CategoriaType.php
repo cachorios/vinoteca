@@ -56,8 +56,6 @@ class CategoriaType extends AbstractType
                 'delete_empty' => true,
                 'prototype' => true,
                 'by_reference' => false,
-
-
             ))
         ;
 
