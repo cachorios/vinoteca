@@ -24,10 +24,13 @@ class MetadataProductoType extends AbstractType
             ->add('predeterminado', 'textarea', array(
                 'required' => false
             ))
-            ->add('filtrable', 'checkbox', array(
-                'label'     => ' ',
-                'block_name' => 'metadato_filtrable',
-                'required'  => false))
+            ->add('requerido',null , array(
+                'required' => false
+            ))
+
+            ->add('filtrable', 'metadato_filter', array(
+                'required' => false
+            ))
         ;
     }
     

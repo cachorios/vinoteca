@@ -36,11 +36,18 @@ class MetadatoProducto
     private $predeterminado;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="filtrable", type="boolean")
+     * @ORM\Column(name="filtrable", type="integer")
      */
     private $filtrable;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="requerido", type="boolean")
+     */
+    private $requerido;
 
     /**
      * @var integer
@@ -63,6 +70,14 @@ class MetadatoProducto
      */
     private $categoria;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->setOrden(0);
+        $this->setRequerido(true);
+    }
 
     /**
      * Get id
@@ -118,6 +133,29 @@ class MetadatoProducto
     public function getFiltrable()
     {
         return $this->filtrable;
+    }
+
+    /**
+     * Set requerido
+     *
+     * @param boolean $requerido
+     * @return MetadatoProducto
+     */
+    public function setRequerido($requerido)
+    {
+        $this->requerido = $requerido;
+
+        return $this;
+    }
+
+    /**
+     * Get requerido
+     *
+     * @return boolean
+     */
+    public function getRequerido()
+    {
+        return $this->requerido;
     }
 
     /**

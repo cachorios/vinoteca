@@ -43,3 +43,54 @@ input[type="checkbox"], input[type="radio"] {
     border-color: #bce8f1;
     color: #447fe9;
 }
+ul, ol {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+/*#iten_list_metadatos_collection ul, #iten_list_metadatos_collection ul li,#iten_list_metadatos_collection ol li {*/
+    /*padding: 0;*/
+    /*margin: 0;*/
+    /*list-style: none;*/
+/*}*/
+
+#iten_list_metadatos_collection > li {
+    margin: 15px auto;
+    outline: 1px dashed #ccc;
+    padding: 10px;
+
+}
+.zero-clipboard {
+    display: block;
+    position: relative;
+}
+
+.btn-clipboard {
+    border-top-right-radius: 0;
+    top: -16px;
+}
+
+.btn-clipboard {
+    background-color: #fff;
+    border: 1px solid #e1e1e8;
+    border-radius: 0 0 0 4px;
+    color: #777;
+    cursor: pointer;
+    display: block;
+    font-size: 12px;
+    padding: 5px 8px;
+    position: absolute;
+    right: -15px;
+    top: -10px;
+    z-index: 10;
+}
+
+.coolfieldset legend {
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.coolfieldset legend > span {
+ font-size: 12px;
+}

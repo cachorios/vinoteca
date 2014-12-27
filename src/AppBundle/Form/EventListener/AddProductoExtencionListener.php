@@ -61,7 +61,7 @@ class AddProductoExtencionListener implements EventSubscriberInterface
         }
 
 
-//        ld($data);
+        ld($data);
 //        ld($data->getCategoria()->getMetadatos()->count());
 
     }

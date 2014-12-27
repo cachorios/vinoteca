@@ -31,7 +31,17 @@ class ProductoType extends AbstractType
     {
 
         $builder
-            ->add('categoria', null, array())
+            ->add('categoria', 'entity', array(
+                'label' => 'Nodo padre',
+                'class' => 'AppBundle:Categoria',
+                'empty_value' => '',
+                'property' => 'getNodeNombre',
+                'required' => false,
+                'multiple' => false,
+                'query_builder' => function (CategoriaRepository $repository) {
+                    return $repository
+                        ->selectOrdenTreeAll();
+                },))
             ->add('nombre', null, array())
             ->add('descripcion', null, array())
             ->add('precio', null, array())

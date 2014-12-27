@@ -45,7 +45,7 @@ class Categoria
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="descripcion", type="text")
      */
     private $descripcion;

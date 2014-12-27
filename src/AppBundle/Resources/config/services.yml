@@ -30,6 +30,11 @@ services:
         tags:
           - { name: "form.type", alias: "extencion_collection" }
 
+    form.type.metadato_filter:
+        class: AppBundle\Form\Type\MetadatoFilterType
+        tags:
+          - { name: "form.type", alias: "metadato_filter" }
+
     menu.service:
         class: AppBundle\Servicios\MenuService
         arguments: [@service_container]

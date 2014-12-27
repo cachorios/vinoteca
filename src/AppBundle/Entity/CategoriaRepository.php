@@ -21,7 +21,14 @@ class CategoriaRepository extends EntityRepository
         return $qb;
 
     }
+    public function selectOrdenTreeAll()
+    {
+        $qb = $this->createQueryBuilder("q")
+            ->where('q.level < :level')
+            ->orderBy('q.root, q.level', 'ASC');
+        return $qb;
 
+    }
     public function getBarraMenu()
     {
 

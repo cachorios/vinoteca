@@ -23,11 +23,15 @@ class CategoriaType extends AbstractType
             ->add('imagen', 'file',array(
                 'required' => false,
             ))
-            ->add('nombre')
+            ->add('nombre', null, array(
+                'label' => 'Nombre',
+            ))
             ->add('descripcion', null, array(
                 'label' => 'Descripción',
             ))
-            ->add('orden')
+            ->add('orden', null, array(
+                'label' => 'Orden',
+            ))
             ->add('parent', 'entity', array(
                 'label' => 'Nodo padre',
                 'class' => 'AppBundle:Categoria',
@@ -52,7 +56,6 @@ class CategoriaType extends AbstractType
                 'delete_empty' => true,
                 'prototype' => true,
                 'by_reference' => false,
-
             ))
         ;
 
