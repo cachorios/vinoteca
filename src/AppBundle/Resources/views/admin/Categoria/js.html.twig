@@ -26,10 +26,10 @@
             var span = legend.children('span');
             var div = fieldset.children('div.collapsible');
 
-            if( div.css('display') == "none" ){
+            if (div.css('display') == "none") {
                 span.removeClass("glyphicon glyphicon-plus");
                 span.addClass("glyphicon glyphicon-minus")
-            }else{
+            } else {
                 span.removeClass("glyphicon glyphicon-minus");
                 span.addClass("glyphicon glyphicon-plus")
             }
@@ -54,4 +54,15 @@
         removeLabel: 'Quitar',
         browseLabel: 'Explorar'
     });
+</script>
+
+<script src="{{ asset('bundles/app/js/admin/plugins/jquery-sortable/jquery-sortable.js') }} "></script>
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+        $(function () {
+            $("#iten_list_metadatos_collection").sortable()
+        });
+    })
+
 </script>
