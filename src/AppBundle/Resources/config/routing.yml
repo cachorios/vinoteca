@@ -1,8 +1,6 @@
-
 app_frontend:
     prefix:  /
     resource: "@AppBundle/Controller/frontend"
-
 
 app_admin:
     prefix:  /admin/
@@ -10,7 +8,5 @@ app_admin:
 
 admin_homepage:
     path:  /admin/
-#    resource: "@UsuarioBundle/Controller"
-
     defaults:  { _controller: UsuarioBundle:Usuario:Index}
 

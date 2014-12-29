@@ -167,8 +167,8 @@ class ProductoExtensions extends AbstractFixture implements OrderedFixtureInterf
 
             $ext->setProducto($this->getReference('prod-'.$aExt['producto']));
 
-	    if($this->hasReference( $ext->getProducto()->getCategoria()->getNombre().'-'.$aExt['nombre'] ))
-                $ext->setMetadatoProducto( $this->getReference( $ext->getProducto()->getCategoria()->getNombre().'-'.$aExt['nombre'] ));
+	    if($this->hasReference())
+            $ext->setMetadatoProducto( $this->getReference( $ext->getProducto()->getCategoria()->getNombre().'-'.$aExt['nombre'] ));
 
             $ext->setValor($aExt['valor']);
 
