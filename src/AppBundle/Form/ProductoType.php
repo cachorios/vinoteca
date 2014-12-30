@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Entity\CategoriaRepository;
+use RBSoft\UtilidadBundle\Form\DataTransformer\FileToStringTransformer;
 
 class ProductoType extends AbstractType
 {
@@ -51,14 +52,16 @@ class ProductoType extends AbstractType
             ->add('images', 'file', array(
                 "mapped" => false,
                 'required' => false,
-                "attr" => array(
-                    "accept" => "image/*",
-                    "multiple" => "multiple",
-                )
+                'multiple' => true
+//                "attr" => array(
+//                    'multiple' => true
+//                )
             ))
         ;
 
+        $builder->get("images")->addModelTransformer(new FileToStringTransformer());
         $builder->addEventSubscriber(new AddProductoExtencionListener($builder->getFormFactory(), $this->em));
+
     }
 
     /**

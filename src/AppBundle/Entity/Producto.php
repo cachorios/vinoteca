@@ -457,13 +457,18 @@ class Producto
         return $this;
     }
 
-    public function addExtencionValue(\AppBundle\Entity\MetadatoProducto $metadato, $valor)
-    {
-        if (!$valor == null or $valor != '') {
-            $this->extencion[] = new ProductoExtension($this, $metadato, $valor);
+     public  function procesarMetadato(\AppBundle\Entity\MetadatoProducto $metadato, $valor){
+        foreach ($this->getExtencion() as $extencion) {
+            if ($extencion->getMetadatoProducto()->getId() == $metadato->getId()) {
+                $extencion->setValor($valor);
+                return $this;
+            }
         }
+        $e = new ProductoExtension();
+        $this->extencion[] = new $e->add($this, $metadato, $valor);
         return $this;
     }
+
 
     /**
      * Remove extencion
@@ -484,4 +489,14 @@ class Producto
     {
         return $this->extencion;
     }
+
+    public  function procesarImagen($file){
+
+
+
+
+
+        return $this;
+    }
+
 }

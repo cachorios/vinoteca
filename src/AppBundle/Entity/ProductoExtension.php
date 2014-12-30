@@ -38,17 +38,27 @@ class ProductoExtension
      */
     private $valor;
 
+//    /**
+//     * Constructor
+//     */
+//    public function __construct(\AppBundle\Entity\Producto $producto, \AppBundle\Entity\MetadatoProducto $metadatoProducto, $valor)
+//    {
+//        $this->setMetadatoProducto($metadatoProducto);
+//        $this->setProducto($producto);
+//        $this->setValor($valor);
+//
+//    }
+
     /**
      * Constructor
      */
-    public function __construct(\AppBundle\Entity\Producto $producto, \AppBundle\Entity\MetadatoProducto $metadatoProducto, $valor)
+    public function add(\AppBundle\Entity\Producto $producto, \AppBundle\Entity\MetadatoProducto $metadatoProducto, $valor)
     {
-
         $this->setMetadatoProducto($metadatoProducto);
         $this->setProducto($producto);
         $this->setValor($valor);
-
     }
+
 
     /**
      * Get id

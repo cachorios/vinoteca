@@ -115,13 +115,15 @@ class AddProductoExtencionListener implements EventSubscriberInterface
         $categoria = $data->getCategoria();
         $metadatos = $categoria->getMetadatos();
 
-        // optiene los datos del formulario y los ingresa a la entidad producto.
-        // no terminado, falta actualizacion.
         foreach ($metadatos as $metadato) {
-            $data->addExtencionValue($metadato, $form->get(Util::getSlug($metadato->getNombre()))->getData());
+            $data->procesarMetadato($metadato, $form->get(Util::getSlug($metadato->getNombre()))->getData());
         }
 
-        ld($form->get('images')->getData());
+        $imagenes = $form->get('images')->getData();
+
+        foreach($imagenes as $file){
+            $data->procesarImagen($file);
+        }
 
     }
 }
