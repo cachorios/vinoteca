@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use RBSoft\UtilidadBundle\Libs\Util;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -32,6 +33,7 @@ class Producto
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -41,11 +43,6 @@ class Producto
      * @ORM\Column(name="codigo", type="string", length=20 )
      */
     private $codigo;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $slug;
 
     /**
      * @var string
@@ -58,6 +55,8 @@ class Producto
      * @var decimal
      *
      * @ORM\Column(name="precio", type="decimal", scale=2)
+     * @Assert\NotBlank()
+     *
      */
     private $precio;
 
@@ -65,6 +64,8 @@ class Producto
      * @var decimal
      *
      * @ORM\Column(name="iva", type="decimal", scale=2)
+     * @Assert\NotBlank()
+     *
      */
     private $iva;
 
@@ -88,7 +89,8 @@ class Producto
 
     /**
      *  var Categoria
-     *  @ORM\ManyToOne(targetEntity="Categoria")
+     * @ORM\ManyToOne(targetEntity="Categoria")
+     * @Assert\NotBlank()
      */
     private $categoria;
 
@@ -125,7 +127,7 @@ class Producto
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -163,13 +165,14 @@ class Producto
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
+        $this->slug = Util::getSlug($nombre);
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -186,14 +189,14 @@ class Producto
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
-    
+
         return $this;
     }
 
     /**
      * Get descripcion
      *
-     * @return string 
+     * @return string
      */
     public function getDescripcion()
     {
@@ -209,14 +212,14 @@ class Producto
     public function setPrecio($precio)
     {
         $this->precio = $precio;
-    
+
         return $this;
     }
 
     /**
      * Get precio
      *
-     * @return string 
+     * @return string
      */
     public function getPrecio()
     {
@@ -232,14 +235,14 @@ class Producto
     public function setIva($iva)
     {
         $this->iva = $iva;
-    
+
         return $this;
     }
 
     /**
      * Get iva
      *
-     * @return string 
+     * @return string
      */
     public function getIva()
     {
@@ -255,14 +258,14 @@ class Producto
     public function setActivo($activo)
     {
         $this->activo = $activo;
-    
+
         return $this;
     }
 
     /**
      * Get activo
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActivo()
     {
@@ -278,7 +281,7 @@ class Producto
     public function addImagene(\AppBundle\Entity\ProductoImagen $imagenes)
     {
         $this->imagenes[] = $imagenes;
-    
+
         return $this;
     }
 
@@ -295,7 +298,7 @@ class Producto
     /**
      * Get imagenes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getImagenes()
     {
@@ -311,7 +314,7 @@ class Producto
     public function addBonificacione(\AppBundle\Entity\ProductoBonificacion $bonificaciones)
     {
         $this->bonificaciones[] = $bonificaciones;
-    
+
         return $this;
     }
 
@@ -328,7 +331,7 @@ class Producto
     /**
      * Get bonificaciones
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getBonificaciones()
     {
@@ -345,14 +348,14 @@ class Producto
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
 
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -368,14 +371,14 @@ class Producto
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
-    
+
         return $this;
     }
 
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -420,7 +423,7 @@ class Producto
     /**
      * Get categoria
      *
-     * @return \AppBundle\Entity\Categoria 
+     * @return \AppBundle\Entity\Categoria
      */
     public function getCategoria()
     {
@@ -454,6 +457,14 @@ class Producto
         return $this;
     }
 
+    public function addExtencionValue(\AppBundle\Entity\MetadatoProducto $metadato, $valor)
+    {
+        if (!$valor == null or $valor != '') {
+            $this->extencion[] = new ProductoExtension($this, $metadato, $valor);
+        }
+        return $this;
+    }
+
     /**
      * Remove extencion
      *
@@ -467,7 +478,7 @@ class Producto
     /**
      * Get extencion
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getExtencion()
     {

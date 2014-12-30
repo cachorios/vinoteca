@@ -22,7 +22,7 @@ class ProductoExtension
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Producto", inversedBy="extenciones")
+     * @ORM\ManyToOne(targetEntity="Producto", inversedBy="extencion")
      */
     private $producto;
 
@@ -38,6 +38,17 @@ class ProductoExtension
      */
     private $valor;
 
+    /**
+     * Constructor
+     */
+    public function __construct(\AppBundle\Entity\Producto $producto, \AppBundle\Entity\MetadatoProducto $metadatoProducto, $valor)
+    {
+
+        $this->setMetadatoProducto($metadatoProducto);
+        $this->setProducto($producto);
+        $this->setValor($valor);
+
+    }
 
     /**
      * Get id

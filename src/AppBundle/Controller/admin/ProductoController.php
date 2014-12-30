@@ -114,14 +114,14 @@ class ProductoController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+//            $em->persist($entity);
+//            $em->flush();
 
             $this->get('session')->getFlashBag()->add('success', "El Producto $entity se creó correctamente.");
             if ($request->request->get('save_mode') == 'save_and_close') {
-                return $this->redirect($this->generateUrl('producto'));
+//                return $this->redirect($this->generateUrl('producto'));
             }
-            return $this->redirect($this->generateUrl('producto_new'));
+//            return $this->redirect($this->generateUrl('producto_new'));
         }
 
         return array(

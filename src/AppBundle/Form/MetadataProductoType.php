@@ -31,6 +31,10 @@ class MetadataProductoType extends AbstractType
             ->add('filtrable', 'metadato_filter', array(
                 'required' => false
             ))
+
+            ->add('widget', 'widget_filter', array(
+                'required' => true
+            ))
         ;
     }
     

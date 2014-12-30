@@ -7,18 +7,13 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Entity\CategoriaRepository;
 
 class ProductoType extends AbstractType
 {
-    /**
-     * @var ObjectManager
-     */
-    private $em;
+    protected $em;
 
-    /**
-     * @param ObjectManager $om
-     */
-    public function __construct(EntityManager $em)
+    function __construct(EntityManager $em)
     {
         $this->em = $em;
     }
@@ -44,9 +39,15 @@ class ProductoType extends AbstractType
                 },))
             ->add('nombre', null, array())
             ->add('descripcion', null, array())
-            ->add('precio', null, array())
-            ->add('iva', null, array())
-            ->add('activo', null, array())
+            ->add('precio', null, array(
+                'required' => true,
+            ))
+            ->add('iva', null, array(
+                'required' => false,
+            ))
+            ->add('activo', null, array(
+                'required' => false,
+            ))
             ->add('images', 'file', array(
                 "mapped" => false,
                 'required' => false,
@@ -55,16 +56,9 @@ class ProductoType extends AbstractType
                     "multiple" => "multiple",
                 )
             ))
-//            ->add('extencion', 'extencion_collection', array(
-//                'type' => new ExtencionProductoType(),
-//                'allow_add' => false,
-//                'allow_delete' => false,
-//                'by_reference' => false,
-//
-//            ))
         ;
 
-        $builder->addEventSubscriber(new AddProductoExtencionListener($builder->getFormFactory(),$this->em ));
+        $builder->addEventSubscriber(new AddProductoExtencionListener($builder->getFormFactory(), $this->em));
     }
 
     /**

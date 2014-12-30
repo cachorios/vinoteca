@@ -14,10 +14,27 @@ namespace AppBundle\Model;
 
 class DefinicionMetadatoWidget {
 
-    static function getMetadatoFilterWidget(){
+    static function getWidget(){
         return array(
-            0 => 'Textos',
-            1 => 'Numeros',
+            1 => 'Text',
+            2 => 'Textarea',
+//            3 => 'Integer',
+//            4 => 'Lista',
+//            5 => 'Lista predefinida',
         );
     }
+
+    static function getTipo($tipo){
+
+        $tipos =  array(
+            1 => 'text',
+            2 => 'textarea',
+//            3 => 'integer',
+//            4 => 'choice',
+//            5 => 'choice',
+        );
+
+        return $tipos[$tipo];
+    }
+
 } 

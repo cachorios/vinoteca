@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * MetadatoProducto
  *
@@ -30,6 +31,11 @@ class MetadatoProducto
 
     /**
      * @var string
+     */
+    private $slug;
+
+    /**
+     * @var string
      *
      * @ORM\Column(name="predeterminado", type="text", nullable=true)
      */
@@ -48,6 +54,13 @@ class MetadatoProducto
      * @ORM\Column(name="requerido", type="boolean")
      */
     private $requerido;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="widget", type="integer")
+     */
+    private $widget;
 
     /**
      * @var integer
@@ -80,6 +93,16 @@ class MetadatoProducto
     }
 
     /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -98,7 +121,6 @@ class MetadatoProducto
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
         return $this;
     }
 
@@ -133,6 +155,29 @@ class MetadatoProducto
     public function getFiltrable()
     {
         return $this->filtrable;
+    }
+
+    /**
+     * Set widget
+     *
+     * @param boolean $widget
+     * @return MetadatoProducto
+     */
+    public function setWidget($widget)
+    {
+        $this->widget = $widget;
+
+        return $this;
+    }
+
+    /**
+     * Get widget
+     *
+     * @return integer
+     */
+    public function getWidget()
+    {
+        return $this->widget;
     }
 
     /**

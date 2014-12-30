@@ -30,7 +30,7 @@ class CategoriaListener
 
             $entity->setLevel($this->getLevel($entity));
             $entity->setRoot($this->getRoot($entity));
-            $entity->setUpdatedAt( new \DateTime());
+            $entity->setUpdatedAt( new \DateTime('now', new \DateTimeZone('UTC')));
             if(is_null($entity->getOrden())){
                 $entity->setOrden(0);
             }
@@ -44,7 +44,7 @@ class CategoriaListener
         $entity = $args->getEntity();
 
         if ($entity instanceof Categoria) {
-            $entity->setUpdatedAt( new \DateTime());
+            $entity->setUpdatedAt( new \DateTime('now', new \DateTimeZone('UTC')));
             $entity->setLevel($this->getLevel($entity));
             $entity->setRoot(0);
             if(is_null($entity->getOrden())){

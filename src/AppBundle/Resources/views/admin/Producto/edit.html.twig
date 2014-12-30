@@ -37,6 +37,12 @@
                             </li>
                         </ul>
                         <div id="myTab1Content" class="tab-content">
+                            <div id="imagenes" class="tab-pane fade">
+
+                                {{ form_row(edit_form.images) }}
+                                {#{{ form_widget(edit_form) }}#}
+
+                            </div>
                             <div id="datos" class="tab-pane fade active in">
 
 
@@ -49,18 +55,13 @@
 
                                 <h4 class="content-title"><u>Información Adicional</u></h4>
                                 <div id="info-acicional">
-                                    {#{{ form_widget(edit_form.extencion) }}#}
+                                    {{ form_widget(edit_form) }}
                                 </div>
 
 
 
                             </div>
-                            <div id="imagenes" class="tab-pane fade">
 
-                                {{ form_row(edit_form.images) }}
-                                {#{{ form_widget(edit_form) }}#}
-
-                            </div>
                         </div>
 
 
@@ -71,7 +72,7 @@
                                 <span class="glyphicon glyphicon-remove"></span></a>
 
                         </div>
-                        {{ form_widget(edit_form) }}
+
                         {{ form_end(edit_form) }}
 
                     {% endblock %}

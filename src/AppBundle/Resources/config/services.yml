@@ -35,6 +35,11 @@ services:
         tags:
           - { name: "form.type", alias: "metadato_filter" }
 
+    form.type.metadato_widget:
+        class: AppBundle\Form\Type\MetadatoWidgetType
+        tags:
+          - { name: "form.type", alias: "widget_filter" }
+
     menu.service:
         class: AppBundle\Servicios\MenuService
         arguments: [@service_container]

@@ -34,9 +34,10 @@
                             </li>
                         </ul>
                         <div id="myTab1Content" class="tab-content">
+                            <div id="imagenes" class="tab-pane fade">
+                                {{ form_row(form.images) }}
+                            </div>
                             <div id="datos" class="tab-pane fade active in">
-
-
                                 {{ form_row(form.categoria) }}
                                 {{ form_row(form.nombre) }}
                                 {{ form_row(form.descripcion) }}
@@ -46,14 +47,10 @@
 
                                 <h4 class="content-title"><u>Información Adicional</u></h4>
                                 <div id="info-acicional">
-                                    {#{{ form_widget(form.extencion) }}#}
+                                    {{ form_widget(form) }}
                                 </div>
                             </div>
-                            <div id="imagenes" class="tab-pane fade">
 
-                                {{ form_row(form.images) }}
-
-                            </div>
                         </div>
 
 
@@ -67,7 +64,7 @@
                             <a class="page-close-button btn btn-sm btn-default" href="{{ path('producto') }}">Cerrar
                                 <span class="glyphicon glyphicon-remove"></span></a>
                         </div>
-                        {{ form_widget(form) }}
+
                         {{ form_end(form) }}
 
                     {% endblock %}

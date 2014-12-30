@@ -24,7 +24,6 @@ class CategoriaRepository extends EntityRepository
     public function selectOrdenTreeAll()
     {
         $qb = $this->createQueryBuilder("q")
-            ->where('q.level < :level')
             ->orderBy('q.root, q.level', 'ASC');
         return $qb;
 
@@ -76,4 +75,6 @@ class CategoriaRepository extends EntityRepository
 
         return $hijos;
     }
+
+
 }

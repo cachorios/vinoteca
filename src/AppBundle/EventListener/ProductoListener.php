@@ -21,7 +21,7 @@ class ProductoListener
         $em = $args->getEntityManager();
 
         if ($entity instanceof Producto) {
-            $entity->setUpdatedAt( new \DateTime());
+            $entity->setUpdatedAt( new \DateTime('now', new \DateTimeZone('UTC')));
 
             $em->getUnitOfWork()->recomputeSingleEntityChangeSet($em->getClassMetadata(get_class($entity)), $entity);
         }
@@ -32,8 +32,8 @@ class ProductoListener
         $entity = $args->getEntity();
 
         if ($entity instanceof Producto) {
-            $entity->setUpdatedAt( new \DateTime());
-            $entity->setCreatedAt( new \DateTime());
+            $entity->setUpdatedAt( new \DateTime('now', new \DateTimeZone('UTC')));
+            $entity->setCreatedAt( new \DateTime('now', new \DateTimeZone('UTC')));
             $entity->setSlug(Util::getSlug($entity->getNombre()));
             $entity->setCodigo(111);
         }

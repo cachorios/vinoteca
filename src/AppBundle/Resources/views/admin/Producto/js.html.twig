@@ -16,19 +16,19 @@
 </script>
 
 <script type="text/javascript">
-    $('select[id$=appbundle_producto_categoria]').change(function () {
-        $.ajax({
-            type: "GET",
-            data: "data=" + $(this).val(),
-            url: "{{ path('producto_extencion') }}",
-            success: function (msg) {
-                if (msg != '') {
-                    $('#info-acicional').html(msg);
-                }
-                else {
-                    $('#info-acicional').html('Sin Formulario');
-                }
-            }
-        });
-    });
+    {#$('select[id$=appbundle_producto_categoria]').change(function () {#}
+        {#$.ajax({#}
+            {#type: "GET",#}
+            {#data: "data=" + $(this).val(),#}
+            {#url: "{{ path('producto_extencion') }}",#}
+            {#success: function (msg) {#}
+                {#if (msg != '') {#}
+                    {#$('#info-acicional').html(msg);#}
+                {#}#}
+                {#else {#}
+                    {#$('#info-acicional').html('Sin Formulario');#}
+                {#}#}
+            {#}#}
+        {#});#}
+    {#});#}
 </script>

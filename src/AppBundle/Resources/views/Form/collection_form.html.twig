@@ -52,8 +52,9 @@
                 <legend class="collection-collapsed"><span class="collapsible-indicator {{  collapsed == true ? "glyphicon glyphicon-plus" : "glyphicon glyphicon-minus" }}"></span>Formulario</legend>
                 {{ form_row(form.nombre) }}
                 <div class="collapsible" style="{{  collapsed == true ? "display: none;" : "display: block;" }}">
-                    {{ form_row(form.orden) }}
+                    {{ form_row(form.widget) }}
                     {{ form_row(form.requerido) }}
+                    {{ form_row(form.orden) }}
                 </div>
             </fieldset>
         </div>
