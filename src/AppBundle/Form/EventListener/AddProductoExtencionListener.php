@@ -62,52 +62,66 @@ class AddProductoExtencionListener implements EventSubscriberInterface
         }
 
         if (null == $data->getCategoria()) {
+            //de pueba para ver el funcionamiento.
             $categoria = $this->em->getRepository('AppBundle:Categoria')->find(93);
 
-//            return;
-        }else{
+            //return;
+        } else {
             $categoria = $data->getCategoria();
         }
 
         $metadatos = $categoria->getMetadatos();
-        foreach ($metadatos as $metadato) {
-            $requerido = is_bool($metadato->getRequerido()) ? $metadato->getRequerido() : false;
 
+        foreach ($metadatos as $metadato) {
+            $valor = null;
+            $requerido = is_bool($metadato->getRequerido()) ? $metadato->getRequerido() : false;
+            $extencions = $data->getExtencion();
+
+            // Busca Valores cargados.
+            foreach ($extencions as $extencion) {
+                if ($extencion->getMetadatoProducto()->getId() == $metadato->getId()) {
+                    $valor = $extencion->getValor() == null ? null : $extencion->getValor();
+                }
+            }
+
+            // Si no encuentra valores cargados, busca valores predeterminados.
+            if ($extencions->count() < 1 ){
+                    $valor = $metadato->getPredeterminado() != null ? $metadato->getPredeterminado() :null ;
+            }
+
+            // Genera los campor dinamicos y los validadores.
             $form->add($this->factory->createNamed(Util::getSlug($metadato->getNombre()), DefinicionMetadatoWidget::getTipo($metadato->getWidget()), null, array(
                 'label' => $metadato->getNombre(),
                 'mapped' => false,
                 'auto_initialize' => false,
                 'required' => $requerido,
-                'constraints' => $requerido ? array(new NotBlank()): array()
+                'constraints' => $requerido ? array(new NotBlank()) : array(),
+                'data' => $valor
             )));
+
+
         }
-
-        $extencions = $data->getExtencion();
-//        foreach ($extencions as $extencion) {
-//            foreach ($metadatos as $metadato) {
-//
-//            }
-//
-////            ld($extencion->getValor());
-//        }
-
     }
 
     public function postSubmit(FormEvent $event)
     {
-        $form        = $event->getForm();
-        $data        = $event->getData();
+        $form = $event->getForm();
+        $data = $event->getData();
 
         if (!$form->isValid()) {
             return;
         }
 
         $categoria = $data->getCategoria();
-
         $metadatos = $categoria->getMetadatos();
+
+        // optiene los datos del formulario y los ingresa a la entidad producto.
+        // no terminado, falta actualizacion.
         foreach ($metadatos as $metadato) {
             $data->addExtencionValue($metadato, $form->get(Util::getSlug($metadato->getNombre()))->getData());
         }
+
+        ld($form->get('images')->getData());
 
     }
 }
