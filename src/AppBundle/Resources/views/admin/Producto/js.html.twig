@@ -16,19 +16,33 @@
 </script>
 
 <script type="text/javascript">
+    jQuery(document).ready(function () {
+        $('.ui-lightbox').magnificPopup({
+            type: 'image',
+            closeOnContentClick: false,
+            closeBtnInside: true,
+            fixedContentPos: true,
+            mainClass: 'mfp-no-margins mfp-with-zoom',
+            image: {
+                verticalFit: true,
+                tError: '<a href="%url%">The image #%curr%</a> could not be loaded.'
+            }
+        });
+    })
+
     {#$('select[id$=appbundle_producto_categoria]').change(function () {#}
-        {#$.ajax({#}
-            {#type: "GET",#}
-            {#data: "data=" + $(this).val(),#}
-            {#url: "{{ path('producto_extencion') }}",#}
-            {#success: function (msg) {#}
-                {#if (msg != '') {#}
-                    {#$('#info-acicional').html(msg);#}
-                {#}#}
-                {#else {#}
-                    {#$('#info-acicional').html('Sin Formulario');#}
-                {#}#}
-            {#}#}
-        {#});#}
+    {#$.ajax({#}
+    {#type: "GET",#}
+    {#data: "data=" + $(this).val(),#}
+    {#url: "{{ path('producto_extencion') }}",#}
+    {#success: function (msg) {#}
+    {#if (msg != '') {#}
+    {#$('#info-acicional').html(msg);#}
+    {#}#}
+    {#else {#}
+    {#$('#info-acicional').html('Sin Formulario');#}
+    {#}#}
+    {#}#}
+    {#});#}
     {#});#}
 </script>
