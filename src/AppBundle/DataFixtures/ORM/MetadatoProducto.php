@@ -33,39 +33,39 @@ class MetadatoProducto extends AbstractFixture implements OrderedFixtureInterfac
     public function load(ObjectManager $manager)
     {
         $arrs = array(
-            array('categoria' => 'Tinto', 'nombre' => 'Varietal',           'prederminado' => '',            'filtrable' => 1, 'orden' => 10, 'lista' => '' ),
-            array('categoria' => 'Tinto', 'nombre' => 'Bodega',             'prederminado' => '',            'filtrable' => 1, 'orden' => 20, 'lista' => '' ),
-            array('categoria' => 'Tinto', 'nombre' => 'Cata',               'prederminado' => '',            'filtrable' => 0, 'orden' => 30, 'lista' => '' ),
-            array('categoria' => 'Tinto', 'nombre' => 'Maridaje',           'prederminado' => '',            'filtrable' => 0, 'orden' => 40, 'lista' => '' ),
-            array('categoria' => 'Tinto', 'nombre' => 'Porcentaje Alcohol', 'prederminado' => '14.6',        'filtrable' => 0, 'orden' => 50, 'lista' => '' ),
-            array('categoria' => 'Tinto', 'nombre' => 'Volumen',            'prederminado' => '750cc',       'filtrable' => 0, 'orden' => 60, 'lista' => '' ),
-            array('categoria' => 'Tinto', 'nombre' => 'Pais de Origen',     'prederminado' => 'Argentina',   'filtrable' => 1, 'orden' => 70, 'lista' => '' ),
-            array('categoria' => 'Tinto', 'nombre' => 'Ciudad Origen',      'prederminado' => 'Mendoza',     'filtrable' => 1, 'orden' => 80, 'lista' => '' ),
+            array('categoria' => 'Tinto', 'nombre' => 'Varietal',           'prederminado' => '',            'filtrable' => 1, 'orden' => 10, 'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Tinto', 'nombre' => 'Bodega',             'prederminado' => '',            'filtrable' => 1, 'orden' => 20, 'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Tinto', 'nombre' => 'Cata',               'prederminado' => '',            'filtrable' => 0, 'orden' => 30, 'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Tinto', 'nombre' => 'Maridaje',           'prederminado' => '',            'filtrable' => 0, 'orden' => 40, 'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Tinto', 'nombre' => 'Porcentaje Alcohol', 'prederminado' => '14.6',        'filtrable' => 0, 'orden' => 50, 'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Tinto', 'nombre' => 'Volumen',            'prederminado' => '750cc',       'filtrable' => 0, 'orden' => 60, 'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Tinto', 'nombre' => 'Pais de Origen',     'prederminado' => 'Argentina',   'filtrable' => 1, 'orden' => 70, 'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Tinto', 'nombre' => 'Ciudad Origen',      'prederminado' => 'Mendoza',     'filtrable' => 1, 'orden' => 80, 'lista' => '', 'widget' => 1 ),
 
-            array('categoria' => 'Blanco', 'nombre' => 'Varietal',           'prederminado' => '',            'filtrable' => 1, 'orden' => 10, 'lista' => '' ),
-            array('categoria' => 'Blanco', 'nombre' => 'Bodega',             'prederminado' => '',            'filtrable' => 1, 'orden' => 20, 'lista' => '' ),
-            array('categoria' => 'Blanco', 'nombre' => 'Cata',               'prederminado' => '',            'filtrable' => 0, 'orden' => 30, 'lista' => '' ),
-            array('categoria' => 'Blanco', 'nombre' => 'Maridaje',           'prederminado' => '',            'filtrable' => 0, 'orden' => 40, 'lista' => '' ),
-            array('categoria' => 'Blanco', 'nombre' => 'Porcentaje Alcohol', 'prederminado' => '14.6',        'filtrable' => 0, 'orden' => 50, 'lista' => '' ),
-            array('categoria' => 'Blanco', 'nombre' => 'Volumen',            'prederminado' => '750cc',       'filtrable' => 0, 'orden' => 60, 'lista' => '' ),
-            array('categoria' => 'Blanco', 'nombre' => 'Pais de Origen',     'prederminado' => 'Argentina',   'filtrable' => 1, 'orden' => 70, 'lista' => '' ),
-            array('categoria' => 'Blanco', 'nombre' => 'Ciudad Origen',      'prederminado' => 'Mendoza',     'filtrable' => 1, 'orden' => 80, 'lista' => '' ),
+            array('categoria' => 'Blanco', 'nombre' => 'Varietal',           'prederminado' => '',            'filtrable' => 1, 'orden' => 10, 'lista' => '', 'widget'  => 1),
+            array('categoria' => 'Blanco', 'nombre' => 'Bodega',             'prederminado' => '',            'filtrable' => 1, 'orden' => 20, 'lista' => '', 'widget'  => 1),
+            array('categoria' => 'Blanco', 'nombre' => 'Cata',               'prederminado' => '',            'filtrable' => 0, 'orden' => 30, 'lista' => '', 'widget'  => 1),
+            array('categoria' => 'Blanco', 'nombre' => 'Maridaje',           'prederminado' => '',            'filtrable' => 0, 'orden' => 40, 'lista' => '', 'widget'  => 1),
+            array('categoria' => 'Blanco', 'nombre' => 'Porcentaje Alcohol', 'prederminado' => '14.6',        'filtrable' => 0, 'orden' => 50, 'lista' => '', 'widget'  => 1),
+            array('categoria' => 'Blanco', 'nombre' => 'Volumen',            'prederminado' => '750cc',       'filtrable' => 0, 'orden' => 60, 'lista' => '', 'widget'  => 1),
+            array('categoria' => 'Blanco', 'nombre' => 'Pais de Origen',     'prederminado' => 'Argentina',   'filtrable' => 1, 'orden' => 70, 'lista' => '', 'widget'  => 1),
+            array('categoria' => 'Blanco', 'nombre' => 'Ciudad Origen',      'prederminado' => 'Mendoza',     'filtrable' => 1, 'orden' => 80, 'lista' => '', 'widget' => 1),
 
-            array('categoria' => 'Rubia', 'nombre' => 'Bodega',             'prederminado' => '',            'filtrable' => 1, 'orden' => 20, 'lista' => '' ),
-            array('categoria' => 'Rubia', 'nombre' => 'Cata',               'prederminado' => '',            'filtrable' => 0, 'orden' => 30, 'lista' => '' ),
-            array('categoria' => 'Rubia', 'nombre' => 'Maridaje',           'prederminado' => '',            'filtrable' => 0, 'orden' => 40, 'lista' => '' ),
-            array('categoria' => 'Rubia', 'nombre' => 'Porcentaje Alcohol', 'prederminado' => '',             'filtrable' => 0, 'orden' => 50, 'lista' => '' ),
-            array('categoria' => 'Rubia', 'nombre' => 'Volumen',            'prederminado' => '650cc',       'filtrable' => 0, 'orden' => 60, 'lista' => '' ),
-            array('categoria' => 'Rubia', 'nombre' => 'Pais de Origen',     'prederminado' => 'Argentina',   'filtrable' => 1, 'orden' => 70, 'lista' => '' ),
-            array('categoria' => 'Rubia', 'nombre' => 'Ciudad Origen',      'prederminado' => '',             'filtrable' => 1, 'orden' => 80, 'lista' => '' ),
+            array('categoria' => 'Rubia', 'nombre' => 'Bodega',             'prederminado' => '',            'filtrable' => 1, 'orden' => 20, 'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Rubia', 'nombre' => 'Cata',               'prederminado' => '',            'filtrable' => 0, 'orden' => 30, 'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Rubia', 'nombre' => 'Maridaje',           'prederminado' => '',            'filtrable' => 0, 'orden' => 40, 'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Rubia', 'nombre' => 'Porcentaje Alcohol', 'prederminado' => '',             'filtrable' => 0, 'orden' => 50,'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Rubia', 'nombre' => 'Volumen',            'prederminado' => '650cc',       'filtrable' => 0, 'orden' => 60, 'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Rubia', 'nombre' => 'Pais de Origen',     'prederminado' => 'Argentina',   'filtrable' => 1, 'orden' => 70, 'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Rubia', 'nombre' => 'Ciudad Origen',      'prederminado' => '',             'filtrable' => 1, 'orden' => 80,'lista' => '', 'widget' => 1 ),
 
-            array('categoria' => 'Negra', 'nombre' => 'Bodega',             'prederminado' => '',            'filtrable' => 1, 'orden' => 20, 'lista' => '' ),
-            array('categoria' => 'Negra', 'nombre' => 'Cata',               'prederminado' => '',            'filtrable' => 0, 'orden' => 30, 'lista' => '' ),
-            array('categoria' => 'Negra', 'nombre' => 'Maridaje',           'prederminado' => '',            'filtrable' => 0, 'orden' => 40, 'lista' => '' ),
-            array('categoria' => 'Negra', 'nombre' => 'Porcentaje Alcohol', 'prederminado' => '',             'filtrable' => 0, 'orden' => 50, 'lista' => '' ),
-            array('categoria' => 'Negra', 'nombre' => 'Volumen',            'prederminado' => '650cc',       'filtrable' => 0, 'orden' => 60, 'lista' => '' ),
-            array('categoria' => 'Negra', 'nombre' => 'Pais de Origen',     'prederminado' => 'Argentina',   'filtrable' => 1, 'orden' => 70, 'lista' => '' ),
-            array('categoria' => 'Negra', 'nombre' => 'Ciudad Origen',      'prederminado' => '',             'filtrable' => 1, 'orden' => 80, 'lista' => '' ),
+            array('categoria' => 'Negra', 'nombre' => 'Bodega',             'prederminado' => '',            'filtrable' => 1, 'orden' => 20, 'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Negra', 'nombre' => 'Cata',               'prederminado' => '',            'filtrable' => 0, 'orden' => 30, 'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Negra', 'nombre' => 'Maridaje',           'prederminado' => '',            'filtrable' => 0, 'orden' => 40, 'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Negra', 'nombre' => 'Porcentaje Alcohol', 'prederminado' => '',             'filtrable' => 0, 'orden' => 50,'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Negra', 'nombre' => 'Volumen',            'prederminado' => '650cc',       'filtrable' => 0, 'orden' => 60, 'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Negra', 'nombre' => 'Pais de Origen',     'prederminado' => 'Argentina',   'filtrable' => 1, 'orden' => 70, 'lista' => '', 'widget' => 1 ),
+            array('categoria' => 'Negra', 'nombre' => 'Ciudad Origen',      'prederminado' => '',             'filtrable' => 1, 'orden' => 80,'lista' => '', 'widget' => 1 ),
 
         );
 
@@ -79,7 +79,7 @@ class MetadatoProducto extends AbstractFixture implements OrderedFixtureInterfac
             $o->setFiltrable($a['filtrable']);
             $o->setOrden($a['orden']);
             $o->setListaValores($a['lista']);
-
+            $o->setWidget($a['widget']);
 
             $manager->persist($o);
             $manager->flush();
