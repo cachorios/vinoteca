@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+            new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
 
             new RBSoft\UsuarioBundle\UsuarioBundle(),
             new RBSoft\ABMGeneradorBundle\RBSoftABMGeneradorBundle(),

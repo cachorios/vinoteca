@@ -21,6 +21,7 @@
 
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "doctrine/data-fixtures": "dev-master",
+        "avalanche123/imagine-bundle": "v2.1",
 
         "friendsofsymfony/jsrouting-bundle": "@stable",
         "raulfraile/ladybug-bundle": "~1.0",

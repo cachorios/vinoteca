@@ -25,6 +25,7 @@
 
                     {% block cuerpo %}
                         <p></p>
+                        {#{{ entity.imagenes |ld }}#}
 
                         {{ form_start(edit_form) }}
 
@@ -40,11 +41,35 @@
                             <div id="imagenes" class="tab-pane fade">
 
                                 {{ form_row(edit_form.images) }}
-                                {#{{ form_widget(edit_form) }}#}
+
+
+                                <div class="existing-image">
+                                    <ul class="row list-unstyled ui-sortable" id="js-sort-image">
+
+                                        {% for imagen in entity.imagenes %}
+                                            <li data-sort-id="{{ entity.id }}" class="col-sm-6 col-md-3 ui-state-default">
+                                                <a class="thumbnail" title="Imagen" href="#">
+                                                    <img alt="imagen" src="{{ imagen.getWebPath() | apply_filter('thumbnail') }}" >
+                                                </a>
+
+                                                <div class="btn-group">
+                                                    <a href="#" class="image-update-btn btn btn-default btn-xs disabled js-sorted-position">{{ {{ imagen.id }}</a>
+                                                    <a data-error-message="Primario" href="#" class="image-update-btn btn btn-default btn-xs">
+                                                        <span class="glyphicon glyphicon-edit"></span>
+                                                    </a>
+                                                    <a data-error-message="Borrar" href="#" id="image-{{ entity.id }}" class="image-delete-btn btn btn-default btn-xs">
+                                                        <span class="glyphicon glyphicon-trash"></span>
+                                                    </a>
+                                                </div>
+
+                                            </li>
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
 
                             </div>
                             <div id="datos" class="tab-pane fade active in">
-
 
                                 {{ form_row(edit_form.categoria) }}
                                 {{ form_row(edit_form.nombre) }}
@@ -57,8 +82,6 @@
                                 <div id="info-acicional">
                                     {{ form_widget(edit_form) }}
                                 </div>
-
-
 
                             </div>
 

@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ProductoRepository")
  * @DoctrineAssert\UniqueEntity(fields="nombre", message="producto.nombre.duplicated")
+ * @ORM\HasLifecycleCallbacks
  */
 class Producto
 {
@@ -501,4 +502,14 @@ class Producto
         return $this;
     }
 
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if(null === $this->codigo){
+            $this->setCodigo($this->getId());
+        }
+    }
 }

@@ -94,3 +94,35 @@ ul, ol {
 .coolfieldset legend > span {
  font-size: 12px;
 }
+
+.thumbnail {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: block;
+    height: auto;
+    line-height: 1.42857;
+    max-width: 100%;
+    padding: 4px;
+    margin-right: 4px;
+    transition: all 0.2s ease-in-out 0s;
+}
+
+.thumbnail img {
+    max-width: 100%;
+    height: auto;
+}
+
+.existing-image .col-sm-6 {
+    margin-bottom: 30px;
+    position: relative;
+}
+.existing-image .col-sm-6 .btn-group {
+    bottom: 5px;
+    position: absolute;
+    right: 20px;
+}
+.list-unstyled {
+    list-style: outside none none;
+    padding-left: 0;
+}

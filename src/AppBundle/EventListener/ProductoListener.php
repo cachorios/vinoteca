@@ -35,7 +35,6 @@ class ProductoListener
             $entity->setUpdatedAt( new \DateTime('now', new \DateTimeZone('UTC')));
             $entity->setCreatedAt( new \DateTime('now', new \DateTimeZone('UTC')));
             $entity->setSlug(Util::getSlug($entity->getNombre()));
-            $entity->setCodigo(111);
         }
     }
 

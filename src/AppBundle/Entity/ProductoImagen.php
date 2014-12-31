@@ -47,7 +47,7 @@ class ProductoImagen
 
     /**
      * @var string
-     * @ORM\Column(name="extension", type="string", length=3)
+     * @ORM\Column(name="extension", type="string", length=4)
      */
     private $extension;
 
@@ -160,7 +160,8 @@ class ProductoImagen
     public function preUpload()
     {
         if (null !== $this->getFile()) {
-            $this->extension = $this->file->getClientOriginalExtension();
+            $this->extension = $this->file->guessExtension();
+
             $this->temp = $this->getAbsolutePath();
         }
     }
@@ -218,7 +219,7 @@ class ProductoImagen
     public function getWebPath()
     {
         return null === $this->temp
-            ? $this->getUploadDir() . '/' . $this->path
+            ? $this->getUploadDir() . '/' . $this->id . '.' . $this->extension
             : null;
 
     }

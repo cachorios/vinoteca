@@ -1,18 +1,18 @@
 <script type="text/javascript">
-    {#$("#appbundle_producto_images").fileinput({#}
-        {#&#123;&#35;{% set imagen_src = entity.imagen == null ? asset("images/default-image.png" ) : asset("uploads/categorias/" ~ entity.imagen  ) %}&#35;&#125;#}
-        {#&#123;&#35;initialPreview: ["<img src='{{ imagen_src }}' class='file-preview-image'>"],&#35;&#125;#}
-        {#overwriteInitial: true,#}
-        {#showUpload: false,#}
-        {#showCaption: false,#}
-        {#browseClass: "btn btn-primary btn-sm",#}
-        {#fileType: "any",#}
-        {#allowedFileTypes: ['image'],#}
-        {#'allowedFileExtensions': ['jpg', 'png', 'gif'],#}
-        {#uploadLabel: 'Subir',#}
-        {#removeLabel: 'Quitar',#}
-        {#browseLabel: 'Explorar'#}
-    {#});#}
+    $("#appbundle_producto_images").fileinput({
+        {#{% set imagen_src = entity.imagen == null ? asset("images/default-image.png" ) : asset("uploads/categorias/" ~ entity.imagen  ) %}#}
+        {#initialPreview: ["<img src='{{ imagen_src }}' class='file-preview-image'>"],#}
+        overwriteInitial: true,
+        showUpload: false,
+        showCaption: false,
+        browseClass: "btn btn-primary btn-sm",
+        fileType: "any",
+        allowedFileTypes: ['image'],
+        'allowedFileExtensions': ['jpg', 'png', 'gif'],
+        uploadLabel: 'Subir',
+        removeLabel: 'Quitar',
+        browseLabel: 'Explorar'
+    });
 </script>
 
 <script type="text/javascript">
