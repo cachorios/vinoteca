@@ -3,12 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * ProductoImagen
  *
  * @ORM\Table(name="producto_imagen")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  */
 class ProductoImagen
 {
@@ -22,16 +24,16 @@ class ProductoImagen
     private $id;
 
     /**
-     * @ ORM\Column(type="string", length=200)
      */
     private $file;
 
+    private $temp;
     /**
      * @var string
      *
      * @ORM\Column(name="primario", type="boolean")
      */
-    private $primario;
+    private $primario = false;
 
     /**
      * @ORM\ManyToOne(targetEntity="Producto", inversedBy="imagenes")
@@ -49,11 +51,11 @@ class ProductoImagen
      */
     private $extension;
 
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -69,14 +71,14 @@ class ProductoImagen
     public function setPrimario($primario)
     {
         $this->primario = $primario;
-    
+
         return $this;
     }
 
     /**
      * Get primario
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPrimario()
     {
@@ -92,14 +94,14 @@ class ProductoImagen
     public function setProducto(\AppBundle\Entity\Producto $producto = null)
     {
         $this->producto = $producto;
-    
+
         return $this;
     }
 
     /**
      * Get producto
      *
-     * @return \AppBundle\Entity\Producto 
+     * @return \AppBundle\Entity\Producto
      */
     public function getProducto()
     {
@@ -116,6 +118,7 @@ class ProductoImagen
     {
         $this->extension = $extension;
     }
+
     /**
      * Set file
      *
@@ -125,14 +128,25 @@ class ProductoImagen
     public function setFile($file)
     {
         $this->file = $file;
-    
+
         return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return string
+     */
+    public function getFile()
+    {
+        return $this->file;
+
     }
 
     /**
      * Get extension
      *
-     * @return string 
+     * @return string
      */
     public function getExtension()
     {
@@ -140,13 +154,72 @@ class ProductoImagen
     }
 
     /**
-     * Get file
-     *
-     * @return string 
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
      */
-    public function getFile()
+    public function preUpload()
     {
-        return $this->file;
+        if (null !== $this->getFile()) {
+            $this->extension = $this->file->getClientOriginalExtension();
+            $this->temp = $this->getAbsolutePath();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null === $this->getFile()) {
+            return;
+        }
+
+        // you must throw an exception here if the file cannot be moved
+        // so that the entity is not persisted to the database
+        // which the UploadedFile move() method does
+        $this->getFile()->move(
+            $this->getUploadRootDir(),
+            $this->id . '.' . $this->getFile()->guessExtension()
+        );
+
+        $this->setFile(null);
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if (isset($this->temp)) {
+            unlink($this->temp);
+        }
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->temp
+            ? $this->getUploadRootDir() . '/' . $this->id . '.' . $this->extension
+            : null;
+    }
+
+    private function getUploadRootDir()
+    {
+        return __DIR__.'/../../../web' . '/' . $this->getUploadDir();
+    }
+
+    public function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'uploads/productos';
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->temp
+            ? $this->getUploadDir() . '/' . $this->path
+            : null;
 
     }
 }

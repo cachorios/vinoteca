@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use RBSoft\UtilidadBundle\Libs\Util;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -457,19 +458,6 @@ class Producto
         return $this;
     }
 
-     public  function procesarMetadato(\AppBundle\Entity\MetadatoProducto $metadato, $valor){
-        foreach ($this->getExtencion() as $extencion) {
-            if ($extencion->getMetadatoProducto()->getId() == $metadato->getId()) {
-                $extencion->setValor($valor);
-                return $this;
-            }
-        }
-        $e = new ProductoExtension();
-        $this->extencion[] = new $e->add($this, $metadato, $valor);
-        return $this;
-    }
-
-
     /**
      * Remove extencion
      *
@@ -490,11 +478,25 @@ class Producto
         return $this->extencion;
     }
 
-    public  function procesarImagen($file){
+    public  function procesarMetadato(\AppBundle\Entity\MetadatoProducto $metadato, $valor){
+        foreach ($this->getExtencion() as $extencion) {
+            if ($extencion->getMetadatoProducto()->getId() == $metadato->getId()) {
+                $extencion->setValor($valor);
+                return $this;
+            }
+        }
+        $e = new ProductoExtension();
+        $this->extencion[] = new $e->add($this, $metadato, $valor);
+        return $this;
+    }
 
+    public  function procesarImagen(UploadedFile $file){
 
+        $f = new ProductoImagen();
+        $f->setProducto($this);
+        $f->setFile($file);
 
-
+        $this->imagenes[] = $f;
 
         return $this;
     }

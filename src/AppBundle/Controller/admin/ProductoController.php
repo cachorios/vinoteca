@@ -119,9 +119,9 @@ class ProductoController extends Controller
 
             $this->get('session')->getFlashBag()->add('success', "El Producto $entity se creó correctamente.");
             if ($request->request->get('save_mode') == 'save_and_close') {
-                return $this->redirect($this->generateUrl('producto'));
+//                return $this->redirect($this->generateUrl('producto'));
             }
-            return $this->redirect($this->generateUrl('producto_new'));
+//            return $this->redirect($this->generateUrl('producto_new'));
         }
 
         return array(

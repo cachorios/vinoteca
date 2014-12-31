@@ -113,7 +113,7 @@ class CategoriaController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $entity->upload("uploads/productos/");
+            $entity->upload("uploads/categoria/");
 
             $em->persist($entity);
             $em->flush();
