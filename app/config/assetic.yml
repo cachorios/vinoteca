@@ -47,6 +47,7 @@ assetic:
                 - bundles/app/css/admin/mvpready-flat.css
 
                 - bundles/rbsoftabmgenerador/fileupload//css/fileinput.min.css
+                - bundles/app/js/admin/plugins/magnific/magnific-popup.css
 
                 - @lesses
 
@@ -78,7 +79,7 @@ assetic:
 #                <script src="{{ asset('assets./js/plugins/flot/jquery.flot.pie.js') }} "></script>
 #                <script src="{{ asset('assets/js/plugins/flot/jquery.flot.resize.js') }} "></script>
 
-#                - bundles/autogestion/js/jquery.msgbox.min.js
+                - bundles/app/js/admin/plugins/magnific/jquery.magnific-popup.min.js
                 ##-- App JS --##
                 - bundles/app/js/admin/mvpready-core.js
                 - bundles/app/js/admin/mvpready-admin.js

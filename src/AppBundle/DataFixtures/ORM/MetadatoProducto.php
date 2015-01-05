@@ -73,7 +73,7 @@ class MetadatoProducto extends AbstractFixture implements OrderedFixtureInterfac
             $o = new \AppBundle\Entity\MetadatoProducto();
             
             //$o->setCategoria( $manager->getRepository("AppBundle:Categoria")->findOneByNombre($a['categoria']) );
-            $o->setCategoria( $this->getReference($a['categoria']))            ;
+            $o->setCategoria($this->getReference($a['categoria']));
             $o->setNombre($a['nombre']);
             $o->getPredeterminado($a['prederminado']);
             $o->setFiltrable($a['filtrable']);

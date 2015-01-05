@@ -113,6 +113,10 @@ ul, ol {
     height: auto;
 }
 
+.radio-select-primario{
+    margin: 0 !important;
+}
+
 .existing-image .col-sm-6 {
     margin-bottom: 30px;
     position: relative;

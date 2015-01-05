@@ -79,14 +79,15 @@ class AddProductoExtencionListener implements EventSubscriberInterface
 
             // Busca Valores cargados.
             foreach ($extencions as $extencion) {
+
                 if ($extencion->getMetadatoProducto()->getId() == $metadato->getId()) {
                     $valor = $extencion->getValor() == null ? null : $extencion->getValor();
                 }
             }
 
             // Si no encuentra valores cargados, busca valores predeterminados.
-            if ($extencions->count() < 1 ){
-                    $valor = $metadato->getPredeterminado() != null ? $metadato->getPredeterminado() :null ;
+            if ($extencions->count() < 1) {
+                $valor = $metadato->getPredeterminado() != null ? $metadato->getPredeterminado() : null;
             }
 
             // Genera los campor dinamicos y los validadores.
@@ -121,8 +122,10 @@ class AddProductoExtencionListener implements EventSubscriberInterface
 
         $imagenes = $form->get('images')->getData();
 
-        foreach($imagenes as $file){
-            $data->procesarImagen($file);
+        foreach ($imagenes as $file) {
+            if (!is_null($file)) {
+                $data->procesarImagen($file);
+            }
         }
 
     }

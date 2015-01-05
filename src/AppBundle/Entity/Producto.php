@@ -486,8 +486,9 @@ class Producto
                 return $this;
             }
         }
+
         $e = new ProductoExtension();
-        $this->extencion[] = new $e->add($this, $metadato, $valor);
+        $this->extencion[] = $e->add($this,$metadato, $valor);;
         return $this;
     }
 
@@ -496,9 +497,7 @@ class Producto
         $f = new ProductoImagen();
         $f->setProducto($this);
         $f->setFile($file);
-
         $this->imagenes[] = $f;
-
         return $this;
     }
 

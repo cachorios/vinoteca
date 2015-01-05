@@ -17,32 +17,67 @@
 
 <script type="text/javascript">
     jQuery(document).ready(function () {
-        $('.ui-lightbox').magnificPopup({
-            type: 'image',
-            closeOnContentClick: false,
-            closeBtnInside: true,
-            fixedContentPos: true,
-            mainClass: 'mfp-no-margins mfp-with-zoom',
-            image: {
-                verticalFit: true,
-                tError: '<a href="%url%">The image #%curr%</a> could not be loaded.'
-            }
+        $('.image-delete').on('click', function(e) {
+            e.preventDefault();
+            var $anchor = $(this);
+            var url = $(this).data("href");
+            var li = $(this).parents('li');
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (msg) {
+                    var message = msg.toString();
+                    li.remove();
+                },
+                error: function() {
+                    var message = msg.toString();
+                }
+            });
+            alert('s');
+        });
+
+        $('.radio-select-primario').on('change', function(e) {
+            e.preventDefault();
+            var $data = $(this).val();
+            var url = $(this).data("href");
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (msg) {
+                    var message = msg.toString();
+//                    alert(message);
+                },
+                error: function() {
+                    var message = msg.toString();
+//                    alert(message);
+                }
+            });
         });
     })
 
-    {#$('select[id$=appbundle_producto_categoria]').change(function () {#}
-    {#$.ajax({#}
-    {#type: "GET",#}
-    {#data: "data=" + $(this).val(),#}
-    {#url: "{{ path('producto_extencion') }}",#}
-    {#success: function (msg) {#}
-    {#if (msg != '') {#}
-    {#$('#info-acicional').html(msg);#}
-    {#}#}
-    {#else {#}
-    {#$('#info-acicional').html('Sin Formulario');#}
-    {#}#}
-    {#}#}
-    {#});#}
-    {#});#}
+</script>
+
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        $('select[id$=appbundle_producto_categoria]').change(function () {
+            $.ajax({
+                type: "GET",
+                data: "categoria=" + $(this).val(),
+                url: "{{ path('producto_extencion') }}",
+                success: function (msg) {
+                    if (msg != '') {
+                        $('#info-acicional').html(msg);
+                    }
+                    else {
+                        $('#info-acicional').html('Sin Metadatos definidos');
+                    }
+                }
+                error: function (msg) {
+                }
+            });
+        });
+
+})
 </script>
