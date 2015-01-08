@@ -29,12 +29,15 @@ class ProductoType extends AbstractType
     {
 
         $builder
+            ->add('codigo', null, array(
+                'required' => false,
+            ))
             ->add('nombre', null, array())
             ->add('descripcion', null, array())
-            ->add('precio', null, array(
+            ->add('precio', 'number', array(
                 'required' => true,
             ))
-            ->add('iva', null, array(
+            ->add('iva', 'number', array(
                 'required' => false,
             ))
             ->add('activo', null, array(
@@ -44,9 +47,6 @@ class ProductoType extends AbstractType
                 "mapped" => false,
                 'required' => false,
                 'multiple' => true
-//                "attr" => array(
-//                    'multiple' => true
-//                )
             ));
 
         $builder->get("images")->addModelTransformer(new FileToStringTransformer());

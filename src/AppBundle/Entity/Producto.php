@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * Producto
  *
@@ -42,7 +41,7 @@ class Producto
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo", type="string", length=20 )
+     * @ORM\Column(name="codigo", type="string", length=20, nullable=true )
      */
     private $codigo;
 
@@ -76,7 +75,7 @@ class Producto
      *
      * @ORM\Column(name="activo", type="boolean")
      */
-    private $activo;
+    private $activo = true;
 
     /**
      * @ORM\OneToMany(targetEntity="ProductoImagen", mappedBy="producto", cascade={"persist", "remove"}, orphanRemoval=true)

@@ -130,3 +130,6 @@ ul, ol {
     list-style: outside none none;
     padding-left: 0;
 }
+#appbundle_producto_iva, #appbundle_producto_precio{
+    width: auto;
+}

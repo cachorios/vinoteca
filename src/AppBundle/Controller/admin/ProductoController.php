@@ -363,7 +363,7 @@ class ProductoController extends Controller
 //        // is it an Ajax request?
 //        $isAjax = $request->isXmlHttpRequest();
 
-//        if ($request->isXMLHttpRequest()) {
+        if ($request->isXMLHttpRequest()) {
             $id = $request->get('id');
             $status = $request->get('status');
 
@@ -376,9 +376,17 @@ class ProductoController extends Controller
             }
 
             if ($status == 'delete') {
+                //Si la imagen a borrar es primaria selecciona la primera de la lista.
+                if ($imagen->getPrimario() == true){
+                    $producto = $imagen->getProducto();
+                    $imagenes = $producto->getImagenes();
+                    $temp = $imagenes[0];
+                    $temp->setPrimario(true);
+                    $em->persist($temp);
+                }
+
                 $em->remove($imagen);
                 $em->flush();
-
                 $response = new Response('Borrado. ', Response::HTTP_OK);
                 return $response;
             }elseif($status == 'primario'){
@@ -398,7 +406,7 @@ class ProductoController extends Controller
             }
 
 //        new Response($imagen, is_object($imagen) ? Response::HTTP_OK : Response::HTTP_NOT_FOUND)
-//        }
+        }
 
         return new Response('This is not ajax!', Response::HTTP_BAD_REQUEST);
 

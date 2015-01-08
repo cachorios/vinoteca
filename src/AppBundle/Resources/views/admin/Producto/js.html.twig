@@ -34,7 +34,6 @@
                     var message = msg.toString();
                 }
             });
-            alert('s');
         });
 
         $('.radio-select-primario').on('change', function(e) {
@@ -47,11 +46,9 @@
                 url: url,
                 success: function (msg) {
                     var message = msg.toString();
-//                    alert(message);
                 },
                 error: function() {
                     var message = msg.toString();
-//                    alert(message);
                 }
             });
         });
@@ -73,7 +70,7 @@
                     else {
                         $('#info-acicional').html('Sin Metadatos definidos');
                     }
-                }
+                },
                 error: function (msg) {
                 }
             });

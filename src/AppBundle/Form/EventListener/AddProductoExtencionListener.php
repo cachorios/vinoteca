@@ -43,7 +43,6 @@ class AddProductoExtencionListener implements EventSubscriberInterface
         return array(
             FormEvents::POST_SUBMIT => 'postSubmit',
             FormEvents::PRE_SET_DATA => 'preSetData',
-//            FormEvents::SUBMIT => 'submit',
 
         );
     }
@@ -62,10 +61,7 @@ class AddProductoExtencionListener implements EventSubscriberInterface
         }
 
         if (null == $data->getCategoria()) {
-            //de pueba para ver el funcionamiento.
-            $categoria = $this->em->getRepository('AppBundle:Categoria')->find(93);
-
-            //return;
+            return;
         } else {
             $categoria = $data->getCategoria();
         }
