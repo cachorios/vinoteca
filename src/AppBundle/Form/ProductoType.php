@@ -4,6 +4,8 @@ namespace AppBundle\Form;
 
 use AppBundle\Form\EventListener\AddProductoExtencionListener;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,23 +29,15 @@ class ProductoType extends AbstractType
     {
 
         $builder
-            ->add('categoria', 'entity', array(
-                'label' => 'Nodo padre',
-                'class' => 'AppBundle:Categoria',
-                'empty_value' => '',
-                'property' => 'getNodeNombre',
+            ->add('codigo', null, array(
                 'required' => false,
-                'multiple' => false,
-                'query_builder' => function (CategoriaRepository $repository) {
-                    return $repository
-                        ->selectOrdenTreeAll();
-                },))
+            ))
             ->add('nombre', null, array())
             ->add('descripcion', null, array())
-            ->add('precio', null, array(
+            ->add('precio', 'number', array(
                 'required' => true,
             ))
-            ->add('iva', null, array(
+            ->add('iva', 'number', array(
                 'required' => false,
             ))
             ->add('activo', null, array(
@@ -53,15 +47,33 @@ class ProductoType extends AbstractType
                 "mapped" => false,
                 'required' => false,
                 'multiple' => true
-//                "attr" => array(
-//                    'multiple' => true
-//                )
-            ))
-        ;
+            ));
 
         $builder->get("images")->addModelTransformer(new FileToStringTransformer());
         $builder->addEventSubscriber(new AddProductoExtencionListener($builder->getFormFactory(), $this->em));
 
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) {
+                $form = $event->getForm();
+                $data = $event->getData();
+
+                $id = $data->getId();
+                if (is_null($id)) {
+                    $form->add('categoria', 'entity', array(
+                        'label' => 'Categoria',
+                        'class' => 'AppBundle:Categoria',
+                        'empty_value' => '',
+                        'property' => 'getNodeNombre',
+                        'required' => false,
+                        'multiple' => false,
+                        'query_builder' => function (CategoriaRepository $repository) {
+                            return $repository
+                                ->selectOrdenTreeAll();
+                        },));
+                }
+            }
+        );
     }
 
     /**

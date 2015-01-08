@@ -29,7 +29,7 @@ class UsuarioController extends Controller
      *
      * @Route("/", name="usuario")
      * @Method("GET")
-     * @Template()
+     * @Template("UsuarioBundle:Usuario:index.html.twig")
      */
     public function indexAction(Request $request)
     {
@@ -162,7 +162,7 @@ class UsuarioController extends Controller
      *
      * @Route("/new", name="usuario_new")
      * @Method("GET")
-     * @Template()
+     * @Template("UsuarioBundle:Usuario:new.html.twig")
      */
     public function newAction()
     {
@@ -180,7 +180,7 @@ class UsuarioController extends Controller
      *
      * @Route("/{id}", name="usuario_show")
      * @Method("GET")
-     * @Template()
+     * @Template("UsuarioBundle:Usuario:show.html.twig")
      */
     public function showAction($id)
     {
@@ -205,7 +205,7 @@ class UsuarioController extends Controller
      *
      * @Route("/{id}/edit", name="usuario_edit")
      * @Method("GET")
-     * @Template()
+     * @Template("UsuarioBundle:Usuario:edit.html.twig")
      */
     public function editAction($id)
     {

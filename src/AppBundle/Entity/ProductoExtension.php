@@ -23,6 +23,7 @@ class ProductoExtension
 
     /**
      * @ORM\ManyToOne(targetEntity="Producto", inversedBy="extencion")
+     * @ORM\JoinColumn(name="producto_id", referencedColumnName="id")
      */
     private $producto;
 
@@ -38,14 +39,13 @@ class ProductoExtension
      */
     private $valor;
 
-    /**
-     * Constructor
-     */
     public function add(\AppBundle\Entity\Producto $producto, \AppBundle\Entity\MetadatoProducto $metadatoProducto, $valor)
     {
         $this->setMetadatoProducto($metadatoProducto);
         $this->setProducto($producto);
         $this->setValor($valor);
+
+        return $this;
     }
 
 
@@ -114,7 +114,6 @@ class ProductoExtension
     public function setValor($valor)
     {
         $this->valor = $valor;
-
         return $this;
     }
 

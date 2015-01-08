@@ -34,10 +34,10 @@ class ProductoImagen extends AbstractFixture implements OrderedFixtureInterface,
     {
         $webdir = $this->container->get('kernel')->getRootDir() . '/../web';
         $arrs = array(
-                array('producto' =>'01','imagen'=>'Bonarda Lote Especial.png'),
-                array('producto' =>'02','imagen'=>'CICLOS TARDIO.jpg'),
-                array('producto' =>'03','imagen'=>'EMMA ZUCCARDI.jpg'),
-                array('producto' =>'04','imagen'=>'Encuentro 7 Vineyards.jpg'),
+                array('producto' =>'01'),
+                array('producto' =>'02'),
+                array('producto' =>'03'),
+                array('producto' =>'04'),
                 array('producto' =>'05',),
                 array('producto' =>'06',),
                 array('producto' =>'07',),

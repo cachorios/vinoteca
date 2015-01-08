@@ -32,6 +32,7 @@ class ProductoListener
         $entity = $args->getEntity();
 
         if ($entity instanceof Producto) {
+
             $entity->setUpdatedAt( new \DateTime('now', new \DateTimeZone('UTC')));
             $entity->setCreatedAt( new \DateTime('now', new \DateTimeZone('UTC')));
             $entity->setSlug(Util::getSlug($entity->getNombre()));

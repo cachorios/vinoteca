@@ -47,17 +47,31 @@
                                     <ul class="row list-unstyled ui-sortable" id="js-sort-image">
 
                                         {% for imagen in entity.imagenes %}
-                                            <li data-sort-id="{{ entity.id }}" class="col-sm-6 col-md-3 ui-state-default">
-                                                <a href="{{ asset(imagen.getWebPath() ) }}" class="thumbnail thumbnail-view-hover ui-lightbox">
-                                                    <img alt="imagen" src="{{ imagen.getWebPath() | apply_filter('thumbnail') }}" >
+
+                                            <li id="{{ imagen.id }}"
+                                                class="col-sm-6 col-md-3 ui-state-default">
+                                                <a href="{{ asset(imagen.getWebPath() ) }}"
+                                                   class="thumbnail thumbnail-view-hover image-popup-vertical-fit">
+                                                    <img alt="imagen"
+                                                         src="{{ imagen.getWebPath() | apply_filter('thumbnail') }}">
                                                 </a>
 
                                                 <div class="btn-group">
-                                                    <a href="#" class="image-update-btn btn btn-default btn-xs disabled js-sorted-position">{{ imagen.id }}</a>
-                                                    <a data-error-message="Primario" href="#" class="image-update-btn btn btn-default btn-xs">
-                                                        <span class="glyphicon glyphicon-edit"></span>
-                                                    </a>
-                                                    <a data-error-message="Borrar" href="#" id="image-{{ entity.id }}" class="image-delete-btn btn btn-default btn-xs">
+                                                    <a href="#"
+                                                       class="image-update-btn btn btn-default btn-xs disabled js-sorted-position">{{ imagen.id }}</a>
+
+                                                    <span class="btn btn-default btn-xs">
+
+                                                        <input type="radio" name="group1"
+                                                               data-href="{{ path('producto_imagen', {'id': imagen.id, 'status': 'primario'}) }}"
+                                                               value="{{ imagen.id }}" {{ imagen.primario == 1 ? 'checked="checked"' : '' }}
+                                                               class="radio-select-primario"></span>
+
+                                                    <a data-error-message="Borrar"
+                                                       href="#"
+
+                                                       data-href="{{ path('producto_imagen', {'id': imagen.id, 'status': 'delete'}) }}"
+                                                       class="image-delete image-delete-btn btn btn-default btn-xs">
                                                         <span class="glyphicon glyphicon-trash"></span>
                                                     </a>
                                                 </div>
@@ -71,7 +85,17 @@
                             </div>
                             <div id="datos" class="tab-pane fade active in">
 
-                                {{ form_row(edit_form.categoria) }}
+                                <div class="form-group">
+                                    <label
+                                            class="col-sm-2 control-label required">Catergoria</label>
+
+                                    <div class="col-sm-10">
+                                        <span class="form-control">{{ entity.categoria }}</span>
+                                    </div>
+                                </div>
+
+                                {#{{ form_row(edit_form.categoria) }}#}
+                                {{ form_row(edit_form.codigo) }}
                                 {{ form_row(edit_form.nombre) }}
                                 {{ form_row(edit_form.descripcion) }}
                                 {{ form_row(edit_form.precio) }}
@@ -79,6 +103,7 @@
                                 {{ form_row(edit_form.activo) }}
 
                                 <h4 class="content-title"><u>Información Adicional</u></h4>
+
                                 <div id="info-acicional">
                                     {{ form_widget(edit_form) }}
                                 </div>
@@ -92,7 +117,8 @@
                             <input type="submit" value="Guardar"
                                    class="form-submit-button btn btn-sm btn-default btn-success">
                             <a class="page-close-button btn btn-sm btn-default" href="{{ path('producto') }}">Cerrar
-                                <span class="glyphicon glyphicon-remove"></span></a>
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
 
                         </div>
 
@@ -105,7 +131,7 @@
             {% endblock contenido %}
 
         {% block javascript_footer %}
-            {{ include('@App/admin/Producto/js.html.twig',{'form': edit_form})  }}
+            {{ include('@App/admin/Producto/js.html.twig',{'form': edit_form}) }}
 
         {% endblock %}
 

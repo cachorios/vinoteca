@@ -113,6 +113,10 @@ ul, ol {
     height: auto;
 }
 
+.radio-select-primario{
+    margin: 0 !important;
+}
+
 .existing-image .col-sm-6 {
     margin-bottom: 30px;
     position: relative;
@@ -125,4 +129,7 @@ ul, ol {
 .list-unstyled {
     list-style: outside none none;
     padding-left: 0;
+}
+#appbundle_producto_iva, #appbundle_producto_precio{
+    width: auto;
 }

@@ -2,6 +2,9 @@
 
 namespace AppBundle\Controller\admin;
 
+use AppBundle\Entity\Categoria;
+use AppBundle\Entity\ProductoImagen;
+use AppBundle\Form\ExtencionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -28,7 +31,7 @@ class ProductoController extends Controller
      * Lists all Producto entities.
      *
      * @Route("/", name="producto")
-     * @Method("GET")
+     * @Method({"GET","POST"})
      * @Template()
      */
     public function indexAction(Request $request)
@@ -320,22 +323,93 @@ class ProductoController extends Controller
     /**
      * Displays a form to edit an existing Producto entity.
      *
-     * @Route("/form/extencion", name="producto_extencion")
+     * @Route("/api/form", name="producto_extencion")
      * @Method("GET")
      */
-    public function formExtencionAction()
+    public function formExtencionAction(Request $request)
     {
+        $id = $this->get('request')->query->get('categoria');
 
-//        $selected = $this->get('request')->query->get('data');
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $categoria = $em->getRepository('AppBundle:Categoria')->find($id);
 
-//        $em = $this->container->get('doctrine.orm.entity_manager');
+        if (!$categoria) {
+            $html = 'Categoria no encontrada';
+        } else {
 
-        $html = 'hola';
+            $entity = new Producto();
+            $entity->setCategoria($categoria);
 
-//        return New Response($html);
+            $form = $this->createForm(new ExtencionType($this->getDoctrine()->getManager()), $entity, array());
+            $html = $this->renderView('AppBundle:admin/Producto/ajax:extencionForm.html.twig', array('form' => $form->createView()));
+        }
 
-// create a simple Response with a 200 status code (the default)
-        $response = new Response('Hello ', Response::HTTP_OK);
+        // create a simple Response with a 200 status code (the default)
+        $response = new Response($html, Response::HTTP_OK);
         return $response;
     }
+
+    /**
+     * @Route("/api/imagen/{id}/{status}",
+     * name="producto_imagen",
+     * requirements = { "status" = "delete|primario", "id" = "\d+" },
+     *
+     * )
+     * @Method("GET")
+     *
+     */
+    public function apiImagenAction(Request $request)
+    {
+//        // is it an Ajax request?
+//        $isAjax = $request->isXmlHttpRequest();
+
+        if ($request->isXMLHttpRequest()) {
+            $id = $request->get('id');
+            $status = $request->get('status');
+
+            $em = $this->container->get('doctrine.orm.entity_manager');
+            $imagen = $em->getRepository('AppBundle:ProductoImagen')->find($id);
+
+            if (!$imagen) {
+                $response = new Response('error. ', Response::HTTP_NOT_FOUND);
+                return $response;
+            }
+
+            if ($status == 'delete') {
+                //Si la imagen a borrar es primaria selecciona la primera de la lista.
+                if ($imagen->getPrimario() == true){
+                    $producto = $imagen->getProducto();
+                    $imagenes = $producto->getImagenes();
+                    $temp = $imagenes[0];
+                    $temp->setPrimario(true);
+                    $em->persist($temp);
+                }
+
+                $em->remove($imagen);
+                $em->flush();
+                $response = new Response('Borrado. ', Response::HTTP_OK);
+                return $response;
+            }elseif($status == 'primario'){
+                $producto = $imagen->getProducto();
+                //Recorro la colleccion y marco como primario la imagen seleccionada.
+                foreach ($producto->getImagenes() as $img) {
+                    if ($img->getId()== $imagen->getId()) {
+                        $img->setPrimario(true);
+                    }else{
+                        $img->setPrimario(false);
+                    }
+                    $em->persist($img);
+                }
+                $em->flush();
+                $response = new Response('primario. ', Response::HTTP_OK);
+                return $response;
+            }
+
+//        new Response($imagen, is_object($imagen) ? Response::HTTP_OK : Response::HTTP_NOT_FOUND)
+        }
+
+        return new Response('This is not ajax!', Response::HTTP_BAD_REQUEST);
+
+    }
+
 }
