@@ -29,9 +29,7 @@ class ProductoType extends AbstractType
     {
 
         $builder
-            ->add('codigo', null, array(
-                'required' => false,
-            ))
+
             ->add('nombre', null, array())
             ->add('descripcion', null, array())
             ->add('precio', 'number', array(
@@ -39,6 +37,7 @@ class ProductoType extends AbstractType
             ))
             ->add('iva', 'number', array(
                 'required' => false,
+
             ))
             ->add('activo', null, array(
                 'required' => false,
@@ -60,6 +59,7 @@ class ProductoType extends AbstractType
 
                 $id = $data->getId();
                 if (is_null($id)) {
+
                     $form->add('categoria', 'entity', array(
                         'label' => 'Categoria',
                         'class' => 'AppBundle:Categoria',
@@ -70,7 +70,10 @@ class ProductoType extends AbstractType
                         'query_builder' => function (CategoriaRepository $repository) {
                             return $repository
                                 ->selectOrdenTreeAll();
-                        },));
+                        },))
+                        ->add('codigo', null, array(
+                            'required' => false,
+                        ));
                 }
             }
         );

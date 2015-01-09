@@ -20,7 +20,11 @@ class HelpMessageTypeExtension extends AbstractTypeExtension
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['help'] = isset($options['help']) ? $options['help'] : "";
+        $view->vars = array_replace($view->vars, array(
+            'help' => isset($options['help']) ? $options['help'] : null,
+        ));
+
+//        $view->vars['help'] = isset($options['help']) ? $options['help'] : null;
     }
 
     /**
