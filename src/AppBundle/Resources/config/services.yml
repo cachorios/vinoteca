@@ -4,6 +4,12 @@ services:
          tags:
              - { name: twig.extension }
 
+    twig.extension.categoria:
+        class: AppBundle\Twig\Extension\CategoriaExtension
+        arguments: [@doctrine.orm.entity_manager]
+        tags:
+            - { name: twig.extension }
+
     categoria.listener.doctrine:
         class: AppBundle\EventListener\CategoriaListener
         arguments: [@service_container]

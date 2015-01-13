@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ProductoRepository")
- * @DoctrineAssert\UniqueEntity(fields="nombre", message="producto.nombre.duplicated")
+ * @DoctrineAssert\UniqueEntity(fields={"nombre", "codigo"})
  * @ORM\HasLifecycleCallbacks
  */
 class Producto
