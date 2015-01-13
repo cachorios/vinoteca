@@ -18,6 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 
+
 /**
  * Class ProductoController
  * @package AppBundle\Controller\frontend
@@ -172,6 +173,15 @@ class ProductoController extends  Controller {
      * @ParamConverter("producto", class="AppBundle:Producto")
      */
     public function productofullAction(Producto $producto){
+
+//        $cat = $producto->getCategoria();
+//        /**
+//         * @var \Doctrine\ORM\EntityManager $em
+//         */
+//        $em = $this->getDoctrine()->getManager();
+//        $cad = $em->getRepository("AppBundle:Categoria")->getStrAscentendeCategoria($cat);
+//
+//        ld($cad);
 
         return $this->render("@App/frontend/Producto/producto_full.html.twig",
             array(

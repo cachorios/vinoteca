@@ -13,7 +13,7 @@
                         <img src="{{ asset("uploads/productos/" ~ prod.imagenActiva ) }}" height="141" alt="product" class="img-responsive">
                     </div>
                     <div class="caption">
-                        <h4><a href="product.html">{{ prod.nombre }}</a></h4>
+                        <h4><a href="{{ path('productofull',{'id': prod.id }) }}">{{ prod.nombre }}</a></h4>
                         <div class="description">
                             {{ prod.descripcion |truncate(70, false, '...') }}
 

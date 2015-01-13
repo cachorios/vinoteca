@@ -28,6 +28,7 @@ class CategoriaRepository extends EntityRepository
         return $qb;
 
     }
+
     public function getBarraMenu()
     {
 
@@ -76,5 +77,13 @@ class CategoriaRepository extends EntityRepository
         return $hijos;
     }
 
+    public function getStrAscentendeCategoria(Categoria $cat, $separador = "/")
+    {
+        $cad = $cat->getNombre();
+        if( $cat->getParent()){
+            $cad = $this->getStrAscentendeCategoria($cat->getParent(), $separador) . $separador. $cad;
+        }
+        return $cad;
+    }
 
 }

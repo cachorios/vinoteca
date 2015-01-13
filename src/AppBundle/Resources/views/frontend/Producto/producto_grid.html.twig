@@ -5,7 +5,7 @@
         </div>
 
         <div class="caption">
-            <h4><a href="product.html">{{ entity.nombre }}</a></h4>
+            <h4><a href="{{ path('productofull',{'id': entity.id }) }}">{{ entity.nombre }}</a></h4>
             <div class="description">
                 {{ entity.descripcion | raw | truncate(70, false, '...') }}
             </div>
