@@ -261,6 +261,8 @@ class ProductoController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
+            $em->persist($entity);
             $em->flush();
             $this->get('session')->getFlashBag()->add('success', "El Producto $entity se actualizó correctamente.");
             return $this->redirect($this->generateUrl('producto'));

@@ -17,7 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ProductoRepository")
  * @DoctrineAssert\UniqueEntity(fields="nombre", message="producto.nombre.duplicated")
- * @DoctrineAssert\UniqueEntity(fields="codigo", message="producto.codigo.duplicated")
  * @ORM\HasLifecycleCallbacks
  */
 class Producto
@@ -111,6 +110,11 @@ class Producto
      */
     protected $updatedAt;
 
+    /**
+     * @ORM\Column(name="stock", type="integer")
+     */
+    protected $stock = 0;
+
     public function __toString()
     {
         return $this->getNombre();
@@ -156,6 +160,28 @@ class Producto
     public function getCodigo()
     {
         return $this->codigo;
+    }
+
+    /**
+     * Set stock
+     *
+     * @param string $stock
+     * @return Producto
+     */
+    public function setStock($stock)
+    {
+        $this->stock = $stock;
+        return $this;
+    }
+
+    /**
+     * Get stock
+     *
+     * @return integer
+     */
+    public function getStock()
+    {
+        return $this->stock;
     }
 
     /**
