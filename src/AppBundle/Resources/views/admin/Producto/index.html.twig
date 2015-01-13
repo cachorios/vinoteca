@@ -63,12 +63,12 @@
                         <th class="{{ pager.isSorted('nombre') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'nombre '|trans|upper }} </th>
                         {#<th class="{{ pager.isSorted('slug') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'slug '|trans|upper }} </th>#}
                         {#<th class="{{ pager.isSorted('marca') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'marca '|trans|upper }} </th>#}
-                        <th class="{{ pager.isSorted('descripcion') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'descripcion '|trans|upper }} </th>
+                        {#<th class="{{ pager.isSorted('descripcion') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'descripcion '|trans|upper }} </th>#}
                         <th class="{{ pager.isSorted('precio') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'precio '|trans|upper }} </th>
                         <th class="{{ pager.isSorted('iva') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'iva '|trans|upper }} </th>
                         <th class="{{ pager.isSorted('activo') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'activo '|trans|upper }} </th>
                         {#<th class="{{ pager.isSorted('createdAt') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'createdAt '|trans|upper }} </th>#}
-                        <th class="{{ pager.isSorted('updatedAt') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'updatedAt '|trans|upper }} </th>
+                        {#<th class="{{ pager.isSorted('updatedAt') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'updatedAt '|trans|upper }} </th>#}
                         <th class="actions">{{ 'Acciones'|trans|upper }}</th>
 
                     </tr>
@@ -81,11 +81,11 @@
                             <td>{{ entity.nombre }}</td>
                             {#<td>{{ entity.slug }}</td>#}
                             {#<td>{{ entity.marca }}</td>#}
-                            <td>{{ entity.descripcion }}</td>
+                            {#<td>{{ entity.descripcion }}</td>#}
                             <td>{{ entity.precio }}</td>
                             <td>{{ entity.iva }}</td>
                             <td>{{ entity.activo? '<span class="label label-success">Si</span>' : '<span class="label label-default">No</span>' }}</td>
-                            <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            {#<td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>#}
                             {#<td>{% if entity.updatedAt %}{{ entity.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>#}
                             <td class="actions">
                                 <div class="btn-group">
