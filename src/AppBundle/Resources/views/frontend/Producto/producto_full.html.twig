@@ -6,10 +6,7 @@
 {#{% endblock pre_body %}#}
 
 {% block workarea -%}
-    {#<ol class="breadcrumb">#}
-        {#<li><a href="index.html">Home</a></li>#}
-        {#<li class="active">Spices &amp; Herbs</li>#}
-    {#</ol>#}
+
     {{ wo_render_breadcrumbs() }}
     <div class="row product-info full">
         <!-- Left Starts -->
@@ -58,7 +55,7 @@
                     <li><span>Código:</span> {{ producto.codigo }}</li>
                     <li><span>Ranking:</span> 80</li>
                     <li>
-                        <span>Disponibilidad:</span>  <strong class="label label-danger">{{ 'Sin Sock' }}</strong>
+                        <span>Disponibilidad:</span>  <strong class="label {{ producto.stock>0 ? 'label-primary' : 'label-danger' }} ">  {{ producto.stock>0 ? 'Hay Stock' : 'Sin Sock' }}</strong>
                     </li>
                 </ul>
                 <!-- Manufacturer Ends -->
@@ -94,11 +91,13 @@
                 </div>
                 <hr>
                 <div class="options">
+                    {%  if producto.stock>0  %}
                     <h3>Comprar</h3>
                     <div class="form-group">
                         <label for="input-quantity" class="control-label text-uppercase">Cantidad:</label>
                         <input type="text" class="form-control" id="input-quantity" size="2" value="1" name="quantity">
                     </div>
+                    {% endif %}
 
                     <div class="cart-button button-group">
                         <button class="btn btn-wishlist" title="" type="button" data-original-title="Wishlist">
@@ -107,10 +106,12 @@
                         <button class="btn btn-compare" title="" type="button" data-original-title="Compare">
                             <i class="fa fa-bar-chart-o"></i>
                         </button>
+                        {%  if producto.stock>0  %}
                         <button class="btn btn-cart" type="button">
                             Agregar a la cesta
                             <i class="fa fa-shopping-cart"></i>
                         </button>
+                        {% endif %}
                     </div>
                 </div>
                 <!-- Available Options Ends -->

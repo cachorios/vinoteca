@@ -13,4 +13,9 @@
         </service>
     </services>
     -->
+    <services>
+        <service id="cart_item_resolver" class="AppBundle\Cart\ItemResolver">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+    </services>
 </container>

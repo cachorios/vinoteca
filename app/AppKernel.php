@@ -18,12 +18,15 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+
             new RaulFraile\Bundle\LadybugBundle\RaulFraileLadybugBundle(),
             new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
+
+
 
             new RBSoft\UsuarioBundle\UsuarioBundle(),
             new RBSoft\ABMGeneradorBundle\RBSoftABMGeneradorBundle(),

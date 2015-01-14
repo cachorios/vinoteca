@@ -36,15 +36,7 @@ class ProductoController extends  Controller {
     */
     public function getProductosAction(Request $request, Categoria $categoria, $vista, $orden, $ver){
 
-
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-
-        $node = $categoria;
-        while ($node) {
-            $breadcrumbs->prependItem($node->getNombre(), $this->generateUrl("productos",array('id' => $node->getId())) );
-            $node = $node->getParent();
-        }
-        $breadcrumbs->prependItem("Inicio", $this->get("router")->generate("homepage"));
+        $this->crearBreadCrumbs($categoria);
 
         $toFilter = $request->get('filtro') ;
 
@@ -183,21 +175,32 @@ class ProductoController extends  Controller {
      */
     public function productofullAction(Producto $producto){
 
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
 
-        $node = $producto->getCategoria();
-        while ($node) {
-            $breadcrumbs->prependItem($node->getNombre(), $this->generateUrl("productos",array('id' => $node->getId())) );
-            $node = $node->getParent();
-        }
-        $breadcrumbs->prependItem("Inicio", $this->get("router")->generate("homepage"));
-        $breadcrumbs->addItem($producto->getNombre());
+        $this->crearBreadCrumbs($producto->getCategoria())
+            ->addItem($producto->getNombre());
 
         return $this->render("@App/frontend/Producto/producto_full.html.twig",
             array(
                 "producto" => $producto,
                 'setting' => $this->get("setting.service")->getSetting(),
             ));
+    }
+
+    /**
+     * @param Categoria $categoria
+     * @return \WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs
+     */
+    private function crearBreadCrumbs(Categoria $categoria)
+    {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+
+        $node = $categoria;
+        while ($node) {
+            $breadcrumbs->prependItem($node->getNombre(), $this->generateUrl("productos",array('id' => $node->getId())) );
+            $node = $node->getParent();
+        }
+        $breadcrumbs->prependItem("Inicio", $this->get("router")->generate("homepage"));
+        return $breadcrumbs;
     }
 
 } 

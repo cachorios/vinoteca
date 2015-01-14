@@ -30,10 +30,12 @@
                         data-original-title="Compare">
                     <i class="fa fa-bar-chart-o"></i>
                 </button>
+                {%  if entity.stock>0  %}
                 <button type="button" class="btn btn-cart">
                     {{ 'Agregar a la cesta' | trans }}
                     <i class="fa fa-shopping-cart"></i>
                 </button>
+                {% endif %}
             </div>
         </div>
     </div>
