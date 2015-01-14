@@ -102,3 +102,6 @@ avalanche_imagine:
 
 #fos_js_routing:
 #    routes_to_expose: [ 'productos' ]
+
+white_october_breadcrumbs:
+    separator:          ""

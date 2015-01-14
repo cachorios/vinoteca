@@ -28,5 +28,4 @@ class Setting {
         return $this->setting;
     }
 
-
 } 

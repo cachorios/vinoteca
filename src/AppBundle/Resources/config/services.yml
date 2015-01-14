@@ -52,3 +52,7 @@ services:
     setting.service:
             class: AppBundle\Servicios\Setting
             arguments: [@doctrine.orm.entity_manager]
+
+    utilidad.service:
+            class: AppBundle\Servicios\Utilidad
+            arguments: [@service_container]

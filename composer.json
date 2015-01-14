@@ -28,7 +28,8 @@
         "lexik/form-filter-bundle": "2.0.*",
         "knplabs/knp-paginator-bundle": "~2.4",
         "white-october/pagerfanta-bundle": "dev-master",
-        "jms/translation-bundle": "dev-master"
+        "jms/translation-bundle": "dev-master",
+        "whiteoctober/breadcrumbs-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

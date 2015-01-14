@@ -6,10 +6,11 @@
 {#{% endblock pre_body %}#}
 
 {% block workarea -%}
-    <ol class="breadcrumb">
-        <li><a href="index.html">Home</a></li>
-        <li class="active">Spices &amp; Herbs</li>
-    </ol>
+    {#<ol class="breadcrumb">#}
+        {#<li><a href="index.html">Home</a></li>#}
+        {#<li class="active">Spices &amp; Herbs</li>#}
+    {#</ol>#}
+    {{ wo_render_breadcrumbs() }}
     <div class="row product-info full">
         <!-- Left Starts -->
         <div class="col-sm-4 images-block">

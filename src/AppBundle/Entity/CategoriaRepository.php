@@ -86,4 +86,6 @@ class CategoriaRepository extends EntityRepository
         return $cad;
     }
 
+
+
 }
