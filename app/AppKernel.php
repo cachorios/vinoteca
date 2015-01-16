@@ -25,7 +25,7 @@ class AppKernel extends Kernel
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
             new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
-
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
 
 
             new RBSoft\UsuarioBundle\UsuarioBundle(),
@@ -33,7 +33,7 @@ class AppKernel extends Kernel
             new RBSoft\UtilidadBundle\UtilidadBundle(),
 
             new AppBundle\AppBundle(),
-
+            new RBSoft\CartBundle\RBSoftCartBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

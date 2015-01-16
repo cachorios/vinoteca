@@ -21,6 +21,8 @@ class CartItem
      */
     private $id;
 
+    /** @ORM\ManyToOne(targetEntity="Cart") */
+    private $cart;
 
     /** @ORM\ManyToOne(targetEntity="Producto") */
     private $producto;
@@ -33,6 +35,40 @@ class CartItem
     private $cantidad;
 
 
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set cantidad
+     *
+     * @param integer $cantidad
+     * @return CartItem
+     */
+    public function setCantidad($cantidad)
+    {
+        $this->cantidad = $cantidad;
+
+        return $this;
+    }
+
+    /**
+     * Get cantidad
+     *
+     * @return integer 
+     */
+    public function getCantidad()
+    {
+        return $this->cantidad;
+    }
 
     /**
      * Set producto
@@ -55,5 +91,28 @@ class CartItem
     public function getProducto()
     {
         return $this->producto;
+    }
+
+    /**
+     * Set cart
+     *
+     * @param \AppBundle\Entity\Cart $cart
+     * @return CartItem
+     */
+    public function setCart(\AppBundle\Entity\Cart $cart = null)
+    {
+        $this->cart = $cart;
+
+        return $this;
+    }
+
+    /**
+     * Get cart
+     *
+     * @return \AppBundle\Entity\Cart 
+     */
+    public function getCart()
+    {
+        return $this->cart;
     }
 }

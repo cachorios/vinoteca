@@ -22,10 +22,23 @@ class Cart
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="CartItem")
+     * @ORM\OneToMany(targetEntity="CartItem", mappedBy="cart" )
      */
-    private $items;
+    private $item;
 
+
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
 
 }

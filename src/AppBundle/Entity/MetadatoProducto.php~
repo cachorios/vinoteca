@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * MetadatoProducto
  *
@@ -30,17 +31,36 @@ class MetadatoProducto
 
     /**
      * @var string
+     */
+    private $slug;
+
+    /**
+     * @var string
      *
      * @ORM\Column(name="predeterminado", type="text", nullable=true)
      */
     private $predeterminado;
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="filtrable", type="boolean")
+     * @ORM\Column(name="filtrable", type="integer")
      */
     private $filtrable;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="requerido", type="boolean")
+     */
+    private $requerido;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="widget", type="integer")
+     */
+    private $widget;
 
     /**
      * @var integer
@@ -63,6 +83,24 @@ class MetadatoProducto
      */
     private $categoria;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->setOrden(0);
+        $this->setRequerido(true);
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
 
     /**
      * Get id
@@ -83,7 +121,6 @@ class MetadatoProducto
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
         return $this;
     }
 
@@ -118,6 +155,52 @@ class MetadatoProducto
     public function getFiltrable()
     {
         return $this->filtrable;
+    }
+
+    /**
+     * Set widget
+     *
+     * @param boolean $widget
+     * @return MetadatoProducto
+     */
+    public function setWidget($widget)
+    {
+        $this->widget = $widget;
+
+        return $this;
+    }
+
+    /**
+     * Get widget
+     *
+     * @return integer
+     */
+    public function getWidget()
+    {
+        return $this->widget;
+    }
+
+    /**
+     * Set requerido
+     *
+     * @param boolean $requerido
+     * @return MetadatoProducto
+     */
+    public function setRequerido($requerido)
+    {
+        $this->requerido = $requerido;
+
+        return $this;
+    }
+
+    /**
+     * Get requerido
+     *
+     * @return boolean
+     */
+    public function getRequerido()
+    {
+        return $this->requerido;
     }
 
     /**
@@ -210,5 +293,15 @@ class MetadatoProducto
     public function getPredeterminado()
     {
         return $this->predeterminado;
+    }
+
+    /**
+     * Check if entity is empty.
+     *
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return empty($this->nombre);
     }
 }

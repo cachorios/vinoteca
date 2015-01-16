@@ -50,4 +50,50 @@ class Configuracion
     }
 
 
+
+    /**
+     * Set descuentoGlobal
+     *
+     * @param string $descuentoGlobal
+     * @return Configuracion
+     */
+    public function setDescuentoGlobal($descuentoGlobal)
+    {
+        $this->descuentoGlobal = $descuentoGlobal;
+
+        return $this;
+    }
+
+    /**
+     * Get descuentoGlobal
+     *
+     * @return string 
+     */
+    public function getDescuentoGlobal()
+    {
+        return $this->descuentoGlobal;
+    }
+
+    /**
+     * Set productosPorPagina
+     *
+     * @param string $productosPorPagina
+     * @return Configuracion
+     */
+    public function setProductosPorPagina($productosPorPagina)
+    {
+        $this->productosPorPagina = $productosPorPagina;
+
+        return $this;
+    }
+
+    /**
+     * Get productosPorPagina
+     *
+     * @return string 
+     */
+    public function getProductosPorPagina()
+    {
+        return $this->productosPorPagina;
+    }
 }

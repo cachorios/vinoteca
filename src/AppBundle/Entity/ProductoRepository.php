@@ -19,6 +19,7 @@ class ProductoRepository extends EntityRepository
         $consulta = $em->createQuery('
             SELECT p, c
             FROM AppBundle:Producto p JOIN  p.categoria c
+            WHERE p.stock >0
             ORDER BY p.createdAt DESC
         ');
 

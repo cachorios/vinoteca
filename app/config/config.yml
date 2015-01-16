@@ -87,6 +87,7 @@ knp_paginator:
 #        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
 
 
+
 avalanche_imagine:
     source_root:  %kernel.root_dir%/../web
     web_root:     %kernel.root_dir%/../web
@@ -99,6 +100,9 @@ avalanche_imagine:
         heighten:
             type:    relative_resize
             options: { heighten: 100} # Transforms 50x40 to 75x60
+        producto_cart_thumb:
+            type:    thumbnail
+            options:  { size: [120, 90], mode: outbound }
 
 #fos_js_routing:
 #    routes_to_expose: [ 'productos' ]

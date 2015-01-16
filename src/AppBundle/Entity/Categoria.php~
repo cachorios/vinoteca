@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use RBSoft\UtilidadBundle\Libs\Util;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
@@ -44,7 +45,7 @@ class Categoria
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="descripcion", type="text")
      */
     private $descripcion;
@@ -100,6 +101,7 @@ class Categoria
 
     /**
      * @ORM\OneToMany(targetEntity="MetadatoProducto", mappedBy="categoria",cascade={"persist", "remove"})
+     * @ORM\OrderBy({"orden" = "ASC"})
      */
     private $metadatos;
 
@@ -112,7 +114,6 @@ class Categoria
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
-
 
     public function __toString()
     {
@@ -378,8 +379,8 @@ class Categoria
      */
     public function addMetadato(\AppBundle\Entity\MetadatoProducto $metadatos)
     {
+        $metadatos->setCategoria($this);
         $this->metadatos[] = $metadatos;
-    
         return $this;
     }
 
@@ -472,4 +473,22 @@ class Categoria
         return $this->updatedAt;
     }
 
+    public function upload($dir)
+    {
+        if (null === $this->getImagen()) {
+            if(file_exists($dir.$this->getSlug().'.jpg'))
+                unlink($dir.$this->getSlug().'.jpg');
+            return;
+        }
+
+        if(file_exists($dir.$this->getSlug().'.'.$this->getImagen()->getClientOriginalExtension()))
+            unlink($dir.$this->getSlug().'.'.$this->getImagen()->getClientOriginalExtension());
+
+        $this->getImagen()->move(
+            $dir,
+            $this->getSlug().'.'.$this->getImagen()->getClientOriginalExtension()
+        );
+
+        $this->imagen = $this->getSlug().'.'.$this->getImagen()->getClientOriginalExtension();
+    }
 }
