@@ -12,6 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProductoRepository extends EntityRepository
 {
+    public function ListAll()
+    {
+        $qb = $this->createQueryBuilder("q");
+        return $qb;
+
+    }
+
     public function getUltimos()
     {
         $em = $this->getEntityManager();
@@ -28,6 +35,8 @@ class ProductoRepository extends EntityRepository
 
         return $consulta->getResult();
     }
+
+
 
 
     public function getProductos(Categoria $cat){

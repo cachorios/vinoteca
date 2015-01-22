@@ -37,6 +37,7 @@ twig:
             - UtilidadBundle:Form:find.html.twig
             - :Form:form_div_layout.html.twig
             - AppBundle:Form:collection_form.html.twig
+            - AppBundle:Form:datetime_form.html.twig
 
 # Doctrine Configuration
 doctrine:

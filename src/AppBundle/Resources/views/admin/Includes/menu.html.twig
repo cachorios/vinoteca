@@ -13,6 +13,9 @@
                 {#<input type="text" placeholder="Search" class="form-control input-md mainnav-search-query">#}
                 {#<button class="btn btn-sm mainnav-form-btn"><i class="fa fa-search"></i></button>#}
             {#</form>#}
+            {{ menu.menu('Inicio',path('homepage')) }}
+                {{ menu.item('Panel', 'fa-dashboard', path('homepage'))  }}
+            {{ menu.finmenu() }}
 
                 {{ menu.menu('Productos','#') }}
                     {{ menu.item('Categorisa', 'fa-dashboard', path('categoria'))  }}
@@ -32,14 +35,7 @@
                     {#{{ menu.finsubmenu() }}#}
 
                     {{ menu.item('Productos', 'fa-dashboard', path("producto"))  }}
-                    {#{{ menu.submenu('Multas','fa-dashboard') }}#}
-                        {#{{ menu.item('Administración de Multas', 'fa-dashboard',  path('multa') )  }}#}
-                        {#{{ menu.item('Multas2', 'fa-dashboard', '#')  }}#}
-                        {#{{ menu.item('Multas3', 'fa-dashboard', '#')  }}#}
-                    {#{{ menu.finsubmenu() }}#}
-                    {#{{ menu.item('Otras Tasas', 'fa-dashboard', '#')  }}#}
-                    {#{{ menu.item('Publicidad y Propaganda', 'fa-dashboard', path('cartel'))  }}#}
-                    {#{{ menu.item('Seguimiento de Tramite', 'fa-dashboard', '#')  }}#}
+                    {{ menu.item('Compras', 'fa-dashboard', path("compra"))  }}
                 {{ menu.finmenu() }}
 
 

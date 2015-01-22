@@ -1,5 +1,5 @@
 
-usuario_homepage:
+_usuario_admin:
     prefix:  /admin
     resource: "@UsuarioBundle/Controller"
 

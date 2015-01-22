@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Knp\Component\Pager\Paginator;
 
@@ -32,17 +31,16 @@ class ProductoController extends Controller
      *
      * @Route("/", name="producto")
      * @Method({"GET","POST"})
-     * @Template()
      */
     public function indexAction(Request $request)
     {
         list($filterForm, $queryBuilder) = $this->filter($request);
         $pager = $this->getPager($queryBuilder);
 
-        return array(
+        return $this->render('AppBundle:admin/Producto:index.html.twig', array(
             'pager' => $pager,
             'filterform' => $filterForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -70,8 +68,7 @@ class ProductoController extends Controller
         $session = $request->getSession();
         $filterForm = $this->createForm(new ProductoFilterType());
 
-        $em = $this->getDoctrine()->getManager();
-        $queryBuilder = $em->getRepository('AppBundle:Producto')->createQueryBuilder("q");
+        $queryBuilder =$this->get('producto.manager')->getList();
 
         // Reset filter
         if ($request->getMethod() == 'POST' && $request->get('submit-filter') == 'reset') {
@@ -107,7 +104,6 @@ class ProductoController extends Controller
      *
      * @Route("/new", name="producto_create")
      * @Method("POST")
-     * @Template("AppBundle:admin\Producto:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -127,10 +123,10 @@ class ProductoController extends Controller
 //            return $this->redirect($this->generateUrl('producto_new'));
         }
 
-        return array(
+        return $this->render('AppBundle:admin/Producto:new.html.twig',array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -156,17 +152,16 @@ class ProductoController extends Controller
      *
      * @Route("/new", name="producto_new")
      * @Method("GET")
-     * @Template()
      */
     public function newAction()
     {
         $entity = new Producto();
         $form = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('AppBundle:admin/Producto:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -174,7 +169,6 @@ class ProductoController extends Controller
      *
      * @Route("/{id}", name="producto_show")
      * @Method("GET")
-     * @Template()
      */
     public function showAction($id)
     {
@@ -188,10 +182,10 @@ class ProductoController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('AppBundle:admin/Producto:show.html.twig', array(
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -199,7 +193,6 @@ class ProductoController extends Controller
      *
      * @Route("/{id}/edit", name="producto_edit")
      * @Method("GET")
-     * @Template()
      */
     public function editAction($id)
     {
@@ -214,11 +207,11 @@ class ProductoController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('AppBundle:admin/Producto:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -244,7 +237,6 @@ class ProductoController extends Controller
      *
      * @Route("/{id}/edit", name="producto_update")
      * @Method("PUT")
-     * @Template("AppBundle:admin\Producto:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -268,11 +260,11 @@ class ProductoController extends Controller
             return $this->redirect($this->generateUrl('producto'));
         }
 
-        return array(
+        return $this->render('AppBundle:admin/Producto:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -411,7 +403,6 @@ class ProductoController extends Controller
         }
 
         return new Response('This is not ajax!', Response::HTTP_BAD_REQUEST);
-
     }
 
 }

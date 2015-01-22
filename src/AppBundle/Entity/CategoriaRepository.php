@@ -12,6 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoriaRepository extends EntityRepository
 {
+    public function ListAll()
+    {
+        $qb = $this->createQueryBuilder("q")
+            ->orderBy('q.root, q.level', 'ASC');
+        return $qb;
+
+    }
+
     public function selectOrdenTree()
     {
         $qb = $this->createQueryBuilder("q")

@@ -1,12 +1,14 @@
 app_frontend:
     prefix:  /
     resource: "@AppBundle/Controller/frontend"
+    type:     annotation
 
 app_admin:
     prefix:  /admin/
-    resource: "@AppBundle/Controller/admin"
+    resource: @AppBundle/Controller/admin
+    type:     annotation
 
-admin_homepage:
-    path:  /admin/
-    defaults:  { _controller: UsuarioBundle:Usuario:Index}
+#admin_homepage:
+#    path:  /admin/
+#    defaults:  { _controller: UsuarioBundle:Usuario:Index}
 

@@ -46,6 +46,11 @@ services:
         tags:
           - { name: "form.type", alias: "widget_filter" }
 
+    form.type.app_date_time:
+        class: AppBundle\Form\Type\AppDateTimeType
+        tags:
+          - { name: "form.type", alias: "app_datetime" }
+
     menu.service:
         class: AppBundle\Servicios\MenuService
         arguments: [@service_container]

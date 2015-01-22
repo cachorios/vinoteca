@@ -1,7 +1,5 @@
 <script type="text/javascript">
     $("#appbundle_producto_images").fileinput({
-        {#{% set imagen_src = entity.imagen == null ? asset("images/default-image.png" ) : asset("uploads/categorias/" ~ entity.imagen  ) %}#}
-        {#initialPreview: ["<img src='{{ imagen_src }}' class='file-preview-image'>"],#}
         overwriteInitial: true,
         showUpload: false,
         showCaption: false,

@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Knp\Component\Pager\Paginator;
 
@@ -27,7 +26,6 @@ class CategoriaController extends Controller
      *
      * @Route("/", name="categoria")
      * @Method({"GET","POST"})
-     * @Template()
      */
     public function indexAction(Request $request)
     {
@@ -35,10 +33,10 @@ class CategoriaController extends Controller
         list($filterForm, $queryBuilder) = $this->filter($request);
         $pager = $this->getPager($queryBuilder);
 
-        return array(
+        return $this->render('AppBundle:Admin/Categoria:index.html.twig',array(
             'pager' => $pager,
             'filterform' => $filterForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -66,8 +64,7 @@ class CategoriaController extends Controller
         $session = $request->getSession();
         $filterForm = $this->createForm(new CategoriaFilterType());
 
-        $em = $this->getDoctrine()->getManager();
-        $queryBuilder = $em->getRepository('AppBundle:Categoria')->createQueryBuilder("q")->orderBy('q.root, q.level', 'ASC');
+        $queryBuilder = $this->get('categoria.manager')->getList();
 
         // Reset filter
         if ($request->getMethod() == 'POST' && $request->get('submit-filter') == 'reset') {
@@ -103,7 +100,6 @@ class CategoriaController extends Controller
      *
      * @Route("/new", name="categoria_create")
      * @Method("POST")
-     * @Template("AppBundle:admin\Categoria:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -119,17 +115,17 @@ class CategoriaController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', "El Categoria $entity se creó correctamente.");
+            $this->get('session')->getFlashBag()->add('success', "La Categoria $entity se creó correctamente.");
             if ($request->request->get('save_mode') == 'save_and_close') {
                 return $this->redirect($this->generateUrl('categoria'));
             }
             return $this->redirect($this->generateUrl('categoria_new'));
         }
 
-        return array(
+        return $this->render('AppBundle:admin\Categoria:new.html.twig',array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -155,17 +151,16 @@ class CategoriaController extends Controller
      *
      * @Route("/new", name="categoria_new")
      * @Method("GET")
-     * @Template()
      */
     public function newAction()
     {
         $entity = new Categoria();
         $form = $this->createCreateForm($entity);
 
-        return array(
+       return $this->render('AppBundle:admin\Categoria:new.html.twig',array(
             'entity' => $entity,
             'form' => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -173,7 +168,6 @@ class CategoriaController extends Controller
      *
      * @Route("/{id}", name="categoria_show")
      * @Method("GET")
-     * @Template()
      */
     public function showAction($id)
     {
@@ -187,10 +181,10 @@ class CategoriaController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('AppBundle:admin\Categoria:show.html.twig',array(
             'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -198,7 +192,6 @@ class CategoriaController extends Controller
      *
      * @Route("/{id}/edit", name="categoria_edit")
      * @Method("GET")
-     * @Template()
      */
     public function editAction($id)
     {
@@ -213,11 +206,11 @@ class CategoriaController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('AppBundle:admin\Categoria:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -243,7 +236,6 @@ class CategoriaController extends Controller
      *
      * @Route("/{id}/edit", name="categoria_update")
      * @Method("PUT")
-     * @Template("AppBundle:admin\Categoria:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -282,11 +274,11 @@ class CategoriaController extends Controller
             return $this->redirect($this->generateUrl('categoria'));
         }
 
-        return array(
+        return $this->render('AppBundle:admin\Categoria:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
