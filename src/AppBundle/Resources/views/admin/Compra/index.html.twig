@@ -70,8 +70,8 @@
                         <tr>
                             <td>{{ entity.facturaNumero }}</td>
                             <td>{{ entity.cuit }}</td>
-                            <td>{% if entity.fechaCompra %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                            <td>{% if entity.fechaAlta %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            <td>{% if entity.fechaCompra %}{{ entity.fechaCompra|date('Y-m-d') }}{% endif %}</td>
+                            <td>{% if entity.fechaAlta %}{{ entity.fechaAlta|date('Y-m-d') }}{% endif %}</td>
                             <td class="actions">
                                 <div class="btn-group">
                                     <a href="{{ path('producto_show', { 'id': entity.id }) }}"

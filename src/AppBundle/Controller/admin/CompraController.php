@@ -102,12 +102,9 @@ class CompraController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-//            $em = $this->getDoctrine()->getManager();
-//
-//            $entity->upload("uploads/categoria/");
-//
-//            $em->persist($entity);
-//            $em->flush();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
 
             $this->get('session')->getFlashBag()->add('success', "La compra $entity se creó correctamente.");
             if ($request->request->get('save_mode') == 'save_and_close') {
@@ -149,6 +146,8 @@ class CompraController extends Controller
     public function newAction()
     {
         $entity = new Compra();
+        $entity->setFechaCompra(new \DateTime('now', new \DateTimeZone('UTC')));
+
         $form = $this->createCreateForm($entity);
 
         return $this->render('AppBundle:admin\Compra:new.html.twig',array(

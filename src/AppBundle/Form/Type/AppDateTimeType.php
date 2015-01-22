@@ -27,7 +27,9 @@ class AppDateTimeType extends AbstractType
             array(
                 'model_timezone'   => 'UTC',
                 'view_timezone'    => 'UTC',
-                'format'           => DateTimeType::HTML5_FORMAT,
+                'format' => 'dd-MM-yyyy',
+//                'format'           => 'dd/mm/yyyy',
+//                'format'           => DateTimeType::HTML5_FORMAT,
                 'widget'           => 'single_text',
                 'placeholder'      => 'app.form.click_here_to_select',
             )

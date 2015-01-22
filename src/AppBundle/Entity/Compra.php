@@ -17,6 +17,7 @@ use Doctrine\ORM\Mapping\UniqueConstraint;
  *      })
  *
  * @ORM\Entity(repositoryClass="AppBundle\Entity\CompraRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Compra
 {
@@ -61,6 +62,11 @@ class Compra
      * @ORM\OneToMany(targetEntity="CompraItem", mappedBy="compra", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $items;
+
+    public function __toString()
+    {
+        return $this->getFacturaNumero();
+    }
 
     /**
      * Get id
@@ -202,5 +208,13 @@ class Compra
     public function getItems()
     {
         return $this->items;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function PrePersist()
+    {
+        $this->setFechaAlta( new \DateTime('now', new \DateTimeZone('UTC')));
     }
 }

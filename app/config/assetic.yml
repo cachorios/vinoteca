@@ -48,7 +48,7 @@ assetic:
 
                 - bundles/rbsoftabmgenerador/fileupload//css/fileinput.min.css
                 - bundles/app/js/admin/plugins/magnific/magnific-popup.css
-                - bundles/app/js/admin/plugins/bootstrap-datepicker/bootstrap-datepicker.css
+                - bundles/app/js/admin/plugins/bootstrap-datepicker/datepicker3.css
 
                 - @lesses
 
@@ -83,7 +83,10 @@ assetic:
 #                <script src="{{ asset('assets/js/plugins/flot/jquery.flot.resize.js') }} "></script>
 
                 - bundles/app/js/admin/plugins/magnific/jquery.magnific-popup.min.js
+                - bundles/app/js/admin/plugins/moment/moment.min.js
+                - bundles/app/js/admin/plugins/moment/moment-with-locales.min.js
                 - bundles/app/js/admin/plugins/bootstrap-datepicker/bootstrap-datepicker.js
+                - bundles/app/js/admin/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.es.js
                 ##-- App JS --##
                 - bundles/app/js/admin/mvpready-core.js
                 - bundles/app/js/admin/mvpready-admin.js

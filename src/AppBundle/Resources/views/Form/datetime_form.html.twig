@@ -4,7 +4,8 @@
     {% set selector_id = selector_name %}
 
     {# Actual date field that uses ISO format #}
-    <span style="display:none">{{ block('datetime_widget') }}</span>
+    {#<span style="display:none">{{ block('datetime_widget') }}</span>#}
+    <span style="">{{ block('datetime_widget') }}</span>
 
     {# Visible fake datetimepicker field that uses localized format #}
     {% set id = selector_id %}
@@ -15,28 +16,28 @@
         jQuery(document).ready(function () {
             var actual = $("#{{ actual_id }}");
             var selector = $("#{{ selector_id }}");
-            $.fn.datepicker.defaults.format = "dd/mm/yyyy";
+            var now = moment();
+            var sync = function () {
+                selector.val(actual.val());
+            };
+            actual.on('change', sync);
+            if (actual.val() && actual.val().length) {
+                sync();
+            };
             selector.datepicker({
-                altField: '#{{ actual_id }}',
-                altFormat: 'yy-mm-dd',
-                altTimeFormat: 'HH:mm:ssz',
-                altFieldTimeOnly: false,
-                altSeparator: 'T',
-                changeMonth: true,
-                changeYear: true,
-                yearRange: '-80:+1',
-                showButtonPanel: true,
-                autoclose: true,
+                format: "dd-MM-yyyy",
                 todayBtn: true,
-                onSelect: function () {
-                    selector.trigger('change');
-                }
-            })
-                    .on('changeDate', function (ev) {
-                        selector.datepicker('hide');
-                        var selectorValue = selector.val();
-                        actual.val(selectorValue);
-                    });
+                language: "es",
+                autoclose: true,
+                language: "es",
+                yearRange: '-80:+1',
+                todayHighlight: true
+            }).on('changeDate', function (ev) {
+                selector.datepicker('hide');
+                var selectorValue = selector.val();
+                actual.val(selectorValue);
+
+            });
         });
 
 
