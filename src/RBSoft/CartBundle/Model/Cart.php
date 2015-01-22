@@ -10,6 +10,7 @@ namespace RBSoft\CartBundle\Model;
 
 
 use AppBundle\Entity\Producto;
+use Proxies\__CG__\RBSoft\CartBundle\Entity\Item;
 
 class Cart implements CartInterface
 {
@@ -26,16 +27,35 @@ class Cart implements CartInterface
      */
     public function addItem( Producto $producto, $cantidad = 1)
     {
-        $item = new CartItem();
-        $item
-            ->setProducto($producto)
-            ->setCantidad($cantidad)
-            ->setLineId($this->itemsecuencia)
-        ;
-        $this->items[$this->itemsecuencia] = $item;
-        $this->itemsecuencia ++;
+        //Verificar si no esta el item
+        if(($item = $this->findItem($producto)) == null) {
+            $item = new CartItem();
+            $item
+                ->setProducto($producto)
+                ->setCantidad($cantidad)
+                ->setLineId($this->itemsecuencia);
+            $this->items[$this->itemsecuencia] = $item;
+            $this->itemsecuencia++;
+        }else{
+            $item->setCantidad($item->getCantidad()+$cantidad);
+        }
         return $item;
 
+    }
+
+    /**
+     * @param Producto $producto
+     * @return null | CartItem
+     */
+    private function findItem(Producto $producto)
+    {
+        $itemRet = null;
+        foreach($this->items as $item){
+            if($item->getProducto()->getId() === $producto->getId()){
+                $itemRet = $item;
+            }
+        }
+        return $itemRet;
     }
 
     /**
@@ -52,6 +72,18 @@ class Cart implements CartInterface
         if (array_key_exists($lineId, $this->items) ) {
             unset($this->items[$lineId]);
         }
+    }
+
+    /**
+     * Actualiza la cantidad de producto de un item
+     * @param $lineId
+     * @param int $newCantidad
+     */
+    public function UdateItemCantidad($lineId, $newCantidad = 0)
+    {
+        $item = $this->getItem($lineId);
+        $item->setCantidad($newCantidad);
+
     }
 
     /**

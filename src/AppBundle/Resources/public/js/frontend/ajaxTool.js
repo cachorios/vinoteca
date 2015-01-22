@@ -5,20 +5,19 @@
 'use strict';
 
 
-
 var cntShow = 0;
 
-var showIndicador = function(){
+var showIndicador = function () {
     $("#veil").show();
     $("#prLoading").show();
     cntShow = cntShow + 1;
     //console.log(cntShow);
 }
 
-var hideIndocador = function(){
+var hideIndocador = function () {
     cntShow = cntShow - 1;
     //console.log(cntShow);
-    if(cntShow <= 0){
+    if (cntShow <= 0) {
         cntShow = 0;
         $("#prLoading").hide();
         $("#veil").fadeOut(800);
@@ -31,26 +30,51 @@ var hideIndocador = function(){
 //})
 
 //Llamadas Ajax de jQuery
-$(document).ajaxStop(function(){
+$(document).ajaxStop(function () {
     hideIndocador();
 });
 
-$(document).ajaxStart(function() {
+$(document).ajaxStart(function () {
     showIndicador();
 });
 //
 $.ajaxSetup({
     global: true,
-    beforeSend: function() {
+    beforeSend: function () {
         showIndicador();
     },
-    complete: function(){
+    complete: function () {
         hideIndocador();
     },
-    success: function() {}
+    success: function () {
+    }
 });
 //
-$(window).load(function(){
+$(window).load(function () {
 
     hideIndocador();
-})
+});
+
+
+var refresContent = function (data) {
+    var key;
+    for (key in data) {
+        $(key).html(data[key]);
+    }
+}
+
+var llamarAjaxRefresh = function (urlLink) {
+    $.ajax({
+        url: urlLink,
+        context: document.body,
+        dataType: 'json',
+        success: function (data) {
+            refresContent(data);
+
+        }
+
+    }).done(function () {
+        hideIndocador();
+
+    });
+}

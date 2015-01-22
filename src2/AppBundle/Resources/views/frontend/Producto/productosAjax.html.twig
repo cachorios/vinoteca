@@ -1,0 +1,19 @@
+<div class="row ">
+   {% for entity in pager %}
+        {% if vista == 'lista' %}
+            {{ include('@App/frontend/Producto/producto_list.html.twig') }}
+        {% else %}
+            {{ include('@App/frontend/Producto/producto_grid.html.twig') }}
+        {% endif %}
+    {% endfor %}
+</div>
+<div class="row">
+
+    <div class="col-sm-6 pagination-block">
+        {{ knp_pagination_render(pager) }}
+    </div>
+
+    <div class="col-sm-6 results">
+        Mostrando {{ pager.getTotalItemCount }} Productos
+    </div>
+</div>

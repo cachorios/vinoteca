@@ -31,6 +31,7 @@ class CategoriaController extends Controller
      */
     public function indexAction(Request $request)
     {
+
         list($filterForm, $queryBuilder) = $this->filter($request);
         $pager = $this->getPager($queryBuilder);
 

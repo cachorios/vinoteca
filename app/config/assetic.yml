@@ -60,6 +60,8 @@ assetic:
 
                 - bundles/fosjsrouting/js/router.js
                 - bundles/app/js/frontend/ajaxTool.js
+                - bundles/app/js/frontend/frontend.js
+
 
             filters:
                 - cssrewrite

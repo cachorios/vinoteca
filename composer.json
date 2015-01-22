@@ -21,7 +21,7 @@
 
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "doctrine/data-fixtures": "dev-master",
-        "avalanche123/imagine-bundle": "v2.1",
+
 
         "friendsofsymfony/jsrouting-bundle": "@stable",
         "raulfraile/ladybug-bundle": "~1.0",
@@ -30,7 +30,8 @@
         "white-october/pagerfanta-bundle": "dev-master",
         "jms/translation-bundle": "dev-master",
         "whiteoctober/breadcrumbs-bundle": "dev-master",
-        "stof/doctrine-extensions-bundle" : "1.x"
+        "stof/doctrine-extensions-bundle" : "1.x",
+        "gregwar/image-bundle": "dev-master"
 
     },
     "require-dev": {

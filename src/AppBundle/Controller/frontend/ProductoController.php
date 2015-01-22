@@ -50,6 +50,7 @@ class ProductoController extends  Controller {
         $queryBuilder = $this->filter($request, $hijos, $orden,$toFilter);
         $pager = $this->getPager($queryBuilder, $ver);
 
+        $this->setFallbackImage();
 
         if($request->isXmlHttpRequest()){
             $template = "@App/frontend/Producto/productosAjax.html.twig";
@@ -203,4 +204,9 @@ class ProductoController extends  Controller {
         return $breadcrumbs;
     }
 
+    private function setFallbackImage()
+    {
+//        $this->get('image.handling')->
+//        setFallback('/path/to/my/fallback.jpg');
+    }
 } 

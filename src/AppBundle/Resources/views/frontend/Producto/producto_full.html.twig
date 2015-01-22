@@ -12,7 +12,8 @@
         <!-- Left Starts -->
         <div class="col-sm-4 images-block">
             <a href="images/product-images/big-pimg1.jpg">
-                <img src="{{ asset('uploads/productos/'~producto.imagenActiva) }}" style="width: 100%" alt="producto" class="img-responsive  thumbnail">
+                <img src="{{ image('uploads/productos/'~producto.imagenActiva).zoomCrop(500,900,"#ffffff",'center','center').jpeg() }}" class="img-responsive" />
+                {#<img src="{{ asset('uploads/productos/'~producto.imagenActiva) }}" style="width: 100%" alt="producto" class="img-responsive  thumbnail">#}
             </a>
             <ul class="list-unstyled list-inline">
                 <li>

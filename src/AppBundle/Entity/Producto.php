@@ -461,7 +461,7 @@ class Producto
     public function getImagenActiva()
     {
 
-        $img = "no_image.jpg";
+        $img = "vino.png";
         foreach ($this->getImagenes() as $imgen) {
             if ($imgen->getPrimario()) {
                 $img = $imgen->getId() . '.' . $imgen->getExtension();

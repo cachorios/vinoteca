@@ -12,8 +12,9 @@
             <tr>
                 <td class="text-center">
                     <a href="{{ path('productofull',{'id': item.producto.id }) }}">
-                        <img src="{{ asset('uploads/productos/' ~ item.producto.imagenActiva) | apply_filter('thumbnail') }}"
-                             alt="product" class="img-thumbnail img-responsive">
+                        {#<img src="{{ image('uploads/productos/' ~ item.producto.imagenActiva) }}"#}
+                             {#alt="product" class="img-thumbnail img-responsive">#}
+                        <img src="{{ image('uploads/productos/'~item.producto.imagenActiva).zoomCrop(70,45,"#ffffff",'center','center') }}" class="img-responsive" />
                     </a>
                 </td>
                 <td class="text-left">
@@ -48,7 +49,7 @@
             </tbody>
         </table>
         <p class="text-right btn-block1">
-            <a href="cart.html">
+            <a href="{{ path("cartdisplay") }}">
                 {{ 'Ver Carro' | trans }}
             </a>
             <a href="#">

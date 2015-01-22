@@ -88,25 +88,11 @@ knp_paginator:
 
 
 
-avalanche_imagine:
-    source_root:  %kernel.root_dir%/../web
-    web_root:     %kernel.root_dir%/../web
-    cache_prefix: media/cache
-    driver:       gd
-    filters:
-        thumbnail:
-            type:    thumbnail
-            options: { size: [200, 100], quality: 75, mode: inset }
-        heighten:
-            type:    relative_resize
-            options: { heighten: 100} # Transforms 50x40 to 75x60
-        producto_cart_thumb:
-            type:    thumbnail
-            options:  { size: [120, 90], mode: outbound }
-
 #fos_js_routing:
 #    routes_to_expose: [ 'productos' ]
 
 white_october_breadcrumbs:
     separator:          ""
 
+gregwar_image: ~
+#    fallback_image: %kernel.root_dir%/../web/images/vino.png

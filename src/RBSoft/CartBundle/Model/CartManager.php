@@ -93,6 +93,9 @@ class CartManager {
 
     }
 
+    /**
+     * Para volver a cargar los productos a la coleccion, ya que cuando serivaliza, no serializa lo que no utilice, y no dispongo de las imagenes.
+     */
     public function refreshProductos(){
         $cart = $this->getCart();
 
