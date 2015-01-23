@@ -2,6 +2,8 @@
 
 namespace AppBundle\Form;
 
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,9 +27,22 @@ class CompraType extends AbstractType
             ->add('fechaCompra', 'app_datetime', array(
                 'label' => 'Fecha de compra',
             ))
-            ->add('items', 'compra_items_collection', array(
-            ))
         ;
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) {
+                $form = $event->getForm();
+                $data = $event->getData();
+
+                $id = $data->getId();
+                if (is_null($id)) {
+                    $form->add('items', 'compra_items_collection', array(
+                    ));
+
+                }
+            }
+        );
 
     }
 

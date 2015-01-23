@@ -14,17 +14,11 @@ class ProductoFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//            ->add('id', 'filter_number_range')
-            ->add('codigo', 'filter_number_range')
+            ->add('codigo', 'filter_text')
             ->add('nombre', 'filter_text')
-//            ->add('slug', 'filter_text')
-//            ->add('marca', 'filter_text')
-//            ->add('descripcion', 'filter_text')
             ->add('precio', 'filter_number_range')
-            ->add('iva', 'filter_number_range')
-            ->add('activo', 'filter_choice')
-//            ->add('createdAt', 'filter_date_range')
-//            ->add('updatedAt', 'filter_date_range')
+            ->add('iva', 'filter_number')
+            ->add('activo', 'filter_boolean')
         ;
 
         $listener = function(FormEvent $event)
@@ -43,6 +37,7 @@ class ProductoFilterType extends AbstractType
 
             $event->getForm()->addError(new FormError('Filtro limpio'));
         };
+
         $builder->addEventListener(FormEvents::POST_SUBMIT, $listener);
     }
 

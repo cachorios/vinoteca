@@ -52,7 +52,6 @@ class ProductoController extends Controller
     private function getPager($q)
     {
         $paginator = $this->get('knp_paginator');
-
         $pagination = $paginator->paginate(
             $q,
             $this->get('request')->query->get('page', 1)/*page number*/,
@@ -381,4 +380,24 @@ class ProductoController extends Controller
         return new Response('This is not ajax!', Response::HTTP_BAD_REQUEST);
     }
 
+    /**
+     * Lists all Producto entities.
+     *
+     * @Route("/api/list", name="producto_ajax_list")
+     * @Method({"GET","POST"})
+     */
+    public function listAjaxAction(Request $request)
+    {
+        list($filterForm, $queryBuilder) = $this->filter($request);
+        $pager = $this->getPager($queryBuilder);
+
+        $html = $this->renderView('AppBundle:admin/Producto/ajax:list.html.twig', array(
+            'pager' => $pager,
+            'filterform' => $filterForm->createView(),
+        ));
+
+        // create a simple Response with a 200 status code (the default)
+        $response = new Response($html, Response::HTTP_OK);
+        return $response;
+    }
 }
