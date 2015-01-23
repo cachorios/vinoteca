@@ -1,0 +1,28 @@
+{% block compra_items_collection_widget %}
+    {% spaceless %}
+        <div class='pull-right'>
+            <a id="add-metadato" href="#" title="Añadir un nuevo Item"
+               class="btn btn-default btn-primary btn-sm action-btn add-list-item">
+                <span class="glyphicon glyphicon-plus-sign"></span>
+            </a>
+        </div>
+
+        <div class='row'>
+            <div class='col-sm-12'>
+                <ul id="iten_list_{{ name }}_collection"
+                    data-prototype="">
+
+                    {% for field in form.children %}
+                        <li>
+                            {#{{ _self.metadato_collection_fields(field) }}#}
+                        </li>
+                    {% endfor %}
+
+
+                </ul>
+            </div>
+        </div>
+
+
+    {% endspaceless %}
+{% endblock compra_items_collection_widget %}

@@ -31,10 +31,10 @@ services:
         tags:
           - { name: "form.type", alias: "metadato_collection" }
 
-    form.type.extencion_collection:
-        class: AppBundle\Form\Type\ExtencionCollectionType
+    form.type.compra_items_collection:
+        class: AppBundle\Form\Type\CompraItemsCollectionType
         tags:
-          - { name: "form.type", alias: "extencion_collection" }
+          - { name: "form.type", alias: "compra_items_collection" }
 
     form.type.metadato_filter:
         class: AppBundle\Form\Type\MetadatoFilterType

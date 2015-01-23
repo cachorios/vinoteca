@@ -4,8 +4,8 @@
     {% set selector_id = selector_name %}
 
     {# Actual date field that uses ISO format #}
-    {#<span style="display:none">{{ block('datetime_widget') }}</span>#}
-    <span style="">{{ block('datetime_widget') }}</span>
+    <span style="display:none">{{ block('datetime_widget') }}</span>
+    {#<span style="">{{ block('datetime_widget') }}</span>#}
 
     {# Visible fake datetimepicker field that uses localized format #}
     {% set id = selector_id %}
@@ -27,7 +27,6 @@
             selector.datepicker({
                 format: "dd-MM-yyyy",
                 todayBtn: true,
-                language: "es",
                 autoclose: true,
                 language: "es",
                 yearRange: '-80:+1',
@@ -39,7 +38,6 @@
 
             });
         });
-
 
     </script>
 {% endblock app_datetime_widget %}

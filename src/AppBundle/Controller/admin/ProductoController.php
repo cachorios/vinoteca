@@ -118,9 +118,9 @@ class ProductoController extends Controller
 
             $this->get('session')->getFlashBag()->add('success', "El Producto $entity se creó correctamente.");
             if ($request->request->get('save_mode') == 'save_and_close') {
-//                return $this->redirect($this->generateUrl('producto'));
+                return $this->redirect($this->generateUrl('producto'));
             }
-//            return $this->redirect($this->generateUrl('producto_new'));
+            return $this->redirect($this->generateUrl('producto_new'));
         }
 
         return $this->render('AppBundle:admin/Producto:new.html.twig',array(
@@ -330,7 +330,6 @@ class ProductoController extends Controller
         if (!$categoria) {
             $html = 'Categoria no encontrada';
         } else {
-
             $entity = new Producto();
             $entity->setCategoria($categoria);
 
@@ -354,9 +353,6 @@ class ProductoController extends Controller
      */
     public function apiImagenAction(Request $request)
     {
-//        // is it an Ajax request?
-//        $isAjax = $request->isXmlHttpRequest();
-
         if ($request->isXMLHttpRequest()) {
             $id = $request->get('id');
             $status = $request->get('status');
@@ -370,36 +366,16 @@ class ProductoController extends Controller
             }
 
             if ($status == 'delete') {
-                //Si la imagen a borrar es primaria selecciona la primera de la lista.
-                if ($imagen->getPrimario() == true){
-                    $producto = $imagen->getProducto();
-                    $imagenes = $producto->getImagenes();
-                    $temp = $imagenes[0];
-                    $temp->setPrimario(true);
-                    $em->persist($temp);
-                }
-
-                $em->remove($imagen);
-                $em->flush();
-                $response = new Response('Borrado. ', Response::HTTP_OK);
+                $mensage = $this->get('producto.manager')->deleteImagen($imagen);
+                $response = new Response($mensage, Response::HTTP_OK);
                 return $response;
             }elseif($status == 'primario'){
-                $producto = $imagen->getProducto();
-                //Recorro la colleccion y marco como primario la imagen seleccionada.
-                foreach ($producto->getImagenes() as $img) {
-                    if ($img->getId()== $imagen->getId()) {
-                        $img->setPrimario(true);
-                    }else{
-                        $img->setPrimario(false);
-                    }
-                    $em->persist($img);
-                }
-                $em->flush();
-                $response = new Response('primario. ', Response::HTTP_OK);
+                $mensage = $this->get('producto.manager')->imagenSelectPrimaria($imagen);
+                $response = new Response($mensage, Response::HTTP_OK);
                 return $response;
             }
 
-//        new Response($imagen, is_object($imagen) ? Response::HTTP_OK : Response::HTTP_NOT_FOUND)
+            return new Response('Accion no disponible', Response::HTTP_NOT_FOUND);
         }
 
         return new Response('This is not ajax!', Response::HTTP_BAD_REQUEST);

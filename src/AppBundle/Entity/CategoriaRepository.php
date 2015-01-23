@@ -29,6 +29,7 @@ class CategoriaRepository extends EntityRepository
         return $qb;
 
     }
+
     public function selectOrdenTreeAll()
     {
         $qb = $this->createQueryBuilder("q")
@@ -48,6 +49,7 @@ class CategoriaRepository extends EntityRepository
         )
             ->getResult();
     }
+
     public function getCategoriaItem($padre)
     {
         return $this->_em->createQuery(
@@ -60,7 +62,8 @@ class CategoriaRepository extends EntityRepository
             ->getResult();
     }
 
-    public function tieneHijo($id){
+    public function tieneHijo($id)
+    {
         return $this->_em->createQuery(
             'SELECT count(c.id)
              FROM  AppBundle:Categoria c
@@ -72,13 +75,14 @@ class CategoriaRepository extends EntityRepository
     }
 
 
-    public function getDescendientes(Categoria $cat){
+    public function getDescendientes(Categoria $cat)
+    {
         $hijos = array();
-        if($cat->getChildren()->count()>0 ) {
-            foreach($cat->getChildren() as $childCat){
-                $hijos = array_merge($hijos,$this->getDescendientes($childCat));
+        if ($cat->getChildren()->count() > 0) {
+            foreach ($cat->getChildren() as $childCat) {
+                $hijos = array_merge($hijos, $this->getDescendientes($childCat));
             }
-        }else{
+        } else {
             $hijos[] = $cat->getId();
         }
 
@@ -88,12 +92,11 @@ class CategoriaRepository extends EntityRepository
     public function getStrAscentendeCategoria(Categoria $cat, $separador = "/")
     {
         $cad = $cat->getNombre();
-        if( $cat->getParent()){
-            $cad = $this->getStrAscentendeCategoria($cat->getParent(), $separador) . $separador. $cad;
+        if ($cat->getParent()) {
+            $cad = $this->getStrAscentendeCategoria($cat->getParent(), $separador) . $separador . $cad;
         }
         return $cad;
     }
-
 
 
 }

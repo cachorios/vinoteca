@@ -36,7 +36,8 @@ twig:
             - :Form:bootstrap_3_horizontal_layout.html.twig
             - UtilidadBundle:Form:find.html.twig
             - :Form:form_div_layout.html.twig
-            - AppBundle:Form:collection_form.html.twig
+            - AppBundle:Form:collection_form_metasatos.html.twig
+            - AppBundle:Form:collection_form_items_compra.html.twig
             - AppBundle:Form:datetime_form.html.twig
 
 # Doctrine Configuration

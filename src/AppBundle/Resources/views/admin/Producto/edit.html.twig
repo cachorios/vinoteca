@@ -52,12 +52,12 @@
                                                 <a href="{{ asset(imagen.getWebPath() ) }}"
                                                    class="thumbnail thumbnail-view-hover image-popup-vertical-fit">
                                                     <img alt="imagen"
-                                                         src="{{ imagen.getWebPath() | apply_filter('thumbnail') }}">
+                                                         src="{{ image(imagen.getWebPath()).resize(200,100,"#ffffff",'center','center') }}">
+
                                                 </a>
 
                                                 <div class="btn-group">
-                                                    <a href="#"
-                                                       class="image-update-btn btn btn-default btn-xs disabled js-sorted-position">{{ imagen.id }}</a>
+
 
                                                     <span class="btn btn-default btn-xs">
 
@@ -123,7 +123,7 @@
 
                         <div class="col-sm-offset-2 inner-actions">
                             <input type="submit" value="Guardar"
-                                   class="form-submit-button btn btn-sm btn-default btn-success">
+                                   class="form-submit-button btn btn-sm btn-default btn-primary">
                             <a class="page-close-button btn btn-sm btn-default" href="{{ path('producto') }}">Cerrar
                                 <span class="glyphicon glyphicon-remove"></span>
                             </a>

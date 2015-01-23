@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CompraType extends AbstractType
+class CompraItemType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,19 +15,12 @@ class CompraType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('facturaNumero', null, array(
-                'required' => true,
-                'label' => 'Numreo de factura',
+            ->add('codigo', null, array(
+                'label' => 'Codigo',
             ))
-            ->add('cuit', null, array(
-                'label' => 'CUIT',
-            ))
-            ->add('fechaCompra', 'app_datetime', array(
-                'label' => 'Fecha de compra',
-            ))
-            ->add('items', 'compra_items_collection', array(
-            ))
-        ;
+            ->add('cantidad', null, array(
+                'label' => 'Cantidad',
+            ));
 
     }
 
@@ -37,7 +30,7 @@ class CompraType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Compra',
+            'data_class' => 'AppBundle\Entity\CompraItem',
             'cascade_validation' => true
         ));
     }
@@ -48,6 +41,6 @@ class CompraType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_compra';
+        return 'appbundle_compraitem';
     }
 }
