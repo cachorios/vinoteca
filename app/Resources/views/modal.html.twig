@@ -7,13 +7,13 @@
                 <h4 class="modal-title" id="myModalLabel">{{ modal_titulo }}</h4>
             </div>
             <div class="modal-body">
-                {% block modal_contenido %} content{% endblock modal_contenido %}
+                {% block modal_contenido %}{% endblock modal_contenido %}
             </div>
             <div class="modal-footer">
                 {#<button type="button" class="btn btn-primary">Aplicar</button>#}
-                {% block modal_botones %}{% endblock %}
+                {% block modal_botones %}
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-
+                {% endblock %}
             </div>
         </div>
     </div>

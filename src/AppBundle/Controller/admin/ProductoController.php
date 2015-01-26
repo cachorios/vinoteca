@@ -62,7 +62,7 @@ class ProductoController extends Controller
 
     }
 
-    private function filter(Request $request)
+    private function filter(Request $request, $ajax = false)
     {
         $session = $request->getSession();
         $filterForm = $this->createForm(new ProductoFilterType());
@@ -71,7 +71,7 @@ class ProductoController extends Controller
 
         // Reset filter
         if ($request->getMethod() == 'POST' && $request->get('submit-filter') == 'reset') {
-            $session->remove('ProductoControllerFilter');
+            $session->remove('ProductoControllerFilter'. $ajax ? 'Ajax' : '');
         }
 
         // Filter action
@@ -85,12 +85,12 @@ class ProductoController extends Controller
                 $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
                 // Save filter to session
                 $filterData = $filterForm->getData();
-                $session->set('ProductoControllerFilter', $filterData);
+                $session->set('ProductoControllerFilter'. $ajax ? 'Ajax' : '' , $filterData);
             }
         } else {
             // Get filter from session
             if ($session->has('ProductoControllerFilter')) {
-                $filterData = $session->get('ProductoControllerFilter');
+                $filterData = $session->get('ProductoControllerFilter'. $ajax ? 'Ajax' : '');
                 $filterForm = $this->createForm(new ProductoFilterType(), $filterData);
                 $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
             }
@@ -388,7 +388,7 @@ class ProductoController extends Controller
      */
     public function listAjaxAction(Request $request)
     {
-        list($filterForm, $queryBuilder) = $this->filter($request);
+        list($filterForm, $queryBuilder) = $this->filter($request, true);
         $pager = $this->getPager($queryBuilder);
 
         $html = $this->renderView('AppBundle:admin/Producto/ajax:list.html.twig', array(

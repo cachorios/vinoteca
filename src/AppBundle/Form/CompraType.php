@@ -37,8 +37,16 @@ class CompraType extends AbstractType
 
                 $id = $data->getId();
                 if (is_null($id)) {
-                    $form->add('items', 'compra_items_collection', array(
-                    ));
+                    $form
+                        ->add('items', 'compra_items_collection', array(
+                            'type' => new CompraItemType(),
+                            'allow_add' => true,
+                            'allow_delete' => true,
+                            'delete_empty' => true,
+                            'prototype' => true,
+                            'by_reference' => false,
+                        ))
+                    ;
 
                 }
             }

@@ -1,0 +1,76 @@
+<script type="text/javascript">
+    var fieldCount = '{{ form.items|length }}';
+
+    jQuery(document).ready(function () {
+        $(document).on('click', '.add-list-item', function (e) {
+            e.preventDefault();
+            $('#list-modal').modal('show');
+            $.ajax({
+                cache : false,
+                type: "GET",
+                url: "{{ path('producto_ajax_list') }}",
+                success: function (msg) {
+                    $('.modal-body').html(msg);
+                },
+                error: function (msg) {
+                }
+            });
+        });
+
+        $(document).on('click', '.add-producto-item', function (e) {
+            e.preventDefault();
+            var collectionHolder = $($(this)).parents('tr');
+            var producto_id = collectionHolder.attr('data-productoid');
+            var producto_codigo = collectionHolder.attr('data-codigo');
+            var producto_nombre = collectionHolder.attr('data-nombre');
+            var inputid = '#appbundle_compra_items_' + fieldCount + '_id';
+            var inputcantidad = '#appbundle_compra_items_' + fieldCount + '_cantidad';
+
+            var fieldList = jQuery('#iten_list_items_collection');
+            var newWidget = fieldList.attr('data-prototype');
+            newWidget = newWidget.replace(/__name__/g, fieldCount);
+            newWidget = newWidget.replace(/__codigo__/g, producto_codigo);
+            newWidget = newWidget.replace(/__nombre__/g, producto_nombre);
+
+            fieldCount++;
+            var newLi = jQuery('<li></li>').html(newWidget);
+            newLi.appendTo(fieldList);
+            $(inputid).val(producto_id);
+            $(inputcantidad).val(0);
+        });
+        $(document).on('click', '.remove-list-item', function (e) {
+            e.preventDefault();
+            var collectionHolder = $($(this)).parents('li');
+            collectionHolder.remove();
+        });
+
+        $(document).on('click', '.filter-aplicar', function (e) {
+            $(this).addClass("e-clicked");
+        });
+
+        $(document).on('click', '.filter-reset', function (e) {
+            $(this).addClass("e-clicked");
+        });
+
+        $(document).on("submit", "form.filters", function (e) {
+            e.preventDefault();
+            var clicked_name = $(this).find(".e-clicked").attr("name");
+            var clicked_value = $(this).find(".e-clicked").attr("value");
+
+            $('.modal-body').empty();
+            var test = $(this).serialize();
+            $.ajax({
+                cache: false,
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize() + "&"+clicked_name+"=" + clicked_value,
+                // Mostramos el mensaje html
+                success: function (data) {
+                    $('.modal-body').html(data);
+                }
+            });
+
+        });
+    });
+
+</script>

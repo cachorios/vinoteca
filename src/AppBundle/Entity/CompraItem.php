@@ -35,7 +35,7 @@ class CompraItem
      *
      * @ORM\Column(name="cantidad", type="integer")
      */
-    private $cantidad;
+    private $cantidad = 0;
 
     /**
      * @var Producto

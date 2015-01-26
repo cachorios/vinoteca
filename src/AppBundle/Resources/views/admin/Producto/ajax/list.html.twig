@@ -1,3 +1,10 @@
+<div class="pull-right">
+    <a class='btn bg-success btn-xs dropdown-toggle collapse-filter' data-target='#filters'>
+        Filtro
+        <span class='caret'></span>
+    </a>
+</div>
+
 {% for type, flashMessages in app.session.flashbag.all() %}
     {% for flashMessage in flashMessages %}
         <div class='alert alert-{{ type }}'>
@@ -6,11 +13,18 @@
     {% endfor %}
 {% endfor %}
 
-<form method='post' action='' class='form-horizontal'>
-    {{ form_rest(filterform) }}
-    <input type='submit' class='btn btn-primary' name='submit-filter' value='Aplicar'/>
-    <input type='submit' class='btn btn-primary' name='submit-filter' value="reset"/>
-</form>
+<div class="row">
+    <div class="col-md-12">
+        <form method='post' action='{{ path("producto_ajax_list") }}' class='form-horizontal filters'>
+            <div id="filters" class="collapse">
+                {{ form_rest(filterform) }}
+                <input class="btn btn-primary filter-aplicar" type="submit" value="Aplicar" name="submit-filter">
+                <input class="btn btn-primary filter-reset" type="submit" value="reset" name="submit-filter">
+
+            </div>
+        </form>
+    </div>
+</div>
 
 <table class="table table-striped table-condensed table-responsive">
     <thead>
@@ -23,14 +37,15 @@
     </thead>
     <tbody>
     {% for entity in pager %}
-        <tr>
+        <tr data-productoid="{{ entity.id }}" data-codigo="{{ entity.codigo }}" data-nombre="{{ entity.nombre }}">
             <td>{{ entity.codigo }}</td>
             <td>{{ entity.nombre }}</td>
             <td class="actions">
-                <a href="{{ path('producto_edit', { 'id': entity.id }) }}"
-                   class="btn btn-xs btn-default" data-toggle="tooltip" data-placement="top"
-                   title="Agregar producto">
-                    <span class="glyphicon glyphicon-edit"></span>
+
+                <a href="#"
+                   class="btn btn-xs btn-default add-producto-item" data-toggle="tooltip" data-placement="top"
+                   title="Agregar">
+                    <span class="glyphicon glyphicon-hand-down"></span>
                 </a>
                 </div>
             </td>
@@ -52,3 +67,32 @@
 
     </div>
 </div>
+
+<script>
+    /**
+     * Para capturar los eventos click del paginador y tranformarlos en llamadas ajax
+     */
+    $(document).off("click", ".pagination li a");
+    $(document).on("click", ".pagination li a", function (e) {
+        e.preventDefault();
+        var href = $(this).attr("href");
+        $.ajax({
+            cache: false,
+            type: "GET",
+            url: href,
+            success: function (msg) {
+                $('.modal-body').html(msg);
+            },
+            error: function (msg) {
+            }
+        });
+    });
+
+    $(document).off("click", ".collapse-filter");
+    $(document).on("click", ".collapse-filter", function (e) {
+        var collapse = $(this).attr('data-target');
+        $(collapse).toggle();
+    });
+
+
+</script>
