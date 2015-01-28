@@ -26,8 +26,8 @@ class EntityToIntTransformer implements DataTransformerInterface
      */
     public function transform($data)
     {
-        ld('transform');
-        ld($data);
+//        ld('transform');
+//        ld($data);
         return $data;
     }
 
