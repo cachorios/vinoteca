@@ -15,7 +15,7 @@ class CompraItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', null, array(
+            ->add('producto', null, array(
                 'label' => null,
             ))
             ->add('cantidad', null, array(

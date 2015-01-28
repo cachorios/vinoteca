@@ -71,7 +71,7 @@ class Compra
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -94,7 +94,7 @@ class Compra
     /**
      * Get facturaNumero
      *
-     * @return string 
+     * @return string
      */
     public function getFacturaNumero()
     {
@@ -117,7 +117,7 @@ class Compra
     /**
      * Get fechaCompra
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaCompra()
     {
@@ -140,7 +140,7 @@ class Compra
     /**
      * Get fechaAlta
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaAlta()
     {
@@ -163,12 +163,13 @@ class Compra
     /**
      * Get cuit
      *
-     * @return string 
+     * @return string
      */
     public function getCuit()
     {
         return $this->cuit;
     }
+
     /**
      * Constructor
      */
@@ -183,10 +184,12 @@ class Compra
      * @param \AppBundle\Entity\CompraItem $items
      * @return Compra
      */
-    public function addItem(\AppBundle\Entity\CompraItem $items)
-    {
-        $this->items[] = $items;
+//    public function addItem(\AppBundle\Entity\CompraItem $items)
 
+    public function addItem($items)
+    {
+
+//        ld($items);
         return $this;
     }
 
@@ -203,7 +206,7 @@ class Compra
     /**
      * Get items
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getItems()
     {
@@ -215,6 +218,6 @@ class Compra
      */
     public function PrePersist()
     {
-        $this->setFechaAlta( new \DateTime('now', new \DateTimeZone('UTC')));
+        $this->setFechaAlta(new \DateTime('now', new \DateTimeZone('UTC')));
     }
 }

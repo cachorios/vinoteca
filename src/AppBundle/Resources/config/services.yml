@@ -33,6 +33,7 @@ services:
 
     form.type.compra_items_collection:
         class: AppBundle\Form\Type\CompraItemsCollectionType
+        arguments: ["@doctrine.orm.entity_manager"]
         tags:
           - { name: "form.type", alias: "compra_items_collection" }
 
