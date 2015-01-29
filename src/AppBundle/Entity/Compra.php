@@ -101,6 +101,7 @@ class Compra
         return $this->facturaNumero;
     }
 
+
     /**
      * Set fechaCompra
      *

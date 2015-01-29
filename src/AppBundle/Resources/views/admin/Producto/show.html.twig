@@ -1,7 +1,7 @@
 {% extends 'AppBundle:admin:layout.html.twig' %}
 
     {% block contenido -%}
-        {% embed '::portlet.html.twig' with {'titulo': 'Ver Producto: ' ~ entity} %}
+        {% embed '::portlet.html.twig' with {'titulo': 'Producto: ' ~ entity} %}
             {% block in_header %}
                 <div class='pull-right'>
                     <div class="row">
@@ -26,6 +26,77 @@
             {% endblock %}
             {% block cuerpo %}
                 <p></p>
+
+                <table class="table table-show">
+                    <tbody>
+                    <tr>
+                        <th class="show-header">Activo</th>
+                        <td>{{ entity.activo? '<span class="label label-success">Activo</span>' : '<span class="label label-default">Desactivado</span>' }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Codigo</th>
+                        <td>{{ entity.codigo }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Nombre</th>
+                        <td>{{ entity.nombre }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Categoria</th>
+                        <td>{{ entity.categoria | categoria_breadcrumd }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Descripcion</th>
+                        <td>{{ entity.descripcion }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Precio</th>
+                        <td>{{ entity.precio }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Precio</th>
+                        <td>{{ entity.iva }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <h4 class="content-title"><u>Información Adicional</u></h4>
+
+                <table class="table">
+                    <tbody>
+                    {% for dato in entity.extencion %}
+                        <tr>
+                            <th class="show-header">{{ dato.metadatoProducto.nombre }}</th>
+                            <td>{{ dato.valor }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <h4 class="content-title"><u>Galeria</u></h4>
+
+                <div class="existing-image">
+                    <ul class="row list-unstyled ui-sortable" id="js-sort-image">
+
+                        {% for imagen in entity.imagenes %}
+                            <li id="{{ imagen.id }}"
+                                class="col-sm-6 col-md-3 ui-state-default">
+                                <div class="thumbnail thumbnail-view-hover image-popup-vertical-fit">
+                                    <img alt="imagen"
+                                         src="{{ image(imagen.getWebPath()).resize(200,100,"#ffffff",'center','center') }}">
+                                </div>
+                                {% if imagen.primario %}
+                                    <div class="btn-group">
+                                    <span class="btn btn-default btn-xs">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    </span>
+                                    </div>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
 
             {% endblock %}
         {% endembed %}

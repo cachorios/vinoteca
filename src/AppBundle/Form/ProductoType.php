@@ -35,7 +35,7 @@ class ProductoType extends AbstractType
             ->add('precio', 'number', array(
                 'required' => true,
             ))
-            ->add('iva', 'number', array(
+            ->add('iva', 'percent', array(
                 'required' => false,
 
             ))

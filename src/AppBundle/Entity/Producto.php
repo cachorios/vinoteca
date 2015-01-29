@@ -79,6 +79,7 @@ class Producto
 
     /**
      * @ORM\OneToMany(targetEntity="ProductoImagen", mappedBy="producto", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"primario" = "DESC"})
      */
     private $imagenes;
 

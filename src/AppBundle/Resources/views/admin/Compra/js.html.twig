@@ -33,7 +33,7 @@
             newWidget = newWidget.replace(/__nombre__/g, producto_nombre);
 
             fieldCount++;
-            var newLi = jQuery('<li></li>').html(newWidget);
+            var newLi = jQuery('<tr></tr>').html(newWidget);
             newLi.appendTo(fieldList);
             $(inputid).val(producto_id);
             $(inputcantidad).val(0);

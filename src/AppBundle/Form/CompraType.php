@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CompraType extends AbstractType
 {
@@ -19,13 +20,18 @@ class CompraType extends AbstractType
         $builder
             ->add('facturaNumero', null, array(
                 'required' => true,
-                'label' => 'Numreo de factura',
+                'label' => 'Numero de factura',
             ))
             ->add('cuit', null, array(
                 'label' => 'CUIT',
+                'attr' => array(
+                    'prepend_input' => '@'
+                )
             ))
             ->add('fechaCompra', 'app_datetime', array(
                 'label' => 'Fecha de compra',
+//                'help' => '! dia/mes/año',
+                'constraints' => new Assert\NotBlank(),
             ))
         ;
 

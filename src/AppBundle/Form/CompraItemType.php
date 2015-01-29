@@ -16,10 +16,13 @@ class CompraItemType extends AbstractType
     {
         $builder
             ->add('producto', null, array(
-                'label' => null,
+
             ))
             ->add('cantidad', null, array(
-                'label' => 'Cantidad',
+
+            ))
+            ->add('precioUnitario', null, array(
+
             ));
 
     }

@@ -38,6 +38,12 @@ class CompraItem
     private $cantidad = 0;
 
     /**
+     *
+     * @ORM\Column(name="precio_unitario", type="decimal", scale=2)
+     */
+    private $precioUnitario;
+
+    /**
      * @var Producto
      * @ORM\ManyToOne(targetEntity="Producto")
      */
@@ -46,12 +52,35 @@ class CompraItem
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
+
+    /**
+     * Get PrecioUnitario
+     *
+     * @return integer
+     */
+    public function getPrecioUnitario()
+    {
+        return $this->precioUnitario;
+    }
+
+    /**
+     * Set PrecioUnitario
+     *
+     * @param integer
+     * @return PrecioUnitario
+     */
+    public function setPrecioUnitario($precio_unitario)
+    {
+        $this->precioUnitario = $precio_unitario;
+        return $this;
+    }
+
 
     /**
      * Set cantidad
@@ -69,7 +98,7 @@ class CompraItem
     /**
      * Get cantidad
      *
-     * @return integer 
+     * @return integer
      */
     public function getCantidad()
     {
@@ -92,7 +121,7 @@ class CompraItem
     /**
      * Get compra
      *
-     * @return \AppBundle\Entity\Compra 
+     * @return \AppBundle\Entity\Compra
      */
     public function getCompra()
     {
@@ -115,7 +144,7 @@ class CompraItem
     /**
      * Get producto
      *
-     * @return \AppBundle\Entity\Producto 
+     * @return \AppBundle\Entity\Producto
      */
     public function getProducto()
     {
