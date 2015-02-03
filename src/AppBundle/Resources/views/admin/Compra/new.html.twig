@@ -42,7 +42,10 @@
                 <div class="alert alert-info">
                     Introduce aquí todos los Item posibles de la compra.
                 </div>
+
                 {{ form_widget(form.items) }}
+
+                {{ form_widget(form) }}
 
                 <div class="col-sm-offset-2 inner-actions">
                     <button title="Guardar" class="form-submit-button btn btn-sm btn-default btn-primary"
@@ -55,7 +58,7 @@
                         <span class="glyphicon glyphicon-remove"></span></a>
                 </div>
 
-                {{ form_widget(form) }}
+
                 {{ form_end(form) }}
 
                 {% embed 'modal.html.twig' with { 'modal_id': 'list-modal', 'modal_titulo': 'Listado de Productos'} %}

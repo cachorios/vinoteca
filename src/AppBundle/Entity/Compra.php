@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping\UniqueConstraint;
+use RBSoft\UtilidadBundle\Validator\Constraints as UtilidadAssert;
 
 /**
  * Compra
@@ -43,12 +44,7 @@ class Compra
      *
      * @ORM\Column(name="cuit", type="string", length=11)
      * @Assert\Regex("/^[0-9_]+$/")
-     * @Assert\Length(
-     *      min = 11,
-     *      max = 11,
-     *      minMessage = "codigo cuit no valido",
-     *      maxMessage = "codigo cuit no valido"
-     * )
+     * @UtilidadAssert\ContainsCuitValido()
      */
     private $cuit;
 
@@ -68,6 +64,8 @@ class Compra
 
     /**
      * @ORM\OneToMany(targetEntity="CompraItem", mappedBy="compra", cascade={"persist", "remove"})
+     * @UtilidadAssert\ContainsItemsValido()
+     *
      */
     private $items;
 
