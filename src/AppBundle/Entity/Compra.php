@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping\UniqueConstraint;
  *
  * @ORM\Table(name="compra",
  *      uniqueConstraints = {
- *          @ORM\UniqueConstraint(name="_factura_numero_cuit", columns={"factura_numero", "cuit"})
+ *          @ORM\UniqueConstraint(name="uniq_idx", columns={"factura_numero", "cuit"})
  *      })
  *
  * @ORM\Entity(repositoryClass="AppBundle\Entity\CompraRepository")
@@ -34,6 +34,7 @@ class Compra
      * @var string
      *
      * @ORM\Column(name="factura_numero", type="string", length=50)
+     *
      */
     private $facturaNumero;
 
@@ -41,6 +42,13 @@ class Compra
      * @var string
      *
      * @ORM\Column(name="cuit", type="string", length=11)
+     * @Assert\Regex("/^[0-9_]+$/")
+     * @Assert\Length(
+     *      min = 11,
+     *      max = 11,
+     *      minMessage = "codigo cuit no valido",
+     *      maxMessage = "codigo cuit no valido"
+     * )
      */
     private $cuit;
 
@@ -59,7 +67,7 @@ class Compra
     private $fechaAlta;
 
     /**
-     * @ORM\OneToMany(targetEntity="CompraItem", mappedBy="compra", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="CompraItem", mappedBy="compra", cascade={"persist", "remove"})
      */
     private $items;
 
@@ -185,12 +193,11 @@ class Compra
      * @param \AppBundle\Entity\CompraItem $items
      * @return Compra
      */
-//    public function addItem(\AppBundle\Entity\CompraItem $items)
-
-    public function addItem($items)
+    public function addItem(\AppBundle\Entity\CompraItem $items)
     {
-
 //        ld($items);
+        $items->setCompra($this);
+        $this->items[] = $items;
         return $this;
     }
 

@@ -35,21 +35,128 @@ class CompraItem
      *
      * @ORM\Column(name="cantidad", type="integer")
      */
-    private $cantidad;
+    private $cantidad = 0;
+
+    /**
+     * @ORM\Column(name="precio_unitario", type="decimal", scale=2)
+     * @Assert\Currency
+     */
+    private $precioUnitario;
 
     /**
      * @var Producto
      * @ORM\ManyToOne(targetEntity="Producto")
      */
     private $producto;
+    
+    /**
+     * solo para el formulario sin persistir
+     */
+    private $productoNombre;
+    /**
+     * solo para el formulario sin persistir
+     */
+    private $productoCodigo;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get PrecioUnitario
+     *
+     * @return integer
+     */
+    public function getPrecioUnitario()
+    {
+        return $this->precioUnitario;
+    }
+
+    /**
+     * Set PrecioUnitario
+     *
+     * @param integer
+     * @return PrecioUnitario
+     */
+    public function setPrecioUnitario($precio_unitario)
+    {
+        $this->precioUnitario = $precio_unitario;
+        return $this;
+    }
+
+
+    /**
+     * Set cantidad
+     *
+     * @param integer $cantidad
+     * @return CompraItem
+     */
+    public function setCantidad($cantidad)
+    {
+        $this->cantidad = $cantidad;
+
+        return $this;
+    }
+
+    /**
+     * Get cantidad
+     *
+     * @return integer
+     */
+    public function getCantidad()
+    {
+        return $this->cantidad;
+    }
+
+    /**
+     * Set compra
+     *
+     * @param \AppBundle\Entity\Compra $compra
+     * @return CompraItem
+     */
+    public function setCompra(\AppBundle\Entity\Compra $compra = null)
+    {
+        $this->compra = $compra;
+
+        return $this;
+    }
+
+    /**
+     * Get compra
+     *
+     * @return \AppBundle\Entity\Compra
+     */
+    public function getCompra()
+    {
+        return $this->compra;
+    }
+
+    /**
+     * Set producto
+     *
+     * @param \AppBundle\Entity\Producto $producto
+     * @return CompraItem
+     */
+    public function setProducto(\AppBundle\Entity\Producto $producto = null)
+    {
+        $this->producto = $producto;
+
+        return $this;
+    }
+
+    /**
+     * Get producto
+     *
+     * @return \AppBundle\Entity\Producto
+     */
+    public function getProducto()
+    {
+        return $this->producto;
     }
 }

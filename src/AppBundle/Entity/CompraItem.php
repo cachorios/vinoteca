@@ -38,8 +38,8 @@ class CompraItem
     private $cantidad = 0;
 
     /**
-     *
      * @ORM\Column(name="precio_unitario", type="decimal", scale=2)
+     * @Assert\Currency
      */
     private $precioUnitario;
 
@@ -48,6 +48,15 @@ class CompraItem
      * @ORM\ManyToOne(targetEntity="Producto")
      */
     private $producto;
+    
+    /**
+     * solo para el formulario sin persistir
+     */
+    private $productoNombre;
+    /**
+     * solo para el formulario sin persistir
+     */
+    private $productoCodigo;
 
     /**
      * Get id
@@ -149,5 +158,38 @@ class CompraItem
     public function getProducto()
     {
         return $this->producto;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setProductoCodigo($p)
+    {
+        $this->productoCodigo = $p;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductoCodigo()
+    {
+        return $this->productoCodigo;
+    }
+    /**
+     * @return $this
+     */
+    public function setProductoNombre($p)
+    {
+        $this->productoNombre = $p;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductoNombre()
+    {
+        return $this->productoNombre;
     }
 }

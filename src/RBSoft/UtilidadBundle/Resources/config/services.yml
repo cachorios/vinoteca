@@ -6,3 +6,9 @@ services:
         class: RBSoft\UtilidadBundle\Form\Extension\HelpMessageTypeExtension
         tags:
           - { name: "form.type_extension", alias: "form" }
+
+    form.type.entity_id:
+        class: RBSoft\UtilidadBundle\Form\Type\EntityIdType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+          - { name: "form.type", alias: "entity_id" }

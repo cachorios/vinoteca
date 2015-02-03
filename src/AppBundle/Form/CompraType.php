@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\CompraItem;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
@@ -33,30 +34,39 @@ class CompraType extends AbstractType
 //                'help' => '! dia/mes/año',
                 'constraints' => new Assert\NotBlank(),
             ))
+            ->add('items', 'compra_items_collection', array(
+                'type' => new CompraItemType(),
+                'by_reference'   => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'delete_empty' => true,
+                'prototype' => true,
+
+            ))
         ;
 
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) {
-                $form = $event->getForm();
-                $data = $event->getData();
-
-                $id = $data->getId();
-                if (is_null($id)) {
-                    $form
-                        ->add('items', 'compra_items_collection', array(
-                            'type' => new CompraItemType(),
-                            'allow_add' => true,
-                            'allow_delete' => true,
-                            'delete_empty' => true,
-                            'prototype' => true,
-                            'by_reference' => false,
-                        ))
-                    ;
-
-                }
-            }
-        );
+//        $builder->addEventListener(
+//            FormEvents::PRE_SET_DATA,
+//            function (FormEvent $event) {
+//                $form = $event->getForm();
+//                $data = $event->getData();
+//
+//                $id = $data->getId();
+//                if (is_null($id)) {
+//                    $form
+//                        ->add('items', 'compra_items_collection', array(
+//                            'type' => new CompraItemType(),
+//                            'allow_add' => true,
+//                            'allow_delete' => true,
+//                            'delete_empty' => true,
+//                            'prototype' => true,
+//                            'by_reference' => false,
+//                        ))
+//                    ;
+//
+//                }
+//            }
+//        );
 
     }
 

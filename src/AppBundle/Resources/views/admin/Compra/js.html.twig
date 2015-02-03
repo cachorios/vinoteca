@@ -24,8 +24,10 @@
             var producto_codigo = collectionHolder.attr('data-codigo');
             var producto_nombre = collectionHolder.attr('data-nombre');
             var inputid = '#appbundle_compra_items_' + fieldCount + '_producto';
+            var inputcodigo = '#appbundle_compra_items_' + fieldCount + '_producto_codigo';
+            var inputnombre = '#appbundle_compra_items_' + fieldCount + '_producto_nombre';
             var inputcantidad = '#appbundle_compra_items_' + fieldCount + '_cantidad';
-
+            var inputprecio = '#appbundle_compra_items_' + fieldCount + '_precioUnitario';
             var fieldList = jQuery('#iten_list_items_collection');
             var newWidget = fieldList.attr('data-prototype');
             newWidget = newWidget.replace(/__name__/g, fieldCount);
@@ -36,11 +38,14 @@
             var newLi = jQuery('<tr></tr>').html(newWidget);
             newLi.appendTo(fieldList);
             $(inputid).val(producto_id);
+            $(inputcodigo).val(producto_codigo);
+            $(inputnombre).val(producto_nombre);
+            $(inputprecio).val(0);
             $(inputcantidad).val(0);
         });
         $(document).on('click', '.remove-list-item', function (e) {
             e.preventDefault();
-            var collectionHolder = $($(this)).parents('li');
+            var collectionHolder = $($(this)).parents('tr');
             collectionHolder.remove();
         });
 

@@ -100,17 +100,18 @@ class CompraController extends Controller
         $entity = new Compra();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
+            ld($entity);
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('success', "La compra $entity se creó correctamente.");
             if ($request->request->get('save_mode') == 'save_and_close') {
-                return $this->redirect($this->generateUrl('compra'));
+               //return $this->redirect($this->generateUrl('compra'));
             }
-            return $this->redirect($this->generateUrl('compra_new'));
+            //return $this->redirect($this->generateUrl('compra_new'));
+
         }
 
         return $this->render('AppBundle:admin\Compra:new.html.twig',array(

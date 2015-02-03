@@ -36,17 +36,27 @@
     {% if 'prototype' in widget.vars|keys %}
         {% set form = widget.vars.prototype %}
         {% set name = widget.vars.prototype.vars.name %}
+        {% set prototype = true %}
     {% else %}
+        {% set prototype = false %}
         {% set form = widget %}
         {% set name = widget.vars.full_name %}
+        {% set dataProductoNombre = widget.vars.data.productoNombre %}
+        {% set dataProductoCodigo = widget.vars.data.productoCodigo %}
     {% endif %}
 
     <td>
+        {#{{  | ld }}#}
         <span style="display:none" class="produto-id">
          {{ form_widget(form.producto) }}
         </span>
-        <span class="item-codigo">__codigo__</span>
-        <span class="item-nombre">__nombre__</span>
+        <span class="item-codigo">
+            <span style="display:none" class="produto-id">
+         {{ form_widget(form.producto_codigo) }}
+        </span>{{ prototype != false ? '__codigo__' : dataProductoCodigo }}</span>
+        <span class="item-nombre"><span style="display:none" class="produto-id">
+         {{ form_widget(form.producto_nombre) }}
+        </span>{{ prototype != false ? '__nombre__' : dataProductoNombre }}</span>
     </td>
     <td>
         {{ form_widget(form.cantidad) }}
