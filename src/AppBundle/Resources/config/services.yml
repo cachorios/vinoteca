@@ -26,33 +26,11 @@ services:
             - { name: doctrine.event_listener, event: prePersist,   method: prePersist }
             - { name: doctrine.event_listener, event: preUpdate,    method: preUpdate }
 
-    form.type.metadato_collection:
-        class: AppBundle\Form\Type\MetadatoCollectionType
+    compra.listener.doctrine:
+        class: AppBundle\EventListener\CompraListener
+        arguments: [@service_container]
         tags:
-          - { name: "form.type", alias: "metadato_collection" }
-
-    form.type.compra_items_collection:
-        class: AppBundle\Form\Type\CompraItemsCollectionType
-#        arguments: ["@doctrine.orm.entity_manager"]
-        tags:
-          - { name: "form.type", alias: "compra_items_collection" }
-
-
-
-    form.type.metadato_filter:
-        class: AppBundle\Form\Type\MetadatoFilterType
-        tags:
-          - { name: "form.type", alias: "metadato_filter" }
-
-    form.type.metadato_widget:
-        class: AppBundle\Form\Type\MetadatoWidgetType
-        tags:
-          - { name: "form.type", alias: "widget_filter" }
-
-    form.type.app_date_time:
-        class: AppBundle\Form\Type\AppDateTimeType
-        tags:
-          - { name: "form.type", alias: "app_datetime" }
+            - { name: doctrine.event_listener, event: postPersist,  method: postPersist }
 
     menu.service:
         class: AppBundle\Servicios\MenuService

@@ -1,0 +1,80 @@
+{% extends 'AppBundle:admin:layout.html.twig' %}
+
+    {% block contenido -%}
+        {% embed '::portlet.html.twig' with {'titulo': 'Compra - factura N ' ~ entity} %}
+            {% block in_header %}
+                <div class='pull-right'>
+                    <div class="row">
+                        <div class="col-md-1 ">
+                            <div class="pull-right">
+                            </div>
+                        </div>
+                        {#<a href="{{ path('producto_edit', { 'id': entity.id }) }}"#}
+                        {#class="btn btn-sm btn-default">#}
+                        {#Editar#}
+                        {#</a>#}
+
+
+                        <a href="{{ path('compra') }}" class="btn btn-sm btn-default">
+                            Ir a la lista
+                        </a>
+
+
+                    </div>
+                </div>
+            {% endblock %}
+            {% block cuerpo %}
+                <p></p>
+
+                <table class="table table-show">
+                    <tbody>
+                    <tr>
+                        <th class="show-header">Numero de factura</th>
+                        <td>{{ entity }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Cuit</th>
+                        <td>{{ entity.cuit }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Fecha de alta</th>
+                        <td>{% if entity.fechaAlta %}{{ entity.fechaAlta|date('d-m-Y') }}{% endif %}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <h4 class="content-title"><u>Items</u></h4>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th class="col-xs-6">Codigo Descripción</th>
+                        <th class="col-xs-3">Cantidad</th>
+                        <th class="col-xs-3">Precio. Unitario</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for item in entity.items %}
+                        <tr>
+                            <td>
+                                <span class="item-codigo">{{ item.producto.codigo }}</span>
+                                <span class="item-nombre">{{ item.producto.nombre }}</span>
+                            </td>
+                            <td>
+                                <span class="item-codigo">{{ item.cantidad }}</span>
+
+                            </td>
+                            <td>
+                                <span class="item-codigo">{{ item.precioUnitario }}</span>
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+                <h4 class="content-title"><u>Retificaciones</u></h4>
+            {% endblock %}
+        {% endembed %}
+    {% endblock contenido %}

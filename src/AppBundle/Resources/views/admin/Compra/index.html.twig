@@ -71,20 +71,21 @@
                         <tr>
                             <td>{{ entity.facturaNumero }}</td>
                             <td>{{ entity.cuit }}</td>
-                            <td>{% if entity.fechaCompra %}{{ entity.fechaCompra|date('Y-m-d') }}{% endif %}</td>
+                            <td>{% if entity.fechaCompra %}{{ entity.fechaCompra|date('d-m-Y') }}{% endif %}</td>
                             {#<td>{% if entity.fechaAlta %}{{ entity.fechaAlta|date('Y-m-d') }}{% endif %}</td>#}
                             <td class="actions">
                                 <div class="btn-group">
-                                    <a href="{{ path('compra_edit', { 'id': entity.id }) }}"
+                                    <a href="{{ path('compra_show', { 'id': entity.id }) }}"
                                        class="btn btn-xs btn-default" data-toggle="tooltip" data-placement="top"
                                        title="Ver mas información">
                                         <span class="glyphicon glyphicon-eye-open"></span>
                                     </a>
-                                    <a href="{{ path('compra_edit', { 'id': entity.id }) }}"
+                                    <a href=""
                                        class="btn btn-xs btn-default" data-toggle="tooltip" data-placement="top"
-                                       title="Editar los datos">
+                                       title="Ver mas información">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </a>
+
                                 </div>
                             </td>
                         </tr>

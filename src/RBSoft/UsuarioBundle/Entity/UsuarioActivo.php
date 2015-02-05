@@ -1,12 +1,12 @@
 <?php
 namespace RBSoft\UsuarioBundle\Entity;
 
-interface UsuarioOwner
+interface UsuarioActivo
 {
     /**
      * Sets the user
      *
      * @param UserInterface|null $user A user instance or null
      */
-    public function setUsuario(UsuarioOwner $user = null);
+    public function setUsuario(Usuario $user = null);
 }

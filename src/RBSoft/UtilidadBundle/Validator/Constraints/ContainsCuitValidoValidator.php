@@ -16,6 +16,7 @@ class ContainsCuitValidoValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         if (!$this->verificarCuit($value)) {
+
             $this->context->addViolation($constraint->message, array('%string%' => $value));
         }
     }

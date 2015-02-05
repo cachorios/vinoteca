@@ -62,10 +62,16 @@ class Compra
      */
     private $fechaAlta;
 
+
+
     /**
      * @ORM\OneToMany(targetEntity="CompraItem", mappedBy="compra", cascade={"persist", "remove"})
-     * @UtilidadAssert\ContainsItemsValido()
-     *
+     * @Assert\Count(
+     *      min = "1",
+     *      max = "50",
+     *      minMessage = "Debe especificar al menos un item",
+     *      maxMessage = "No se puede especificar más de {{ limit }} items"
+     * )
      */
     private $items;
 

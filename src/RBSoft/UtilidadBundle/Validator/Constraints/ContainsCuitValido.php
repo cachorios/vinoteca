@@ -14,5 +14,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class ContainsCuitValido extends Constraint
 {
-    public $message = '"%string%" No es un cuit valido';
+    public $message = 'No Valido, debe disponer mas de "%string%" items';
 }

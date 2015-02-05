@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use RBSoft\UtilidadBundle\Validator\Constraints as UtilidadAssert;
 
 /**
  * CompraItem
@@ -35,12 +35,21 @@ class CompraItem
      * @var integer
      *
      * @ORM\Column(name="cantidad", type="integer")
+     * @UtilidadAssert\NumericoMinimo(
+     *      min = 1,
+     *      minMessage = "Debe especificar al menos un item",
+     * )
      */
-    private $cantidad = 0;
+    private $cantidad;
 
     /**
      * @ORM\Column(name="precio_unitario", type="decimal", scale=2)
-     * @Assert\Currency
+     * @Assert\Regex(
+     *   pattern="/^\d+$/",
+     *   match=true,
+     *   message="no es numero"
+     * )
+     *
      */
     private $precioUnitario;
 

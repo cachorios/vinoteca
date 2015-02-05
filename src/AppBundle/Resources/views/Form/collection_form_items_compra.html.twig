@@ -13,7 +13,7 @@
                        data-prototype="{{ _self.compra_item_collection_fields(form)|escape }}">
                     <thead>
                     <tr>
-                        <th class="col-xs-6">Descripción</th>
+                        <th class="col-xs-6">Codigo Descripción</th>
                         <th class="col-xs-3">Cantidad</th>
                         <th class="col-xs-3">Precio. Unitario</th>
                     </tr>
@@ -60,6 +60,7 @@
     </td>
     <td>
         {{ form_widget(form.cantidad) }}
+        {{ form_errors(form.cantidad) }}
     </td>
     <td>
         <div class="zero-clipboard">
@@ -71,6 +72,7 @@
             </a>
         </div>
         {{ form_widget(form.precioUnitario) }}
+        {{ form_errors(form.precioUnitario) }}
     </td>
     {#{{ form_widget(form) }}#}
 {% endmacro %}
