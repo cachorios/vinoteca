@@ -18,8 +18,11 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-
-
+        /**
+         * @var \Doctrine\ORM\EntityManager em
+         */
+        $em = $this->getDoctrine()->getManager();
+        ladybug_dump_die( $em->getRepository("AppBundle:Categoria")->getCategoriasAsignables());
 
         //ladybug_dump_die($this->get("menu.service")->getMenuFrontendItems());
 //        ladybug_dump($this->get("menu.service")->makeMenu());

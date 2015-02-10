@@ -99,4 +99,23 @@ class CategoriaRepository extends EntityRepository
     }
 
 
+    public function getCategoriasAsignables()
+    {
+
+        return $this->_em->createQuery(
+            'SELECT c
+             FROM  AppBundle:Categoria c
+
+             WHERE c.activo = 1 AND c.visible = 1
+             and not EXISTS(SELECT r.id
+              FROM  AppBundle:Categoria r
+              WHERE r.parent = c.id
+
+             )
+             ORDER BY c.orden'
+        )->getResult();
+
+   }
+
+
 }
