@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
+use RBSoft\UtilidadBundle\Validator\Constraints as UtilidadAssert;
 
 /**
  * CompraItem
@@ -34,24 +35,71 @@ class CompraItem
      * @var integer
      *
      * @ORM\Column(name="cantidad", type="integer")
+     * @UtilidadAssert\NumericoMinimo(
+     *      min = 1,
+     *      minMessage = "Debe especificar al menos un item",
+     * )
      */
-    private $cantidad = 0;
+    private $cantidad;
+
+    /**
+     * @ORM\Column(name="precio_unitario", type="decimal", scale=2)
+     * @Assert\Regex(
+     *   pattern="/^\d+$/",
+     *   match=true,
+     *   message="no es numero"
+     * )
+     *
+     */
+    private $precioUnitario;
 
     /**
      * @var Producto
      * @ORM\ManyToOne(targetEntity="Producto")
      */
     private $producto;
+    
+    /**
+     * solo para el formulario sin persistir
+     */
+    private $productoNombre;
+    /**
+     * solo para el formulario sin persistir
+     */
+    private $productoCodigo;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
+
+    /**
+     * Get PrecioUnitario
+     *
+     * @return integer
+     */
+    public function getPrecioUnitario()
+    {
+        return $this->precioUnitario;
+    }
+
+    /**
+     * Set PrecioUnitario
+     *
+     * @param integer
+     * @return PrecioUnitario
+     */
+    public function setPrecioUnitario($precio_unitario)
+    {
+        $this->precioUnitario = $precio_unitario;
+        return $this;
+    }
+
 
     /**
      * Set cantidad
@@ -69,7 +117,7 @@ class CompraItem
     /**
      * Get cantidad
      *
-     * @return integer 
+     * @return integer
      */
     public function getCantidad()
     {
@@ -92,7 +140,7 @@ class CompraItem
     /**
      * Get compra
      *
-     * @return \AppBundle\Entity\Compra 
+     * @return \AppBundle\Entity\Compra
      */
     public function getCompra()
     {
@@ -115,10 +163,43 @@ class CompraItem
     /**
      * Get producto
      *
-     * @return \AppBundle\Entity\Producto 
+     * @return \AppBundle\Entity\Producto
      */
     public function getProducto()
     {
         return $this->producto;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setProductoCodigo($p)
+    {
+        $this->productoCodigo = $p;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductoCodigo()
+    {
+        return $this->productoCodigo;
+    }
+    /**
+     * @return $this
+     */
+    public function setProductoNombre($p)
+    {
+        $this->productoNombre = $p;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductoNombre()
+    {
+        return $this->productoNombre;
     }
 }

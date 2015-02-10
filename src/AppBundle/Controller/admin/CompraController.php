@@ -100,7 +100,6 @@ class CompraController extends Controller
         $entity = new Compra();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
@@ -108,9 +107,10 @@ class CompraController extends Controller
 
             $this->get('session')->getFlashBag()->add('success', "La compra $entity se creó correctamente.");
             if ($request->request->get('save_mode') == 'save_and_close') {
-                return $this->redirect($this->generateUrl('compra'));
+               //return $this->redirect($this->generateUrl('compra'));
             }
-            return $this->redirect($this->generateUrl('compra_new'));
+            //return $this->redirect($this->generateUrl('compra_new'));
+
         }
 
         return $this->render('AppBundle:admin\Compra:new.html.twig',array(
@@ -156,132 +156,25 @@ class CompraController extends Controller
         ));
     }
 
-
-//    ****************************************************
     /**
-     * Displays a form to edit an existing compra entity.
+     * Finds and displays a compra entity.
      *
-     * @Route("/{id}/edit", name="compra_edit")
+     * @Route("/{id}", name="compra_show")
      * @Method("GET")
      */
-    public function editAction($id)
+    public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppBundle:Compra')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Categoria entity.');
+            throw $this->createNotFoundException('Unable to find Compra entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('AppBundle:admin\Compra:edit.html.twig', array(
+        return $this->render('AppBundle:admin\Compra:show.html.twig',array(
             'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
-    }
-
-    /**
-     * Creates a form to edit a Categoria entity.
-     *
-     * @param Categoria $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createEditForm(Compra $entity)
-    {
-        $form = $this->createForm(new CompraType(), $entity, array(
-            'action' => $this->generateUrl('compra_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-
-        return $form;
-    }
-
-    /**
-     * Edits an existing Compra entity.
-     *
-     * @Route("/{id}/edit", name="compra_update")
-     * @Method("PUT")
-     */
-    public function updateAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('AppBundle:Compra')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Categoria entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isValid()) {
-
-            $em->persist($entity);
-            $em->flush();
-            $this->get('session')->getFlashBag()->add('success', "El Compra $entity se actualizó correctamente.");
-            return $this->redirect($this->generateUrl('categoria'));
-        }
-
-        return $this->render('AppBundle:admin\Compra:edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Deletes a Compra entity.
-     *
-     * @Route("/{id}", name="compra_delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('AppBundle:Compra')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Categoria entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('compra'));
-    }
-
-    /**
-     * Creates a form to delete a Categoria entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('compra_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array(
-                'label' => 'Delete',
-                'attr' => array(
-                    'class' => 'btn btn-danger btn-sm'
-                )
-            ))
-            ->getForm();
     }
 
 

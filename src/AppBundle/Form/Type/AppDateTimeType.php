@@ -25,13 +25,12 @@ class AppDateTimeType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'model_timezone'   => 'UTC',
-                'view_timezone'    => 'UTC',
-                'format' => 'dd/mm/yyyy',
-//                'format'           => 'dd/mm/yyyy',
+//                'model_timezone'   => 'UTC',
+//                'view_timezone'    => 'UTC',
+                'format' => 'dd/MM/yyyy',
 //                'format'           => DateTimeType::HTML5_FORMAT,
                 'widget'           => 'single_text',
-                'placeholder'      => 'app.form.click_here_to_select',
+                'placeholder'      => 'dia/mes/año',
             )
         );
     }

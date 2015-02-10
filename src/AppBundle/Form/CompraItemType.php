@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CompraItemType extends AbstractType
 {
@@ -15,26 +16,29 @@ class CompraItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', null, array(
-                'label' => null,
+            ->add('cantidad', null, array())
+            ->add('precioUnitario', null, array())
+            ->add('producto_codigo', null, array(
             ))
-            ->add('cantidad', null, array(
-                'label' => 'Cantidad',
-            ));
+            ->add('producto_nombre', null, array(
+            ))
+        ;
 
+           $builder->add('producto', 'entity_id', array(
+                'class' => 'AppBundle:Producto',
+           ));
     }
 
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\CompraItem',
-            'cascade_validation' => true
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'AppBundle\Entity\CompraItem',
+                'cascade_validation' => true
+            )
+        );
     }
-
 
     /**
      * @return string

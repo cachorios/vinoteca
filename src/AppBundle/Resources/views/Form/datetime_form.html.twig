@@ -3,41 +3,58 @@
     {% set selector_name = 'datetime_selector_' ~ id %}
     {% set selector_id = selector_name %}
 
+    <div class="input-group date_{{ id }}">
+        {{ block('datetime_widget') }}
+
+    <span class="input-group-addon btn">
+        <span class="glyphicon glyphicon-calendar"></span>
+    </span>
+    </div>
+
     {# Actual date field that uses ISO format #}
-    <span style="display:none">{{ block('datetime_widget') }}</span>
-    {#<span style="">{{ block('datetime_widget') }}</span>#}
+    {#<span style="display:none">{{ block('datetime_widget') }}</span>#}
 
-    {# Visible fake datetimepicker field that uses localized format #}
-    {% set id = selector_id %}
-    {% set full_name = selector_name %}
-    <input type="text" {{ block('widget_attributes') }} class="form-control" style="width: auto;"/>
+    {#&#123;&#35; Visible fake datetimepicker field that uses localized format &#35;&#125;#}
+    {#{% set id = selector_id %}#}
+    {#{% set full_name = selector_name %}#}
+    {#<div class="input-group date_{{ id }}">#}
+        {#<input type="text" {{ block('widget_attributes') }} class="form-control" style="width: auto;"/>#}
+        {##}
+        {#<span class="input-group-addon btn" >#}
+            {#<span class="glyphicon glyphicon-calendar"></span>#}
+        {#</span>#}
+    {#</div>#}
 
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            var actual = $("#{{ actual_id }}");
-            var selector = $("#{{ selector_id }}");
-            var now = moment();
-            var sync = function () {
-                selector.val(actual.val());
-            };
-            actual.on('change', sync);
-            if (actual.val() && actual.val().length) {
-                sync();
-            };
-            selector.datepicker({
-                format: "dd/mm/yyyy",
-                todayBtn: true,
-                autoclose: true,
-                language: "es",
-                yearRange: '-80:+1',
-                todayHighlight: true
-            }).on('changeDate', function (ev) {
-                selector.datepicker('hide');
-                var selectorValue = selector.val();
-                actual.val(selectorValue);
 
-            });
-        });
+    {#<script type="text/javascript">#}
+        {#jQuery(document).ready(function () {#}
+            {#var actual = $("#{{ actual_id }}");#}
+            {#var selector = $("#{{ selector_id }}");#}
+            {#var now = moment();#}
+            {#var sync = function () {#}
+                {#selector.val(actual.val());#}
+            {#};#}
+            {#actual.on('change', sync);#}
+            {#if (actual.val() && actual.val().length) {#}
+                {#sync();#}
+            {#};#}
+            {#selector.datepicker({#}
+                {#format: "dd/mm/yyyy",#}
+{#//                todayBtn: true,#}
+                {#todayBtn: true,#}
+                {#language: "ar"#}
+                {#Default: false#}
+                {#autoclose: true,#}
+{#//                language: "es",#}
+                {#yearRange: '-80:+1',#}
+                {#todayHighlight: true#}
+            {#}).on('changeDate', function (ev) {#}
+                {#selector.datepicker('hide');#}
+                {#var selectorValue = selector.val();#}
+                {#actual.val(selectorValue);#}
 
-    </script>
+            {#});#}
+        {#});#}
+
+    {#</script>#}
 {% endblock app_datetime_widget %}

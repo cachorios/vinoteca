@@ -24,7 +24,6 @@ class HelpMessageTypeExtension extends AbstractTypeExtension
             'help' => isset($options['help']) ? $options['help'] : null,
         ));
 
-//        $view->vars['help'] = isset($options['help']) ? $options['help'] : null;
     }
 
     /**

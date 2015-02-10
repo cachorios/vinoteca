@@ -13,8 +13,8 @@
                 {#<input type="text" placeholder="Search" class="form-control input-md mainnav-search-query">#}
                 {#<button class="btn btn-sm mainnav-form-btn"><i class="fa fa-search"></i></button>#}
             {#</form>#}
-            {{ menu.menu('Inicio',path('homepage')) }}
-                {{ menu.item('Panel', 'fa-dashboard', path('homepage'))  }}
+            {{ menu.menu('Inicio',path('homepage_admin')) }}
+                {{ menu.item('Panel', 'fa-dashboard', path('homepage_admin'))  }}
             {{ menu.finmenu() }}
 
                 {{ menu.menu('Productos','#') }}

@@ -1,63 +1,76 @@
 {% extends 'AppBundle:admin:layout.html.twig' %}
 {% block id 'compra' %}
-        {% block contenido -%}
-            {% embed '::portlet.html.twig' with {'titulo': 'Nueva Compra' } %}
-                {% block in_header %}
-                    <div class='pull-right'>
-                        <div class="row">
+    {% block contenido -%}
+        {% embed '::portlet.html.twig' with {'titulo': 'Nueva Compra' } %}
+            {% block in_header %}
+                <div class='pull-right'>
+                    <div class="row">
 
-                            <a href="{{ path('compra') }}" class="btn btn-sm btn-default">
-                                Ir a la lista
-                            </a>
+                        <a href="{{ path('compra') }}" class="btn btn-sm btn-default">
+                            Ir a la lista
+                        </a>
 
+                    </div>
+                </div>
+            {% endblock %}
+
+            {% block cuerpo %}
+                {% for type, flashMessages in app.session.flashbag.all() %}
+                    {% for flashMessage in flashMessages %}
+                        <div class='alert alert-{{ type }}'>
+                            {{ flashMessage }}
                         </div>
-                    </div>
-                {% endblock %}
-
-                {% block cuerpo %}
-                    {% for type, flashMessages in app.session.flashbag.all() %}
-                        {% for flashMessage in flashMessages %}
-                            <div class='alert alert-{{ type }}'>
-                                {{ flashMessage }}
-                            </div>
-                        {% endfor %}
                     {% endfor %}
-                    <p></p>
+                {% endfor %}
+                <p></p>
 
-                    {{ form_start(form) }}
+                {{ form_start(form) }}
 
-                    {{ form_row(form.facturaNumero) }}
-                    {{ form_row(form.cuit) }}
-                    {{ form_row(form.fechaCompra) }}
-                    <div class="alert alert-info">
-                        Introduce aquí todos los Item posibles de la compra.
-                    </div>
-                    {{ form_row(form.items) }}
+                {#<div class="row">#}
+                    {#<div class="col-md-6">#}
+                        {{ form_row(form.facturaNumero) }}
+                        {{ form_row(form.cuit) }}
+                        {{ form_row(form.fechaCompra) }}
+                    {#</div>#}
+                    {#<div class="col-md-6">#}
 
-                    <div class="col-sm-offset-2 inner-actions">
-                        <button title="Guardar" class="form-submit-button btn btn-sm btn-default btn-primary"
-                                value="save_and_add" name="save_mode" type="submit">Guardar <span
-                                    class="glyphicon glyphicon-ok"></span></button>
-                        <button title="Guardar y Salir" class="form-submit-button btn btn-sm btn-default btn-info"
-                                value="save_and_close" name="save_mode" type="submit">Guardar y Salir <span
-                                    class="glyphicon glyphicon-remove"></span></button>
-                        <a class="page-close-button btn btn-sm btn-default" href="{{ path('compra') }}">Cerrar
-                            <span class="glyphicon glyphicon-remove"></span></a>
-                    </div>
+                    {#</div>#}
 
-                    {{ form_widget(form) }}
-                    {{ form_end(form) }}
+                {#</div>#}
 
-                    {% embed 'modal.html.twig' with { 'modal_id': 'list-modal', 'modal_titulo': 'Listado de Productos'} %}
-                        {% block modal_botones %}
-                            <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
-                        {% endblock modal_botones %}
-                    {% endembed %}
 
-                {% endblock %}
-            {% endembed %}
+                <div class="alert alert-info">
+                    Introduce aquí todos los Item posibles de la compra.
+                </div>
 
-        {% endblock contenido %}
+                {{ form_widget(form.items) }}
+
+                {{ form_widget(form) }}
+
+                <div class="col-sm-offset-2 inner-actions">
+                    <button title="Guardar" class="form-submit-button btn btn-sm btn-default btn-primary"
+                            value="save_and_add" name="save_mode" type="submit">Guardar <span
+                                class="glyphicon glyphicon-ok"></span></button>
+                    <button title="Guardar y Salir" class="form-submit-button btn btn-sm btn-default btn-info"
+                            value="save_and_close" name="save_mode" type="submit">Guardar y Salir <span
+                                class="glyphicon glyphicon-remove"></span></button>
+                    <a class="page-close-button btn btn-sm btn-default" href="{{ path('compra') }}">Cerrar
+                        <span class="glyphicon glyphicon-remove"></span></a>
+                </div>
+
+
+                {{ form_end(form) }}
+
+                {% embed 'modal.html.twig' with { 'modal_id': 'list-modal', 'modal_titulo': 'Listado de Productos'} %}
+                    {% block modal_botones %}
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Cerrar</button>
+                    {% endblock modal_botones %}
+                {% endembed %}
+
+            {% endblock %}
+        {% endembed %}
+
+    {% endblock contenido %}
 
     {% block javascript_footer %}
         {{ include('AppBundle:admin/Compra:js.html.twig',{'form': form}) }}

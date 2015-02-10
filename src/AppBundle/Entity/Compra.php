@@ -7,13 +7,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping\UniqueConstraint;
+use RBSoft\UtilidadBundle\Validator\Constraints as UtilidadAssert;
 
 /**
  * Compra
  *
  * @ORM\Table(name="compra",
  *      uniqueConstraints = {
- *          @ORM\UniqueConstraint(name="_factura_numero_cuit", columns={"factura_numero", "cuit"})
+ *          @ORM\UniqueConstraint(name="uniq_idx", columns={"factura_numero", "cuit"})
  *      })
  *
  * @ORM\Entity(repositoryClass="AppBundle\Entity\CompraRepository")
@@ -34,6 +35,7 @@ class Compra
      * @var string
      *
      * @ORM\Column(name="factura_numero", type="string", length=50)
+     *
      */
     private $facturaNumero;
 
@@ -41,6 +43,8 @@ class Compra
      * @var string
      *
      * @ORM\Column(name="cuit", type="string", length=11)
+     * @Assert\Regex("/^[0-9_]+$/")
+     * @UtilidadAssert\ContainsCuitValido()
      */
     private $cuit;
 
@@ -58,8 +62,16 @@ class Compra
      */
     private $fechaAlta;
 
+
+
     /**
-     * @ORM\OneToMany(targetEntity="CompraItem", mappedBy="compra", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="CompraItem", mappedBy="compra", cascade={"persist", "remove"})
+     * @Assert\Count(
+     *      min = "1",
+     *      max = "50",
+     *      minMessage = "Debe especificar al menos un item",
+     *      maxMessage = "No se puede especificar más de {{ limit }} items"
+     * )
      */
     private $items;
 
@@ -71,7 +83,7 @@ class Compra
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -94,12 +106,13 @@ class Compra
     /**
      * Get facturaNumero
      *
-     * @return string 
+     * @return string
      */
     public function getFacturaNumero()
     {
         return $this->facturaNumero;
     }
+
 
     /**
      * Set fechaCompra
@@ -117,7 +130,7 @@ class Compra
     /**
      * Get fechaCompra
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaCompra()
     {
@@ -140,7 +153,7 @@ class Compra
     /**
      * Get fechaAlta
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaAlta()
     {
@@ -163,12 +176,13 @@ class Compra
     /**
      * Get cuit
      *
-     * @return string 
+     * @return string
      */
     public function getCuit()
     {
         return $this->cuit;
     }
+
     /**
      * Constructor
      */
@@ -185,8 +199,9 @@ class Compra
      */
     public function addItem(\AppBundle\Entity\CompraItem $items)
     {
+//        ld($items);
+        $items->setCompra($this);
         $this->items[] = $items;
-
         return $this;
     }
 
@@ -203,7 +218,7 @@ class Compra
     /**
      * Get items
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getItems()
     {
@@ -215,6 +230,6 @@ class Compra
      */
     public function PrePersist()
     {
-        $this->setFechaAlta( new \DateTime('now', new \DateTimeZone('UTC')));
+        $this->setFechaAlta(new \DateTime('now', new \DateTimeZone('UTC')));
     }
 }

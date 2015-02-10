@@ -19,11 +19,13 @@
     text-transform: uppercase;
 }
 .table .actions {
-    text-align: right;
+
+    text-align: right !important;
 }
 .show-header{
     width:20%;
     background: #f1f1f1;
+    text-align: right;
 }
 input[type="checkbox"], input[type="radio"] {
     width:15px;
@@ -130,7 +132,11 @@ ul, ol {
     list-style: outside none none;
     padding-left: 0;
 }
-#appbundle_producto_iva, #appbundle_producto_precio{
+#appbundle_producto_iva,
+#appbundle_producto_precio,
+#appbundle_compra_facturaNumero,
+#appbundle_compra_cuit
+{
     width: auto;
 }
 .form-control-disable {
@@ -161,4 +167,10 @@ ul, ol {
     padding-top: 7px;
     text-align: right;
     padding-right: 8px;
+}
+.input-group-addon {
+    width: auto;
+}
+.form-group {
+    margin-bottom: 15px;
 }
