@@ -42,6 +42,10 @@
                         <td>{{ entity | categoria_breadcrumd }}</td>
                     </tr>
                     <tr>
+                        <th class="show-header">Actualizado por</th>
+                        <td>{{ entity.usuario }}</td>
+                    </tr>
+                    <tr>
                         <th class="show-header">Orden</th>
                         <td>{{ entity.orden }}</td>
                     </tr>
@@ -53,6 +57,7 @@
                         <th class="show-header">Visible</th>
                         <td>{{ entity.visible? '<span class="label label-success">Activo</span>' : '<span class="label label-default">Desactivado</span>' }}</td>
                     </tr>
+
                     </tbody>
                 </table>
 

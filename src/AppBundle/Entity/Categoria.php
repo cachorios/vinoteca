@@ -109,6 +109,7 @@ class Categoria implements SecureControl
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\NotBlank()
      */
     private $imagen;
 

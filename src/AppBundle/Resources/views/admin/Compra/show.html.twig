@@ -40,6 +40,10 @@
                         <th class="show-header">Fecha de alta</th>
                         <td>{% if entity.fechaAlta %}{{ entity.fechaAlta|date('d-m-Y') }}{% endif %}</td>
                     </tr>
+                    <tr>
+                        <th class="show-header">Actualizado por</th>
+                        <td>{{ entity.usuario }}</td>
+                    </tr>
                     </tbody>
                 </table>
 

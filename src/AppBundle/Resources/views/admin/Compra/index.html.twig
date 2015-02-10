@@ -7,11 +7,8 @@
         {% embed '::portlet.html.twig' with {'titulo': 'Lista de compras <small>(' ~ pager.totalItemCount ~ ' )</small>' } %}
             {% block in_header %}
                 <div class='pull-right'>
-
                     <a href="{{ path('compra_new') }}" class="button_nuevo btn btn-sm btn-primary">
-
                         {{ 'Nueva Compra'|trans }}
-
                     </a>
 
                 </div>
@@ -82,7 +79,7 @@
                                     </a>
                                     <a href=""
                                        class="btn btn-xs btn-default" data-toggle="tooltip" data-placement="top"
-                                       title="Ver mas información">
+                                       title="Retificar items">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </a>
 
