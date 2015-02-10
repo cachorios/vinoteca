@@ -54,8 +54,12 @@
                         <td>{{ entity.precio }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Precio</th>
+                        <th class="show-header">Iva</th>
                         <td>{{ entity.iva }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Actualizado por</th>
+                        <td>{{ entity.usuario }}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -94,7 +98,6 @@
                                 {% endif %}
                             </li>
                         {% endfor %}
-
                     </ul>
                 </div>
 

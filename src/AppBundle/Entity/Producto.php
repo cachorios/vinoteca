@@ -5,6 +5,8 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use RBSoft\UsuarioBundle\Entity\SecureControl;
+use RBSoft\UsuarioBundle\Entity\Usuario;
 use RBSoft\UtilidadBundle\Libs\Util;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -19,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @DoctrineAssert\UniqueEntity(fields={"nombre", "codigo"})
  * @ORM\HasLifecycleCallbacks
  */
-class Producto
+class Producto implements SecureControl
 {
     /**
      * @var integer
@@ -97,6 +99,11 @@ class Producto
      */
     private $bonificaciones;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="RBSoft\UsuarioBundle\Entity\Usuario")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="login")
+     */
+    private $usuario;
 
     /**
      *  var Categoria
@@ -192,6 +199,28 @@ class Producto
     public function getStock()
     {
         return $this->stock;
+    }
+
+    /**
+     * Set Usuario
+     *
+     * @param Usuario $usuario
+     * @return Producto
+     */
+    public function setUsuario(Usuario $usuario)
+    {
+        $this->usuario = $usuario;
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return usuario
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
     }
 
     /**
