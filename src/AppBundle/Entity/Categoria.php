@@ -5,11 +5,13 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use RBSoft\UsuarioBundle\Entity\SecureControl;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use RBSoft\UtilidadBundle\Libs\Util;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
+use RBSoft\UsuarioBundle\Entity\Usuario;
 
 /**
  * Categoria
@@ -18,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="AppBundle\Entity\CategoriaRepository")
  * @DoctrineAssert\UniqueEntity(fields="nombre", message="categoria.nombre.duplicated")
  */
-class Categoria
+class Categoria implements SecureControl
 {
     /**
      * @var integer
@@ -114,6 +116,12 @@ class Categoria
      * @ORM\Column(name="updated_at", type="datetime", nullable=false)
      */
     private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="RBSoft\UsuarioBundle\Entity\Usuario")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="login")
+     */
+    private $usuario;
 
     public function __toString()
     {
@@ -234,6 +242,28 @@ class Categoria
     public function getLevel()
     {
         return $this->level;
+    }
+
+    /**
+     * Set Usuario
+     *
+     * @param Usuario $usuario
+     * @return Producto
+     */
+    public function setUsuario(Usuario $usuario)
+    {
+        $this->usuario = $usuario;
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return usuario
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
     }
 
     /**

@@ -4,10 +4,12 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use RBSoft\UsuarioBundle\Entity\SecureControl;
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping\UniqueConstraint;
 use RBSoft\UtilidadBundle\Validator\Constraints as UtilidadAssert;
+use RBSoft\UsuarioBundle\Entity\Usuario;
 
 /**
  * Compra
@@ -20,7 +22,7 @@ use RBSoft\UtilidadBundle\Validator\Constraints as UtilidadAssert;
  * @ORM\Entity(repositoryClass="AppBundle\Entity\CompraRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Compra
+class Compra implements SecureControl
 {
     /**
      * @var integer
@@ -62,7 +64,11 @@ class Compra
      */
     private $fechaAlta;
 
-
+    /**
+     * @ORM\ManyToOne(targetEntity="RBSoft\UsuarioBundle\Entity\Usuario")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="login")
+     */
+    private $usuario;
 
     /**
      * @ORM\OneToMany(targetEntity="CompraItem", mappedBy="compra", cascade={"persist", "remove"})
@@ -125,6 +131,28 @@ class Compra
         $this->fechaCompra = $fechaCompra;
 
         return $this;
+    }
+
+    /**
+     * Set Usuario
+     *
+     * @param Usuario $usuario
+     * @return Producto
+     */
+    public function setUsuario(Usuario $usuario)
+    {
+        $this->usuario = $usuario;
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return usuario
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
     }
 
     /**
