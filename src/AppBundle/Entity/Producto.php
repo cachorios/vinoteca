@@ -64,6 +64,15 @@ class Producto
     /**
      * @var decimal
      *
+     * @ORM\Column(name="costo", type="decimal", scale=2)
+     * @Assert\NotBlank()
+     *
+     */
+    private $costo;
+
+    /**
+     * @var decimal
+     *
      * @ORM\Column(name="iva", type="decimal", scale=2)
      * @Assert\NotBlank()
      *
@@ -254,6 +263,31 @@ class Producto
     {
         return $this->precio;
     }
+
+
+    /**
+     * Set costo
+     *
+     * @param string $costo
+     * @return Producto
+     */
+    public function setCosto($costo)
+    {
+        $this->costo = $costo;
+
+        return $this;
+    }
+
+    /**
+     * Get costo
+     *
+     * @return string
+     */
+    public function getCosto()
+    {
+        return $this->costo;
+    }
+
 
     /**
      * Set iva

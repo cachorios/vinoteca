@@ -41,7 +41,7 @@ class CompraManager
             $producto->setStock($stock + $item->getCantidad());
 
             if ($item->getPrecio() > 0) {
-                $producto->setPrecio($item->getPrecio());
+                $producto->setCosto($item->getPrecio());
             }
             $this->em->persist($producto);
         }

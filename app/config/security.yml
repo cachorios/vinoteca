@@ -31,6 +31,7 @@ security:
             form_login:
                 login_path: admin_login
                 check_path: admin_login_check
+                always_use_default_target_path: true
     #                use_forward: true
                 default_target_path:            /admin/
                 #Si fallo el login
