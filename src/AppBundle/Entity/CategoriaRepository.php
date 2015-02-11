@@ -89,33 +89,45 @@ class CategoriaRepository extends EntityRepository
         return $hijos;
     }
 
-    public function getStrAscentendeCategoria(Categoria $cat, $separador = "/")
-    {
-        $cad = $cat->getNombre();
-        if ($cat->getParent()) {
-            $cad = $this->getStrAscentendeCategoria($cat->getParent(), $separador) . $separador . $cad;
-        }
-        return $cad;
-    }
-
+//    public function getCategoriasAsignables()
+//    {
+//
+//        return $this->_em->createQuery(
+//            'SELECT c
+//             FROM  AppBundle:Categoria c
+//
+//             WHERE c.activo = 1 AND c.visible = 1
+//             and not EXISTS(SELECT r.id
+//              FROM  AppBundle:Categoria r
+//              WHERE r.parent = c.id
+//
+//             )
+//             ORDER BY c.orden'
+//        )->getQuery()->getDQL();
+////            ->getResult();
+//
+//   }
 
     public function getCategoriasAsignables()
     {
+        $qb = $this->_em->createQueryBuilder();
+        $qb2 = $this->_em->createQueryBuilder();
 
-        return $this->_em->createQuery(
-            'SELECT c
-             FROM  AppBundle:Categoria c
+        return $qb->add('select', 'c')
+            ->add('from', 'AppBundle:Categoria c')
+            ->add('where',
+                $qb2->expr()->andx(
+                    $qb2->expr()->eq('c.activo', '1'),
+                    $qb2->expr()->eq('c.visible ','1'),
+                    $qb->expr()->not($qb->expr()->exists(
+                        $qb2->add('select', 'r')
+                            ->add('from', 'AppBundle:Categoria r')
+                            ->add('where', $qb2->expr()->eq('r.parent', ' c.id'))
+                    )
+                    )
+                ));
 
-             WHERE c.activo = 1 AND c.visible = 1
-             and not EXISTS(SELECT r.id
-              FROM  AppBundle:Categoria r
-              WHERE r.parent = c.id
-
-             )
-             ORDER BY c.orden'
-        )->getResult();
-
-   }
+    }
 
 
 }

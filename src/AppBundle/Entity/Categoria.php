@@ -522,4 +522,18 @@ class Categoria implements SecureControl
 
         $this->imagen = $this->getSlug().'.'.$this->getImagen()->getClientOriginalExtension();
     }
+
+    public function getStrAscentendeCategoria(Categoria $cat = null , $separador = " / ")
+    {
+        if($cat == null){
+            $cat=$this;
+        }
+
+        $cad = $cat->getNombre();
+        if ($cat->getParent()) {
+            $cad = $this->getStrAscentendeCategoria($cat->getParent(), $separador) . $separador . $cad;
+        }
+        return $cad;
+    }
+
 }

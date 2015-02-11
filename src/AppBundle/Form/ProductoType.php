@@ -64,12 +64,12 @@ class ProductoType extends AbstractType
                         'label' => 'Categoria',
                         'class' => 'AppBundle:Categoria',
                         'empty_value' => '',
-                        'property' => 'getNodeNombre',
+                        'property' => 'getStrAscentendeCategoria',
                         'required' => false,
                         'multiple' => false,
                         'query_builder' => function (CategoriaRepository $repository) {
                             return $repository
-                                ->selectOrdenTreeAll();
+                                ->getCategoriasAsignables();
                         },))
                         ->add('codigo', null, array(
                             'required' => false,

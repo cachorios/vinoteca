@@ -6,7 +6,6 @@ services:
 
     twig.extension.categoria:
         class: AppBundle\Twig\Extension\CategoriaExtension
-        arguments: [@doctrine.orm.entity_manager]
         tags:
             - { name: twig.extension }
 

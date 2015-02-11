@@ -5,6 +5,7 @@
         $(document).on('click', '.add-list-item', function (e) {
             e.preventDefault();
             $('#list-modal').modal('show');
+            $('.modal-body').html('Cargando...');
             $.ajax({
                 cache : false,
                 type: "GET",

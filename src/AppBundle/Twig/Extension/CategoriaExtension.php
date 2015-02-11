@@ -12,12 +12,6 @@ use AppBundle\Entity\Categoria;
 
 class CategoriaExtension  extends \Twig_Extension
 {
-    private $em;
-
-    public function __construct($em){
-        $this->em = $em;
-    }
-
     public function getFilters()
     {
         return array(
@@ -27,8 +21,8 @@ class CategoriaExtension  extends \Twig_Extension
     public function breadcrumdFilter($categoria)
     {
         if ($categoria instanceof Categoria) {
-            return $this->em->getRepository("AppBundle:Categoria")->getStrAscentendeCategoria($categoria, ' / ');
-
+//            return $this->em->getRepository("AppBundle:Categoria")->getStrAscentendeCategoria($categoria, ' / ');
+            return $categoria->getStrAscentendeCategoria();
         }
         return null;
     }
