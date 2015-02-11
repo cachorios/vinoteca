@@ -107,9 +107,9 @@ class CompraController extends Controller
 
             $this->get('session')->getFlashBag()->add('success', "La compra $entity se creó correctamente.");
             if ($request->request->get('save_mode') == 'save_and_close') {
-               //return $this->redirect($this->generateUrl('compra'));
+               return $this->redirect($this->generateUrl('compra'));
             }
-            //return $this->redirect($this->generateUrl('compra_new'));
+            return $this->redirect($this->generateUrl('compra_new'));
 
         }
 

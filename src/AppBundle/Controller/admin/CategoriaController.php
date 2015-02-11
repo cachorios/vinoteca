@@ -33,7 +33,7 @@ class CategoriaController extends Controller
         list($filterForm, $queryBuilder) = $this->filter($request);
         $pager = $this->getPager($queryBuilder);
 
-        return $this->render('AppBundle:Admin/Categoria:index.html.twig',array(
+        return $this->render('AppBundle:admin/Categoria:index.html.twig',array(
             'pager' => $pager,
             'filterform' => $filterForm->createView(),
         ));

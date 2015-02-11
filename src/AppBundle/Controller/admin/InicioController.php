@@ -19,7 +19,7 @@ class InicioController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('AppBundle:Admin/Inicio:index.html.twig',array(
+        return $this->render('AppBundle:admin/Inicio:index.html.twig',array(
         ));
     }
 }
