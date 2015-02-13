@@ -34,12 +34,13 @@ class Usuarios extends AbstractFixture implements OrderedFixtureInterface, Conta
     public function load(ObjectManager $manager)
     {
         $usuarios = array(
-            array('login' => 'cachorios', 'nombre' => 'Luis Rios', 'email' => 'cachorios@gmail.com'),
-            array('login' => 'albertoe2003', 'nombre' => 'Albero Voeffray', 'email' => 'albertoe2003@gmail.com'),
-            array('login' => 'rhfalero', 'nombre' => 'Raul H. Falero', 'email' => 'rhfalero@gmail.com'),
-            array('login' => 'fabbrizuela', 'nombre' => 'Gallina Prolija', 'email' => 'fabbrizuela@hotmail.com'),
-            array('login' => 'hectorhdc', 'nombre' => 'Hector Cabrera', 'email' => 'hector.d.cabrera@gmail.com'),
-            array('login' => 'nibecortla', 'nombre' => 'Nicolas Bertolotti', 'email' => 'nicobertti@gmail.com'),
+            array('activo' => true, 'login' => 'cachorios', 'nombre' => 'Luis Rios', 'email' => 'cachorios@gmail.com'),
+            array('activo' => true, 'login' => 'albertoe2003', 'nombre' => 'Albero Voeffray', 'email' => 'albertoe2003@gmail.com'),
+            array('activo' => true, 'login' => 'rhfalero', 'nombre' => 'Raul H. Falero', 'email' => 'rhfalero@gmail.com'),
+            array('activo' => true, 'login' => 'fabbrizuela', 'nombre' => 'Gallina Prolija', 'email' => 'fabbrizuela@hotmail.com'),
+            array('activo' => true, 'login' => 'hectorhdc', 'nombre' => 'Hector Cabrera', 'email' => 'hector.d.cabrera@gmail.com'),
+            array('activo' => true, 'login' => 'nibecortla', 'nombre' => 'Nicolas Bertolotti', 'email' => 'nicobertti@gmail.com'),
+            array('activo' => true, 'login' => 'lmanfredini', 'nombre' => 'Luis Manfredini', 'email' => 'lmanfredini@cabanawanfried.com.ar'),
         );
 
         foreach ($usuarios as $usu) {
@@ -49,18 +50,18 @@ class Usuarios extends AbstractFixture implements OrderedFixtureInterface, Conta
             $usuario->setLogin($usu['login']);
             $usuario->setNombre($usu['nombre']);
             $usuario->setEmail($usu['email']);
+            $usuario->setActivo($usu['activo']);
 
-
-            $salt = md5(time());
-            $encoder = $this->container->get('security.encoder_factory')
-                        ->getEncoder($usuario);
+//            $salt = md5(time());
+//            $encoder = $this->container->get('security.encoder_factory')
+//                        ->getEncoder($usuario);
 
             $password = $usu['login'];
-            $password = $encoder->encodePassword($password , $salt);
-
-
+//            $password = $encoder->encodePassword($password , $salt);
+//
+//
             $usuario->setPassword($password);
-            $usuario->setSalt($salt);
+//            $usuario->setSalt($salt);
 
             $manager->persist($usuario);
         }

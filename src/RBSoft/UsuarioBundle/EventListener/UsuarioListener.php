@@ -25,7 +25,11 @@ class UsuarioListener
 
             $old = $em->getUnitOfWork()->getEntityChangeSet($entity);
             if (array_key_exists("password", $old)) {
-                $entity->setPassword($this->encoder_fact->getEncoder($entity)->encodePassword($entity->getPassword(), $entity->getSalt()));
+                if ($old["password"][1] == null){
+                    $entity->setPassword($old["password"][0]);
+                }else{
+                    $entity->setPassword($this->encoder_fact->getEncoder($entity)->encodePassword($entity->getPassword(), $entity->getSalt()));
+                }
             }
             $em->getUnitOfWork()->recomputeSingleEntityChangeSet($em->getClassMetadata(get_class($entity)), $entity);
         }
