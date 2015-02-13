@@ -5,14 +5,15 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use RBSoft\UsuarioBundle\Entity\SecureControl;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class UsuarioListener
 {
-    protected $tokenStorage;
+    private $encoder_fact;
 
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct($arg_enc)
     {
-        $this->tokenStorage = $tokenStorage;
+        $this->encoder_fact = $arg_enc;
     }
 
     public function preUpdate(LifecycleEventArgs $args)
@@ -20,8 +21,12 @@ class UsuarioListener
         $entity = $args->getEntity();
         $em = $args->getEntityManager();
 
-        if ($entity instanceof SecureControl) {
-            $entity->setUsuario($this->tokenStorage->getToken()->getUser());
+        if ($entity instanceof \RBSoft\UsuarioBundle\Entity\Usuario) {
+
+            $old = $em->getUnitOfWork()->getEntityChangeSet($entity);
+            if (array_key_exists("password", $old)) {
+                $entity->setPassword($this->encoder_fact->getEncoder($entity)->encodePassword($entity->getPassword(), $entity->getSalt()));
+            }
             $em->getUnitOfWork()->recomputeSingleEntityChangeSet($em->getClassMetadata(get_class($entity)), $entity);
         }
     }
@@ -29,9 +34,14 @@ class UsuarioListener
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-
-        if ($entity instanceof SecureControl) {
-            $entity->setUsuario($this->tokenStorage->getToken()->getUser());
+        if ($entity instanceof \RBSoft\UsuarioBundle\Entity\Usuario) {
+            $salt = md5(time());
+            $entity->setSalt($salt);
+            $entity->setPassword(
+                $this->encoder_fact->getEncoder($entity)
+                    ->encodePassword($entity->getPassword(), $entity->getSalt()
+                    )
+            );
         }
     }
 }

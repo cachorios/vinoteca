@@ -5,30 +5,50 @@
 
         {% block contenido -%}
             {% embed '::portlet.html.twig' with {'titulo': 'Nuevo Usuario' } %}
-                {% block cuerpo %}
-                    <p></p>
-
-                    {{ form_start(form) }}
-                    {{ form_widget(form) }}
-                    <div class="col-sm-offset-2">
-                        <input type="submit" value="Guardar" class="btn btn-success">
+                {% block in_header %}
+                    <div class='pull-right '>
+                        <a href="{{ path('usuario') }}" class="btn btn-sm btn-default">
+                            Ir a la lista
+                        </a>
                     </div>
+                {% endblock %}
 
-                    {{ form_end(form) }}
-
-
+                {% block cuerpo %}
+                    {% for type, flashMessages in app.session.flashbag.all() %}
+                        {% for flashMessage in flashMessages %}
+                            <div class='alert alert-{{ type }}'>
+                                {{ flashMessage }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {{ form_start(form) }}
 
                     <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(form.imagen) }}
+                            {{ form_row(form.login) }}
+                            {{ form_row(form.email) }}
+                            {{ form_row(form.password) }}
+                            {{ form_row(form.activo) }}
+
+                            <h4 class="content-title"><u>Información Adicional</u></h4>
+                            {{ form_widget(form) }}
 
 
-                        <div class="col-md-1 col-md-offset-10 ">
-                            <a href="{{ path('usuario') }}" class="btn btn-sm btn-default">
-                                Ir a la lista
-                            </a>
+                            <div class="">
+                                <input type="submit" value="Guardar" class="btn btn-success">
+                            </div>
                         </div>
-
                     </div>
 
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
                 {% endblock %}
             {% endembed %}
 
@@ -50,7 +70,6 @@
                     uploadLabel: 'Subir',
                     removeLabel: 'Quitar',
                     browseLabel: 'Explorar'
-
 
                 });
             </script>

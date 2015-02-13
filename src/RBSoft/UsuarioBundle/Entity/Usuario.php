@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * Usuario
@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="RBSoft\UsuarioBundle\Entity\UsuarioRepository")
  */
-class Usuario implements UserInterface
+class Usuario implements AdvancedUserInterface
 {
 
     /**
@@ -23,6 +23,7 @@ class Usuario implements UserInterface
      *
      * @ORM\Id
      * @ORM\Column(name="login", type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $login;
 
@@ -31,6 +32,7 @@ class Usuario implements UserInterface
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $email;
 
@@ -96,11 +98,13 @@ class Usuario implements UserInterface
      */
     private $imagen;
 
-
-//    /**
-//     * @Assert\File(maxSize="6000000")
-//     */
-//    private $imagen;
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     *
+     */
+    protected $activo = true;
 
     public function __construct()
     {
@@ -254,6 +258,28 @@ class Usuario implements UserInterface
         return $this->password;
     }
 
+    /**
+     * Set activo
+     *
+     * @param boolean $activo
+     * @return User
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+
+        return $this;
+    }
+
+    /**
+     * Get activo
+     *
+     * @return boolean
+     */
+    public function getActivo()
+    {
+        return $this->activo;
+    }
 
     public function __toString()
     {
@@ -393,10 +419,6 @@ class Usuario implements UserInterface
         return $this->twitter;
     }
 
-
-
-
-
     /**
      * Sets file.
      *
@@ -426,10 +448,6 @@ class Usuario implements UserInterface
             return;
         }
 
-//        $this->getImagen()->move(
-//            $dir,
-//            $this->getImagen()->getClientOriginalName()
-//        );
         if(file_exists($dir.$this->getLogin().'.'.$this->getImagen()->getClientOriginalExtension()))
             unlink($dir.$this->getLogin().'.'.$this->getImagen()->getClientOriginalExtension());
 
@@ -439,6 +457,38 @@ class Usuario implements UserInterface
         );
 
         $this->imagen = null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isEnabled()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isAccountNonLocked()
+    {
+        return $this->isEnabled();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function isCredentialsNonExpired()
+    {
+        return true;
     }
 
 }

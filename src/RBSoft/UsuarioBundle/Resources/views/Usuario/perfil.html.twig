@@ -1,11 +1,11 @@
 {% extends "AppBundle:admin:layout.html.twig" %}
     {% block id 'Usuario' %} 
             {% block contenido -%}
-                {% embed '::portlet.html.twig' with {'titulo': 'Editar Usuario: ' ~ entity} %}
+                {% embed '::portlet.html.twig' with {'titulo': 'Perfil: ' } %}
                     {% block in_header %}
                         <div class='pull-right '>
-                            <a href="{{ path('usuario') }}" class="btn btn-sm btn-default">
-                                Ir a la lista
+                            <a href="{{ path('homepage_admin') }}" class="btn btn-sm btn-default">
+                                Salir
                             </a>
                         </div>
                     {% endblock %}
@@ -17,13 +17,14 @@
                                 </div>
                             {% endfor %}
                         {% endfor %}
+                        <p></p>
+
                         {{ form_start(edit_form) }}
                         <div class="row">
                             <div class="col-md-12">
                                 {{ form_row(edit_form.imagen) }}
                                 {{ form_row(edit_form.email) }}
                                 {{ form_row(edit_form.password) }}
-                                {{ form_row(edit_form.activo) }}
 
                                 <h4 class="content-title"><u>Información Adicional</u></h4>
                                 {{ form_widget(edit_form) }}
@@ -37,22 +38,6 @@
 
                         {{ form_end(edit_form) }}
 
-                        {#<div class="row">#}
-
-                            {#<div class="col-md-2 col-md-offset-8 ">#}
-                                {#<div class="pull-right">#}
-                                    {#{{ form(delete_form) }}#}
-                                {#</div>#}
-                            {#</div>#}
-
-                            {#<div class="col-md-1  ">#}
-                                {#<a href="{{ path('usuario') }}" class="btn btn-sm btn-default">#}
-                                    {#Ir a la lista#}
-                                {#</a>#}
-                            {#</div>#}
-
-                        {#</div>#}
-
                     {% endblock %}
                 {% endembed %}
 
@@ -63,6 +48,7 @@
 
 
             {% endblock contenido %}
+
 {% block javascript_footer %}
     <script>
         $("#rbsoft_usuariobundle_usuario_imagen").fileinput({

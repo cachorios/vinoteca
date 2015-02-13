@@ -20,7 +20,7 @@ class CategoriaType extends AbstractType
 
 
         $builder
-            ->add('imagen', 'file',array(
+            ->add('imagen', 'file', array(
                 'required' => false,
             ))
             ->add('nombre', null, array(
@@ -31,11 +31,13 @@ class CategoriaType extends AbstractType
             ))
             ->add('orden', null, array(
                 'label' => 'Orden',
+                'help' => 'Modifica el orden dentro de su categoria',
             ))
             ->add('parent', 'entity', array(
+                'help' => 'Nivel primario, nodo padre principal',
                 'label' => 'Nodo padre',
                 'class' => 'AppBundle:Categoria',
-                'empty_value' => '',
+                'empty_value' => 'Nivel primario',
                 'property' => 'getNodeNombre',
                 'required' => false,
                 'multiple' => false,
@@ -45,7 +47,9 @@ class CategoriaType extends AbstractType
                 },))
             ->add('visible', 'checkbox', array(
                 'label' => 'Es Visible?',
-                'required' => false))
+                'required' => false,
+                'help' => 'Al desactivar no sera visible en el menu principal, incluye a los hijos',
+            ))
             ->add('activo', 'checkbox', array(
                 'label' => 'Es Activo?',
                 'required' => false))
@@ -56,8 +60,7 @@ class CategoriaType extends AbstractType
                 'delete_empty' => true,
                 'prototype' => true,
                 'by_reference' => false,
-            ))
-        ;
+            ));
 
         $builder->get("imagen")->addModelTransformer(new FileToStringTransformer());
 
@@ -73,7 +76,6 @@ class CategoriaType extends AbstractType
             'cascade_validation' => true
         ));
     }
-
 
 
     /**

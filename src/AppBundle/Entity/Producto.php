@@ -51,6 +51,7 @@ class Producto implements SecureControl
      * @var string
      *
      * @ORM\Column(name="descripcion", type="text")
+     * @Assert\NotBlank()
      */
     private $descripcion;
 

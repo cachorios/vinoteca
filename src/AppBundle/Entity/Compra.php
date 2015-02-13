@@ -20,6 +20,10 @@ use RBSoft\UsuarioBundle\Entity\Usuario;
  *      })
  *
  * @ORM\Entity(repositoryClass="AppBundle\Entity\CompraRepository")
+ * @DoctrineAssert\UniqueEntity(fields={"factura_numero", "cuit"},
+ *      errorPath="facturaNumero",
+ *      message="Este periodo ya existe.")
+ *
  * @ORM\HasLifecycleCallbacks
  */
 class Compra implements SecureControl

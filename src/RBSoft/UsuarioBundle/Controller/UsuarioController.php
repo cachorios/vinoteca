@@ -3,6 +3,7 @@
 namespace RBSoft\UsuarioBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -12,9 +13,7 @@ use Knp\Component\Pager\Paginator;
 use RBSoft\UsuarioBundle\Entity\Usuario;
 use RBSoft\UsuarioBundle\Form\UsuarioType;
 use RBSoft\UsuarioBundle\Form\UsuarioFilterType;
-
-
-
+use RBSoft\UsuarioBundle\Form\UserPasswordType;
 
 /**
  * Usuario controller.
@@ -28,7 +27,7 @@ class UsuarioController extends Controller
      * Lists all Usuario entities.
      *
      * @Route("/", name="usuario")
-     * @Method("GET")
+     * @Method({"GET","POST"})
      * @Template("UsuarioBundle:Usuario:index.html.twig")
      */
     public function indexAction(Request $request)
@@ -176,27 +175,33 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Finds and displays a Usuario entity.
+     * Displays a form to edit an existing Usuario entity.
      *
-     * @Route("/{id}", name="usuario_show")
-     * @Method("GET")
-     * @Template("UsuarioBundle:Usuario:show.html.twig")
+     * @Route("/perfil", name="usuario_perfil")
+     * @Method({"GET","PUT"})
+     * @Template("UsuarioBundle:Usuario:perfil.html.twig")
      */
-    public function showAction($id)
+    public function perfilAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('UsuarioBundle:Usuario')->find($id);
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $form = $this->createForm(new UsuarioType(true), $user, array(
+            'action' => $this->generateUrl('usuario_perfil'),
+            'method' => 'PUT',
+        ));
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Usuario entity.');
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $em->flush();
+            $this->get('session')->getFlashBag()->add('success',"El Usuario $user se actualizó correctamente.");
+
+            //return $this->redirect($this->generateUrl('usuario'));
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
         return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'entity'      => $user,
+            'edit_form'   => $form->createView(),
         );
     }
 
@@ -247,7 +252,7 @@ class UsuarioController extends Controller
     /**
      * Edits an existing Usuario entity.
      *
-     * @Route("/{id}", name="usuario_update")
+     * @Route("/{id}/edit", name="usuario_update")
      * @Method("PUT")
      * @Template("UsuarioBundle:Usuario:edit.html.twig")
      */
@@ -281,6 +286,32 @@ class UsuarioController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
+    /**
+     * Finds and displays a Usuario entity.
+     *
+     * @Route("/{id}", name="usuario_show")
+     * @Method("GET")
+     * @Template("UsuarioBundle:Usuario:show.html.twig")
+     */
+    public function showAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('UsuarioBundle:Usuario')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Usuario entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return array(
+            'entity'      => $entity,
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
+
     /**
      * Deletes a Usuario entity.
      *
@@ -328,5 +359,37 @@ class UsuarioController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * @Route("/api/usuario/contrasena/{id}", name="password_update")
+     * @Method({"GET","PUT"})
+     */
+    public function updatePassword(Request $request, $id)
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $entity = $em->getRepository('UsuarioBundle:Usuario')->find($id);
+
+        $form = $this->createForm(new UserPasswordType(), $entity, array(
+            'action' => $this->generateUrl('password_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em->persist($entity);
+            $em->flush();
+            $html = '_ok';
+            $response = new Response($html, Response::HTTP_OK);
+            return $response;
+        }
+
+        $html = $this->renderView('UsuarioBundle:Usuario:password.html.twig', array('form' => $form->createView(), 'entity' => $entity));
+        // create a simple Response with a 200 status code (the default)
+        $response = new Response($html, Response::HTTP_OK);
+        return $response;
+
+    }
+
 
 }

@@ -1,0 +1,43 @@
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        $('#pass-update').on('click', function (e) {
+            e.preventDefault();
+            $('.password-modal-body').html('');
+            $('#update-password-button').hide();
+            var url = $(this).data("href");
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (msg) {
+                    $('#update-password-button').show()
+                    $('.password-modal-body').html(msg);
+                },
+                error: function (msg) {
+                    $('.password-modal-body').html(msg);
+                }
+            });
+        });
+
+        $("#update-password-form").submit(function(e) {
+            var $form = $(this);
+            var $target = $($form.attr('data-target'));
+            $.ajax({
+                type: $form.attr('method'),
+                url: $form.attr('action'),
+                data: $form.serialize(),
+                success: function (data, status) {
+                    $('.password-modal-body').html(data);
+                    if (data== '_ok' ){
+                        $('#pass-update-modal').modal('hide')
+                    }
+                },
+                error: function (result) {
+                    alert(result);
+                }
+            });
+            e.preventDefault();
+        });
+    })
+
+
+</script>
