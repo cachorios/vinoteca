@@ -110,7 +110,7 @@ class CategoriaController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $entity->upload("uploads/categoria/");
+            $entity->upload("uploads/categorias/");
 
             $em->persist($entity);
             $em->flush();
@@ -259,7 +259,7 @@ class CategoriaController extends Controller
 
         if ($editForm->isValid()) {
 
-            $entity->upload("uploads/productos/");
+            $entity->upload("uploads/categorias/");
 
             // remove the relationship between the tag and the Task
             foreach ($originalMetadatos as $metadato) {

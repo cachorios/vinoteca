@@ -101,7 +101,7 @@ class UsuarioController extends Controller
     /**
      * Creates a new Usuario entity.
      *
-     * @Route("/", name="usuario_create")
+     * @Route("/new", name="usuario_create")
      * @Method("POST")
      * @Template("UsuarioBundle:Usuario:new.html.twig")
      */
@@ -114,16 +114,6 @@ class UsuarioController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-
-            $salt = md5(time());
-            $encoder = $this->container->get('security.encoder_factory')->getEncoder($entity);
-
-            $password =$entity->getLogin();
-            $password = $encoder->encodePassword($password , $salt);
-
-
-            $entity->setPassword($password);
-            $entity->setSalt($salt);
 
             $entity->upload("uploads/usuarios/");
             $em->persist($entity);
