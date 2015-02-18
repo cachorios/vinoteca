@@ -1,3 +1,4 @@
+
 app_frontend:
     prefix:  /
     resource: "@AppBundle/Controller/frontend"

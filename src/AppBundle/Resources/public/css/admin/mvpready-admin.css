@@ -812,12 +812,12 @@ fieldset[disabled] .btn-twitter.active {
 /* ----------------------------------------------- */
 .alert-success {
   color: #ffffff;
-  background-color: #46a046;
+  background-color: #6685a4;
   background-image: -webkit-linear-gradient(top, #58b658 0%, #49a749 100%);
   background-image: linear-gradient(to bottom, #58b658 0%, #49a749 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff58b658', endColorstr='#ff49a749', GradientType=0);
-  border-color: #3d8b3d;
+  border-color: #516c87;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
 }
 .alert-info {
