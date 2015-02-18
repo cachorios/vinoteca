@@ -12,26 +12,28 @@ namespace AppBundle\Model;
 * no utilizado por el momento.
 */
 
-class DefinicionMetadatoWidget {
+class DefinicionMetadatoWidget
+{
+    const TEXT = 'Text';
+    const TEXTAREA = 'Textarea';
+    const LISTA = 'Lista';
 
-    static function getWidget(){
+    static function getWidget()
+    {
         return array(
-            1 => 'Text',
-            2 => 'Textarea',
-//            3 => 'Integer',
-//            4 => 'Lista',
-//            5 => 'Lista predefinida',
+            1 => self::TEXT,
+            2 => self::TEXTAREA,
+            4 => self::LISTA,
         );
     }
 
-    static function getTipo($tipo){
+    static function getTipo($tipo)
+    {
 
-        $tipos =  array(
+        $tipos = array(
             1 => 'text',
             2 => 'textarea',
-//            3 => 'integer',
-//            4 => 'choice',
-//            5 => 'choice',
+            3 => 'choice',
         );
 
         return $tipos[$tipo];

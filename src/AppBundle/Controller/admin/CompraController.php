@@ -27,7 +27,7 @@ class CompraController extends Controller
         list($filterForm, $queryBuilder) = $this->filter($request);
         $pager = $this->getPager($queryBuilder);
 
-        return $this->render('AppBundle:Admin/Compra:index.html.twig',array(
+        return $this->render('AppBundle:admin/Compra:index.html.twig',array(
             'pager' => $pager,
             'filterform' => $filterForm->createView(),
         ));

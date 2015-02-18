@@ -68,7 +68,6 @@ class Producto implements SecureControl
      * @var decimal
      *
      * @ORM\Column(name="costo", type="decimal", scale=2)
-     * @Assert\NotBlank()
      *
      */
     private $costo;

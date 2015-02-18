@@ -106,12 +106,18 @@ class ProductoController extends Controller
      */
     public function createAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $entity = new Producto();
+
+        $temp = $request->request->get('appbundle_producto');
+        $categoria_id = $temp['categoria'];
+        $categoria = $em->getRepository('AppBundle:Categoria')->find($categoria_id);
+        $entity->setCategoria($categoria);
+
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
