@@ -22,6 +22,7 @@ class WebContext extends DefaultContext
     /**
      * @Given /^I am on the "([^"]+)"  page?$/
      * @When /^(?:|I )go to the "([^"]+)"  page?$/
+     * @Given /^(?:|que )estoy en la ruta "([^"]+)"$/
      */
     public function iAmOnThePage($page)
     {
@@ -42,9 +43,11 @@ class WebContext extends DefaultContext
      * @Then /^(?:|I )should be on the "([^"]+)" (page)$/
      * @Then /^(?:|I )should be redirected to the "([^"]+)" (page)$/
      * @Then /^(?:|I )should still be on the "([^"]+)" (page)$/
+     * @Then /^(?:|Yo )deberia estar en la ruta "([^"]+)"$/
      */
     public function iShouldBeOnThePage($page)
     {
+//        ld($this->generateUrl($page));
         $this->assertSession()->addressEquals($this->generateUrl($page));
         try {
             $this->assertSession()->statusCodeEquals(200);
@@ -83,7 +86,7 @@ class WebContext extends DefaultContext
      * @Then /^(?:|I )should see (?P<type>[(error|success|info|warning)]+) message "(?P<message>[^"]+)"$/
      * @Then /^(?:|yo )debo ver el mensaje de (?P<type>[(error|success|info|warning)]+) "(?P<message>[^"]+)"$/
      */
-    public function iShouldSeeMessage($type, $message)
+    public function deberiaVerElMensaje($type, $message)
     {
         $classesMap = [
             'success' => 'success',
@@ -93,7 +96,8 @@ class WebContext extends DefaultContext
         ];
         $class = $classesMap[$type];
         
-        $this->assertSession()->elementTextContains('xpath', '//div[@class="alert alert-' . $class . '"]', $this->fixStepArgument($message));
+        $this->assertSession()->elementTextContains('xpath', '//div[@class="alert alert-' . $class . '"]',
+            $this->fixStepArgument($message));
     }
 
     /**
@@ -136,20 +140,6 @@ class WebContext extends DefaultContext
         $this->pressButton($nombre);
 
     }
-
-    /**
-     * @Then /^(?:|Yo )deberia estar en "([^"]+)"$/
-     */
-    public function ComprueboLugar($nombre)
-    {
-        $this->assertSession()->addressEquals($this->locatePath($this->links[$nombre])  );
-        try {
-            $this->assertSession()->statusCodeEquals(200);
-        } catch (UnsupportedDriverActionException $e) {
-        }
-    }
-
-
 
 
 }

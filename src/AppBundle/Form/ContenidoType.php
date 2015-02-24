@@ -20,8 +20,15 @@ class ContenidoType extends AbstractType
             ->add('ubicacion','choice',array('choices' => Contenido::$UBICACIONES))
             ->add('orden')
             ->add('tipo','choice',array('choices' => Contenido::$TIPO_CONTENIDOS))
-            ->add('contenido')
-            ->add('links')
+            ->add('contenido','my_collection',array(
+                'type' => new ContenidoCarruselType(),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'delete_empty' => true,
+                'prototype' => true,
+                'by_reference' => false,))
+//            ->add('contenido')
+//            ->add('links')
             ->add('activo',null,array('required' => false))
         ;
     }
@@ -32,7 +39,8 @@ class ContenidoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Contenido'
+            'data_class' => 'AppBundle\Entity\Contenido',
+            'cascade_validation' => true
         ));
     }
 

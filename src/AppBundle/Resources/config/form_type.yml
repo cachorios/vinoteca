@@ -24,3 +24,8 @@ services:
         class: AppBundle\Form\Type\AppDateTimeType
         tags:
           - { name: "form.type", alias: "app_datetime" }
+
+    form.type.my_collection:
+        class: AppBundle\Form\Type\MyCollectionType
+        tags:
+            - { name: "form.type", alias: "my_collection" }

@@ -15,26 +15,20 @@ Antecedentes:
         | username | password |
         | cachorios@gmail.com | cachorios |
         | betoa2000@gmail.com | alberto   |
-    Y los accesos con sus link son:
-
-        | nombre    | url |
-        | home      | /   |
-        | admin-home | /admin/ |
-        | login     | /login |
 
 Escenario: Ver formulario de acceso
 
     Dado que estoy en "home"
     Y presiono en el link "Ingresar"
-    Entonces deberia estar en "login"
+    Entonces deberia estar en la ruta "usuario_login"
     Y  Ver "Bienvenido a " como tiulo
 
 Escenario: Iniciar la sesion correctamente y redirigir al "Home"
-    Dado que estoy en "login"
+    Dado que estoy en la ruta "usuario_login"
         Y relleno campo "login-username" con "cachorios@gmail.com"
         Y relleno campo "login-password" con "cachorios"
         Y presiono el boton "Ingresar"
-    Entonces deberia estar en "admin-home"
+    Entonces deberia estar en la ruta "homepage_admin"
 
 
 Escenario: Login incorrecto

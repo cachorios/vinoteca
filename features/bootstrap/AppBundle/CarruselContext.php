@@ -27,7 +27,7 @@ use Context\WebContext;
  */
 class CarruselContext extends WebContext
 {
-
+    protected $campos = array();
 
     public function __construct()
     {
@@ -36,6 +36,30 @@ class CarruselContext extends WebContext
 
     protected function setUp()
     {
+
+    }
+
+    /**
+     * @Given relleno el formulario:
+     */
+    public function cargarForm(TableNode $table){
+        foreach($table->getHash() as $row ){
+            $this->fillField($row['campo'],$row['valor'] );
+        }
+
+    }
+
+    /**
+     * @Given aun no hay contenido
+     */
+    public function vaciarContenido(){
+
+        /**
+         * @var \Doctrine\ORM\EntityManager $em
+         */
+        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $q = $em->createQuery('delete from AppBundle:Contenido c');
+        $q->execute();
 
     }
 

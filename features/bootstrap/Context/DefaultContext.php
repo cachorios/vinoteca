@@ -24,7 +24,6 @@ abstract class DefaultContext extends RawMinkContext implements Context, KernelA
 {
 
     protected $usuario = array();
-    protected $links = array();
 
     /**
      * Faker.
@@ -175,13 +174,5 @@ abstract class DefaultContext extends RawMinkContext implements Context, KernelA
             $this->usuario[$row['username']] = $row['password'];
         }
     }
-    /**
-     * @Given los accesos con sus link son:
-     */
-    public function losAccesosConSusLinkSon(TableNode $table)
-    {
-        foreach($table->getHash() as $row ){
-            $this->links[$row['nombre']] = $row['url'];
-        }
-    }
+
 }

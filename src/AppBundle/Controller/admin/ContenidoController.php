@@ -117,7 +117,7 @@ class ContenidoController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success',"El Contenido $entity se creó correctamente.");
+            $this->get('session')->getFlashBag()->add('success',"El Contenido se creó correctamente.");
             if ($request->request->get('save_mode')== 'save_and_close') {
                     return $this->redirect($this->generateUrl('contenido'));
                 }
