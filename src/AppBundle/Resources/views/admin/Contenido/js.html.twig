@@ -3,15 +3,17 @@
 
     jQuery(document).ready(function () {
         $(document).on('click', '#add-new', function (e) {
-            alert("add")
+            var strField = "appbundle_contenido_contenido___name___imagen";
+
             e.preventDefault();
             var fieldList = jQuery('#item_list_contenido_collection');
             var newWidget = fieldList.attr('data-prototype');
             newWidget = newWidget.replace(/__name__/g, fieldCount);
-            fieldCount++;
+
             var newLi = jQuery('<li></li>').html(newWidget);
             newLi.appendTo(fieldList);
-
+            setImgTheme(strField.replace(/__name__/g, fieldCount));
+            fieldCount++;
         });
 
         $(document).on('click', '.remove-list-item', function (e) {
@@ -37,22 +39,42 @@
             div.toggle();
         });
 
+        $("#appbundle_contenido_imagens").fileinput({
+            {#{% set imagen_src = ('entity.imagen' == null ? asset("images/default-image.png" ) : asset("uploads/categorias/" ~ 'entity.imagen'  )) %}#}
+
+            initialPreview: ["<img src='{{ "imagen_src" }}' class='file-preview-image'>"],
+            overwriteInitial: true,
+            showUpload: false,
+            showCaption: false,
+            browseClass: "btn btn-primary btn-sm",
+            fileType: "any",
+            allowedFileTypes: ['image'],
+            'allowedFileExtensions': ['jpg', 'png', 'gif'],
+            uploadLabel: 'Subir',
+            removeLabel: 'Quitar',
+            browseLabel: 'Explorar'
+        });
+
     })
 
-    $("#appbundle_contenido_contenido_0_imagen").fileinput({
-        {% set imagen_src = ('entity.imagen' == null ? asset("images/default-image.png" ) : asset("uploads/categorias/" ~ 'entity.imagen'  )) %}
+    setImgTheme = function (tagName) {
         
-        initialPreview: ["<img src='{{ imagen_src }}' class='file-preview-image'>"],
-        overwriteInitial: true,
-        showUpload: false,
-        showCaption: false,
-        browseClass: "btn btn-primary btn-sm",
-        fileType: "any",
-        allowedFileTypes: ['image'],
-        'allowedFileExtensions': ['jpg', 'png', 'gif'],
-        uploadLabel: 'Subir',
-        removeLabel: 'Quitar',
-        browseLabel: 'Explorar'
-    });
+        $("#"+tagName).fileinput({
+            {#{% set imagen_src = ('entity.imagen' == null ? asset("images/default-image.png" ) : asset("uploads/categorias/" ~ 'entity.imagen'  )) %}#}
+
+            initialPreview: ["<img src='{{ "imagen_src" }}' class='file-preview-image'>"],
+            overwriteInitial: true,
+            showUpload: false,
+            showCaption: false,
+            browseClass: "btn btn-primary btn-sm",
+            fileType: "any",
+            allowedFileTypes: ['image'],
+            'allowedFileExtensions': ['jpg', 'png', 'gif'],
+            uploadLabel: 'Subir',
+            removeLabel: 'Quitar',
+            browseLabel: 'Explorar'
+        });
+    }
+
 </script>
 

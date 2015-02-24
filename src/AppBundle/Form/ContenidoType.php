@@ -20,6 +20,12 @@ class ContenidoType extends AbstractType
             ->add('ubicacion','choice',array('choices' => Contenido::$UBICACIONES))
             ->add('orden')
             ->add('tipo','choice',array('choices' => Contenido::$TIPO_CONTENIDOS))
+//            ->add('imagens', 'file', array(
+//                'attr' =>array("class" => ".imgage_carrusel"),
+//                "mapped" => false,
+//                'required' => false,
+//                'multiple' => false
+//            ))
             ->add('contenido','my_collection',array(
                 'type' => new ContenidoCarruselType(),
                 'allow_add' => true,

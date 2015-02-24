@@ -19,6 +19,7 @@ class ContenidoCarruselType extends AbstractType
     {
         $builder
             ->add('imagen', 'file', array(
+//                'attr' =>array("type" => "file","class" => "file","data-preview-file-type"=>"text"),
                 "mapped" => false,
                 'required' => false,
                 'multiple' => false
