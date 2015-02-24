@@ -49,6 +49,12 @@
                     {#{{ menu.finsubmenu() }}#}
                 {{ menu.finmenu() }}
 
+            {{ menu.menu('Configuración','#') }}
+                {{ menu.item('Contenidos','fa-dashboard',path('contenido')) }}
+            {{ menu.finmenu() }}
+
+
+
         </nav>
     </div> <!-- /.container -->
 </div>
