@@ -24,8 +24,11 @@ class CategoriaListener
         if ($entity instanceof Categoria) {
             //se agrega esta comprobacion para no perder el nombre de la imagen
             $old = $em->getUnitOfWork()->getEntityChangeSet($entity);
+
             if (null == $entity->getImagen() ) {
-                $entity->setImagen($old['imagen'][0]);
+                if(array_key_exists('imagen',$old)){
+                    $entity->setImagen($old['imagen'][0]);
+                }
             }
 
             $entity->setLevel($this->getLevel($entity));

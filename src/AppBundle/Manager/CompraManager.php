@@ -39,7 +39,7 @@ class CompraManager
             $producto = $item->getProducto();
             $stock = $producto->getStock();
             $producto->setStock($stock + $item->getCantidad());
-            $producto->setCosto($item->getPrecio());
+            $producto->setCosto($item->getPrecioUnitario());
             $this->em->persist($producto);
         }
         $this->em->flush();

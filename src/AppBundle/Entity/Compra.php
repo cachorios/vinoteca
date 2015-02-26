@@ -20,7 +20,7 @@ use RBSoft\UsuarioBundle\Entity\Usuario;
  *      })
  *
  * @ORM\Entity(repositoryClass="AppBundle\Entity\CompraRepository")
- * @DoctrineAssert\UniqueEntity(fields={"factura_numero", "cuit"},
+ * @DoctrineAssert\UniqueEntity(fields={"facturaNumero", "cuit"},
  *      errorPath="facturaNumero",
  *      message="Este periodo ya existe.")
  *
