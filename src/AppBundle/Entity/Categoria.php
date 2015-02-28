@@ -113,7 +113,6 @@ class Categoria implements SecureControl
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
-     * @Assert\NotBlank()
      */
     private $imagen;
 
@@ -541,4 +540,10 @@ class Categoria implements SecureControl
         return $cad;
     }
 
+//    public function isImagenValid(ExecutionContextInterface $context)
+//    {
+//        if (is_null($this->getId()) && is_null($context)) {
+//            $context->addViolationAt('No dispone de imagen seleccionada', array(), null);
+//        }
+//    }
 }

@@ -7,6 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Entity\CategoriaRepository;
 use RBSoft\UtilidadBundle\Form\DataTransformer\FileToStringTransformer;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class CategoriaType extends AbstractType
 {
@@ -17,8 +19,6 @@ class CategoriaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $transformer = new FileToStringTransformer();
-
-
         $builder
             ->add('imagen', 'file', array(
                 'required' => false,
