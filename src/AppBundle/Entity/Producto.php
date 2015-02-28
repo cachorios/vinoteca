@@ -16,17 +16,17 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Producto
  *
- * @ORM\Table()
+ * 
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ProductoRepository")
  * @DoctrineAssert\UniqueEntity(fields={"nombre", "codigo"})
- * @ORM\HasLifecycleCallbacks
+ * 
  */
 class Producto implements SecureControl
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer", name="id")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -35,7 +35,7 @@ class Producto implements SecureControl
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true, name="nombre")
      * @Assert\NotBlank()
      */
     private $nombre;
@@ -43,14 +43,14 @@ class Producto implements SecureControl
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo", type="string", length=20 )
+     * @ORM\Column(type="string", length=20, nullable=true, name="codigo")
      */
     private $codigo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion", type="text")
+     * @ORM\Column(type="text", nullable=true, name="descripcion")
      * @Assert\NotBlank()
      */
     private $descripcion;
@@ -58,7 +58,7 @@ class Producto implements SecureControl
     /**
      * @var decimal
      *
-     * @ORM\Column(name="precio", type="decimal", scale=2)
+     * @ORM\Column(type="decimal", nullable=true, name="precio", scale=2)
      * @Assert\NotBlank()
      *
      */
@@ -67,7 +67,7 @@ class Producto implements SecureControl
     /**
      * @var decimal
      *
-     * @ORM\Column(name="costo", type="decimal", scale=2)
+     * @ORM\Column(type="decimal", nullable=true, name="costo", scale=2)
      *
      */
     private $costo;
@@ -75,7 +75,7 @@ class Producto implements SecureControl
     /**
      * @var decimal
      *
-     * @ORM\Column(name="iva", type="decimal", scale=2)
+     * @ORM\Column(type="decimal", nullable=true, name="iva", scale=2)
      * @Assert\NotBlank()
      *
      */
@@ -84,18 +84,28 @@ class Producto implements SecureControl
     /**
      * @var boolean
      *
-     * @ORM\Column(name="activo", type="boolean")
+     * @ORM\Column(type="boolean", nullable=true, name="activo")
      */
     private $activo = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProductoImagen", mappedBy="producto", cascade={"persist", "remove"}, orphanRemoval=true)
-     * @ORM\OrderBy({"primario" = "DESC"})
+     * @ORM\OneToMany(
+     *     targetEntity="AppBundle\Entity\ProductoImagen",
+     *     mappedBy="producto",
+     *     orphanRemoval=true,
+     *     cascade={"persist","remove"}
+     * )
+     * @ORM\OrderBy({"primario"="DESC"})
      */
     private $imagenes;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProductoBonificacion", mappedBy="producto", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(
+     *     targetEntity="AppBundle\Entity\ProductoBonificacion",
+     *     mappedBy="producto",
+     *     orphanRemoval=true,
+     *     cascade={"persist","remove"}
+     * )
      */
     private $bonificaciones;
 
@@ -107,28 +117,34 @@ class Producto implements SecureControl
 
     /**
      *  var Categoria
-     * @ORM\ManyToOne(targetEntity="Categoria")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Categoria")
+     * @ORM\JoinColumn(name="categoria_id", referencedColumnName="id")
      * @Assert\NotBlank()
      */
     private $categoria;
 
     /**
-     * @ORM\OneToMany(targetEntity="ProductoExtension", mappedBy="producto", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OneToMany(
+     *     targetEntity="AppBundle\Entity\ProductoExtension",
+     *     mappedBy="producto",
+     *     orphanRemoval=true,
+     *     cascade={"persist","remove"}
+     * )
      */
     private $extencion;
 
     /**
-     * @ORM\Column(name="created_at", type="datetime", nullable=false)
+     * @ORM\Column(type="datetime", nullable=false, name="created_at")
      */
     protected $createdAt;
 
     /**
-     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     * @ORM\Column(type="datetime", nullable=false, name="updated_at")
      */
     protected $updatedAt;
 
     /**
-     * @ORM\Column(name="stock", type="integer")
+     * @ORM\Column(type="integer", nullable=true, name="stock")
      */
     protected $stock = 0;
 
@@ -592,8 +608,8 @@ class Producto implements SecureControl
     }
 
     /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
+     * 
+     * 
      */
     public function preUpload()
     {

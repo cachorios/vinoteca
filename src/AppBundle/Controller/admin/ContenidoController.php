@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller\admin;
 
+use AppBundle\Entity\ContenidoDetalle;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -110,6 +112,7 @@ class ContenidoController extends Controller
     {
         $entity = new Contenido();
         $form = $this->createCreateForm($entity);
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -157,7 +160,14 @@ class ContenidoController extends Controller
      */
     public function newAction($tipo)
     {
+//        $newd = new ContenidoDetalle();
+
         $entity = new Contenido();
+//        $entity->addContenidoDetalle($newd);
+//        $arr = new ArrayCollection();
+//        $arr->add($newd);
+//        $entity->setContenidoDetalle($arr);
+
         $form   = $this->createCreateForm($entity);
 
         return $this->render(

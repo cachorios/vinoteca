@@ -15,27 +15,28 @@ class ProductoExtension
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer", name="id")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Producto", inversedBy="extencion")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Producto", inversedBy="extencion")
      * @ORM\JoinColumn(name="producto_id", referencedColumnName="id")
      */
     private $producto;
 
     /**
      * @var MetadatoProducto
-     * @ORM\ManyToOne(targetEntity="MetadatoProducto")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\MetadatoProducto")
+     * @ORM\JoinColumn(name="metadatoProducto_id", referencedColumnName="id")
      */
     private $metadatoProducto;
 
     /**
      * @var string
-     * @ORM\Column(name = "valor", type="text" )
+     * @ORM\Column(type="text", nullable=true, name="valor")
      */
     private $valor;
 

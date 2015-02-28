@@ -14,41 +14,34 @@ use RBSoft\UsuarioBundle\Entity\Usuario;
 /**
  * Compra
  *
- * @ORM\Table(name="compra",
- *      uniqueConstraints = {
- *          @ORM\UniqueConstraint(name="uniq_idx", columns={"factura_numero", "cuit"})
- *      })
+ * @ORM\Table(
+ *     name="compra",
+ *     uniqueConstraints={@ORM\UniqueConstraint(name="uniq_idx", columns={"factura_numero","cuit"})}
+ * )
  *
  * @ORM\Entity(repositoryClass="AppBundle\Entity\CompraRepository")
  * @DoctrineAssert\UniqueEntity(fields={"factura_numero", "cuit"},
  *      errorPath="facturaNumero",
  *      message="Este periodo ya existe.")
  *
- * @ORM\HasLifecycleCallbacks
+ * 
  */
 class Compra implements SecureControl
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer", name="id")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="factura_numero", type="string", length=50)
-     *
-     */
-    private $facturaNumero;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="cuit", type="string", length=11)
+     * @ORM\Column(type="string", length=11, nullable=true, name="cuit")
      * @Assert\Regex("/^[0-9_]+$/")
      * @UtilidadAssert\ContainsCuitValido()
      */
@@ -57,16 +50,21 @@ class Compra implements SecureControl
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_compra", type="datetime")
+     * @ORM\Column(type="datetime", nullable=true, name="fecha_compra")
      */
     private $fechaCompra;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_alta", type="datetime")
+     * @ORM\Column(type="datetime", nullable=true, name="fecha_alta")
      */
     private $fechaAlta;
+
+    /**
+     * @ORM\Column(name="factura_numero", type="string", nullable=true)
+     */
+    private $factura_numero;
 
     /**
      * @ORM\ManyToOne(targetEntity="RBSoft\UsuarioBundle\Entity\Usuario")
@@ -75,7 +73,7 @@ class Compra implements SecureControl
     private $usuario;
 
     /**
-     * @ORM\OneToMany(targetEntity="CompraItem", mappedBy="compra", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CompraItem", mappedBy="compra", cascade={"persist","remove"})
      * @Assert\Count(
      *      min = "1",
      *      max = "50",
@@ -258,7 +256,7 @@ class Compra implements SecureControl
     }
 
     /**
-     * @ORM\PrePersist()
+     * 
      */
     public function PrePersist()
     {

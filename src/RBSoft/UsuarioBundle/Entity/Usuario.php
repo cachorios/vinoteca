@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 /**
  * Usuario
  *
- * @ORM\Table()
+ * 
  * @ORM\Entity(repositoryClass="RBSoft\UsuarioBundle\Entity\UsuarioRepository")
  */
 class Usuario implements AdvancedUserInterface
@@ -22,7 +22,7 @@ class Usuario implements AdvancedUserInterface
      * @var string
      *
      * @ORM\Id
-     * @ORM\Column(name="login", type="string", length=100)
+     * @ORM\Column(type="string", length=100, name="login")
      * @Assert\NotBlank()
      */
     private $login;
@@ -31,7 +31,7 @@ class Usuario implements AdvancedUserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true, name="email")
      * @Assert\NotBlank()
      */
     private $email;
@@ -39,49 +39,49 @@ class Usuario implements AdvancedUserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true, name="nombre")
      */
     private $nombre;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telefono", type="string", length=255, nullable = true)
+     * @ORM\Column(type="string", length=255, nullable=true, name="telefono")
      */
     private $telefono;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="celular", type="string", length=255, nullable = true)
+     * @ORM\Column(type="string", length=255, nullable=true, name="celular")
      */
     private $celular;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="facebook", type="string", length=255, nullable = true)
+     * @ORM\Column(type="string", length=255, nullable=true, name="facebook")
      */
     private $facebook;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="twitter", type="string", length=255, nullable = true)
+     * @ORM\Column(type="string", length=255, nullable=true, name="twitter")
      */
     private $twitter;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="salt", type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true, name="salt")
      */
     private $salt;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true, name="password")
      */
     private $password;
 
@@ -89,7 +89,7 @@ class Usuario implements AdvancedUserInterface
     /**
      * @var DateTime
      *
-     *  @ORM\Column(name="fecha_alta", type="datetime")
+     *  @ORM\Column(type="datetime", nullable=true, name="fecha_alta")
      */
     private $fecha_alta;
 
@@ -101,7 +101,7 @@ class Usuario implements AdvancedUserInterface
     /**
      * @var boolean
      *
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      *
      */
     protected $activo = true;

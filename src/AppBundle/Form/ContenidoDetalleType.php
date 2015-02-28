@@ -8,8 +8,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Form\Type\MyCollectionType;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Translation\Catalogue\OperationInterface;
 
-class ContenidoCarruselType extends AbstractType
+
+class ContenidoDetalleType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -17,15 +20,15 @@ class ContenidoCarruselType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
+            ->add("orden","hidden",array("attr" => array('class'=>'orden')))
             ->add('imagen', 'file', array(
-//                'attr' =>array("type" => "file","class" => "file","data-preview-file-type"=>"text"),
-                "mapped" => false,
+                'attr' =>array("class" => "fileimg"),
                 'required' => false,
                 'multiple' => false
             ))
             ->add('link', 'text', array(
-                "mapped" => false,
                 'required' => false,
             ))
         ;
@@ -33,20 +36,24 @@ class ContenidoCarruselType extends AbstractType
     }
     
     /**
+     * @ param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'AppBundle\Entity\ContenidoDetalle',
+        ));
+    }
+
+    /**
      * @param OptionsResolverInterface $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-//        $resolver->setDefaults(array(
-//            'data_class' => 'AppBundle\Entity\Contenido'
-//        ));
-    }
 
     /**
      * @return string
      */
     public function getName()
     {
-        return 'appbundle_contenidos';
+        return 'appbundle_contenidoDetalle';
     }
 }

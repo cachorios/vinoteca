@@ -10,7 +10,7 @@ use RBSoft\UtilidadBundle\Validator\Constraints as UtilidadAssert;
 /**
  * Proveedor
  *
- * @ORM\Table()
+ * 
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ProveedorRepository")
  */
 class Proveedor
@@ -18,7 +18,7 @@ class Proveedor
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer", name="id")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -27,14 +27,14 @@ class Proveedor
     /**
      * @var integer
      *
-     * @ORM\Column(name="codigo", type="integer", nullable=false)
+     * @ORM\Column(type="integer", nullable=false, name="codigo")
      */
     private $codigo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="razon_social", type="string", length=150, nullable=false)
+     * @ORM\Column(type="string", length=150, nullable=false, name="razon_social")
      * @Assert\NotBlank()
      */
     private $razonSocial;
@@ -42,14 +42,14 @@ class Proveedor
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre_fantasia", type="string", length=200)
+     * @ORM\Column(type="string", length=200, nullable=true, name="nombre_fantasia")
      */
     private $nombreFantasia;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo_postal", type="string", length=8)
+     * @ORM\Column(type="string", length=8, nullable=true, name="codigo_postal")
      * @Assert\NotBlank()
      */
     private $codigoPostal;
@@ -57,7 +57,7 @@ class Proveedor
     /**
      * @var string
      *
-     * @ORM\Column(name="cuit", type="string", length=11, nullable=false)
+     * @ORM\Column(type="string", length=11, nullable=false, name="cuit")
      * @Assert\Regex("/^[0-9_]+$/")
      * @UtilidadAssert\ContainsCuitValido()
      */
@@ -66,28 +66,28 @@ class Proveedor
     /**
      * @var string
      *
-     * @ORM\Column(name="letra_comprobante", type="string", length=1, nullable=false)
+     * @ORM\Column(type="string", length=1, nullable=false, name="letra_comprobante")
      */
     private $letraComprobante;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="correo_compra", type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true, name="correo_compra")
      */
     private $correoCompra;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="correo_pago", type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true, name="correo_pago")
      */
     private $correoPago;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="domicilio", type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=false, name="domicilio")
      * @Assert\NotBlank()
      */
     private $domicilio;
@@ -95,28 +95,28 @@ class Proveedor
     /**
      * @var string
      *
-     * @ORM\Column(name="moneda", type="string", length=1, nullable=false)
+     * @ORM\Column(type="string", length=1, nullable=false, name="moneda")
      */
     private $moneda;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="limite_credito", type="float", nullable=false)
+     * @ORM\Column(type="float", nullable=false, name="limite_credito")
      */
     private $limiteCredito;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="pagina_web", type="string", length=150)
+     * @ORM\Column(type="string", length=150, nullable=true, name="pagina_web")
      */
     private $paginaWeb;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telefonos", type="string", length=20)
+     * @ORM\Column(type="string", length=20, nullable=true, name="telefonos")
      * @Assert\NotBlank()
      */
     private $telefonos;
@@ -124,14 +124,14 @@ class Proveedor
     /**
      * @var string
      *
-     * @ORM\Column(name="fax", type="string", length=20)
+     * @ORM\Column(type="string", length=20, nullable=true, name="fax")
      */
     private $fax;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="cond_iva", type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true, name="cond_iva")
      */
     private $condIVA;
 
