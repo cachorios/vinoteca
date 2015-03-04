@@ -43,7 +43,7 @@ class ContenidoType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Contenido',
-//            'cascade_validation' => true
+            'cascade_validation' => true
         ));
     }
 

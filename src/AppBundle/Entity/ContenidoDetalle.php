@@ -1,6 +1,7 @@
 <?php
 namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping AS ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity
@@ -40,7 +41,7 @@ class ContenidoDetalle
      */
     private $contenido;
 
-  
+
     /**
      * Constructor
      */
@@ -54,7 +55,7 @@ class ContenidoDetalle
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -77,7 +78,7 @@ class ContenidoDetalle
     /**
      * Get orden
      *
-     * @return integer 
+     * @return integer
      */
     public function getOrden()
     {
@@ -92,7 +93,8 @@ class ContenidoDetalle
      */
     public function setImagen($imagen)
     {
-        $this->imagen = $imagen;
+        if($imagen)
+            $this->imagen = $imagen;
 
         return $this;
     }
@@ -100,7 +102,7 @@ class ContenidoDetalle
     /**
      * Get imagen
      *
-     * @return string 
+     * @return string
      */
     public function getImagen()
     {
@@ -123,7 +125,7 @@ class ContenidoDetalle
     /**
      * Get link
      *
-     * @return string 
+     * @return string
      */
     public function getLink()
     {
@@ -146,10 +148,36 @@ class ContenidoDetalle
     /**
      * Get contenido
      *
-     * @return \AppBundle\Entity\Contenido 
+     * @return \AppBundle\Entity\Contenido
      */
     public function getContenido()
     {
         return $this->contenido;
+    }
+
+    public function upload($nombre, $dir)
+    {
+
+        if ( !$this->getImagen() instanceof UploadedFile ) {
+//            if(file_exists($dir.$nombre.'-'.$this->getOrden().'.jpg'))
+//                unlink($dir.$nombre.'-'.$this->getOrden().'.jpg');
+            return;
+        }
+        $filename = uniqid($nombre.'-' ).'.'.$this->getImagen()->getClientOriginalExtension();
+        if (file_exists($dir.$filename)) {
+            unlink($dir.$filename);
+        }
+
+        $this->getImagen()->move(
+            $dir,
+            $filename
+        );
+
+        $this->imagen = $filename;
+    }
+
+    public function __toString()
+    {
+        return $this->getImagen();
     }
 }

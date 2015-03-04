@@ -110,11 +110,10 @@ class CategoriaController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $entity->upload("uploads/categorias/");
-
             $em->persist($entity);
-            $em->flush();
 
+            $em->flush();
+            $entity->upload("uploads/categorias/");
             $this->get('session')->getFlashBag()->add('success', "La Categoria $entity se creó correctamente.");
             if ($request->request->get('save_mode') == 'save_and_close') {
                 return $this->redirect($this->generateUrl('categoria'));

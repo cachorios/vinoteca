@@ -13,7 +13,7 @@
 
                     {% for field in form.children %}
                         <li>
-                           {{ _self.carrusel_collection_fields(field) }}
+                            {{ _self.carrusel_collection_fields(field) }}
                         </li>
                     {% endfor %}
 
@@ -51,8 +51,10 @@
                 <legend class="collection-collapsed">
                     {#<span class="collapsible-indicator {{  collapsed == true ? "glyphicon glyphicon-plus" : "glyphicon glyphicon-minus" }}"></span>Elemento#}
                 </legend>
-                {{ form_row(form.imagen) }}
-                <div class="collapsible" style="{{  collapsed == true ? "display: none;" : "display: block;" }}">
+                {% set o=form.vars.data  %}
+                {{ form_row(form.imagen, {'attr': {'data-image': o } }) }}
+
+                <div class="collapsible" style="{{ collapsed == true ? "display: none;" : "display: block;" }}">
                     {{ form_row(form.link) }}
                 </div>
             </fieldset>

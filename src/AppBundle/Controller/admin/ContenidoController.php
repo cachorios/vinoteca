@@ -117,6 +117,7 @@ class ContenidoController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->upload("uploads/banners/");
             $em->persist($entity);
             $em->flush();
 
@@ -269,6 +270,8 @@ class ContenidoController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
+            $entity->upload("uploads/banners/");
             $em->flush();
             $this->get('session')->getFlashBag()->add('success',"El Contenido $entity se actualizó correctamente.");
             return $this->redirect($this->generateUrl('contenido'));

@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use RBSoft\UtilidadBundle\Libs\Util;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -259,5 +260,12 @@ class Contenido
     public function getContenidoDetalle()
     {
         return $this->contenidoDetalle;
+    }
+
+
+    public function upload($dir){
+        foreach($this->getContenidoDetalle() as $det){
+            $det->upload( Util::getSlug($this->getNombre()) ,$dir);
+        }
     }
 }

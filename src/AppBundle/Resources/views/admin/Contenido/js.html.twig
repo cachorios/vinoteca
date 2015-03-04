@@ -1,6 +1,5 @@
 <script type="text/javascript">
     var fieldCount = '{{ form.contenidoDetalle | length }}';
-
     jQuery(document).ready(function () {
         $(document).on('click', '#add-new', function (e) {
             var strField = "appbundle_contenido_contenidoDetalle___name___imagen";
@@ -15,13 +14,16 @@
             setImgTheme(strField.replace(/__name__/g, fieldCount));
             fieldCount++;
             setOrden();
-
+            chkCountImg();
         });
 
         $(document).on('click', '.remove-list-item', function (e) {
             e.preventDefault();
             var collectionHolder = $($(this)).parents('li');
             collectionHolder.remove();
+            fieldCount --;
+            setOrden()
+            chkCountImg();
         });
 
         $(document).on('click', '.collection-collapsed', function (e) {
@@ -41,28 +43,51 @@
             div.toggle();
         });
 
-        $(".fileimg").fileinput({
-            {#{% set imagen_src = ('entity.imagen' == null ? asset("images/default-image.png" ) : asset("uploads/categorias/" ~ 'entity.imagen'  )) %}#}
+        $(".fileimg").each(function () {
+            fileImg = "{{asset("uploads/banners/") }}" + $(this).data("image");
+            $("#"+this.id).fileinput({
+                initialPreview: ["<img src='"+fileImg+"' class='file-preview-image'>"],
+                overwriteInitial: true,
+                showUpload: false,
+                showCaption: false,
+                browseClass: "btn btn-primary btn-sm",
+                fileType: "any",
+                allowedFileTypes: ['image'],
+                'allowedFileExtensions': ['jpg', 'png', 'gif'],
+                uploadLabel: 'Subir',
+                removeLabel: 'Quitar',
+                browseLabel: 'Explorar'
+            });
+        })
 
-            initialPreview: ["<img src='{{ "imagen_src" }}' class='file-preview-image'>"],
-            overwriteInitial: true,
-            showUpload: false,
-            showCaption: false,
-            browseClass: "btn btn-primary btn-sm",
-            fileType: "any",
-            allowedFileTypes: ['image'],
-            'allowedFileExtensions': ['jpg', 'png', 'gif'],
-            uploadLabel: 'Subir',
-            removeLabel: 'Quitar',
-            browseLabel: 'Explorar'
+        $("#appbundle_contenido_tipo").change(function(){
+            opc = $("#appbundle_contenido_tipo").val();
+            $("#item_list_contenidoDetalle_collection").html("");
+            fieldCount = 0;
+            chkCountImg()
+            if(opc == 0)
+                $("#add-new").show();
+            if(opc == 4)
+                $("#add-new").hide();
         });
 
 
     })
 
+    chkCountImg = function(){
+        opc = $("#appbundle_contenido_tipo").val();
+        if( opc >0 && opc <4 ){
+            if(opc <= fieldCount ){
+                $("#add-new").hide();
+            }else{
+                $("#add-new").show();
+            }
+        }
+    }
+
     setImgTheme = function (tagName) {
 
-        $("#"+tagName).fileinput({
+        $("#" + tagName).fileinput({
             {#{% set imagen_src = ('entity.imagen' == null ? asset("images/default-image.png" ) : asset("uploads/categorias/" ~ 'entity.imagen'  )) %}#}
 
             initialPreview: ["<img src='{{ "imagen_src" }}' class='file-preview-image'>"],
@@ -79,13 +104,12 @@
         });
     }
 
-    setOrden = function(){
+    setOrden = function () {
         orden = 1
-        $(".orden","#item_list_contenidoDetalle_collection").each(function(){
+        $(".orden", "#item_list_contenidoDetalle_collection").each(function () {
             $(this).val(orden++);
-            //orden++;
         });
     }
-    //appbundle_contenido_contenido___name___orden
+
 </script>
 

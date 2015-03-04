@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\frontend;
 
 use AppBundle\Entity\Categoria;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -19,18 +20,57 @@ class DefaultController extends Controller
     public function indexAction()
     {
         /**
-         * @var \Doctrine\ORM\EntityManager em
+         * @var \Doctrine\ORM\EntityManager $em
          */
-        $em = $this->getDoctrine()->getManager();
-        //ladybug_dump_die( $em->getRepository("AppBundle:Categoria")->getCategoriasAsignables());
+        $em = $this->getDoctrine()->getEntityManager();
 
-        //ladybug_dump_die($this->get("menu.service")->getMenuFrontendItems());
-//        ladybug_dump($this->get("menu.service")->makeMenu());
+        $c = $em->getRepository("AppBundle:Contenido")->getContenido();
+
+        $html = $this->makeContent($c);
         $this->get("menu.service")->makeMenu();
-        return array();
+        return array("myContent" => $html);
     }
 
+    private function makeContent($cs){
 
+        $html = "";
+
+        foreach($cs as $c){
+
+            switch($c->getTipo()){
+                case 0:
+                    $html .= $this->crearCarrusel($c);
+                    break;
+                case 1:
+                case 2:
+                case 3:
+                    break;
+                case 4:
+
+                    switch(strtolower($c->getNombre()))
+                    {
+
+                        case "ultimos-productos":
+                            $html .= $this->ultimosProductos();
+
+                            break;
+                    }
+                    break;
+                default:
+                    $html .= "Tipo de contenido>4 no existe";
+            }
+        }
+
+        return $html;
+
+
+    }
+
+    private function crearCarrusel( $c){
+
+        $html = $this->renderView("@App/frontend/includes/carrusel.html.twig",array("contenido" => $c))."\n";
+        return $html;
+    }
     /**
      * @Route("/getmenu", name="menu_frontend")
      */
@@ -60,6 +100,16 @@ class DefaultController extends Controller
 
     }
 
+
+
+    private function ultimosProductos(){
+
+        $em = $this->getDoctrine()->getManager();
+        $prods = $em->getRepository("AppBundle:Producto")->getUltimos();
+        $html = $this->renderView("@App/frontend/Default/ultimosProductos.html.twig" ,array("prods" => $prods));
+//        ld("--->",$html);
+        return $html;
+    }
 
     /**
      * @Route("/ultimosproductos", name="ultimosproductos")
@@ -133,4 +183,6 @@ class DefaultController extends Controller
         }
         return $slider;
     }
+
+
 }
