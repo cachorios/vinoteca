@@ -121,7 +121,7 @@ class WebContext extends DefaultContext
      */
     public function estoyEn($name)
     {
-        $this->visitPath($this->links[$name]);
+        $this->visitPath($name);
 
     }
 

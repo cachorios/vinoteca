@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Factura
  *
- * @ORM\Table()
+ * 
  * @ORM\Entity(repositoryClass="RBSoft\CartBundle\Entity\FacturaRepository")
  */
 class Factura
@@ -16,7 +16,7 @@ class Factura
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer", name="id")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -25,21 +25,21 @@ class Factura
     /**
      * @var string
      *
-     * @ORM\Column(name="referencia", type="string", length=15, nullable=true)
+     * @ORM\Column(type="string", length=15, nullable=true, name="referencia")
      */
     private $referencia;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="contenidoHtml", type="string", length=16000)
+     * @ORM\Column(type="string", length=16000, nullable=true, name="contenidoHtml")
      */
     private $contenidoHtml;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdAt", type="datetime")
+     * @ORM\Column(type="datetime", nullable=true, name="createdAt")
      * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
@@ -47,13 +47,13 @@ class Factura
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updatedAt", type="datetime")
+     * @ORM\Column(type="datetime", nullable=true, name="updatedAt")
      * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
     /**
-     * @ORM\OneToOne(targetEntity="Orden", mappedBy="factura")
+     * @ORM\OneToOne(targetEntity="RBSoft\CartBundle\Entity\Orden", mappedBy="factura")
      */
     private $orden;
 

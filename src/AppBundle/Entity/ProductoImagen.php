@@ -10,14 +10,14 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  *
  * @ORM\Table(name="producto_imagen")
  * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
+ * 
  */
 class ProductoImagen
 {
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer", name="id")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -31,12 +31,13 @@ class ProductoImagen
     /**
      * @var string
      *
-     * @ORM\Column(name="primario", type="boolean")
+     * @ORM\Column(type="boolean", nullable=true, name="primario")
      */
     private $primario = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Producto", inversedBy="imagenes")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Producto", inversedBy="imagenes")
+     * @ORM\JoinColumn(name="producto_id", referencedColumnName="id")
      */
     private $producto;
 
@@ -47,7 +48,7 @@ class ProductoImagen
 
     /**
      * @var string
-     * @ORM\Column(name="extension", type="string", length=4)
+     * @ORM\Column(type="string", length=4, nullable=true, name="extension")
      */
     private $extension;
 
@@ -154,8 +155,8 @@ class ProductoImagen
     }
 
     /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
+     * 
+     * 
      */
     public function preUpload()
     {
@@ -167,8 +168,8 @@ class ProductoImagen
     }
 
     /**
-     * @ORM\PostPersist()
-     * @ORM\PostUpdate()
+     * 
+     * 
      */
     public function upload()
     {
@@ -188,7 +189,7 @@ class ProductoImagen
     }
 
     /**
-     * @ORM\PostRemove()
+     * 
      */
     public function removeUpload()
     {

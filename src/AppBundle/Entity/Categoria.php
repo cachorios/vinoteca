@@ -25,7 +25,7 @@ class Categoria implements SecureControl
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer", name="id")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -34,28 +34,28 @@ class Categoria implements SecureControl
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=70)
+     * @ORM\Column(type="string", length=70, nullable=true, name="nombre")
      * @Assert\NotBlank()
      * @Assert\Length(max = 70)
      */
     private $nombre;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $slug;
 
     /**
      * @var string
      * @Assert\NotBlank()
-     * @ORM\Column(name="descripcion", type="text")
+     * @ORM\Column(type="text", nullable=true, name="descripcion")
      */
     private $descripcion;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="orden", type="integer")
+     * @ORM\Column(type="integer", nullable=true, name="orden")
      *
      */
     private $orden = 0;
@@ -63,7 +63,7 @@ class Categoria implements SecureControl
     /**
      * @var integer
      *
-     * @ORM\Column(name="level", type="integer")
+     * @ORM\Column(type="integer", nullable=true, name="level")
      *
      */
     private $level;
@@ -71,18 +71,18 @@ class Categoria implements SecureControl
     /**
      * @var integer
      *
-     * @ORM\Column(name="root", type="integer")
+     * @ORM\Column(type="integer", nullable=true, name="root")
      *
      */
     private $root;
 
     /**
-     * @ORM\OneToMany(targetEntity="Categoria", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Categoria", mappedBy="parent")
      **/
     private $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Categoria", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Categoria", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
      **/
     private $parent;
@@ -90,31 +90,34 @@ class Categoria implements SecureControl
     /**
      * @var boolean
      *
-     * @ORM\Column(name="activo", type="boolean")
+     * @ORM\Column(type="boolean", nullable=true, name="activo")
      */
     private $activo = true;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="visible", type="boolean")
+     * @ORM\Column(type="boolean", nullable=true, name="visible")
      */
     private $visible = true;
 
     /**
-     * @ORM\OneToMany(targetEntity="MetadatoProducto", mappedBy="categoria",cascade={"persist", "remove"})
-     * @ORM\OrderBy({"orden" = "ASC"})
+     * @ORM\OneToMany(
+     *     targetEntity="AppBundle\Entity\MetadatoProducto",
+     *     mappedBy="categoria",
+     *     cascade={"persist","remove"}
+     * )
+     * @ORM\OrderBy({"orden"="ASC"})
      */
     private $metadatos;
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
-     * @Assert\NotBlank()
      */
     private $imagen;
 
     /**
-     * @ORM\Column(name="updated_at", type="datetime", nullable=false)
+     * @ORM\Column(type="datetime", nullable=false, name="updated_at")
      */
     private $updatedAt;
 
@@ -425,6 +428,7 @@ class Categoria implements SecureControl
         $this->metadatos->removeElement($metadatos);
     }
 
+
     /**
      * Get metadatos
      *
@@ -536,4 +540,10 @@ class Categoria implements SecureControl
         return $cad;
     }
 
+//    public function isImagenValid(ExecutionContextInterface $context)
+//    {
+//        if (is_null($this->getId()) && is_null($context)) {
+//            $context->addViolationAt('No dispone de imagen seleccionada', array(), null);
+//        }
+//    }
 }

@@ -16,7 +16,7 @@ class MetadatoProducto
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer", name="id")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -25,7 +25,7 @@ class MetadatoProducto
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=70)
+     * @ORM\Column(type="string", length=70, nullable=true, name="nombre")
      * @Assert\NotBlank()
      */
     private $nombre;
@@ -38,35 +38,35 @@ class MetadatoProducto
     /**
      * @var string
      *
-     * @ORM\Column(name="predeterminado", type="text", nullable=true)
+     * @ORM\Column(type="text", nullable=true, name="predeterminado")
      */
     private $predeterminado;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="filtrable", type="integer")
+     * @ORM\Column(type="integer", nullable=true, name="filtrable")
      */
     private $filtrable;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="requerido", type="boolean")
+     * @ORM\Column(type="boolean", nullable=true, name="requerido")
      */
     private $requerido;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="widget", type="integer")
+     * @ORM\Column(type="integer", nullable=true, name="widget")
      */
     private $widget;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="orden", type="integer")
+     * @ORM\Column(type="integer", nullable=true, name="orden")
      */
     private $orden;
 
@@ -74,12 +74,14 @@ class MetadatoProducto
     /**
      * @var array
      *
-     * @ORM\Column(name="lista_valores", type="text", nullable=true)
+     * @ORM\Column(type="text", nullable=true, name="lista_valores")
      */
     private $listaValores;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Categoria", inversedBy="metadatos")
+     * @ORM\ManyToOne(
+     *      targetEntity="AppBundle\Entity\Categoria",
+     *      inversedBy="metadatos")
      * @ORM\JoinColumn(name="categoria_id", referencedColumnName="id")
      */
     private $categoria;
