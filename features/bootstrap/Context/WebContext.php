@@ -90,6 +90,7 @@ class WebContext extends DefaultContext
     {
         $classesMap = [
             'success' => 'success',
+            'exito' => 'success',
             'error' => 'danger',
             'info' => 'info',
             'warning' => 'warning',

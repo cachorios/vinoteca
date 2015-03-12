@@ -1,8 +1,7 @@
 #language: es
 #Característica: Usuario
-#
-#    Antecednete:
-#        Data la base de datos limpia
+
+
 
 @authorizationLogin
 Característica: formulario de ingreso
