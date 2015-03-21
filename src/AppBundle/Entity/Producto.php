@@ -540,15 +540,18 @@ class Producto implements SecureControl
 
     public function getImagenActiva()
     {
-
-        $img = "vino.png";
+        $imagenfirst = null;
+        //$img = "vino.png";
         foreach ($this->getImagenes() as $imgen) {
+            if($imagenfirst == null)
+                $imagenfirst = $imgen->getId() . '.' . $imgen->getExtension();
+             
             if ($imgen->getPrimario()) {
                 $img = $imgen->getId() . '.' . $imgen->getExtension();
             }
         }
 
-        return $img;
+        return $img ? $img : $imagenfirst;
     }
 
 
