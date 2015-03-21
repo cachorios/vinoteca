@@ -33,10 +33,11 @@
         "stof/doctrine-extensions-bundle" : "1.x",
         "gregwar/image-bundle": "dev-master"
 
+
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",
-
+        "behat/behat": "3.0.x-dev",
         "behat/symfony2-extension": "*",
         "behat/mink-extension": "*",
         "behat/mink-browserkit-driver": "*",

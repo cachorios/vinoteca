@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Configuracion: Esta tabla tendra un solo registro.
  *
- * @ORM\Table()
+ * 
  * @ORM\Entity
  */
 
@@ -16,7 +16,7 @@ class Configuracion
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer", name="id")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -26,7 +26,7 @@ class Configuracion
      * @var double
      * El valor 0 (cero) indica que no hay descuento
      *
-     * @ORM\Column(name="descuento_global", type="decimal")
+     * @ORM\Column(type="decimal", nullable=true, name="descuento_global")
      */
     private $descuentoGlobal;
 
@@ -34,7 +34,7 @@ class Configuracion
      * @var string
      * lista separada con coma (",") de las cantidades de paginas para el select, ej 2,3,4
      *
-     * @ORM\Column(name="productos_por_pagina", type="string")
+     * @ORM\Column(type="string", nullable=true, name="productos_por_pagina")
      */
     private $productosPorPagina;
 

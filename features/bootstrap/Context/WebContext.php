@@ -90,6 +90,7 @@ class WebContext extends DefaultContext
     {
         $classesMap = [
             'success' => 'success',
+            'exito' => 'success',
             'error' => 'danger',
             'info' => 'info',
             'warning' => 'warning',
@@ -120,7 +121,7 @@ class WebContext extends DefaultContext
      */
     public function estoyEn($name)
     {
-        $this->visitPath($this->links[$name]);
+        $this->visitPath($name);
 
     }
 

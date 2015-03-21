@@ -1,8 +1,7 @@
 #language: es
 #Característica: Usuario
-#
-#    Antecednete:
-#        Data la base de datos limpia
+
+
 
 @authorizationLogin
 Característica: formulario de ingreso
@@ -17,8 +16,7 @@ Antecedentes:
         | betoa2000@gmail.com | alberto   |
 
 Escenario: Ver formulario de acceso
-
-    Dado que estoy en "home"
+    Dado que estoy en la ruta "homepage"
     Y presiono en el link "Ingresar"
     Entonces deberia estar en la ruta "usuario_login"
     Y  Ver "Bienvenido a " como tiulo

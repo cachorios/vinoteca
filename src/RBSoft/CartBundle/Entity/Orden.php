@@ -7,7 +7,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Orden
  *
- * @ORM\Table()
+ * 
  * @ORM\Entity(repositoryClass="RBSoft\CartBundle\Entity\OrdenRepository")
  */
 class Orden
@@ -15,7 +15,7 @@ class Orden
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer", name="id")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -24,14 +24,14 @@ class Orden
     /**
      * @var string
      *
-     * @ORM\Column(name="estado", type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true, name="estado")
      */
     private $estado;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="estadoFecha", type="datetime")
+     * @ORM\Column(type="datetime", nullable=true, name="estadoFecha")
      * @Gedmo\Timestampable(on="change", field={"estado"})
      */
     private $estadoFecha;
@@ -39,21 +39,21 @@ class Orden
     /**
      * @var string
      *
-     * @ORM\Column(name="importeSinIva", type="decimal")
+     * @ORM\Column(type="decimal", nullable=true, name="importeSinIva")
      */
     private $importeSinIva;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="importeConIva", type="decimal")
+     * @ORM\Column(type="decimal", nullable=true, name="importeConIva")
      */
     private $importeConIva;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdAt", type="datetime")
+     * @ORM\Column(type="datetime", nullable=true, name="createdAt")
      * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
@@ -61,14 +61,14 @@ class Orden
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="upatedAt", type="datetime")
+     * @ORM\Column(type="datetime", nullable=true, name="upatedAt")
      * @Gedmo\Timestampable
      */
     private $upatedAt;
 
     /**
-     * @ORM\OneToOne(targetEntity="Factura", inversedBy="orden")
-     * @ORM\JoinColumn(onDelete="SET NULL")
+     * @ORM\OneToOne(targetEntity="RBSoft\CartBundle\Entity\Factura", inversedBy="orden")
+     * @ORM\JoinColumn(name="factura_id", referencedColumnName="id", unique=true, onDelete="SET NULL")
      */
     private $factura;
 
@@ -76,7 +76,7 @@ class Orden
 //    private $usuario;
 
     /**
-     * @ORM\OneToMany(targetEntity="Orden", mappedBy="orden", cascade="all")
+     * 
      */
     private $item;
 

@@ -19,14 +19,14 @@ class CompraItem
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer", name="id")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Compra", inversedBy="items")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Compra", inversedBy="items")
      * @ORM\JoinColumn(name="compra_id", referencedColumnName="id")
      */
     private $compra;
@@ -34,7 +34,7 @@ class CompraItem
     /**
      * @var integer
      *
-     * @ORM\Column(name="cantidad", type="integer")
+     * @ORM\Column(type="integer", nullable=true, name="cantidad")
      * @UtilidadAssert\NumericoMinimo(
      *      min = 1,
      *      minMessage = "Debe especificar al menos un item",
@@ -43,7 +43,7 @@ class CompraItem
     private $cantidad;
 
     /**
-     * @ORM\Column(name="precio_unitario", type="decimal", scale=2)
+     * @ORM\Column(type="decimal", nullable=true, name="precio_unitario", scale=2)
      * @Assert\Regex(
      *   pattern="/^\d+$/",
      *   match=true,
@@ -55,7 +55,8 @@ class CompraItem
 
     /**
      * @var Producto
-     * @ORM\ManyToOne(targetEntity="Producto")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Producto")
+     * @ORM\JoinColumn(name="producto_id", referencedColumnName="id")
      */
     private $producto;
     

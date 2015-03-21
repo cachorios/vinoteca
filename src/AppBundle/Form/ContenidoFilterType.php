@@ -19,8 +19,6 @@ class ContenidoFilterType extends AbstractType
             ->add('ubicacion', 'filter_number_range')
             ->add('orden', 'filter_number_range')
             ->add('tipo', 'filter_number_range')
-//            ->add('contenido', 'filter_text')
-//            ->add('links', 'filter_text')
             ->add('activo', 'filter_choice')
         ;
 

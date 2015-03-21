@@ -3,17 +3,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use RBSoft\UtilidadBundle\Libs\Util;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Contenido
  *
- * @ORM\Table(
- *             uniqueConstraints = { @ORM\UniqueConstraint(
- *                  name = "contenido_name_idx",
- *                  columns ={"nombre"}
- *              )}
- * )
+ * @ORM\Table(uniqueConstraints={@ORM\UniqueConstraint(name="contenido_name_idx", columns={"nombre"})})
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ContenidoRepository")
  *
  * @UniqueEntity(fields={"nombre"},
@@ -27,7 +23,7 @@ class Contenido
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer", name="id")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -35,55 +31,78 @@ class Contenido
 
     /**
      * @var string $nombre
-     * @ORM\Column(name="nombre", type="string", length=64)
+     * @ORM\Column(type="string", length=64, nullable=true, name="nombre")
      */
     private $nombre;
     /**
      * @var integer
      *
-     * @ORM\Column(name="ubicacion", type="integer")
+     * @ORM\Column(type="integer", nullable=true, name="ubicacion")
      */
     private $ubicacion;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="orden", type="integer")
+     * @ORM\Column(type="integer", nullable=true, name="orden")
      */
     private $orden;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="tipo", type="integer")
+     * @ORM\Column(type="integer", nullable=true, name="tipo")
      */
     private $tipo;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="contenido", type="string", length=255)
-     */
-    private $contenido;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="links", type="string", length=4096)
-     */
-    private $links;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="activo", type="boolean")
+     * @ORM\Column(type="boolean", nullable=true, name="activo")
      */
     private $activo;
 
+    /**
+     * @ORM\OneToMany(
+     *      targetEntity="AppBundle\Entity\ContenidoDetalle",
+     *      mappedBy="contenido",
+     *      cascade={"all"}
+     *  )
+     * @ORM\OrderBy({"orden"="ASC"})
+     */
+    private $contenidoDetalle;
+
+
+
 
     public function __construct(){
+        $this->contenidoDetalle = new \Doctrine\Common\Collections\ArrayCollection();
         $this->activo = true;
     }
+
+
+    public function __toString(){
+        return $this->nombre;
+    }
+
+    public function getUbicacionString($i){
+        if(isset(self::$UBICACIONES[$i]))
+            return self::$UBICACIONES[$i];
+        else
+            return $i;
+    }
+
+    public function getTipoString($i){
+        if(isset(self::$TIPO_CONTENIDOS[$i]))
+            return self::$TIPO_CONTENIDOS[$i];
+        else
+            return $i;
+    }
+
+
+
+
     /**
      * Get id
      *
@@ -94,7 +113,51 @@ class Contenido
         return $this->id;
     }
 
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Contenido
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
 
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Set ubicacion
+     *
+     * @param integer $ubicacion
+     * @return Contenido
+     */
+    public function setUbicacion($ubicacion)
+    {
+        $this->ubicacion = $ubicacion;
+
+        return $this;
+    }
+
+    /**
+     * Get ubicacion
+     *
+     * @return integer 
+     */
+    public function getUbicacion()
+    {
+        return $this->ubicacion;
+    }
 
     /**
      * Set orden
@@ -143,52 +206,6 @@ class Contenido
     }
 
     /**
-     * Set contenido
-     *
-     * @param string $contenido
-     * @return Contenido
-     */
-    public function setContenido($contenido)
-    {
-        $this->contenido = $contenido;
-
-        return $this;
-    }
-
-    /**
-     * Get contenido
-     *
-     * @return string 
-     */
-    public function getContenido()
-    {
-        return $this->contenido;
-    }
-
-    /**
-     * Set links
-     *
-     * @param string $links
-     * @return Contenido
-     */
-    public function setLinks($links)
-    {
-        $this->links = $links;
-
-        return $this;
-    }
-
-    /**
-     * Get links
-     *
-     * @return string 
-     */
-    public function getLinks()
-    {
-        return $this->links;
-    }
-
-    /**
      * Set activo
      *
      * @param boolean $activo
@@ -212,67 +229,43 @@ class Contenido
     }
 
     /**
-     * Set ubicacion
+     * Add contenidoDetalle
      *
-     * @param integer $ubicacion
+     * @param \AppBundle\Entity\ContenidoDetalle $contenidoDetalle
      * @return Contenido
      */
-    public function setUbicacion($ubicacion)
+    public function addContenidoDetalle(\AppBundle\Entity\ContenidoDetalle $contenidoDetalle)
     {
-        $this->ubicacion = $ubicacion;
+        $contenidoDetalle->setContenido($this);
+        $this->contenidoDetalle[] = $contenidoDetalle;
 
         return $this;
     }
 
     /**
-     * Get ubicacion
+     * Remove contenidoDetalle
      *
-     * @return integer 
+     * @param \AppBundle\Entity\ContenidoDetalle $contenidoDetalle
      */
-    public function getUbicacion()
+    public function removeContenidoDetalle(\AppBundle\Entity\ContenidoDetalle $contenidoDetalle)
     {
-        return $this->ubicacion;
+        $this->contenidoDetalle->removeElement($contenidoDetalle);
     }
 
     /**
-     * Set nombre
+     * Get contenidoDetalle
      *
-     * @param string $nombre
-     * @return Contenido
+     * @return \Doctrine\Common\Collections\Collection 
      */
-    public function setNombre($nombre)
+    public function getContenidoDetalle()
     {
-        $this->nombre = $nombre;
-
-        return $this;
+        return $this->contenidoDetalle;
     }
 
-    /**
-     * Get nombre
-     *
-     * @return string 
-     */
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
 
-    public function __toString(){
-        return $this->getNombre();
+    public function upload($dir){
+        foreach($this->getContenidoDetalle() as $det){
+            $det->upload( Util::getSlug($this->getNombre()) ,$dir);
+        }
     }
-
-    public function getUbicacionString($i){
-        if(isset(self::$UBICACIONES[$i]))
-            return self::$UBICACIONES[$i];
-        else
-            return $i;
-    }
-
-    public function getTipoString($i){
-        if(isset(self::$TIPO_CONTENIDOS[$i]))
-            return self::$TIPO_CONTENIDOS[$i];
-        else
-            return $i;
-    }
-
 }

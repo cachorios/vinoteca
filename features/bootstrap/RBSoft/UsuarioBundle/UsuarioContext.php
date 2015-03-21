@@ -28,7 +28,7 @@ use Context\WebContext;
 class UsuarioContext extends WebContext
 {
     protected $usuario = array();
-    protected $links = array();
+
 
     /**
      * Initializes context.

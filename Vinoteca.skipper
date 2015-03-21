@@ -1,0 +1,889 @@
+<?xml version="1.0"?>
+<skipper version="3.1.0.1176" name="Vinoteca" mvc="Symfony2" orm="Doctrine2" uuid="ebdc8ce6-042c-47d1-93ab-4b1ce17c7d36">
+  <module name="AppBundle\Entity" import-format="Doctrine2Php" import-path="src/AppBundle/Entity" uuid="e2a4910f-783a-4054-a379-3e397bd7e148">
+    <entity name="Categoria" uuid="0c4a3b7d-1769-463b-b2ab-646e6401dcb1">
+      <field name="id" type="integer" required="true" primary="true" uuid="fb6d87c4-7db2-4956-9c53-adc21e028ede">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="nombre" type="string" size="70" uuid="0152332e-41f3-4f7b-b52a-d7e3d3e5a285">
+        <orm-attributes>
+          <attribute name="column">nombre</attribute>
+        </orm-attributes>
+      </field>
+      <field name="slug" type="string" uuid="e183213d-6f5b-4792-8f0b-1fba7f0ca410"/>
+      <field name="descripcion" type="text" uuid="639c8b80-3e84-4b2c-a272-357bf769c6b8">
+        <orm-attributes>
+          <attribute name="column">descripcion</attribute>
+        </orm-attributes>
+      </field>
+      <field name="orden" type="integer" uuid="c16b9f74-c7df-46e9-9d85-b63149d0f195">
+        <orm-attributes>
+          <attribute name="column">orden</attribute>
+        </orm-attributes>
+      </field>
+      <field name="level" type="integer" uuid="edb05536-9471-4ac4-b328-5f64464fa3c9">
+        <orm-attributes>
+          <attribute name="column">level</attribute>
+        </orm-attributes>
+      </field>
+      <field name="root" type="integer" uuid="88c28289-01c0-4a00-ae85-9954de4c7b19">
+        <orm-attributes>
+          <attribute name="column">root</attribute>
+        </orm-attributes>
+      </field>
+      <field name="activo" type="boolean" uuid="593fdeea-32a4-4f41-8414-68fd7ad599b7">
+        <orm-attributes>
+          <attribute name="column">activo</attribute>
+        </orm-attributes>
+      </field>
+      <field name="visible" type="boolean" uuid="f80c5154-ae63-48e9-a3ab-38d79c28a922">
+        <orm-attributes>
+          <attribute name="column">visible</attribute>
+        </orm-attributes>
+      </field>
+      <field name="imagen" type="string" size="100" uuid="9b1d0a6b-9fa4-4147-8cfe-af9cebd0d3ec"/>
+      <field name="updatedAt" type="datetime" required="true" uuid="4866b783-80dd-436d-b92a-df5c5a89d904">
+        <orm-attributes>
+          <attribute name="column">updated_at</attribute>
+        </orm-attributes>
+      </field>
+      <field name="parent_id" uuid="ef3b020f-efe6-4764-892c-cfa8ba671fb8"/>
+      <field name="usuario_id" uuid="6c3ba306-2dd8-45e1-821b-86bde6ddd7b7"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Entity\CategoriaRepository</attribute>
+        <attribute name="table">categoria</attribute>
+        <attribute name="export-file-name">Categoria.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="Categoria" to="Categoria" owner-alias="children" inverse-alias="parent" many-owner="true" many-inverse="false" uuid="98bc9b38-5ab9-4646-aae0-205b42725ecb">
+      <association-field from="parent_id" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <association from="Categoria" to="Usuario" owner-alias="" inverse-alias="usuario" many-owner="true" many-inverse="false" uuid="1206859e-e5e0-4a21-9e53-c72a5abb2043">
+      <association-field from="usuario_id" to="login"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <entity name="Compra" uuid="2d404677-39e3-4008-90d7-2df1c95ae26b">
+      <field name="id" type="integer" required="true" primary="true" uuid="b3b3a79f-7262-449b-a0cb-683f3d2be85c">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="facturaNumero" type="string" size="50" uuid="f5e6df23-51db-4592-a9f7-b47a520f9684">
+        <orm-attributes>
+          <attribute name="column">factura_numero</attribute>
+        </orm-attributes>
+      </field>
+      <field name="cuit" type="string" size="11" uuid="1f368980-ea13-4f8a-8b7a-e33b589eeb68">
+        <orm-attributes>
+          <attribute name="column">cuit</attribute>
+        </orm-attributes>
+      </field>
+      <field name="fechaCompra" type="datetime" uuid="4321456f-5520-4651-ac54-6730ef9f5a17">
+        <orm-attributes>
+          <attribute name="column">fecha_compra</attribute>
+        </orm-attributes>
+      </field>
+      <field name="fechaAlta" type="datetime" uuid="306a4556-42df-4ddf-8961-a78308e09098">
+        <orm-attributes>
+          <attribute name="column">fecha_alta</attribute>
+        </orm-attributes>
+      </field>
+      <field name="usuario_id" uuid="ae8cbb5a-5a4a-48cf-86cd-6fda87217e82"/>
+      <field name="factura_numero" uuid="674da4b1-bee2-4762-aeb5-52adfa42cb01"/>
+      <index name="uniq_idx" unique="true">
+        <index-field name="factura_numero"/>
+        <index-field name="cuit"/>
+      </index>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Entity\CompraRepository</attribute>
+        <attribute name="table">compra</attribute>
+        <attribute name="export-file-name">Compra.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="Compra" to="Usuario" owner-alias="" inverse-alias="usuario" many-owner="true" many-inverse="false" uuid="f9c65e23-a87a-4385-aa3d-9f2f62c94205">
+      <association-field from="usuario_id" to="login"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <entity name="CompraItem" uuid="425d9a16-4902-4b54-ad81-fa802926b448">
+      <field name="id" type="integer" required="true" primary="true" uuid="d3afb299-48a6-473a-825c-4653424a7854">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="cantidad" type="integer" uuid="4eb7c6ad-35a8-4ae1-b9f0-f3460b73f830">
+        <orm-attributes>
+          <attribute name="column">cantidad</attribute>
+        </orm-attributes>
+      </field>
+      <field name="precioUnitario" type="decimal" uuid="850a4ece-d7c3-4570-b89e-f54a2d0d93a0">
+        <orm-attributes>
+          <attribute name="column">precio_unitario</attribute>
+          <attribute name="scale">2</attribute>
+        </orm-attributes>
+      </field>
+      <field name="compra_id" uuid="95eb5903-031d-4849-ab8d-b8776353221e"/>
+      <field name="producto_id" uuid="17457ca0-135c-4d05-8a26-e3f4c8fb141d"/>
+      <orm-attributes>
+        <attribute name="table">compra_item</attribute>
+        <attribute name="export-file-name">CompraItem.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="CompraItem" to="Compra" owner-alias="items" inverse-alias="compra" many-owner="true" many-inverse="false" uuid="6b6edff3-9dcf-41d2-a053-0b37dcadb669">
+      <association-field from="compra_id" to="id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse">
+          <attribute name="cascade">
+            <attribute name="cascade-persist">true</attribute>
+            <attribute name="cascade-remove">true</attribute>
+          </attribute>
+        </attribute>
+      </orm-attributes>
+    </association>
+    <association from="CompraItem" to="Producto" owner-alias="" inverse-alias="producto" many-owner="true" many-inverse="false" uuid="47088d14-8664-4ccd-a241-d286554baacb">
+      <association-field from="producto_id" to="id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <entity name="Configuracion" uuid="93cd4464-f126-4394-98f1-cc1b1b0e7b34">
+      <field name="id" type="integer" required="true" primary="true" uuid="e2941201-7fe9-435b-82c0-525c5ecc4179">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="descuentoGlobal" type="decimal" uuid="c8572616-fa3a-40ab-856d-6d922719f63e">
+        <orm-attributes>
+          <attribute name="column">descuento_global</attribute>
+        </orm-attributes>
+      </field>
+      <field name="productosPorPagina" type="string" uuid="b229622a-54ef-4fbe-a4fb-b45f6b8d449c">
+        <orm-attributes>
+          <attribute name="column">productos_por_pagina</attribute>
+        </orm-attributes>
+      </field>
+      <orm-attributes>
+        <attribute name="export-file-name">Configuracion.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="Contenido" uuid="b8f8a538-c437-431e-aa21-eeb606435c5f">
+      <field name="id" type="integer" required="true" primary="true" uuid="3f1d413a-2146-4baf-a66e-bca1f2310998">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="nombre" type="string" size="64" uuid="59f9f6bb-e8d0-489e-9dd8-1019935c95a9">
+        <orm-attributes>
+          <attribute name="column">nombre</attribute>
+        </orm-attributes>
+      </field>
+      <field name="ubicacion" type="integer" uuid="16d36ecc-bed2-4fe8-b14f-769420579b59">
+        <orm-attributes>
+          <attribute name="column">ubicacion</attribute>
+        </orm-attributes>
+      </field>
+      <field name="orden" type="integer" uuid="1bc88636-5e57-4ea8-bf75-adbc6a6d1122">
+        <orm-attributes>
+          <attribute name="column">orden</attribute>
+        </orm-attributes>
+      </field>
+      <field name="tipo" type="integer" uuid="ca073737-c9c0-4e2d-aaf2-119dabbca80c">
+        <orm-attributes>
+          <attribute name="column">tipo</attribute>
+        </orm-attributes>
+      </field>
+      <field name="activo" type="boolean" uuid="713b167a-7772-4a15-bc4e-7b05db22e49b">
+        <orm-attributes>
+          <attribute name="column">activo</attribute>
+        </orm-attributes>
+      </field>
+      <index name="contenido_name_idx" unique="true">
+        <index-field name="nombre"/>
+      </index>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Entity\ContenidoRepository</attribute>
+        <attribute name="export-file-name">Contenido.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="MetadatoProducto" uuid="c6598712-a74d-419b-9794-e325e0c558ac">
+      <field name="id" type="integer" required="true" primary="true" uuid="78c1cb4f-59e6-449b-84f1-3d8abc93d33b">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="nombre" type="string" size="70" uuid="aef3253c-ff69-4f58-ab1b-bae55099afec">
+        <orm-attributes>
+          <attribute name="column">nombre</attribute>
+        </orm-attributes>
+      </field>
+      <field name="predeterminado" type="text" uuid="0d6f862f-9499-4231-9e54-61567026b782">
+        <orm-attributes>
+          <attribute name="column">predeterminado</attribute>
+        </orm-attributes>
+      </field>
+      <field name="filtrable" type="integer" uuid="70cc62fc-caa0-4ddd-8856-27121af91d2e">
+        <orm-attributes>
+          <attribute name="column">filtrable</attribute>
+        </orm-attributes>
+      </field>
+      <field name="requerido" type="boolean" uuid="b94dcf8e-e6a1-4a4a-a1a6-a6715f6849f0">
+        <orm-attributes>
+          <attribute name="column">requerido</attribute>
+        </orm-attributes>
+      </field>
+      <field name="widget" type="integer" uuid="9090730d-83c3-4563-9903-e2406ab2ce6f">
+        <orm-attributes>
+          <attribute name="column">widget</attribute>
+        </orm-attributes>
+      </field>
+      <field name="orden" type="integer" uuid="63a0a9ef-33bf-436c-bad8-465f8758c374">
+        <orm-attributes>
+          <attribute name="column">orden</attribute>
+        </orm-attributes>
+      </field>
+      <field name="listaValores" type="text" uuid="51f87af0-a09b-446f-aed6-8583e59e3602">
+        <orm-attributes>
+          <attribute name="column">lista_valores</attribute>
+        </orm-attributes>
+      </field>
+      <field name="categoria_id" uuid="aa3d06f2-db48-412b-89f6-c69e6636d41c"/>
+      <orm-attributes>
+        <attribute name="table">metadato_producto</attribute>
+        <attribute name="export-file-name">MetadatoProducto.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="MetadatoProducto" to="Categoria" owner-alias="metadatos" inverse-alias="categoria" many-owner="true" many-inverse="false" uuid="ee097b2f-f832-4f13-bda1-3cedab3a8207">
+      <association-field from="categoria_id" to="id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse">
+          <attribute name="cascade">
+            <attribute name="cascade-persist">true</attribute>
+            <attribute name="cascade-remove">true</attribute>
+          </attribute>
+          <attribute name="order-by">
+            <attribute name="order-by-field">
+              <attribute name="field">orden</attribute>
+              <attribute name="direction">ASC</attribute>
+            </attribute>
+          </attribute>
+        </attribute>
+      </orm-attributes>
+    </association>
+    <entity name="Producto" uuid="5c4c5869-cce9-43ca-a166-6043b9e8d658">
+      <field name="id" type="integer" required="true" primary="true" uuid="bb220411-8d11-4f1b-8e69-f87de407c834">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="nombre" type="string" size="100" uuid="1581974c-a413-4408-91c3-8d76192e1c03">
+        <orm-attributes>
+          <attribute name="column">nombre</attribute>
+        </orm-attributes>
+      </field>
+      <field name="codigo" type="string" size="20" uuid="1e215ba8-f3ad-4e7d-a5ce-ae0fbc90577a">
+        <orm-attributes>
+          <attribute name="column">codigo</attribute>
+        </orm-attributes>
+      </field>
+      <field name="descripcion" type="text" uuid="5ed82b34-df7d-4e26-a9e4-c09944d3b920">
+        <orm-attributes>
+          <attribute name="column">descripcion</attribute>
+        </orm-attributes>
+      </field>
+      <field name="precio" type="decimal" uuid="4f665e2e-abc1-421e-bb44-4cfdaca24f8f">
+        <orm-attributes>
+          <attribute name="column">precio</attribute>
+          <attribute name="scale">2</attribute>
+        </orm-attributes>
+      </field>
+      <field name="costo" type="decimal" uuid="9669dcd3-4792-45ba-b006-7165ba899ec1">
+        <orm-attributes>
+          <attribute name="column">costo</attribute>
+          <attribute name="scale">2</attribute>
+        </orm-attributes>
+      </field>
+      <field name="iva" type="decimal" uuid="841c2a40-71ea-4858-9f8b-196681ec02e9">
+        <orm-attributes>
+          <attribute name="column">iva</attribute>
+          <attribute name="scale">2</attribute>
+        </orm-attributes>
+      </field>
+      <field name="activo" type="boolean" uuid="8e068b25-8647-4019-a6cf-36199c321f82">
+        <orm-attributes>
+          <attribute name="column">activo</attribute>
+        </orm-attributes>
+      </field>
+      <field name="createdAt" type="datetime" required="true" uuid="aa371ee0-b6bb-4f40-86ff-7b062961e451">
+        <orm-attributes>
+          <attribute name="column">created_at</attribute>
+        </orm-attributes>
+      </field>
+      <field name="updatedAt" type="datetime" required="true" uuid="210af190-413b-4908-851a-5ac1e4d7f80f">
+        <orm-attributes>
+          <attribute name="column">updated_at</attribute>
+        </orm-attributes>
+      </field>
+      <field name="stock" type="integer" uuid="0fc11f15-3e0c-46cd-8039-3fbea033f495">
+        <orm-attributes>
+          <attribute name="column">stock</attribute>
+        </orm-attributes>
+      </field>
+      <field name="usuario_id" uuid="146d5b7e-a824-490a-be20-f8e0aa4a395b"/>
+      <field name="categoria_id" uuid="6527b35a-f260-47e9-8bd4-0988f336f03c"/>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Entity\ProductoRepository</attribute>
+        <attribute name="export-file-name">Producto.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="Producto" to="Usuario" owner-alias="" inverse-alias="usuario" many-owner="true" many-inverse="false" uuid="fbc365fd-152f-46bf-97b8-06639923f798">
+      <association-field from="usuario_id" to="login"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <association from="Producto" to="Categoria" inverse-alias="categoria" many-owner="true" many-inverse="false" uuid="eeb35367-333c-454c-bf8b-fd3cc0a29460">
+      <association-field from="categoria_id" to="id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <entity name="ProductoBonificacion" uuid="85ea0370-90eb-4b6e-8d87-f2ce74fd6ada">
+      <field name="id" type="integer" required="true" primary="true" uuid="6464008b-80f8-4718-b87b-a255d4638560">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="unidad" type="integer" uuid="a8295578-40af-4708-9cb1-bfce0345dc4b">
+        <orm-attributes>
+          <attribute name="column">unidad</attribute>
+        </orm-attributes>
+      </field>
+      <field name="valor" type="decimal" uuid="2cc569e8-2782-4147-a6fd-f7c24ee6d5af">
+        <orm-attributes>
+          <attribute name="scale">2</attribute>
+        </orm-attributes>
+      </field>
+      <field name="tipo" type="integer" uuid="9e859d29-b3a3-4366-bba8-0f31a580d485">
+        <orm-attributes>
+          <attribute name="column">tipo</attribute>
+        </orm-attributes>
+      </field>
+      <field name="product_id" uuid="982f77dd-df18-4ac6-a9bc-68164ed9753d"/>
+      <orm-attributes>
+        <attribute name="table">producto_bonificacion</attribute>
+        <attribute name="export-file-name">ProductoBonificacion.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="ProductoBonificacion" to="Producto" owner-alias="bonificaciones" inverse-alias="producto" many-owner="true" many-inverse="false" uuid="55a65508-a321-4300-8780-f03fc9475cb7">
+      <association-field from="product_id" to="id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse">
+          <attribute name="cascade">
+            <attribute name="cascade-persist">true</attribute>
+            <attribute name="cascade-remove">true</attribute>
+          </attribute>
+          <attribute name="orphan-removal">true</attribute>
+        </attribute>
+      </orm-attributes>
+    </association>
+    <entity name="ProductoExtension" uuid="6795f7e9-3852-4e1f-8777-288bb392a64f">
+      <field name="id" type="integer" required="true" primary="true" uuid="1bfdd5e7-e293-4207-9537-6d6e9aed8f9f">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="valor" type="text" uuid="d45e8c0f-1abc-4a39-a036-586518eb7986">
+        <orm-attributes>
+          <attribute name="column">valor</attribute>
+        </orm-attributes>
+      </field>
+      <field name="producto_id" uuid="6d3647bb-01b8-4a4e-9b0b-ef269322f89b"/>
+      <field name="metadatoProducto_id" uuid="fb7db9af-f5f3-4409-9cc3-1499e9f60a31"/>
+      <orm-attributes>
+        <attribute name="table">producto_extension</attribute>
+        <attribute name="export-file-name">ProductoExtension.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="ProductoExtension" to="Producto" owner-alias="extencion" inverse-alias="producto" many-owner="true" many-inverse="false" uuid="6deccff0-0953-429a-af57-90ba2bc1719a">
+      <association-field from="producto_id" to="id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse">
+          <attribute name="cascade">
+            <attribute name="cascade-persist">true</attribute>
+            <attribute name="cascade-remove">true</attribute>
+          </attribute>
+          <attribute name="orphan-removal">true</attribute>
+        </attribute>
+      </orm-attributes>
+    </association>
+    <association from="ProductoExtension" to="MetadatoProducto" owner-alias="" inverse-alias="metadatoProducto" many-owner="true" many-inverse="false" uuid="0cdfe95a-39cf-4889-80ad-a49a503139c2">
+      <association-field from="metadatoProducto_id" to="id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <entity name="ProductoImagen" uuid="96b2159e-13b4-409d-9bf6-46b355828750">
+      <field name="id" type="integer" required="true" primary="true" uuid="3373e0e6-6b7e-4393-b48e-2a9aead3b7bb">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="primario" type="boolean" uuid="c5b4598d-166c-42be-8d38-952f82439992">
+        <orm-attributes>
+          <attribute name="column">primario</attribute>
+        </orm-attributes>
+      </field>
+      <field name="extension" type="string" size="4" uuid="686184e9-a8d6-425a-b93e-e6e15d1a49f8">
+        <orm-attributes>
+          <attribute name="column">extension</attribute>
+        </orm-attributes>
+      </field>
+      <field name="producto_id" uuid="07ac6a98-3166-41b6-b3e6-08623eb5f2e0"/>
+      <orm-attributes>
+        <attribute name="table">producto_imagen</attribute>
+        <attribute name="export-file-name">ProductoImagen.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="ProductoImagen" to="Producto" owner-alias="imagenes" inverse-alias="producto" many-owner="true" many-inverse="false" uuid="14df03b4-3d7a-4cd2-9c8b-6542740abbc6">
+      <association-field from="producto_id" to="id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse">
+          <attribute name="cascade">
+            <attribute name="cascade-persist">true</attribute>
+            <attribute name="cascade-remove">true</attribute>
+          </attribute>
+          <attribute name="order-by">
+            <attribute name="order-by-field">
+              <attribute name="field">primario</attribute>
+              <attribute name="direction">DESC</attribute>
+            </attribute>
+          </attribute>
+          <attribute name="orphan-removal">true</attribute>
+        </attribute>
+      </orm-attributes>
+    </association>
+    <entity name="Proveedor" uuid="93ce9ec8-9ce3-466f-9dad-9225be5d091b">
+      <field name="id" type="integer" required="true" primary="true" uuid="22f06170-3f23-4845-aceb-058e742480e6">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="codigo" type="integer" required="true" uuid="3ccc19a5-69a0-45b3-bcac-34105d76196b">
+        <orm-attributes>
+          <attribute name="column">codigo</attribute>
+        </orm-attributes>
+      </field>
+      <field name="razonSocial" type="string" size="150" required="true" uuid="754737f1-88d5-41c0-a7b7-8fff90b862b2">
+        <orm-attributes>
+          <attribute name="column">razon_social</attribute>
+        </orm-attributes>
+      </field>
+      <field name="nombreFantasia" type="string" size="200" uuid="e02c3c13-d850-43f0-8756-52416884f20e">
+        <orm-attributes>
+          <attribute name="column">nombre_fantasia</attribute>
+        </orm-attributes>
+      </field>
+      <field name="codigoPostal" type="string" size="8" uuid="39f9f5ba-00fe-4d3e-8969-12da5a1e8996">
+        <orm-attributes>
+          <attribute name="column">codigo_postal</attribute>
+        </orm-attributes>
+      </field>
+      <field name="cuit" type="string" size="11" required="true" uuid="77187d58-537c-4edc-a842-7b451fd8c12e">
+        <orm-attributes>
+          <attribute name="column">cuit</attribute>
+        </orm-attributes>
+      </field>
+      <field name="letraComprobante" type="string" size="1" required="true" uuid="5f2a6c4b-46ff-44c8-b288-56c36fcc6b51">
+        <orm-attributes>
+          <attribute name="column">letra_comprobante</attribute>
+        </orm-attributes>
+      </field>
+      <field name="correoCompra" type="string" size="100" uuid="075fec22-1d5d-4d81-86cf-3aadf45d7645">
+        <orm-attributes>
+          <attribute name="column">correo_compra</attribute>
+        </orm-attributes>
+      </field>
+      <field name="correoPago" type="string" size="100" uuid="7a6e1886-625e-4467-8575-f40375467b0c">
+        <orm-attributes>
+          <attribute name="column">correo_pago</attribute>
+        </orm-attributes>
+      </field>
+      <field name="domicilio" type="string" size="255" required="true" uuid="2760de8d-88c6-4e2d-93b2-c2beea610b14">
+        <orm-attributes>
+          <attribute name="column">domicilio</attribute>
+        </orm-attributes>
+      </field>
+      <field name="moneda" type="string" size="1" required="true" uuid="f426b8d2-9cdd-4dac-9e74-6f6af2b0b5fb">
+        <orm-attributes>
+          <attribute name="column">moneda</attribute>
+        </orm-attributes>
+      </field>
+      <field name="limiteCredito" type="float" required="true" uuid="f53fbbd7-6aad-4a54-9444-5a6e8038b260">
+        <orm-attributes>
+          <attribute name="column">limite_credito</attribute>
+        </orm-attributes>
+      </field>
+      <field name="paginaWeb" type="string" size="150" uuid="99c902e6-bd4c-4db5-9eca-d4bb0b65e69d">
+        <orm-attributes>
+          <attribute name="column">pagina_web</attribute>
+        </orm-attributes>
+      </field>
+      <field name="telefonos" type="string" size="20" uuid="1caefcac-d387-49e8-9e8a-089227952a0d">
+        <orm-attributes>
+          <attribute name="column">telefonos</attribute>
+        </orm-attributes>
+      </field>
+      <field name="fax" type="string" size="20" uuid="76b93450-2129-49a9-a8cf-7c591113d3a6">
+        <orm-attributes>
+          <attribute name="column">fax</attribute>
+        </orm-attributes>
+      </field>
+      <field name="condIVA" type="string" size="255" uuid="fe4e2367-1d81-4d4e-a99d-b28836ad50f0">
+        <orm-attributes>
+          <attribute name="column">cond_iva</attribute>
+        </orm-attributes>
+      </field>
+      <orm-attributes>
+        <attribute name="repository-class">AppBundle\Entity\ProveedorRepository</attribute>
+        <attribute name="export-file-name">Proveedor.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="ContenidoDetalle" uuid="6a7e2d7c-4741-451d-8a07-24f1ae3025ba">
+      <field name="id" type="integer" required="true" unique="true" primary="true" auto-increment="true" uuid="ebc9dbf8-b40b-40ad-99e7-9e514142984e"/>
+      <field name="orden" type="integer" required="true" uuid="58fb9237-58fd-4b8d-aea7-050ca52102e5"/>
+      <field name="imagen" required="true" uuid="4d4813ac-b5cc-4cfe-8378-e86eb59dd1c1"/>
+      <field name="link" required="true" uuid="55c2adfa-fa04-486d-91f1-135f14f668f0"/>
+      <field name="contenido_id" type="integer" uuid="4b4e90d3-0a81-4604-8df3-919869743657"/>
+      <orm-attributes>
+        <attribute name="export-file-name">ContenidoDetalle.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="ContenidoDetalle" to="Contenido" caption="Contenido ContenidoDetalle" owner-alias="contenidoDetalle" inverse-alias="contenido" many-owner="true" many-inverse="false" uuid="e70b0beb-cfbc-47c9-b72c-d3bb6fae9888">
+      <association-field from="contenido_id" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">CASCADE</attribute>
+        <attribute name="side-owning">
+          <attribute name="cascade">
+            <attribute name="cascade-all">true</attribute>
+          </attribute>
+        </attribute>
+        <attribute name="side-inverse">
+          <attribute name="cascade">
+            <attribute name="cascade-all">true</attribute>
+          </attribute>
+          <attribute name="order-by">
+            <attribute name="order-by-field">
+              <attribute name="direction">ASC</attribute>
+              <attribute name="field">orden</attribute>
+            </attribute>
+          </attribute>
+        </attribute>
+      </orm-attributes>
+    </association>
+    <orm-attributes>
+      <attribute name="namespace">AppBundle\Entity</attribute>
+    </orm-attributes>
+  </module>
+  <module name="RBSoft\CartBundle\Entity" import-format="Doctrine2Php" import-path="src/RBSoft/CartBundle/Entity" uuid="529a01a9-71b0-43b0-ba2e-805ce33f8e0d">
+    <entity name="Factura" uuid="53d99814-5fd1-4a21-b564-5990501f4fd1">
+      <field name="id" type="integer" required="true" primary="true" uuid="f23de818-1aab-4940-ab74-8e9f40f48396">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="referencia" type="string" size="15" uuid="5b58ee02-f029-44aa-80bf-d029d4ec4346">
+        <orm-attributes>
+          <attribute name="column">referencia</attribute>
+        </orm-attributes>
+      </field>
+      <field name="contenidoHtml" type="string" size="16000" uuid="50507e32-82eb-42ba-aa63-3d8dce084329">
+        <orm-attributes>
+          <attribute name="column">contenidoHtml</attribute>
+        </orm-attributes>
+      </field>
+      <field name="createdAt" type="datetime" uuid="773a150b-64c0-47bd-aa67-85b70de61514">
+        <orm-attributes>
+          <attribute name="column">createdAt</attribute>
+        </orm-attributes>
+      </field>
+      <field name="updatedAt" type="datetime" uuid="f433b4ee-ec73-46b5-af4c-c84e1c3ec7ea">
+        <orm-attributes>
+          <attribute name="column">updatedAt</attribute>
+        </orm-attributes>
+      </field>
+      <orm-attributes>
+        <attribute name="repository-class">RBSoft\CartBundle\Entity\FacturaRepository</attribute>
+        <attribute name="export-file-name">Factura.php</attribute>
+      </orm-attributes>
+    </entity>
+    <entity name="Item" uuid="ae0b25bf-4b1f-4f82-9867-f55a9bc8ad55">
+      <field name="id" type="integer" required="true" primary="true" uuid="62590e9e-b170-4e7f-82f0-a8b0e97f903d">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="cantidad" type="integer" uuid="30a96105-a1ce-4601-8d80-d08b4278abe6">
+        <orm-attributes>
+          <attribute name="column">cantidad</attribute>
+        </orm-attributes>
+      </field>
+      <field name="nroLinea" type="integer" uuid="c4b61626-a0e7-4f7f-ad8e-fc72d538d0c9">
+        <orm-attributes>
+          <attribute name="column">nroLinea</attribute>
+        </orm-attributes>
+      </field>
+      <field name="producto" type="integer" uuid="c070ce96-2764-4233-bac9-8e5541d62342">
+        <orm-attributes>
+          <attribute name="column">producto</attribute>
+        </orm-attributes>
+      </field>
+      <field name="precioSinIva" type="decimal" uuid="0bf561fa-2dd6-4bf5-bae6-1a3249a24ba0">
+        <orm-attributes>
+          <attribute name="column">precioSinIva</attribute>
+        </orm-attributes>
+      </field>
+      <field name="precioConIva" type="decimal" uuid="afa8ba33-b6c6-4329-9507-a45886c5591a">
+        <orm-attributes>
+          <attribute name="column">precioConIva</attribute>
+        </orm-attributes>
+      </field>
+      <field name="createdAt" type="datetime" uuid="e9e1f756-d867-4b01-a036-517f56ce540f">
+        <orm-attributes>
+          <attribute name="column">createdAt</attribute>
+        </orm-attributes>
+      </field>
+      <field name="updatedAt" type="datetime" uuid="6ec03848-99e5-4a8f-9c95-f86fa2f1bbbc">
+        <orm-attributes>
+          <attribute name="column">updatedAt</attribute>
+        </orm-attributes>
+      </field>
+      <field name="orden_id" uuid="41510276-c7b9-4412-829e-c063b6adef77"/>
+      <orm-attributes>
+        <attribute name="repository-class">RBSoft\CartBundle\Entity\ItemRepository</attribute>
+        <attribute name="export-file-name">Item.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="Item" to="Orden" owner-alias="" inverse-alias="orden" many-owner="true" many-inverse="false" uuid="c2d2751c-a9bb-4297-8cf0-0de36088dfd3">
+      <association-field from="orden_id" to="id"/>
+      <orm-attributes>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <entity name="Orden" uuid="e9e90575-61a1-4328-9da3-2a492fa79e64">
+      <field name="id" type="integer" required="true" primary="true" uuid="3c6f70a0-534b-4fe3-ba8c-9a0604b30878">
+        <orm-attributes>
+          <attribute name="column">id</attribute>
+          <attribute name="generator">
+            <attribute name="strategy">AUTO</attribute>
+          </attribute>
+        </orm-attributes>
+      </field>
+      <field name="estado" type="string" size="255" uuid="9b401a82-b9a9-43f5-b0f4-9931f1377333">
+        <orm-attributes>
+          <attribute name="column">estado</attribute>
+        </orm-attributes>
+      </field>
+      <field name="estadoFecha" type="datetime" uuid="59678b71-105a-4c0b-958e-32771cba0b24">
+        <orm-attributes>
+          <attribute name="column">estadoFecha</attribute>
+        </orm-attributes>
+      </field>
+      <field name="importeSinIva" type="decimal" uuid="f98873bb-4f64-48c0-9e6e-fbc24c3053a6">
+        <orm-attributes>
+          <attribute name="column">importeSinIva</attribute>
+        </orm-attributes>
+      </field>
+      <field name="importeConIva" type="decimal" uuid="54552665-3d44-45c1-8c9b-69ae0c6ab766">
+        <orm-attributes>
+          <attribute name="column">importeConIva</attribute>
+        </orm-attributes>
+      </field>
+      <field name="createdAt" type="datetime" uuid="f74e680f-6798-479a-b67c-5793c3bb3ef2">
+        <orm-attributes>
+          <attribute name="column">createdAt</attribute>
+        </orm-attributes>
+      </field>
+      <field name="upatedAt" type="datetime" uuid="4ec78813-f65b-4c13-82c0-29f5273c263e">
+        <orm-attributes>
+          <attribute name="column">upatedAt</attribute>
+        </orm-attributes>
+      </field>
+      <field name="factura_id" unique="true" uuid="36f35186-5f3e-46bb-95eb-abfb45aed132"/>
+      <orm-attributes>
+        <attribute name="repository-class">RBSoft\CartBundle\Entity\OrdenRepository</attribute>
+        <attribute name="export-file-name">Orden.php</attribute>
+      </orm-attributes>
+    </entity>
+    <association from="Orden" to="Factura" owner-alias="orden" inverse-alias="factura" many-owner="false" many-inverse="false" uuid="e2f52d71-4872-4678-ad15-90ca6eb981ef">
+      <association-field from="factura_id" to="id"/>
+      <orm-attributes>
+        <attribute name="on-delete">SET NULL</attribute>
+        <attribute name="side-owning"/>
+        <attribute name="side-inverse"/>
+      </orm-attributes>
+    </association>
+    <orm-attributes>
+      <attribute name="namespace">RBSoft\CartBundle\Entity</attribute>
+    </orm-attributes>
+  </module>
+  <module name="RBSoft\UsuarioBundle\Entity" import-format="Doctrine2Php" import-path="src/RBSoft/UsuarioBundle/Entity" uuid="27d049dc-2660-46a0-930f-cca4aadbb3ae">
+    <entity name="Usuario" uuid="82d4292d-bbe3-4c4f-8de0-a0b657f8f3eb">
+      <field name="login" type="string" size="100" required="true" primary="true" uuid="57172fb9-b7d1-442d-9c31-41a54905dfde">
+        <orm-attributes>
+          <attribute name="column">login</attribute>
+        </orm-attributes>
+      </field>
+      <field name="email" type="string" size="255" uuid="487e4f89-aa86-4d4c-929e-8070f1d21164">
+        <orm-attributes>
+          <attribute name="column">email</attribute>
+        </orm-attributes>
+      </field>
+      <field name="nombre" type="string" size="100" uuid="457231d2-372d-4205-92c6-8b8b24996979">
+        <orm-attributes>
+          <attribute name="column">nombre</attribute>
+        </orm-attributes>
+      </field>
+      <field name="telefono" type="string" size="255" uuid="885fd17e-fc76-4a85-a3ab-5c5a2de808ea">
+        <orm-attributes>
+          <attribute name="column">telefono</attribute>
+        </orm-attributes>
+      </field>
+      <field name="celular" type="string" size="255" uuid="35f7c5d2-ea32-41d8-b202-fdb8961f32fe">
+        <orm-attributes>
+          <attribute name="column">celular</attribute>
+        </orm-attributes>
+      </field>
+      <field name="facebook" type="string" size="255" uuid="28cce4ef-a77d-472d-9c98-479e5ed4a6c7">
+        <orm-attributes>
+          <attribute name="column">facebook</attribute>
+        </orm-attributes>
+      </field>
+      <field name="twitter" type="string" size="255" uuid="d088a9ca-3d46-4a3e-b410-b6aa59071091">
+        <orm-attributes>
+          <attribute name="column">twitter</attribute>
+        </orm-attributes>
+      </field>
+      <field name="salt" type="string" size="255" uuid="59485443-0854-4962-8fed-38a76597c563">
+        <orm-attributes>
+          <attribute name="column">salt</attribute>
+        </orm-attributes>
+      </field>
+      <field name="password" type="string" size="255" uuid="c658df3f-3007-41b1-bafc-65aa5e73ed64">
+        <orm-attributes>
+          <attribute name="column">password</attribute>
+        </orm-attributes>
+      </field>
+      <field name="fecha_alta" type="datetime" uuid="c5247b89-a254-428f-8ed9-86c69ce68794">
+        <orm-attributes>
+          <attribute name="column">fecha_alta</attribute>
+        </orm-attributes>
+      </field>
+      <field name="activo" type="boolean" uuid="135c1a2f-5bd4-41ef-bb0a-377c17d4f793"/>
+      <orm-attributes>
+        <attribute name="repository-class">RBSoft\UsuarioBundle\Entity\UsuarioRepository</attribute>
+        <attribute name="export-file-name">Usuario.php</attribute>
+      </orm-attributes>
+    </entity>
+    <orm-attributes>
+      <attribute name="namespace">RBSoft\UsuarioBundle\Entity</attribute>
+    </orm-attributes>
+  </module>
+  <visual-data>
+    <entity uuid="0c4a3b7d-1769-463b-b2ab-646e6401dcb1" bg-color="4294967295" hdr-color="4292006610" position-x="36" position-y="40" size-x="0" size-x2="112" size-y="0" size-y2="199"/>
+    <association uuid="0cdfe95a-39cf-4889-80ad-a49a503139c2" color="4278236368"/>
+    <association uuid="1206859e-e5e0-4a21-9e53-c72a5abb2043" color="4289243304"/>
+    <association uuid="14df03b4-3d7a-4cd2-9c8b-6542740abbc6" color="4289243304"/>
+    <module uuid="27d049dc-2660-46a0-930f-cca4aadbb3ae" bg-color="4294897635" position-x="890" position-y="536" size-x="0" size-x2="157" size-y="0" size-y2="231"/>
+    <entity uuid="2d404677-39e3-4008-90d7-2df1c95ae26b" bg-color="4294967295" hdr-color="4292006610" position-x="209" position-y="40" size-x="0" size-x2="136" size-y="0" size-y2="115"/>
+    <entity uuid="425d9a16-4902-4b54-ad81-fa802926b448" bg-color="4294967295" hdr-color="4292006610" position-x="401" position-y="40" size-x="0" size-x2="123" size-y="0" size-y2="87"/>
+    <association uuid="47088d14-8664-4ccd-a241-d286554baacb" center-position-x="0" center-position-y="-2" color="4291674923"/>
+    <module uuid="529a01a9-71b0-43b0-ba2e-805ce33f8e0d" bg-color="4294900968" position-x="890" position-y="50" size-x="0" size-x2="376" size-y="0" size-y2="386"/>
+    <entity uuid="53d99814-5fd1-4a21-b564-5990501f4fd1" bg-color="4294967295" hdr-color="4292006610" position-x="20" position-y="40" size-x="0" size-x2="148" size-y="0" size-y2="87"/>
+    <association uuid="55a65508-a321-4300-8780-f03fc9475cb7" color="4287255714"/>
+    <entity uuid="5c4c5869-cce9-43ca-a166-6043b9e8d658" bg-color="4294967295" hdr-color="4292006610" position-x="338" position-y="276" size-x="0" size-x2="112" size-y="0" size-y2="199"/>
+    <entity uuid="6795f7e9-3852-4e1f-8777-288bb392a64f" bg-color="4294967295" hdr-color="4292006610" position-x="37" position-y="601" size-x="0" size-x2="113" size-y="0" size-y2="73"/>
+    <entity uuid="6a7e2d7c-4741-451d-8a07-24f1ae3025ba" bg-color="4294967295" hdr-color="4292006610" position-x="568" position-y="751" size-x="0" size-x2="114" size-y="0" size-y2="87"/>
+    <association uuid="6b6edff3-9dcf-41d2-a053-0b37dcadb669" color="4284601169"/>
+    <association uuid="6deccff0-0953-429a-af57-90ba2bc1719a" color="4281230255"/>
+    <entity uuid="82d4292d-bbe3-4c4f-8de0-a0b657f8f3eb" bg-color="4294967295" hdr-color="4292006610" position-x="20" position-y="40" size-x="0" size-x2="117" size-y="0" size-y2="171"/>
+    <entity uuid="85ea0370-90eb-4b6e-8d87-f2ce74fd6ada" bg-color="4294967295" hdr-color="4292006610" position-x="593" position-y="321" size-x="0" size-x2="108" size-y="0" size-y2="87"/>
+    <entity uuid="93cd4464-f126-4394-98f1-cc1b1b0e7b34" bg-color="4294967295" hdr-color="4292006610" position-x="577" position-y="40" size-x="0" size-x2="140" size-y="0" size-y2="59"/>
+    <entity uuid="93ce9ec8-9ce3-466f-9dad-9225be5d091b" bg-color="4294967295" hdr-color="4292006610" position-x="380" position-y="559" size-x="0" size-x2="145" size-y="0" size-y2="241"/>
+    <entity uuid="96b2159e-13b4-409d-9bf6-46b355828750" bg-color="4294967295" hdr-color="4292006610" position-x="223" position-y="602" size-x="0" size-x2="108" size-y="0" size-y2="73"/>
+    <association uuid="98bc9b38-5ab9-4646-aae0-205b42725ecb" color="4278236368"/>
+    <entity uuid="ae0b25bf-4b1f-4f82-9867-f55a9bc8ad55" bg-color="4294967295" hdr-color="4292006610" position-x="221" position-y="40" size-x="0" size-x2="122" size-y="0" size-y2="143"/>
+    <entity uuid="b8f8a538-c437-431e-aa21-eeb606435c5f" bg-color="4294967295" hdr-color="4292006610" position-x="572" position-y="500" size-x="0" size-x2="146" size-y="0" size-y2="143"/>
+    <association uuid="c2d2751c-a9bb-4297-8cf0-0de36088dfd3" color="4278876221"/>
+    <entity uuid="c6598712-a74d-419b-9794-e325e0c558ac" bg-color="4294967295" hdr-color="4292006610" position-x="36" position-y="301" size-x="0" size-x2="114" size-y="0" size-y2="143"/>
+    <module uuid="e2a4910f-783a-4054-a379-3e397bd7e148" bg-color="4293391335" position-x="50" position-y="49" size-x="0" size-x2="740" size-y="0" size-y2="863"/>
+    <association uuid="e2f52d71-4872-4678-ad15-90ca6eb981ef" color="4284601169"/>
+    <association uuid="e70b0beb-cfbc-47c9-b72c-d3bb6fae9888" caption1-position-x="0" caption1-position-y="0" center-position-x="0" center-position-y="0" color="4288059030"/>
+    <entity uuid="e9e90575-61a1-4328-9da3-2a492fa79e64" bg-color="4294967295" hdr-color="4292006610" position-x="30" position-y="223" size-x="0" size-x2="128" size-y="0" size-y2="129"/>
+    <project uuid="ebdc8ce6-042c-47d1-93ab-4b1ce17c7d36" size-x="0" size-x2="1316" size-y="0" size-y2="963"/>
+    <association uuid="ee097b2f-f832-4f13-bda1-3cedab3a8207" center-position-x="0" center-position-y="-5" color="4294218527"/>
+    <association uuid="eeb35367-333c-454c-bf8b-fd3cc0a29460" color="4291261615"/>
+    <association uuid="f9c65e23-a87a-4385-aa3d-9f2f62c94205" color="4278876221"/>
+    <association uuid="fbc365fd-152f-46bf-97b8-06639923f798" color="4289928996"/>
+  </visual-data>
+</skipper>

@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class ContenidoRepository extends EntityRepository
 {
+    public function getContenido(){
+
+        return $this->_em->createQuery("
+            SELECT c
+            FROM AppBundle:Contenido c
+            WHERE c.activo = 1
+            ORDER BY c.orden ASC
+        ")->execute()
+        ;
+    }
+
 }

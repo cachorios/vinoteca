@@ -1,11 +1,14 @@
 {% extends 'AppBundle:frontend:layout_with_sidebar.html.twig' %}
 
 {% block pre_body %}
-    {% include "@App/frontend/includes/carrusel.html.twig" %}
-    {{ render(path("ultimosproductos")) }}
+    {#{% include "@App/frontend/includes/carrusel.html.twig" %}#}
+    {{ myContent | raw }}
+    {#{{ myContent  }}#}
+    {#{{ render(path("ultimosproductos")) }}#}
 {% endblock pre_body %}
 
 
 {% block workarea -%}
-    <h2>Area Job</h2>
+
+    {#<h2>Area Job</h2>#}
 {% endblock %}

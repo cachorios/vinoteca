@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Item
  *
- * @ORM\Table()
+ * 
  * @ORM\Entity(repositoryClass="RBSoft\CartBundle\Entity\ItemRepository")
  */
 class Item
@@ -16,7 +16,7 @@ class Item
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer", name="id")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -25,42 +25,42 @@ class Item
     /**
      * @var integer
      *
-     * @ORM\Column(name="cantidad", type="integer")
+     * @ORM\Column(type="integer", nullable=true, name="cantidad")
      */
     private $cantidad;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="nroLinea", type="integer")
+     * @ORM\Column(type="integer", nullable=true, name="nroLinea")
      */
     private $nroLinea;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="producto", type="integer")
+     * @ORM\Column(type="integer", nullable=true, name="producto")
      */
     private $producto;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="precioSinIva", type="decimal")
+     * @ORM\Column(type="decimal", nullable=true, name="precioSinIva")
      */
     private $precioSinIva;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="precioConIva", type="decimal")
+     * @ORM\Column(type="decimal", nullable=true, name="precioConIva")
      */
     private $precioConIva;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="createdAt", type="datetime")
+     * @ORM\Column(type="datetime", nullable=true, name="createdAt")
      * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
@@ -68,12 +68,14 @@ class Item
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="updatedAt", type="datetime")
+     * @ORM\Column(type="datetime", nullable=true, name="updatedAt")
      * @Gedmo\Timestampable
      */
     private $updatedAt;
 
-    /** @ORM\ManyToOne(targetEntity="Orden") */
+    /** 
+     * @ORM\ManyToOne(targetEntity="RBSoft\CartBundle\Entity\Orden")
+     * @ORM\JoinColumn(name="orden_id", referencedColumnName="id") */
     private $orden;
 
 

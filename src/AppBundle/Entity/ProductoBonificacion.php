@@ -15,7 +15,7 @@ class ProductoBonificacion
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(type="integer", name="id")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -24,26 +24,26 @@ class ProductoBonificacion
     /**
      * @var integer
      *
-     * @ORM\Column(name="unidad", type="integer")
+     * @ORM\Column(type="integer", nullable=true, name="unidad")
      */
     private $unidad;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="decimal", scale=2)
+     * @ORM\Column(type="decimal", nullable=true, scale=2)
      */
     private $valor;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tipo", type="integer")
+     * @ORM\Column(type="integer", nullable=true, name="tipo")
      */
     private $tipo;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Producto", inversedBy="bonificaciones")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Producto", inversedBy="bonificaciones")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $producto;
