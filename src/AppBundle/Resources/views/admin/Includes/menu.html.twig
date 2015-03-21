@@ -38,7 +38,10 @@
                     {{ menu.item('Compras', 'fa-dashboard', path("compra"))  }}
                 {{ menu.finmenu() }}
 
-
+                {{ menu.menu('Configuración','#') }}
+                    {{ menu.item('Contenidos','fa-dashboard',path('contenido')) }}
+                    {{ menu.item('Proveedores','fa-dashboard',path('proveedor')) }}
+                {{ menu.finmenu() }}
 
                 {{ menu.menu('Seguridad','#') }}
                     {{ menu.item('Usuarios','fa-dashboard',path('usuario')) }}
@@ -49,10 +52,7 @@
                     {#{{ menu.finsubmenu() }}#}
                 {{ menu.finmenu() }}
 
-            {{ menu.menu('Configuración','#') }}
-                {{ menu.item('Contenidos','fa-dashboard',path('contenido')) }}
-                {{ menu.item('Proveedores','fa-dashboard',path('proveedor')) }}
-            {{ menu.finmenu() }}
+
 
 
         </nav>
