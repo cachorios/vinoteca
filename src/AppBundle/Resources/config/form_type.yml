@@ -15,6 +15,16 @@ services:
         tags:
           - { name: "form.type", alias: "metadato_filter" }
 
+    form.type.condicion_iva:
+        class: AppBundle\Form\Type\CondicionIvaType
+        tags:
+          - { name: "form.type", alias: "condicion_iva" }
+
+    form.type.forma_pago:
+        class: AppBundle\Form\Type\FormaPagoType
+        tags:
+          - { name: "form.type", alias: "forma_pago" }
+
     form.type.metadato_widget:
         class: AppBundle\Form\Type\MetadatoWidgetType
         tags:

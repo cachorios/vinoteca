@@ -1,0 +1,264 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
+use Symfony\Component\Validator\Constraints as Assert;
+use RBSoft\UtilidadBundle\Validator\Constraints as UtilidadAssert;
+use RBSoft\UsuarioBundle\Entity\SecureControl;
+use RBSoft\UsuarioBundle\Entity\Usuario;
+
+/**
+ * Proveedor
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ProveedorRepository")
+ */
+class Proveedor implements SecureControl
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="codigo", type="integer", nullable=true)
+     */
+    private $codigo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="razon_social", type="string", length=150, nullable=false)
+     * @Assert\NotBlank()
+     */
+    private $razon_social;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre_fantasia", type="string", length=200, nullable=false)
+     */
+    private $nombre_fantasia;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cuit", type="string", length=11, nullable=false)
+     * @Assert\Regex("/^[0-9_]+$/")
+     * @UtilidadAssert\ContainsCuitValido()
+     */
+    private $cuit;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="domicilio", type="string", length=255, nullable=false)
+     * @Assert\NotBlank()
+     */
+    private $domicilio;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="RBSoft\UtilidadBundle\Entity\Pais")
+     * @ORM\JoinColumn(name="pais_id", referencedColumnName="id")
+     * @Assert\Type("RBSoft\UtilidadBundle\Entity\Pais")
+     * @Assert\NotNull()
+     */
+    private $pais;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="RBSoft\UtilidadBundle\Entity\Provincia")
+     * @ORM\JoinColumn(name="provincia_id", referencedColumnName="id")
+     * @Assert\Type("RBSoft\UtilidadBundle\Entity\provincia")
+     * @Assert\NotNull()
+     */
+    private $provincia;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="RBSoft\UtilidadBundle\Entity\Localidad")
+     * @ORM\JoinColumn(name="localidad_id", referencedColumnName="id")
+     * @Assert\Type("RBSoft\UtilidadBundle\Entity\Localidad")
+     * @Assert\NotNull()
+     */
+    private $localidad;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="codigo_postal", type="string", length=8)
+     * @Assert\NotBlank()
+     */
+    private $codigo_postal;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pagina_web", type="string", length=150, nullable=true)
+     */
+    private $pagina_web;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telefono", type="string", length=150)
+     * @Assert\NotBlank()
+     */
+    private $telefono;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fax", type="string", length=20, nullable=true)
+     */
+    private $fax;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=100, nullable=true)
+     * @Assert\Email(
+     *     message = "El email '{{ value }}' no es valido.",
+     *     checkMX = false
+     * )
+     */
+    private $email;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contacto", type="string", length=150)
+     * @Assert\NotBlank()
+     */
+    private $contacto;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contacto_telefono", type="string", length=150, nullable=true)
+     */
+    private $contacto_telefono;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contacto_int", type="string", length=5, nullable=true)
+     */
+    private $contacto_int;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contacto_fax", type="string", length=20, nullable=true)
+     */
+    private $contacto_fax;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contacto_movil", type="string", length=20 , nullable=true)
+     */
+    private $contacto_movil;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contacto_email", type="string", length=100, nullable=true)
+     * @Assert\Email(
+     *     message = "El email '{{ value }}' no es valido.",
+     *     checkMX = false
+     * )
+     */
+    private $contacto_email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="moneda", type="string", length=1, nullable=true)
+     */
+    private $moneda;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="limite_credito", type="float", nullable=false)
+     */
+    private $limite_credito = 0;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tipo_pago", type="integer")
+     */
+    private $tipo_pago;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(type="decimal", scale=2)
+     */
+    private $descuento = 0;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cond_iva", type="string", length=255)
+     */
+    private $cond_iva;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="n_cuenta", type="string", length=80, nullable=true)
+     */
+    private $n_cuenta;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comentario", type="text", nullable=true)
+     */
+    private $comentario;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="RBSoft\UsuarioBundle\Entity\Usuario")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="login")
+     */
+    private $usuario;
+
+    public function __toString()
+    {
+        return $this->getNombreFantasia();
+    }
+
+
+    /**
+     * Set usuario
+     *
+     * @param \RBSoft\UsuarioBundle\Entity\Usuario $usuario
+     * @return Proveedor
+     */
+    public function setUsuario(\RBSoft\UsuarioBundle\Entity\Usuario $usuario = null)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \RBSoft\UsuarioBundle\Entity\Usuario 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+}

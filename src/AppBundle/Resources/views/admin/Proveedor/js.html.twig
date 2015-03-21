@@ -1,0 +1,38 @@
+<script type="text/javascript">
+    $(function(){
+        $("#appbundle_proveedor_pais").change(function(){
+            var data = {
+                pais_id: $(this).val()
+            };
+            $.ajax({
+                type: 'post',
+                url: '{{ path('select_pais') }}',
+                data: data,
+                success: function(data) {
+                    var $province_selector = $('#appbundle_proveedor_provincia');
+//                    $province_selector.html('<option>Provincia</option>');
+                    for (var i=0, total = data.length; i < total; i++) {
+                        $province_selector.append('<option value="' + data[i].id + '">' + data[i].nombre + '</option>');
+                    }
+                }
+            });
+        });
+        $("#appbundle_proveedor_provincia").change(function(){
+            var data = {
+                province_id: $(this).val()
+            };
+            $.ajax({
+                type: 'post',
+                url: '{{ path('select_provincias') }}',
+                data: data,
+                success: function(data) {
+                    var $localidad_selector = $('#appbundle_proveedor_localidad');
+//                    $localidad_selector.html('<option>Ciudad</option>');
+                    for (var i=0, total = data.length; i < total; i++) {
+                        $localidad_selector.append('<option value="' + data[i].id + '">' + data[i].nombre + '</option>');
+                    }
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,146 @@
+{% extends 'AppBundle:admin:layout.html.twig' %}
+
+    {% block contenido -%}
+        {% embed '::portlet.html.twig' with {'titulo': 'Ver Proveedor: ' ~ entity} %}
+            {% block in_header %}
+                <div class='pull-right'>
+                    <div class="row">
+                        <div class="col-md-1 ">
+                            <div class="pull-right">
+                                {{ form(delete_form) }}
+                            </div>
+                        </div>
+                        <a href="{{ path('proveedor_edit', { 'id': entity.id }) }}"
+                           class="btn btn-sm btn-default">
+                            Editar
+                        </a>
+
+
+                        <a href="{{ path('proveedor') }}" class="btn btn-sm btn-default">
+                            Ir a la lista
+                        </a>
+
+
+                    </div>
+                </div>
+            {% endblock %}
+            {% block cuerpo %}
+                <p></p>
+
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th class="show-header">Id</th>
+                        <td>{{ entity.id }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Codigo</th>
+                        <td>{{ entity.codigo }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Razon_social</th>
+                        <td>{{ entity.razonsocial }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Nombre_fantasia</th>
+                        <td>{{ entity.nombrefantasia }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Cuit</th>
+                        <td>{{ entity.cuit }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Domicilio</th>
+                        <td>{{ entity.domicilio }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Codigo_postal</th>
+                        <td>{{ entity.codigopostal }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Provincia</th>
+                        <td>{{ entity.provincia }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Ciudad</th>
+                        <td>{{ entity.ciudad }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Pais</th>
+                        <td>{{ entity.pais }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Pagina_web</th>
+                        <td>{{ entity.paginaweb }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Telefono</th>
+                        <td>{{ entity.telefono }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Fax</th>
+                        <td>{{ entity.fax }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Mail</th>
+                        <td>{{ entity.mail }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Contacto</th>
+                        <td>{{ entity.contacto }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Contacto_telefono</th>
+                        <td>{{ entity.contactotelefono }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Contacto_int</th>
+                        <td>{{ entity.contactoint }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Contacto_fax</th>
+                        <td>{{ entity.contactofax }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Contacto_movil</th>
+                        <td>{{ entity.contactomovil }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Contacto_mail</th>
+                        <td>{{ entity.contactomail }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Moneda</th>
+                        <td>{{ entity.moneda }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Limite_credito</th>
+                        <td>{{ entity.limitecredito }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Tipo_pago</th>
+                        <td>{{ entity.tipopago }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Descuento</th>
+                        <td>{{ entity.descuento }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Cond_iva</th>
+                        <td>{{ entity.condiva }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">N_cuenta</th>
+                        <td>{{ entity.ncuenta }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Comentario</th>
+                        <td>{{ entity.comentario }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+            {% endblock %}
+        {% endembed %}
+    {% endblock contenido %}

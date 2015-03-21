@@ -1,0 +1,75 @@
+{% extends 'AppBundle:admin:layout.html.twig' %}
+
+    {% block id 'Proveedor' %} 
+            {% block contenido -%}
+                {% embed '::portlet.html.twig' with {'titulo': 'Editar Proveedor: ' ~ entity} %}
+                    {% block in_header %}
+                        <div class='pull-right'>
+                            <div class="row">
+
+                                <div class="col-md-2 ">
+                                    <div class="pull-right">
+                                        {{ form(delete_form) }}
+                                    </div>
+                                </div>
+
+
+                                <a href="{{ path('proveedor') }}" class="btn btn-sm btn-default">
+                                    Ir a la lista
+                                </a>
+
+
+                            </div>
+                        </div>
+                    {% endblock %}
+
+                    {% block cuerpo %}
+                        <p></p>
+
+                        {{ form_start(edit_form) }}
+                        {{ form_row(edit_form.razon_social) }}
+                        {{ form_row(edit_form.nombre_fantasia) }}
+                        {{ form_row(edit_form.cuit) }}
+                        <h4 class="content-title"><u>Datos de Localización</u></h4>
+                        {{ form_row(edit_form.domicilio) }}
+                        {{ form_row(edit_form.codigo_postal) }}
+                        {{ form_row(edit_form.pais) }}
+                        {{ form_row(edit_form.provincia) }}
+                        {{ form_row(edit_form.localidad) }}
+                        {{ form_row(edit_form.telefono) }}
+                        {{ form_row(edit_form.telefono) }}
+                        {{ form_row(edit_form.email) }}
+                        {{ form_row(edit_form.pagina_web) }}
+                        <h4 class="content-title"><u>Datos del Contacto</u></h4>
+                        {{ form_row(edit_form.contacto) }}
+                        {{ form_row(edit_form.contacto_telefono) }}
+                        {{ form_row(edit_form.contacto_int) }}
+                        {{ form_row(edit_form.contacto_fax) }}
+                        {{ form_row(edit_form.contacto_movil) }}
+                        {{ form_row(edit_form.contacto_email) }}
+                        <h4 class="content-title"><u>Datos económicos</u></h4>
+                        {{ form_row(edit_form.cond_iva) }}
+                        {{ form_row(edit_form.tipo_pago) }}
+                        {{ form_row(edit_form.moneda) }}
+                        {{ form_row(edit_form.limite_credito) }}
+                        {{ form_row(edit_form.descuento) }}
+                        {{ form_row(edit_form.n_cuenta) }}
+                        <h4 class="content-title"><u>Otros Datos</u></h4>
+                        {{ form_row(edit_form.comentario) }}
+
+                        <div class="col-sm-offset-2 inner-actions">
+                            <input type="submit" value="Guardar"
+                                   class="form-submit-button btn btn-sm btn-default btn-primary">
+                            <a class="page-close-button btn btn-sm btn-default" href="{{ path('proveedor') }}">Cerrar
+                                <span class="glyphicon glyphicon-remove"></span></a>
+
+                        </div>
+
+                        {{ form_end(edit_form) }}
+
+                    {% endblock %}
+                {% endembed %}
+
+
+            {% endblock contenido %}
+    

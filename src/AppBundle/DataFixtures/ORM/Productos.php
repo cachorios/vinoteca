@@ -60,7 +60,6 @@ class Productos extends AbstractFixture implements OrderedFixtureInterface, Cont
         foreach ($prods as $prodArr) {
             $prod = new Producto();
 
-
             $prod->setCodigo($prodArr['codigo']);
             $prod->setStock($prodArr['stock']);
             $prod->setNombre($prodArr['nombre']);

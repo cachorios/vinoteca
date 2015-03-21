@@ -1,0 +1,82 @@
+{% extends 'AppBundle:admin:layout.html.twig' %}
+    {% block id 'Proveedor' %} 
+            {% block contenido -%}
+                {% embed '::portlet.html.twig' with {'titulo': 'Nuevo Proveedor' } %}
+                    {% block in_header %}
+                        <div class='pull-right'>
+                            <div class="row">
+
+
+                                <a href="{{ path('proveedor') }}" class="btn btn-sm btn-default">
+                                    Ir a la lista
+                                </a>
+
+
+                            </div>
+                        </div>
+                    {% endblock %}
+
+                    {% block cuerpo %}
+                        {% for type, flashMessages in app.session.flashbag.all() %}
+                            {% for flashMessage in flashMessages %}
+                                <div class='alert alert-{{ type }}'>
+                                    {{ flashMessage }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                        <p></p>
+
+                        {{ form_start(form) }}
+                        {{ form_row(form.razon_social) }}
+                        {{ form_row(form.nombre_fantasia) }}
+                        {{ form_row(form.cuit) }}
+                        <h4 class="content-title"><u>Datos de Localización</u></h4>
+                        {{ form_row(form.domicilio) }}
+                        {{ form_row(form.codigo_postal) }}
+                        {{ form_row(form.pais) }}
+                        {{ form_row(form.provincia) }}
+                        {{ form_row(form.localidad) }}
+                        {{ form_row(form.telefono) }}
+                        {{ form_row(form.email) }}
+                        {{ form_row(form.pagina_web) }}
+                        <h4 class="content-title"><u>Datos del Contacto</u></h4>
+                        {{ form_row(form.contacto) }}
+                        {{ form_row(form.contacto_telefono) }}
+                        {{ form_row(form.contacto_int) }}
+                        {{ form_row(form.contacto_fax) }}
+                        {{ form_row(form.contacto_movil) }}
+                        {{ form_row(form.contacto_email) }}
+                        <h4 class="content-title"><u>Datos económicos</u></h4>
+                        {{ form_row(form.cond_iva) }}
+                        {{ form_row(form.tipo_pago) }}
+                        {{ form_row(form.moneda) }}
+                        {{ form_row(form.limite_credito) }}
+                        {{ form_row(form.descuento) }}
+                        {{ form_row(form.n_cuenta) }}
+                        <h4 class="content-title"><u>Otros Datos</u></h4>
+                        {{ form_row(form.comentario) }}
+
+                        {{ form_widget(form) }}
+                        <div class="col-sm-offset-2 inner-actions">
+                            <button title="Guardar" class="form-submit-button btn btn-sm btn-default btn-primary"
+                                    value="save_and_add" name="save_mode" type="submit">Guardar y Nuevo <span
+                                        class="glyphicon glyphicon-ok"></span></button>
+                            <button title="Guardar y Salir"
+                                    class="form-submit-button btn btn-sm btn-default btn-secondary"
+                                    value="save_and_close" name="save_mode" type="submit">Guardar<span
+                                        class="glyphicon glyphicon-remove"></span></button>
+                            <a class="page-close-button btn btn-sm btn-default" href="{{ path('proveedor') }}">Cerrar
+                                <span class="glyphicon glyphicon-remove"></span></a>
+                        </div>
+
+                        {{ form_end(form) }}
+
+                    {% endblock %}
+                {% endembed %}
+
+            {% endblock contenido %}
+
+        {% block javascript_footer %}
+            {{ include('@App/admin/Proveedor/js.html.twig',{'form': form})  }}
+
+        {% endblock %}

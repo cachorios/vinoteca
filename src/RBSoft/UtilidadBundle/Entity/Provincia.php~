@@ -1,0 +1,41 @@
+<?php
+
+namespace RBSoft\UtilidadBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Provincia
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="RBSoft\UtilidadBundle\Entity\ProvinciaRepository")
+ */
+class Provincia
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=150)
+     */
+    private $nombre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Pais", inversedBy="provincias")
+     * @ORM\JoinColumn(name="pais_id", referencedColumnName="id")
+     */
+    protected $pais;
+    /**
+     * @ORM\OneToMany(targetEntity="Localidad", mappedBy="provincia")
+     */
+    protected $localidades;
+
+}
