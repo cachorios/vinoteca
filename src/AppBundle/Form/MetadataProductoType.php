@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
 class MetadataProductoType extends AbstractType
 {
         /**
@@ -38,8 +39,8 @@ class MetadataProductoType extends AbstractType
             ))
         ;
     }
-    
-    public function setDefaultOptions(OptionsResolver $resolver)
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
             array(

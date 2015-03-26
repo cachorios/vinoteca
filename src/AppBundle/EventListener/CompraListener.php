@@ -19,7 +19,7 @@ class CompraListener
     {
         $entity = $args->getEntity();
         if ($entity instanceof Compra) {
-        $this->container->get('compra.manager')->procesarStock($entity);
+            $this->container->get('compra.manager')->procesarStock($entity);
         }
 
     }

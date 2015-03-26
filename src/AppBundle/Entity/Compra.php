@@ -24,7 +24,7 @@ use RBSoft\UsuarioBundle\Entity\Usuario;
  *      errorPath="facturaNumero",
  *      message="Este periodo ya existe.")
  *
- * 
+ * @ORM\HasLifecycleCallbacks()
  */
 class Compra implements SecureControl
 {
@@ -64,7 +64,7 @@ class Compra implements SecureControl
     /**
      * @ORM\Column(name="factura_numero", type="string", nullable=true)
      */
-    private $factura_numero;
+    private $facturaNumero;
 
     /**
      * @ORM\ManyToOne(targetEntity="RBSoft\UsuarioBundle\Entity\Usuario")
@@ -256,7 +256,7 @@ class Compra implements SecureControl
     }
 
     /**
-     * 
+     * @ORM\PrePersist
      */
     public function PrePersist()
     {

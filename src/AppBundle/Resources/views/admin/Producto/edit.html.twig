@@ -92,13 +92,7 @@
                             <div id="datos" class="tab-pane fade active in">
 
 
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label required">Codigo</label>
-
-                                    <div class="col-sm-10">
-                                        <span class="form-control-disable ">{{ entity.codigo }}</span>
-                                    </div>
-                                </div>
+                                {{ form_row(edit_form.codigo) }}
                                 {{ form_row(edit_form.nombre) }}
 
                                 <div class="form-group">
@@ -108,9 +102,6 @@
                                         <span class="form-control-disable ">{{ entity.categoria | categoria_breadcrumd }}</span>
                                     </div>
                                 </div>
-
-                                {#{{ form_row(edit_form.categoria) }}#}
-                                {#{{ form_row(edit_form.codigo) }}#}
 
                                 {{ form_row(edit_form.descripcion) }}
                                 {{ form_row(edit_form.precio) }}

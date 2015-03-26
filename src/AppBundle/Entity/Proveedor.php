@@ -66,22 +66,6 @@ class Proveedor implements SecureControl
     private $domicilio;
 
     /**
-     * @ORM\ManyToOne(targetEntity="RBSoft\UtilidadBundle\Entity\Pais")
-     * @ORM\JoinColumn(name="pais_id", referencedColumnName="id")
-     * @Assert\Type("RBSoft\UtilidadBundle\Entity\Pais")
-     * @Assert\NotNull()
-     */
-    private $pais;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="RBSoft\UtilidadBundle\Entity\Provincia")
-     * @ORM\JoinColumn(name="provincia_id", referencedColumnName="id")
-     * @Assert\Type("RBSoft\UtilidadBundle\Entity\provincia")
-     * @Assert\NotNull()
-     */
-    private $provincia;
-
-    /**
      * @ORM\ManyToOne(targetEntity="RBSoft\UtilidadBundle\Entity\Localidad")
      * @ORM\JoinColumn(name="localidad_id", referencedColumnName="id")
      * @Assert\Type("RBSoft\UtilidadBundle\Entity\Localidad")
@@ -801,18 +785,6 @@ class Proveedor implements SecureControl
         return $this->comentario;
     }
 
-    /**
-     * Set pais
-     *
-     * @param \RBSoft\UtilidadBundle\Entity\Pais $pais
-     * @return Proveedor
-     */
-    public function setPais(\RBSoft\UtilidadBundle\Entity\Pais $pais = null)
-    {
-        $this->pais = $pais;
-
-        return $this;
-    }
 
     /**
      * Get pais
@@ -821,21 +793,9 @@ class Proveedor implements SecureControl
      */
     public function getPais()
     {
-        return $this->pais;
+        return ($this->getProvincia()) ? $this->getProvincia()->getPais() : null;
     }
 
-    /**
-     * Set provincia
-     *
-     * @param \RBSoft\UtilidadBundle\Entity\Provincia $provincia
-     * @return Proveedor
-     */
-    public function setProvincia(\RBSoft\UtilidadBundle\Entity\Provincia $provincia = null)
-    {
-        $this->provincia = $provincia;
-
-        return $this;
-    }
 
     /**
      * Get provincia
@@ -844,7 +804,7 @@ class Proveedor implements SecureControl
      */
     public function getProvincia()
     {
-        return $this->provincia;
+        return ($this->localidad) ? $this->localidad->getProvincia() : null;
     }
 
     /**

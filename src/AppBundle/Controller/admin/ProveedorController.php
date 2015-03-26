@@ -108,9 +108,10 @@ class ProveedorController extends Controller
         $entity = new Proveedor();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
+        ld($entity);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
             $em->persist($entity);
             $em->flush();
 

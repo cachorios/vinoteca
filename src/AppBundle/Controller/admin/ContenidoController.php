@@ -106,7 +106,7 @@ class ContenidoController extends Controller
      *
      * @Route("/new", name="contenido_create")
      * @Method("POST")
-     * @Template("AppBundle:Admin\Contenido:new.html.twig")
+     * @Template("AppBundle:admin\Contenido:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -253,7 +253,7 @@ class ContenidoController extends Controller
      *
      * @Route("/{id}/edit", name="contenido_update")
      * @Method("PUT")
-     * @Template("AppBundle:Admin/Contenido:edit.html.twig")
+     * @Template("AppBundle:admin/Contenido:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

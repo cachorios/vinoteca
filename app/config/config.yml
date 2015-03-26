@@ -37,11 +37,11 @@ twig:
             - UtilidadBundle:Form:find.html.twig
             - :Form:form_div_layout.html.twig
 
-            - AppBundle:Form:collection_form_metasatos.html.twig
+            - AppBundle:Form:collection_form_metadatos.html.twig
             - AppBundle:Form:collection_form_items_compra.html.twig
             - AppBundle:Form:datetime_form.html.twig
 
-            - AppBundle:Admin/Contenido:collection_form_carrusel.html.twig
+            - AppBundle:admin/Contenido:collection_form_carrusel.html.twig
 
 # Doctrine Configuration
 doctrine:

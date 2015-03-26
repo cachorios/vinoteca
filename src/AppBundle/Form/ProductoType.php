@@ -29,7 +29,6 @@ class ProductoType extends AbstractType
     {
 
         $builder
-
             ->add('nombre', null, array())
             ->add('descripcion', null, array())
             ->add('precio', 'number', array(
@@ -73,7 +72,13 @@ class ProductoType extends AbstractType
                         },))
                         ->add('codigo', null, array(
                             'required' => false,
+                            'attr' => array('style' => 'width: auto')
                         ));
+                }else{
+                    $form->add('codigo', null, array(
+                        'required' => true,
+                        'attr' => array('style' => 'width: auto')
+                    ));
                 }
             }
         );
