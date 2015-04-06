@@ -12,13 +12,13 @@
                             </div>
                         </div>
 
-                        <a href="{{ path('usuario_edit', { 'id': entity.id }) }}"
+                        <a href="{{ path('admin_usuario_edit', { 'id': entity.id }) }}"
                            class="btn btn-sm btn-default">
                             Editar
                         </a>
 
-                        <a href="{{ path('usuario') }}" class="btn btn-sm btn-default">
-                            Ir a la lista
+                        <a href="{{ path('admin_usuario') }}" class="btn btn-sm btn-default">
+                            Ir a la lista hola
                         </a>
 
                     </div>
@@ -31,10 +31,6 @@
                 <table class="table">
                     <tbody>
                     <tr>
-                        <th class="show-header">Login</th>
-                        <td>{{ entity.login }}</td>
-                    </tr>
-                    <tr>
                         <th class="show-header">Email</th>
                         <td>{{ entity.email }}</td>
                     </tr>
@@ -46,26 +42,26 @@
                         <th class="show-header">Telefono</th>
                         <td>{{ entity.telefono }}</td>
                     </tr>
-                    <tr>
-                        <th class="show-header">Celular</th>
-                        <td>{{ entity.celular }}</td>
-                    </tr>
-                    <tr>
-                        <th class="show-header">Facebook</th>
-                        <td>{{ entity.facebook }}</td>
-                    </tr>
-                    <tr>
-                        <th class="show-header">Twitter</th>
-                        <td>{{ entity.twitter }}</td>
-                    </tr>
-                    <tr>
-                        <th class="show-header">Fecha Alta</th>
-                        <td>{{ entity.fechaalta | date('d-m-Y') }}</td>
-                    </tr>
+                    {#<tr>#}
+                        {#<th class="show-header">Celular</th>#}
+                        {#<td>{{ entity.celular }}</td>#}
+                    {#</tr>#}
+                    {#<tr>#}
+                        {#<th class="show-header">Facebook</th>#}
+                        {#<td>{{ entity.facebook }}</td>#}
+                    {#</tr>#}
+                    {#<tr>#}
+                        {#<th class="show-header">Twitter</th>#}
+                        {#<td>{{ entity.twitter }}</td>#}
+                    {#</tr>#}
+                    {#<tr>#}
+                        {#<th class="show-header">Fecha Alta</th>#}
+                        {#<td>{{ entity.fechaalta | date('d-m-Y') }}</td>#}
+                    {#</tr>#}
                     </tbody>
                 </table>
 
-
+                {{ entity | ld }}
 
             {% endblock %}
         {% endembed %}

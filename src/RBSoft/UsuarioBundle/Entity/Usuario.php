@@ -41,7 +41,6 @@ class Usuario extends BaseUser {
      */
     private $movil;
 
-
     /**
      * @var String $foto
      * @ORM\Column(type="string", length=100, nullable=true)
@@ -143,8 +142,6 @@ class Usuario extends BaseUser {
      */
     public function setFoto($foto)
     {
-
-
         if($foto instanceof UploadedFile  )
             if($foto->getError() == '0'  ){
                 $fileName = uniqid("user") .'.'.  $foto->getClientOriginalExtension();

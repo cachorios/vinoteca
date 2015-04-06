@@ -3,7 +3,7 @@
 {% block id 'Prodile' %}
 
 {% block contenido -%}
-    {% embed '::portlet.html.twig' with {'titulo': '<span class="small">Perfil:</span>  ' ~ user.nombre } %}
+    {% embed '::portlet.html.twig' with {'titulo': '<span class="">Perfil:</span>  ' ~ user.nombre } %}
         {% block in_header %}
             <div class='pull-right'></div>
         {% endblock %}
@@ -14,4 +14,5 @@
             {% include "FOSUserBundle:Profile:show_content.html.twig" %}
         {% endblock %}
     {% endembed %}
+    <br><br><br>
 {% endblock contenido %}

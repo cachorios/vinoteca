@@ -8,7 +8,7 @@ fos_user:
     use_username_form_type: true
 
     from_email:
-        address: albertovoeffray@gmail.com%
+        address: vinoteca@gmail.com%
         sender_name: "Vinoteca"
 
     profile:
@@ -28,12 +28,12 @@ fos_user:
     registration:
         confirmation:
             from_email:
-                address: albertovoeffray@gmail.com%
+                address: vinoteca@gmail.com%
                 sender_name: "Vinoteca"
             enabled:    true
             template: UsuarioBundle:Usuario:confirmacion.email.html.twig
         form:
-            type:               fos_user_registration
+            type:               usuario_registration
             name:               fos_user_registration_form
             validation_groups:  [Registration, Default]
 

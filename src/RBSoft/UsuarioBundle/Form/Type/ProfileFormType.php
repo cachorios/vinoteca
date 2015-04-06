@@ -38,11 +38,12 @@ class ProfileFormType extends AbstractType
 
 
         $builder
-            ->add("username", null, array('label' => "Usuario"))
+            ->add("email")
+//            ->add("username", null, array('label' => "Usuario"))
             ->add("nombre")
             ->add("telefono")
             ->add("movil",null,array("label" => "Teléfono Móvil"))
-            ->add("email");
+            ;
         if ($builder->getData()) {
             $builder
                 ->add('foto', 'file', array('required' => false, 'attr' => array("data-imagen" => $builder->getData()->getFoto())));
@@ -65,23 +66,6 @@ class ProfileFormType extends AbstractType
             );
 
         $builder->get("foto")->addModelTransformer(new FileToStringTransformer());
-
-
-//        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-//            $usuario = $event->getData();
-//            $form = $event->getForm();
-//            if($usuario) {
-//                //$form->get("foto")->addModelTransformer(new FileToStringTransformer());
-//                $form->add(
-//                    'foto',
-//                    'text',
-//                    array('required' => false, 'attr' => array("data-imagen" => $usuario->getFoto()))
-//                );
-//
-//            }
-////            $form->get("foto")->addModelTransformer(new FileToStringTransformer());
-//
-//        });
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -108,7 +92,7 @@ class ProfileFormType extends AbstractType
     protected function buildUserForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
+            //->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
             ->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'));
     }
 
