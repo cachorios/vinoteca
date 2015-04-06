@@ -12,16 +12,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;use Knp\Bundle\Pag
 use Knp\Component\Pager\Paginator;
 
 use RBSoft\UsuarioBundle\Entity\Usuario;
-use UserAdminBundle\Form\UsuarioType;
-use UserAdminBundle\Form\UsuarioFilterType;
-
-
+use RBSoft\UsuarioBundle\Form\UsuarioType;
+use RBSoft\UsuarioBundle\Form\UsuarioFilterType;
 
 
 /**
  * Usuario controller.
  *
- * @Route("/admin/usuario", name="admin_usuario")
+ * @Route("/usuario", name="admin_usuario")
  */
 class UsuarioController extends Controller
 {

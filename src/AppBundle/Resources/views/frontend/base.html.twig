@@ -122,7 +122,7 @@
                         {#Verfifica si esta logeado en el sistema y quita register y avilita profile#}
                         {% if not app.user %}
                         <li>
-                            <a href="register.html">
+                            <a href="{{ path('fos_user_registration_register') }}">
                                 <i class="fa fa-unlock" title="Register"></i>
 											<span class="hidden-sm hidden-xs">
 												Register

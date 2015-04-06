@@ -143,7 +143,7 @@
 
         <li class="dropdown navbar-profile">
             <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">
-                <img alt="" class="navbar-profile-avatar" src="{{ asset("uploads/usuarios/"~ usuario.login ~".jpg" ) }}">
+                <img alt="" class="navbar-profile-avatar" src="{{ asset("uploads/usuarios/"~ usuario.foto ~".jpg" ) }}">
                 <span class="navbar-profile-label">rod@rod.me &nbsp;</span>
                 <i class="fa fa-caret-down"></i>
             </a>
@@ -151,7 +151,7 @@
             <ul role="menu" class="dropdown-menu">
 
                 <li>
-                    <a href="{{ path('usuario_perfil') }}">
+                    <a href="#">
                         <i class="fa fa-user"></i>
                         &nbsp;&nbsp;My Perfil
                     </a>
@@ -174,7 +174,7 @@
                 <li class="divider"></li>
 
                 <li>
-                    <a href=" {{ path('admin_logout')  }} ">
+                    <a href=" {{ path('usuario_logout')  }} ">
 
                         <i class="fa fa-sign-out"></i>
                         &nbsp;&nbsp;Logout
