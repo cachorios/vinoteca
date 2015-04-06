@@ -14,14 +14,9 @@ class UsuarioFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('login', 'filter_text')
+            ->add('id', 'filter_number_range')
+            ->add('username', 'filter_text')
             ->add('email', 'filter_text')
-            ->add('nombre', 'filter_text')
-            ->add('telefono', 'filter_text')
-            ->add('celular', 'filter_text')
-            ->add('facebook', 'filter_text')
-            ->add('twitter', 'filter_text')
-
         ;
 
         $listener = function(FormEvent $event)
@@ -40,7 +35,7 @@ class UsuarioFilterType extends AbstractType
 
             $event->getForm()->addError(new FormError('Filtro limpio'));
         };
-        $builder->addEventListener(FormEvents::POST_BIND, $listener);
+        $builder->addEventListener(FormEvents::POST_SUBMIT, $listener);
     }
 
     public function getName()

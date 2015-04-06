@@ -1,0 +1,19 @@
+{% extends "layout.html.twig" %}
+
+{#{% block topbar %} {% endblock %}#}
+
+    {% block contenido -%}
+        <br>
+        {% embed '::portlet.html.twig' with {'titulo': 'Registrate '} %}
+            {% block in_header %}
+                <div class='pull-right'></div>
+            {% endblock %}
+
+            {% block cuerpo %}
+                <p></p>
+
+                {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+            {% endblock %}
+        {% endembed %}
+        <br><br><br>
+    {% endblock contenido %}

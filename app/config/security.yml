@@ -1,63 +1,46 @@
-# you can read more about security in the related section of the documentation
-# http://symfony.com/doc/current/book/security.html
 security:
-    # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
     encoders:
-        RBSoft\UsuarioBundle\Entity\Usuario:   { algorithm: sha512, iterations: 10 }
+        FOS\UserBundle\Model\UserInterface: sha512
 
-    # http://symfony.com/doc/current/book/security.html#hierarchical-roles
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_USUARIO:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
 
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
+        fos_userbundle:
+            #id: fos_user.user_provider.username
+            id: fos_user.user_provider.username_email
 
-        usuarios:
-            entity: { class: RBSoft\UsuarioBundle\Entity\Usuario, property: email }
-
-    # the main part of the security, where you can set up firewalls
-    # for specific sections of your app
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-        # the login page has to be accessible for everybody
-        admins:
-            pattern: ^/admin/*
-            anonymous: ~
-
+        main:
+            pattern: ^/
             form_login:
-                login_path: admin_login
-                check_path: admin_login_check
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+                default_target_path: /profile
                 always_use_default_target_path: true
-    #                use_forward: true
-                default_target_path:            /admin/
-                #Si fallo el login
-                #failure_path:    /
+#            logout:       true
             logout:
-                path: admin_logout
+                path: /logout
                 target: /
                 invalidate_session: false
+            anonymous:    true
 
-            remember_me:
-                key: rbs1130492014
-                lifetime: 3600
-
-
-    # with these settings you can restrict or allow access for different parts
-    # of your application based on roles, ip, host or methods
-    # http://symfony.com/doc/current/book/security.html#security-book-access-control-matching-options
     access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
-        - { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/usuario/registro, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/$, roles:  ROLE_USUARIO  }
+        # -> custom access control for the frontend area of the URL
+        - { path: ^/profile, role: [ROLE_USUARIO] }
 
-#        - { path: ^/*, roles:  ROLE_USUARIO  }
+        # -> end
 
-        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/*, roles:  [ROLE_USUARIO]  }
+
+        # -> custom access control for the admin area of the URL
+#        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/admin/login-check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/admin/*, roles:  [ROLE_ADMIN]  }
+        # -> end
+
+

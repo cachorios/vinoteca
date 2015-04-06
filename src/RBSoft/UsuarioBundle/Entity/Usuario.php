@@ -1,168 +1,69 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: cachorios
+ * Date: 03/02/2015
+ * Time: 6:57
+ */
 
 namespace RBSoft\UsuarioBundle\Entity;
 
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Security\Core\Role\Role;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
- * Usuario
- *
- * 
- * @ORM\Entity(repositoryClass="RBSoft\UsuarioBundle\Entity\UsuarioRepository")
+ * @ORM\Entity
+ * @ORM\Table(name="fos_user")
  */
-class Usuario implements AdvancedUserInterface
-{
-
+class Usuario extends BaseUser {
     /**
-     * @var string
-     *
      * @ORM\Id
-     * @ORM\Column(type="string", length=100, name="login")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $login;
-
+    protected $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true, name="email")
-     * @Assert\NotBlank()
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=100, nullable=true, name="nombre")
+     * @var String $nombre
+     * @ORM\Column(type="string", length=64, nullable=true)
      */
     private $nombre;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true, name="telefono")
-     */
+    * @var String $telefono
+    * @ORM\Column(type="string", length=64, nullable=true)
+    */
     private $telefono;
-
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true, name="celular")
+     * @var String $movil
+     * @ORM\Column(type="string", length=64, nullable=true)
      */
-    private $celular;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true, name="facebook")
-     */
-    private $facebook;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true, name="twitter")
-     */
-    private $twitter;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true, name="salt")
-     */
-    private $salt;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=255, nullable=true, name="password")
-     */
-    private $password;
+    private $movil;
 
 
     /**
-     * @var DateTime
-     *
-     *  @ORM\Column(type="datetime", nullable=true, name="fecha_alta")
+     * @var String $foto
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
-    private $fecha_alta;
+    private $foto;
 
-    /**
-     * @Assert\File(maxSize="6000000")
-     */
-    private $imagen;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(type="boolean", nullable=true)
-     *
-     */
-    protected $activo = true;
 
     public function __construct()
     {
-        $this->setFechaAlta( new \DateTime());
-    }
-
-
-    public function getId(){
-        return $this->getLogin();
-    }
-
-
-    /**
-     * Set login
-     *
-     * @param string $login
-     * @return Usuario
-     */
-    public function setLogin($login)
-    {
-        $this->login = $login;
-
-        return $this;
+        parent::__construct();
+        $this->addRole("ROLE_USUARIO");
+        // your own logic
     }
 
     /**
-     * Get login
+     * Get id
      *
-     * @return string 
+     * @return integer 
      */
-    public function getLogin()
+    public function getId()
     {
-        return $this->login;
-    }
-
- 
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return Usuario
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
-        return $this->email;
+        return $this->id;
     }
 
     /**
@@ -212,283 +113,63 @@ class Usuario implements AdvancedUserInterface
     }
 
     /**
-     * Set celular
+     * Set movil
      *
-     * @param string $celular
+     * @param string $movil
      * @return Usuario
      */
-    public function setCelular($celular)
+    public function setMovil($movil)
     {
-        $this->celular = $celular;
+        $this->movil = $movil;
 
         return $this;
     }
 
     /**
-     * Get celular
+     * Get movil
      *
      * @return string 
      */
-    public function getCelular()
+    public function getMovil()
     {
-        return $this->celular;
+        return $this->movil;
     }
 
-
     /**
-     * Set password
+     * Set foto
      *
-     * @param string $password
+     * @param string | UpdloadFile $foto
      * @return Usuario
      */
-    public function setPassword($password)
+    public function setFoto($foto)
     {
-        $this->password = $password;
+
+
+        if($foto instanceof UploadedFile  )
+            if($foto->getError() == '0'  ){
+                $fileName = uniqid("user") .'.'.  $foto->getClientOriginalExtension();
+                $dir = __DIR__.'/../../../../web/uploads/users';
+
+                $foto->move($dir, $fileName  );
+                $this->foto = $fileName;
+            }else
+                throw new \Exception("Error en imagen");
+
+        elseif($foto)
+                $this->foto = $foto;
+
 
         return $this;
     }
 
     /**
-     * Get password
+     * Get foto
      *
      * @return string 
      */
-    public function getPassword()
+    public function getFoto()
     {
-        return $this->password;
-    }
-
-    /**
-     * Set activo
-     *
-     * @param boolean $activo
-     * @return User
-     */
-    public function setActivo($activo)
-    {
-        $this->activo = $activo;
-
-        return $this;
-    }
-
-    /**
-     * Get activo
-     *
-     * @return boolean
-     */
-    public function getActivo()
-    {
-        return $this->activo;
-    }
-
-    public function __toString()
-    {
-        return $this->getNombre();
-    }
-
-    /**
-     * Set fecha_alta
-     *
-     * @param \DateTime $fechaAlta
-     * @return Usuario
-     */
-    public function setFechaAlta($fechaAlta)
-    {
-        $this->fecha_alta = $fechaAlta;
-
-        return $this;
-    }
-
-    /**
-     * Get fecha_alta
-     *
-     * @return \DateTime 
-     */
-    public function getFechaAlta()
-    {
-        return $this->fecha_alta;
-    }
-
-
-    /**
-     * @param $salt
-     * @return $this
-     */
-    public function setSalt($salt){
-        $this->salt = $salt;
-        return $this;
-    }
-
-    /**
-     * Returns the roles granted to the user.
-     *
-     * <code>
-     * public function getRoles()
-     * {
-     *     return array('ROLE_USER');
-     * }
-     * </code>
-     *
-     * Alternatively, the roles might be stored on a ``roles`` property,
-     * and populated in any number of different ways when the user object
-     * is created.
-     *
-     * @return Role[] The user roles
-     */
-    public function getRoles()
-    {
-        return array('ROLE_USUARIO');
-    }
-
-    /**
-     * Returns the salt that was originally used to encode the password.
-     *
-     * This can return null if the password was not encoded using a salt.
-     *
-     * @return string|null The salt
-     */
-    public function getSalt()
-    {
-        return $this->salt;
-    }
-
-    /**
-     * Returns the username used to authenticate the user.
-     *
-     * @return string The username
-     */
-    public function getUsername()
-    {
-        return $this->getEmail();
-    }
-
-    /**
-     * Removes sensitive data from the user.
-     *
-     * This is important if, at any given point, sensitive information like
-     * the plain-text password is stored on this object.
-     */
-    public function eraseCredentials()
-    {
-        // TODO: Implement eraseCredentials() method.
-    }
-
-    /**
-     * Set facebook
-     *
-     * @param string $facebook
-     * @return Usuario
-     */
-    public function setFacebook($facebook)
-    {
-        $this->facebook = $facebook;
-
-        return $this;
-    }
-
-    /**
-     * Get facebook
-     *
-     * @return string 
-     */
-    public function getFacebook()
-    {
-        return $this->facebook;
-    }
-
-    /**
-     * Set twitter
-     *
-     * @param string $twitter
-     * @return Usuario
-     */
-    public function setTwitter($twitter)
-    {
-        $this->twitter = $twitter;
-
-        return $this;
-    }
-
-    /**
-     * Get twitter
-     *
-     * @return string 
-     */
-    public function getTwitter()
-    {
-        return $this->twitter;
-    }
-
-    /**
-     * Sets file.
-     *
-     * @param UploadedFile $file
-     */
-    public function setImagen(UploadedFile $file = null)
-    {
-        $this->imagen = $file;
-    }
-
-    /**
-     * Get file.
-     *
-     * @return UploadedFile
-     */
-    public function getImagen()
-    {
-        return $this->imagen;
-    }
-
-
-    public function upload($dir)
-    {
-        if (null === $this->getImagen()) {
-            if(file_exists($dir.$this->getLogin().'.jpg'))
-                unlink($dir.$this->getLogin().'.jpg');
-            return;
-        }
-
-        if(file_exists($dir.$this->getLogin().'.'.$this->getImagen()->getClientOriginalExtension()))
-            unlink($dir.$this->getLogin().'.'.$this->getImagen()->getClientOriginalExtension());
-
-        $this->getImagen()->move(
-            $dir,
-            $this->getLogin().'.'.$this->getImagen()->getClientOriginalExtension()
-        );
-
-        $this->imagen = null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function isEnabled()
-    {
-        return $this->activo;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function isAccountNonExpired()
-    {
-        return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function isAccountNonLocked()
-    {
-        return $this->isEnabled();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function isCredentialsNonExpired()
-    {
-        return true;
+        return $this->foto;
     }
 
 }

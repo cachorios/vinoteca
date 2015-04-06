@@ -2,13 +2,9 @@ parameters:
 #    usuario.example.class: RBSoft\UsuarioBundle\Example
 
 services:
-#    usuario.example:
-#        class: %usuario.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
-    usuario.listener.doctrine:
-        class: RBSoft\UsuarioBundle\EventListener\UsuarioListener
-        arguments: [@security.encoder_factory]
+    rbsoft.profile.form.type:
+        class: RBSoft\UsuarioBundle\Form\Type\ProfileFormType
+        arguments: [%fos_user.model.user.class%]
         tags:
-            - { name: doctrine.event_listener, event: prePersist,   method: prePersist }
-            - { name: doctrine.event_listener, event: preUpdate,    method: preUpdate }
-
+            - { name: form.type, alias: usuario_profile }
+#        arguments: [@service_id, "plain_value", %parameter%]

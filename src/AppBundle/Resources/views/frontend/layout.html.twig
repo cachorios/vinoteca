@@ -14,10 +14,8 @@
 </div><!-- .content -->
 
 
-{% if logout is not defined or logout is null %}
-    {% set logout_path = path('admin_logout') %}
-{% else %}
-    {% set logout_path = path('autogestion_logout') %}
+{% if logout is defined %}
+    {% set logout_path = path('usuario_logout') %}
 {% endif %}
 
 {% endblock body %}

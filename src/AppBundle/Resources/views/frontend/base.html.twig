@@ -103,14 +103,6 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <i class="fa fa-user" title="My Account"></i>
-											<span class="hidden-sm hidden-xs">
-												My Account
-											</span>
-                            </a>
-                        </li>
-                        <li>
                             <a href="{{ path("cartdisplay") }}">
                                 <i class="fa fa-shopping-cart" title="{{ "Carro de Compra" | trans }}"></i>
 											<span class="hidden-sm hidden-xs">
@@ -126,6 +118,9 @@
 											</span>
                             </a>
                         </li>
+
+                        {#Verfifica si esta logeado en el sistema y quita register y avilita profile#}
+                        {% if not app.user %}
                         <li>
                             <a href="register.html">
                                 <i class="fa fa-unlock" title="Register"></i>
@@ -134,13 +129,26 @@
 											</span>
                             </a>
                         </li>
+                        {% else %}
                         <li>
-                            <a href="{{ path("usuario_login") }}">
-                                <i class="fa fa-lock" title="Ingresar"></i>
+                            <a href="{{ path('fos_user_profile_show') }}">
+                                <i class="fa fa-user" title="My Account"></i>
 											<span class="hidden-sm hidden-xs">
-												Ingresar
+												Perfil
 											</span>
                             </a>
+                        </li>
+                        {% endif %}
+
+                        <li>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <a href="{{ path('fos_user_security_logout') }}">
+                                    <i class="fa fa-sign-out" title="salir"></i>
+                                    <span class="hidden-sm hidden-xs"> {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</span>
+                                </a>
+                            {% else %}
+                                <a href="{{ path('fos_user_security_login') }}"><i class="fa fa-lock" title="Ingresar"></i><span class="hidden-sm hidden-xs"> {{ 'layout.login'|trans({}, 'FOSUserBundle') }}</span></a>
+                            {% endif %}
                         </li>
                     </ul>
                 </div>

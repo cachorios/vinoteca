@@ -5,7 +5,7 @@ _usuario_admin:
 
 usuario_login:
     path: /login
-    defaults: { _controller: UsuarioBundle:Default:login}
+    defaults: { _controller: UsuarioBundle:Security:login}
 
 usuario_login_check:
     path: /login_check
@@ -14,12 +14,12 @@ usuario_logout:
     path: /logout
 
 #----- Admin Login ------#
-admin_login:
-    path: /admin/login
-    defaults: { _controller: UsuarioBundle:Default:login}
-
-admin_login_check:
-    path: /admin/login_check
-
-admin_logout:
-    path: /admin/logout
+#admin_login:
+#    path: /admin/login
+#    defaults: { _controller: UsuarioBundle:Default:login}
+#
+#admin_login_check:
+#    path: /admin/login_check
+#
+#admin_logout:
+#    path: /logout

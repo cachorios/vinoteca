@@ -27,6 +27,8 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Gregwar\ImageBundle\GregwarImageBundle(),
 
+            new FOS\UserBundle\FOSUserBundle(),
+
             new RBSoft\UsuarioBundle\UsuarioBundle(),
             new RBSoft\ABMGeneradorBundle\RBSoftABMGeneradorBundle(),
             new RBSoft\UtilidadBundle\UtilidadBundle(),
