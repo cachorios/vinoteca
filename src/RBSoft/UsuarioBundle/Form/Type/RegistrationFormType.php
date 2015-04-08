@@ -17,10 +17,10 @@ class RegistrationFormType extends AbstractType
     {
         parent::buildForm($builder, $options);
         // add your custom field
-//        $builder
-//            ->remove('username')
+        $builder
+            ->remove('username')
 //            ->add('nombre', null, array('label' => 'Nombre y Apellido'))
-//        ;
+        ;
     }
 
     public function getParent()
