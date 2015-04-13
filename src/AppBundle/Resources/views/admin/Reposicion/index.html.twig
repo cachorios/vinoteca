@@ -1,14 +1,14 @@
 {% extends 'AppBundle:admin:layout.html.twig' %}
-{% trans_default_domain "compra" %}
+{% trans_default_domain "reposicion" %}
 
-{% block id 'compra' %}
+{% block id 'reposicion' %}
 
     {% block contenido -%}
-        {% embed '::portlet.html.twig' with {'titulo': 'Lista de compras <small>(' ~ pager.totalItemCount ~ ' )</small>' } %}
+        {% embed '::portlet.html.twig' with {'titulo': 'Lista de reposicions <small>(' ~ pager.totalItemCount ~ ' )</small>' } %}
             {% block in_header %}
                 <div class='pull-right'>
-                    <a href="{{ path('compra_new') }}" class="button_nuevo btn btn-sm btn-primary">
-                        {{ 'Nueva Compra'|trans }}
+                    <a href="{{ path('reposicion_new') }}" class="button_nuevo btn btn-sm btn-primary">
+                        {{ 'Nueva Reposicion'|trans }}
                     </a>
 
                 </div>
@@ -57,7 +57,7 @@
                     <tr>
                         <th class="{{ pager.isSorted('facturaNumero') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ knp_pagination_sortable(pager, 'Numero de Factura', 'c.facturaNumero', { direction: 'desc' }) }}  </th>
                         <th class="{{ pager.isSorted('cuit') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ knp_pagination_sortable(pager, 'Cuit', 'c.cuit', { direction: 'desc' }) }} </th>
-                        <th class="{{ pager.isSorted('fechaCompra') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ knp_pagination_sortable(pager, 'Fecha Compra', 'c.fechaCompra', { direction: 'desc' }) }} </th>
+                        <th class="{{ pager.isSorted('fechaReposicion') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ knp_pagination_sortable(pager, 'Fecha Reposicion', 'c.fechaReposicion', { direction: 'desc' }) }} </th>
                         {#<th class="{{ pager.isSorted('fechaAlta') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'fechaAlta'|trans|upper }} </th>#}
                         <th class="actions">{{ 'Acciones'|trans|upper }}</th>
                         {#{{ "facturaNumero"|trans|upper }}#}
@@ -68,11 +68,11 @@
                         <tr>
                             <td>{{ entity.facturaNumero }}</td>
                             <td>{{ entity.cuit }}</td>
-                            <td>{% if entity.fechaCompra %}{{ entity.fechaCompra|date('d-m-Y') }}{% endif %}</td>
+                            <td>{% if entity.fechaReposicion %}{{ entity.fechaReposicion|date('d-m-Y') }}{% endif %}</td>
                             {#<td>{% if entity.fechaAlta %}{{ entity.fechaAlta|date('Y-m-d') }}{% endif %}</td>#}
                             <td class="actions">
                                 <div class="btn-group">
-                                    <a href="{{ path('compra_show', { 'id': entity.id }) }}"
+                                    <a href="{{ path('reposicion_show', { 'id': entity.id }) }}"
                                        class="btn btn-xs btn-default" data-toggle="tooltip" data-placement="top"
                                        title="Ver mas información">
                                         <span class="glyphicon glyphicon-eye-open"></span>

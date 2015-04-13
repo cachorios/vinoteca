@@ -10,7 +10,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 
-class CompraItemsCollectionType extends AbstractType
+class ReposicionItemsCollectionType extends AbstractType
 {
 
     /**
@@ -26,6 +26,6 @@ class CompraItemsCollectionType extends AbstractType
      */
     public function getName()
     {
-        return 'compra_items_collection';
+        return 'reposicion_items_collection';
     }
 }

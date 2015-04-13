@@ -22,7 +22,7 @@ class DefinicionFormaPago {
             5 => 'PayPal',
             6 => 'Tarjeta de Crédito',
             7 => 'Transferencia Bancaria',
-            8 => 'Vale compra',
+            8 => 'Vale reposicion',
             9 => 'Otra',
         );
     }

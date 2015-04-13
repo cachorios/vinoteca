@@ -24,11 +24,11 @@
             var producto_id = collectionHolder.attr('data-productoid');
             var producto_codigo = collectionHolder.attr('data-codigo');
             var producto_nombre = collectionHolder.attr('data-nombre');
-            var inputid = '#appbundle_compra_items_' + fieldCount + '_producto';
-            var inputcodigo = '#appbundle_compra_items_' + fieldCount + '_producto_codigo';
-            var inputnombre = '#appbundle_compra_items_' + fieldCount + '_producto_nombre';
-            var inputcantidad = '#appbundle_compra_items_' + fieldCount + '_cantidad';
-            var inputprecio = '#appbundle_compra_items_' + fieldCount + '_precioUnitario';
+            var inputid = '#appbundle_reposicion_items_' + fieldCount + '_producto';
+            var inputcodigo = '#appbundle_reposicion_items_' + fieldCount + '_producto_codigo';
+            var inputnombre = '#appbundle_reposicion_items_' + fieldCount + '_producto_nombre';
+            var inputcantidad = '#appbundle_reposicion_items_' + fieldCount + '_cantidad';
+            var inputprecio = '#appbundle_reposicion_items_' + fieldCount + '_precioUnitario';
             var fieldList = jQuery('#iten_list_items_collection');
             var newWidget = fieldList.attr('data-prototype');
             newWidget = newWidget.replace(/__name__/g, fieldCount);

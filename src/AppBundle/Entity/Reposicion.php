@@ -12,21 +12,21 @@ use RBSoft\UtilidadBundle\Validator\Constraints as UtilidadAssert;
 use RBSoft\UsuarioBundle\Entity\Usuario;
 
 /**
- * Compra
+ * Reposicion
  *
  * @ORM\Table(
- *     name="compra",
+ *     name="reposicion",
  *     uniqueConstraints={@ORM\UniqueConstraint(name="uniq_idx", columns={"factura_numero","cuit"})}
  * )
  *
- * @ORM\Entity(repositoryClass="AppBundle\Entity\CompraRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ReposicionRepository")
  * @DoctrineAssert\UniqueEntity(fields={"facturaNumero", "cuit"},
  *      errorPath="facturaNumero",
  *      message="Este periodo ya existe.")
  *
  * @ORM\HasLifecycleCallbacks()
  */
-class Compra implements SecureControl
+class Reposicion implements SecureControl
 {
     /**
      * @var integer
@@ -50,9 +50,9 @@ class Compra implements SecureControl
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime", nullable=true, name="fecha_compra")
+     * @ORM\Column(type="datetime", nullable=true, name="fecha_reposicion")
      */
-    private $fechaCompra;
+    private $fechaReposicion;
 
     /**
      * @var \DateTime
@@ -73,7 +73,7 @@ class Compra implements SecureControl
     private $usuario;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CompraItem", mappedBy="compra", cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ReposicionItem", mappedBy="reposicion", cascade={"persist","remove"})
      * @Assert\Count(
      *      min = "1",
      *      max = "50",
@@ -102,7 +102,7 @@ class Compra implements SecureControl
      * Set facturaNumero
      *
      * @param string $facturaNumero
-     * @return Compra
+     * @return Reposicion
      */
     public function setFacturaNumero($facturaNumero)
     {
@@ -123,14 +123,14 @@ class Compra implements SecureControl
 
 
     /**
-     * Set fechaCompra
+     * Set fechaReposicion
      *
-     * @param \DateTime $fechaCompra
-     * @return Compra
+     * @param \DateTime $fechaReposicion
+     * @return Reposicion
      */
-    public function setFechaCompra($fechaCompra)
+    public function setFechaReposicion($fechaReposicion)
     {
-        $this->fechaCompra = $fechaCompra;
+        $this->fechaReposicion = $fechaReposicion;
 
         return $this;
     }
@@ -158,20 +158,20 @@ class Compra implements SecureControl
     }
 
     /**
-     * Get fechaCompra
+     * Get fechaReposicion
      *
      * @return \DateTime
      */
-    public function getFechaCompra()
+    public function getFechaReposicion()
     {
-        return $this->fechaCompra;
+        return $this->fechaReposicion;
     }
 
     /**
      * Set fechaAlta
      *
      * @param \DateTime $fechaAlta
-     * @return Compra
+     * @return Reposicion
      */
     public function setFechaAlta($fechaAlta)
     {
@@ -194,7 +194,7 @@ class Compra implements SecureControl
      * Set cuit
      *
      * @param string $cuit
-     * @return Compra
+     * @return Reposicion
      */
     public function setCuit($cuit)
     {
@@ -224,13 +224,13 @@ class Compra implements SecureControl
     /**
      * Add items
      *
-     * @param \AppBundle\Entity\CompraItem $items
-     * @return Compra
+     * @param \AppBundle\Entity\ReposicionItem $items
+     * @return Reposicion
      */
-    public function addItem(\AppBundle\Entity\CompraItem $items)
+    public function addItem(\AppBundle\Entity\ReposicionItem $items)
     {
 //        ld($items);
-        $items->setCompra($this);
+        $items->setReposicion($this);
         $this->items[] = $items;
         return $this;
     }
@@ -238,9 +238,9 @@ class Compra implements SecureControl
     /**
      * Remove items
      *
-     * @param \AppBundle\Entity\CompraItem $items
+     * @param \AppBundle\Entity\ReposicionItem $items
      */
-    public function removeItem(\AppBundle\Entity\CompraItem $items)
+    public function removeItem(\AppBundle\Entity\ReposicionItem $items)
     {
         $this->items->removeElement($items);
     }

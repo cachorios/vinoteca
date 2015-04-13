@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\CompraItem;
+use AppBundle\Entity\ReposicionItem;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 
-class CompraType extends AbstractType
+class ReposicionType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -31,13 +31,13 @@ class CompraType extends AbstractType
                     'prepend_input' => '@'
                 )
             ))
-            ->add('fechaCompra', 'app_datetime', array(
-                'label' => 'Fecha de compra',
+            ->add('fechaReposicion', 'app_datetime', array(
+                'label' => 'Fecha de reposicion',
 //                'help' => '! dia/mes/año',
                 'constraints' => new Assert\NotBlank(),
             ))
-            ->add('items', 'compra_items_collection', array(
-                'type' => new CompraItemType(),
+            ->add('items', 'reposicion_items_collection', array(
+                'type' => new ReposicionItemType(),
                 'by_reference'   => false,
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -52,7 +52,7 @@ class CompraType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'AppBundle\Entity\Compra',
+                'data_class' => 'AppBundle\Entity\Reposicion',
                 'cascade_validation' => true
             )
         );
@@ -63,6 +63,6 @@ class CompraType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_compra';
+        return 'appbundle_reposicion';
     }
 }

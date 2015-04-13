@@ -1,12 +1,12 @@
 {% extends 'AppBundle:admin:layout.html.twig' %}
-{% block id 'compra' %}
+{% block id 'reposicion' %}
     {% block contenido -%}
-        {% embed '::portlet.html.twig' with {'titulo': 'Nueva Compra' } %}
+        {% embed '::portlet.html.twig' with {'titulo': 'Nueva Reposicion' } %}
             {% block in_header %}
                 <div class='pull-right'>
                     <div class="row">
 
-                        <a href="{{ path('compra') }}" class="btn btn-sm btn-default">
+                        <a href="{{ path('reposicion') }}" class="btn btn-sm btn-default">
                             Ir a la lista
                         </a>
 
@@ -30,7 +30,7 @@
                     {#<div class="col-md-6">#}
                         {{ form_row(form.facturaNumero) }}
                         {{ form_row(form.cuit) }}
-                        {{ form_row(form.fechaCompra) }}
+                        {{ form_row(form.fechaReposicion) }}
                     {#</div>#}
                     {#<div class="col-md-6">#}
 
@@ -40,7 +40,7 @@
 
 
                 <div class="alert alert-info">
-                    Introduce aquí todos los Item posibles de la compra.
+                    Introduce aquí todos los Item posibles de la reposicion.
                 </div>
 
                 {{ form_widget(form.items) }}
@@ -54,7 +54,7 @@
                     <button title="Guardar y Salir" class="form-submit-button btn btn-sm btn-default btn-info"
                             value="save_and_close" name="save_mode" type="submit">Guardar y Salir <span
                                 class="glyphicon glyphicon-remove"></span></button>
-                    <a class="page-close-button btn btn-sm btn-default" href="{{ path('compra') }}">Cerrar
+                    <a class="page-close-button btn btn-sm btn-default" href="{{ path('reposicion') }}">Cerrar
                         <span class="glyphicon glyphicon-remove"></span></a>
                 </div>
 
@@ -73,6 +73,6 @@
     {% endblock contenido %}
 
     {% block javascript_footer %}
-        {{ include('AppBundle:admin/Compra:js.html.twig',{'form': form}) }}
+        {{ include('AppBundle:admin/Reposicion:js.html.twig',{'form': form}) }}
 
     {% endblock %}

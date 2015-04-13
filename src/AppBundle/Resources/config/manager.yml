@@ -13,8 +13,8 @@ services:
             - @security.token_storage
             - @request_stack
 
-    compra.manager:
-        class: AppBundle\Manager\CompraManager
+    reposicion.manager:
+        class: AppBundle\Manager\ReposicionManager
         arguments:
             - @doctrine.orm.entity_manager
             - @security.token_storage

@@ -1,8 +1,8 @@
-
 _usuario_admin:
     prefix:  /admin
     resource: "@UsuarioBundle/Controller"
 
+# usuario
 usuario_login:
     path: /login
     defaults: { _controller: UsuarioBundle:Security:login}
@@ -13,13 +13,15 @@ usuario_login_check:
 usuario_logout:
     path: /logout
 
-#----- Admin Login ------#
-#admin_login:
-#    path: /admin/login
-#    defaults: { _controller: UsuarioBundle:Default:login}
-#
-#admin_login_check:
-#    path: /admin/login_check
-#
-#admin_logout:
-#    path: /logout
+# Admin
+admin_login:
+    pattern:  /admin/login
+    defaults: { _controller: UsuarioBundle:Security:login }
+
+admin_login_check:
+    pattern:  /admin/login_check
+    defaults: { _controller: FOSUserBundle:Security:check }
+
+admin_logout:
+    pattern:  /admin/logout
+    defaults: { _controller: FOSUserBundle:Security:logout }

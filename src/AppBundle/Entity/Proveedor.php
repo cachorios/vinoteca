@@ -114,7 +114,6 @@ class Proveedor implements SecureControl
      */
     private $email;
 
-
     /**
      * @var string
      *
@@ -205,17 +204,24 @@ class Proveedor implements SecureControl
     private $n_cuenta;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="comentario", type="text", nullable=true)
-     */
-    private $comentario;
-
-    /**
      * @ORM\ManyToOne(targetEntity="RBSoft\UsuarioBundle\Entity\Usuario")
      * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      */
     private $usuario;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="observacion", type="text", nullable=true)
+     */
+    private $observacion;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_ingreso", type="datetime", nullable=false)
+     */
+    private $fechaIngreso;
 
     public function __toString()
     {
@@ -246,10 +252,15 @@ class Proveedor implements SecureControl
         return $this->usuario;
     }
 
+
+
+
+
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -260,6 +271,7 @@ class Proveedor implements SecureControl
      * Set codigo
      *
      * @param integer $codigo
+     *
      * @return Proveedor
      */
     public function setCodigo($codigo)
@@ -272,7 +284,7 @@ class Proveedor implements SecureControl
     /**
      * Get codigo
      *
-     * @return integer 
+     * @return integer
      */
     public function getCodigo()
     {
@@ -280,9 +292,10 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Set razon_social
+     * Set razonSocial
      *
      * @param string $razonSocial
+     *
      * @return Proveedor
      */
     public function setRazonSocial($razonSocial)
@@ -293,9 +306,9 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Get razon_social
+     * Get razonSocial
      *
-     * @return string 
+     * @return string
      */
     public function getRazonSocial()
     {
@@ -303,9 +316,10 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Set nombre_fantasia
+     * Set nombreFantasia
      *
      * @param string $nombreFantasia
+     *
      * @return Proveedor
      */
     public function setNombreFantasia($nombreFantasia)
@@ -316,9 +330,9 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Get nombre_fantasia
+     * Get nombreFantasia
      *
-     * @return string 
+     * @return string
      */
     public function getNombreFantasia()
     {
@@ -329,6 +343,7 @@ class Proveedor implements SecureControl
      * Set cuit
      *
      * @param string $cuit
+     *
      * @return Proveedor
      */
     public function setCuit($cuit)
@@ -341,7 +356,7 @@ class Proveedor implements SecureControl
     /**
      * Get cuit
      *
-     * @return string 
+     * @return string
      */
     public function getCuit()
     {
@@ -352,6 +367,7 @@ class Proveedor implements SecureControl
      * Set domicilio
      *
      * @param string $domicilio
+     *
      * @return Proveedor
      */
     public function setDomicilio($domicilio)
@@ -364,7 +380,7 @@ class Proveedor implements SecureControl
     /**
      * Get domicilio
      *
-     * @return string 
+     * @return string
      */
     public function getDomicilio()
     {
@@ -372,9 +388,10 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Set codigo_postal
+     * Set codigoPostal
      *
      * @param string $codigoPostal
+     *
      * @return Proveedor
      */
     public function setCodigoPostal($codigoPostal)
@@ -385,9 +402,9 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Get codigo_postal
+     * Get codigoPostal
      *
-     * @return string 
+     * @return string
      */
     public function getCodigoPostal()
     {
@@ -395,9 +412,10 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Set pagina_web
+     * Set paginaWeb
      *
      * @param string $paginaWeb
+     *
      * @return Proveedor
      */
     public function setPaginaWeb($paginaWeb)
@@ -408,9 +426,9 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Get pagina_web
+     * Get paginaWeb
      *
-     * @return string 
+     * @return string
      */
     public function getPaginaWeb()
     {
@@ -421,6 +439,7 @@ class Proveedor implements SecureControl
      * Set telefono
      *
      * @param string $telefono
+     *
      * @return Proveedor
      */
     public function setTelefono($telefono)
@@ -433,7 +452,7 @@ class Proveedor implements SecureControl
     /**
      * Get telefono
      *
-     * @return string 
+     * @return string
      */
     public function getTelefono()
     {
@@ -444,6 +463,7 @@ class Proveedor implements SecureControl
      * Set fax
      *
      * @param string $fax
+     *
      * @return Proveedor
      */
     public function setFax($fax)
@@ -456,7 +476,7 @@ class Proveedor implements SecureControl
     /**
      * Get fax
      *
-     * @return string 
+     * @return string
      */
     public function getFax()
     {
@@ -467,6 +487,7 @@ class Proveedor implements SecureControl
      * Set email
      *
      * @param string $email
+     *
      * @return Proveedor
      */
     public function setEmail($email)
@@ -479,7 +500,7 @@ class Proveedor implements SecureControl
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -490,6 +511,7 @@ class Proveedor implements SecureControl
      * Set contacto
      *
      * @param string $contacto
+     *
      * @return Proveedor
      */
     public function setContacto($contacto)
@@ -502,7 +524,7 @@ class Proveedor implements SecureControl
     /**
      * Get contacto
      *
-     * @return string 
+     * @return string
      */
     public function getContacto()
     {
@@ -510,9 +532,10 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Set contacto_telefono
+     * Set contactoTelefono
      *
      * @param string $contactoTelefono
+     *
      * @return Proveedor
      */
     public function setContactoTelefono($contactoTelefono)
@@ -523,9 +546,9 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Get contacto_telefono
+     * Get contactoTelefono
      *
-     * @return string 
+     * @return string
      */
     public function getContactoTelefono()
     {
@@ -533,9 +556,10 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Set contacto_int
+     * Set contactoInt
      *
      * @param string $contactoInt
+     *
      * @return Proveedor
      */
     public function setContactoInt($contactoInt)
@@ -546,9 +570,9 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Get contacto_int
+     * Get contactoInt
      *
-     * @return string 
+     * @return string
      */
     public function getContactoInt()
     {
@@ -556,9 +580,10 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Set contacto_fax
+     * Set contactoFax
      *
      * @param string $contactoFax
+     *
      * @return Proveedor
      */
     public function setContactoFax($contactoFax)
@@ -569,9 +594,9 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Get contacto_fax
+     * Get contactoFax
      *
-     * @return string 
+     * @return string
      */
     public function getContactoFax()
     {
@@ -579,9 +604,10 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Set contacto_movil
+     * Set contactoMovil
      *
      * @param string $contactoMovil
+     *
      * @return Proveedor
      */
     public function setContactoMovil($contactoMovil)
@@ -592,9 +618,9 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Get contacto_movil
+     * Get contactoMovil
      *
-     * @return string 
+     * @return string
      */
     public function getContactoMovil()
     {
@@ -602,9 +628,10 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Set contacto_email
+     * Set contactoEmail
      *
      * @param string $contactoEmail
+     *
      * @return Proveedor
      */
     public function setContactoEmail($contactoEmail)
@@ -615,9 +642,9 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Get contacto_email
+     * Get contactoEmail
      *
-     * @return string 
+     * @return string
      */
     public function getContactoEmail()
     {
@@ -628,6 +655,7 @@ class Proveedor implements SecureControl
      * Set moneda
      *
      * @param string $moneda
+     *
      * @return Proveedor
      */
     public function setMoneda($moneda)
@@ -640,7 +668,7 @@ class Proveedor implements SecureControl
     /**
      * Get moneda
      *
-     * @return string 
+     * @return string
      */
     public function getMoneda()
     {
@@ -648,9 +676,10 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Set limite_credito
+     * Set limiteCredito
      *
      * @param float $limiteCredito
+     *
      * @return Proveedor
      */
     public function setLimiteCredito($limiteCredito)
@@ -661,9 +690,9 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Get limite_credito
+     * Get limiteCredito
      *
-     * @return float 
+     * @return float
      */
     public function getLimiteCredito()
     {
@@ -671,9 +700,10 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Set tipo_pago
+     * Set tipoPago
      *
      * @param integer $tipoPago
+     *
      * @return Proveedor
      */
     public function setTipoPago($tipoPago)
@@ -684,9 +714,9 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Get tipo_pago
+     * Get tipoPago
      *
-     * @return integer 
+     * @return integer
      */
     public function getTipoPago()
     {
@@ -697,6 +727,7 @@ class Proveedor implements SecureControl
      * Set descuento
      *
      * @param string $descuento
+     *
      * @return Proveedor
      */
     public function setDescuento($descuento)
@@ -709,7 +740,7 @@ class Proveedor implements SecureControl
     /**
      * Get descuento
      *
-     * @return string 
+     * @return string
      */
     public function getDescuento()
     {
@@ -717,9 +748,10 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Set cond_iva
+     * Set condIva
      *
      * @param string $condIva
+     *
      * @return Proveedor
      */
     public function setCondIva($condIva)
@@ -730,9 +762,9 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Get cond_iva
+     * Get condIva
      *
-     * @return string 
+     * @return string
      */
     public function getCondIva()
     {
@@ -740,9 +772,10 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Set n_cuenta
+     * Set nCuenta
      *
      * @param string $nCuenta
+     *
      * @return Proveedor
      */
     public function setNCuenta($nCuenta)
@@ -753,9 +786,9 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Get n_cuenta
+     * Get nCuenta
      *
-     * @return string 
+     * @return string
      */
     public function getNCuenta()
     {
@@ -763,54 +796,58 @@ class Proveedor implements SecureControl
     }
 
     /**
-     * Set comentario
+     * Set observacion
      *
-     * @param string $comentario
+     * @param string $observacion
+     *
      * @return Proveedor
      */
-    public function setComentario($comentario)
+    public function setObservacion($observacion)
     {
-        $this->comentario = $comentario;
+        $this->observacion = $observacion;
 
         return $this;
     }
 
     /**
-     * Get comentario
+     * Get observacion
      *
-     * @return string 
+     * @return string
      */
-    public function getComentario()
+    public function getObservacion()
     {
-        return $this->comentario;
+        return $this->observacion;
     }
 
-
     /**
-     * Get pais
+     * Set fechaIngreso
      *
-     * @return \RBSoft\UtilidadBundle\Entity\Pais 
+     * @param \DateTime $fechaIngreso
+     *
+     * @return Proveedor
      */
-    public function getPais()
+    public function setFechaIngreso($fechaIngreso)
     {
-        return ($this->getProvincia()) ? $this->getProvincia()->getPais() : null;
+        $this->fechaIngreso = $fechaIngreso;
+
+        return $this;
     }
 
-
     /**
-     * Get provincia
+     * Get fechaIngreso
      *
-     * @return \RBSoft\UtilidadBundle\Entity\Provincia 
+     * @return \DateTime
      */
-    public function getProvincia()
+    public function getFechaIngreso()
     {
-        return ($this->localidad) ? $this->localidad->getProvincia() : null;
+        return $this->fechaIngreso;
     }
 
     /**
      * Set localidad
      *
      * @param \RBSoft\UtilidadBundle\Entity\Localidad $localidad
+     *
      * @return Proveedor
      */
     public function setLocalidad(\RBSoft\UtilidadBundle\Entity\Localidad $localidad = null)
@@ -823,7 +860,7 @@ class Proveedor implements SecureControl
     /**
      * Get localidad
      *
-     * @return \RBSoft\UtilidadBundle\Entity\Localidad 
+     * @return \RBSoft\UtilidadBundle\Entity\Localidad
      */
     public function getLocalidad()
     {

@@ -9,12 +9,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 use RBSoft\UtilidadBundle\Validator\Constraints as UtilidadAssert;
 
 /**
- * CompraItem
+ * ReposicionItem
  *
- * @ORM\Table(name="compra_item")
+ * @ORM\Table(name="reposicion_item")
  * @ORM\Entity
  */
-class CompraItem
+class ReposicionItem
 {
     /**
      * @var integer
@@ -26,10 +26,10 @@ class CompraItem
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Compra", inversedBy="items")
-     * @ORM\JoinColumn(name="compra_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Reposicion", inversedBy="items")
+     * @ORM\JoinColumn(name="reposicion_id", referencedColumnName="id")
      */
-    private $compra;
+    private $reposicion;
 
     /**
      * @var integer
@@ -106,7 +106,7 @@ class CompraItem
      * Set cantidad
      *
      * @param integer $cantidad
-     * @return CompraItem
+     * @return ReposicionItem
      */
     public function setCantidad($cantidad)
     {
@@ -126,33 +126,33 @@ class CompraItem
     }
 
     /**
-     * Set compra
+     * Set reposicion
      *
-     * @param \AppBundle\Entity\Compra $compra
-     * @return CompraItem
+     * @param \AppBundle\Entity\Reposicion $reposicion
+     * @return ReposicionItem
      */
-    public function setCompra(\AppBundle\Entity\Compra $compra = null)
+    public function setReposicion(\AppBundle\Entity\Reposicion $reposicion = null)
     {
-        $this->compra = $compra;
+        $this->reposicion = $reposicion;
 
         return $this;
     }
 
     /**
-     * Get compra
+     * Get reposicion
      *
-     * @return \AppBundle\Entity\Compra
+     * @return \AppBundle\Entity\Reposicion
      */
-    public function getCompra()
+    public function getReposicion()
     {
-        return $this->compra;
+        return $this->reposicion;
     }
 
     /**
      * Set producto
      *
      * @param \AppBundle\Entity\Producto $producto
-     * @return CompraItem
+     * @return ReposicionItem
      */
     public function setProducto(\AppBundle\Entity\Producto $producto = null)
     {

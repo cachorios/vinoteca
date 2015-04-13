@@ -2,12 +2,12 @@
 
 namespace AppBundle\Manager;
 
-use AppBundle\Entity\Compra;
+use AppBundle\Entity\Reposicion;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class CompraManager
+class ReposicionManager
 {
     /** @var EntityManager */
     protected $em;
@@ -29,13 +29,13 @@ class CompraManager
 
     public function getList()
     {
-        $queryBuilder = $this->em->getRepository('AppBundle:Compra')->ListAll();
+        $queryBuilder = $this->em->getRepository('AppBundle:Reposicion')->ListAll();
         return $queryBuilder;
     }
 
-    public function procesarStock(Compra $compra)
+    public function procesarStock(Reposicion $reposicion)
     {
-        foreach ($compra->getItems() as $item) {
+        foreach ($reposicion->getItems() as $item) {
             $producto = $item->getProducto();
             $stock = $producto->getStock();
             $producto->setStock($stock + $item->getCantidad());

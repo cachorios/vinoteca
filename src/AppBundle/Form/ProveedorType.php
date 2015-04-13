@@ -86,7 +86,7 @@ class ProveedorType extends AbstractType
             ))
             ->add('descuento',null, array(
                 'attr' => array('style' => 'width: auto'),
-                'help' => 'Indique un descuento en porcentaje sin el símbolo % para todas las compras al proveedor.',
+                'help' => 'Indique un descuento en porcentaje sin el símbolo % para todas las reposicions al proveedor.',
             ))
             ->add('cond_iva','condicion_iva', array(
                 'attr' => array('style' => 'width: auto')

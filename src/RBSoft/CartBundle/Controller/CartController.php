@@ -47,7 +47,7 @@ class CartController extends Controller
         if($size == 'Big'){
             $breadcrumbs = $this->get("white_october_breadcrumbs");
             $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
-            $breadcrumbs->addItem("Carro de Compra");
+            $breadcrumbs->addItem("Carro de Reposicion");
 
         }
 

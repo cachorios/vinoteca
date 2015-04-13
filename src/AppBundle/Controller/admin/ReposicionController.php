@@ -2,24 +2,24 @@
 
 namespace AppBundle\Controller\admin;
 
-use AppBundle\Entity\Compra;
-use AppBundle\Form\CompraType;
+use AppBundle\Entity\Reposicion;
+use AppBundle\Form\ReposicionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
-use AppBundle\Form\CompraFilterType;
+use AppBundle\Form\ReposicionFilterType;
 
 /**
- * Categoria controller.
+ * Reposicion controller.
  *
- * @Route("/compra")
+ * @Route("/reposicion")
  */
-class CompraController extends Controller
+class ReposicionController extends Controller
 {
     /**
-     * @Route("/", name="compra")
+     * @Route("/", name="reposicion")
      * @Method({"GET","POST"})
      */
     public function indexAction(Request $request)
@@ -27,7 +27,7 @@ class CompraController extends Controller
         list($filterForm, $queryBuilder) = $this->filter($request);
         $pager = $this->getPager($queryBuilder);
 
-        return $this->render('AppBundle:admin/Compra:index.html.twig',array(
+        return $this->render('AppBundle:admin/Reposicion:index.html.twig',array(
             'pager' => $pager,
             'filterform' => $filterForm->createView(),
         ));
@@ -56,13 +56,13 @@ class CompraController extends Controller
     private function filter(Request $request)
     {
         $session = $request->getSession();
-        $filterForm = $this->createForm(new CompraFilterType());
+        $filterForm = $this->createForm(new ReposicionFilterType());
 
-        $queryBuilder = $this->get('compra.manager')->getList();
+        $queryBuilder = $this->get('reposicion.manager')->getList();
 
         // Reset filter
         if ($request->getMethod() == 'POST' && $request->get('submit-filter') == 'reset') {
-            $session->remove('CompraControllerFilter');
+            $session->remove('ReposicionControllerFilter');
         }
 
         // Filter action
@@ -76,12 +76,12 @@ class CompraController extends Controller
                 $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
                 // Save filter to session
                 $filterData = $filterForm->getData();
-                $session->set('CompraControllerFilter', $filterData);
+                $session->set('ReposicionControllerFilter', $filterData);
             }
         } else {
             // Get filter from session
-            if ($session->has('CompraControllerFilter')) {
-                $filterData = $session->get('CompraControllerFilter');
+            if ($session->has('ReposicionControllerFilter')) {
+                $filterData = $session->get('ReposicionControllerFilter');
                 $filterForm = $this->createForm(new CategoriaFilterType(), $filterData);
                 $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
             }
@@ -92,12 +92,12 @@ class CompraController extends Controller
     /**
      * Creates a new Categoria entity.
      *
-     * @Route("/new", name="compra_create")
+     * @Route("/new", name="reposicion_create")
      * @Method("POST")
      */
     public function createAction(Request $request)
     {
-        $entity = new Compra();
+        $entity = new Reposicion();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -105,15 +105,15 @@ class CompraController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', "La compra $entity se creó correctamente.");
+            $this->get('session')->getFlashBag()->add('success', "La reposicion $entity se creó correctamente.");
             if ($request->request->get('save_mode') == 'save_and_close') {
-               return $this->redirect($this->generateUrl('compra'));
+               return $this->redirect($this->generateUrl('reposicion'));
             }
-            return $this->redirect($this->generateUrl('compra_new'));
+            return $this->redirect($this->generateUrl('reposicion_new'));
 
         }
 
-        return $this->render('AppBundle:admin\Compra:new.html.twig',array(
+        return $this->render('AppBundle:admin\Reposicion:new.html.twig',array(
             'entity' => $entity,
             'form' => $form->createView(),
         ));
@@ -126,10 +126,10 @@ class CompraController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Compra $entity)
+    private function createCreateForm(Reposicion $entity)
     {
-        $form = $this->createForm(new CompraType(), $entity, array(
-            'action' => $this->generateUrl('compra_create'),
+        $form = $this->createForm(new ReposicionType(), $entity, array(
+            'action' => $this->generateUrl('reposicion_create'),
             'method' => 'POST',
         ));
 
@@ -138,41 +138,41 @@ class CompraController extends Controller
     }
 
     /**
-     * Displays a form to create a new Compra entity.
+     * Displays a form to create a new Reposicion entity.
      *
-     * @Route("/new", name="compra_new")
+     * @Route("/new", name="reposicion_new")
      * @Method("GET")
      */
     public function newAction()
     {
-        $entity = new Compra();
-        $entity->setFechaCompra(new \DateTime('now', new \DateTimeZone('UTC')));
+        $entity = new Reposicion();
+        $entity->setFechaReposicion(new \DateTime('now', new \DateTimeZone('UTC')));
 
         $form = $this->createCreateForm($entity);
 
-        return $this->render('AppBundle:admin\Compra:new.html.twig',array(
+        return $this->render('AppBundle:admin\Reposicion:new.html.twig',array(
             'entity' => $entity,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a compra entity.
+     * Finds and displays a reposicion entity.
      *
-     * @Route("/{id}", name="compra_show")
+     * @Route("/{id}", name="reposicion_show")
      * @Method("GET")
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('AppBundle:Compra')->find($id);
+        $entity = $em->getRepository('AppBundle:Reposicion')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Compra entity.');
+            throw $this->createNotFoundException('Unable to find Reposicion entity.');
         }
 
-        return $this->render('AppBundle:admin\Compra:show.html.twig',array(
+        return $this->render('AppBundle:admin\Reposicion:show.html.twig',array(
             'entity' => $entity,
         ));
     }

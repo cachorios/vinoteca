@@ -1,12 +1,12 @@
 <?php
 namespace AppBundle\EventListener;
 
-use AppBundle\Entity\Compra;
+use AppBundle\Entity\Reposicion;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use AppBundle\Entity\Categoria;
-use AppBundle\Manager\CompraManager;
+use AppBundle\Manager\ReposicionManager;
 
-class CompraListener
+class ReposicionListener
 {
     private $container;
 
@@ -18,8 +18,8 @@ class CompraListener
     public function postPersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-        if ($entity instanceof Compra) {
-            $this->container->get('compra.manager')->procesarStock($entity);
+        if ($entity instanceof Reposicion) {
+            $this->container->get('reposicion.manager')->procesarStock($entity);
         }
 
     }

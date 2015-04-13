@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormError;
 
-class CompraFilterType extends AbstractType
+class ReposicionFilterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -40,6 +40,6 @@ class CompraFilterType extends AbstractType
 
     public function getName()
     {
-        return 'appbundle_comprafiltertype';
+        return 'appbundle_reposicionfiltertype';
     }
 }

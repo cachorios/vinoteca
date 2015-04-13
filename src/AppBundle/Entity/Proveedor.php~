@@ -66,22 +66,6 @@ class Proveedor implements SecureControl
     private $domicilio;
 
     /**
-     * @ORM\ManyToOne(targetEntity="RBSoft\UtilidadBundle\Entity\Pais")
-     * @ORM\JoinColumn(name="pais_id", referencedColumnName="id")
-     * @Assert\Type("RBSoft\UtilidadBundle\Entity\Pais")
-     * @Assert\NotNull()
-     */
-    private $pais;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="RBSoft\UtilidadBundle\Entity\Provincia")
-     * @ORM\JoinColumn(name="provincia_id", referencedColumnName="id")
-     * @Assert\Type("RBSoft\UtilidadBundle\Entity\provincia")
-     * @Assert\NotNull()
-     */
-    private $provincia;
-
-    /**
      * @ORM\ManyToOne(targetEntity="RBSoft\UtilidadBundle\Entity\Localidad")
      * @ORM\JoinColumn(name="localidad_id", referencedColumnName="id")
      * @Assert\Type("RBSoft\UtilidadBundle\Entity\Localidad")
@@ -129,7 +113,6 @@ class Proveedor implements SecureControl
      * )
      */
     private $email;
-
 
     /**
      * @var string
@@ -221,17 +204,24 @@ class Proveedor implements SecureControl
     private $n_cuenta;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="comentario", type="text", nullable=true)
-     */
-    private $comentario;
-
-    /**
      * @ORM\ManyToOne(targetEntity="RBSoft\UsuarioBundle\Entity\Usuario")
-     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="login")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      */
     private $usuario;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="observacion", type="text", nullable=true)
+     */
+    private $observacion;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_ingreso", type="datetime", nullable=false)
+     */
+    private $fechaIngreso;
 
     public function __toString()
     {
@@ -261,4 +251,9 @@ class Proveedor implements SecureControl
     {
         return $this->usuario;
     }
+
+
+
+
+
 }

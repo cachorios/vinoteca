@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CompraItemType extends AbstractType
+class ReposicionItemType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -34,7 +34,7 @@ class CompraItemType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'AppBundle\Entity\CompraItem',
+                'data_class' => 'AppBundle\Entity\ReposicionItem',
                 'cascade_validation' => true
             )
         );
@@ -45,6 +45,6 @@ class CompraItemType extends AbstractType
      */
     public function getName()
     {
-        return 'appbundle_compraitem';
+        return 'appbundle_reposicionitem';
     }
 }

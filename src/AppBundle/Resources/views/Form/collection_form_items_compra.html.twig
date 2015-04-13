@@ -1,4 +1,4 @@
-{% block compra_items_collection_widget %}
+{% block reposicion_items_collection_widget %}
     {% spaceless %}
         <div class='pull-right'>
             <a title="Añadir un nuevo Item" href="#" data-toggle="modal"
@@ -10,7 +10,7 @@
         <div class='row'>
             <div class='col-sm-12'>
                 <table class="table table-hover table-condensed" id="iten_list_{{ name }}_collection"
-                       data-prototype="{{ _self.compra_item_collection_fields(form)|escape }}">
+                       data-prototype="{{ _self.reposicion_item_collection_fields(form)|escape }}">
                     <thead>
                     <tr>
                         <th class="col-xs-6">Codigo Descripción</th>
@@ -21,7 +21,7 @@
                     <tbody>
                     {% for field in form.children %}
                         <tr id="itemIndex0">
-                            {{ _self.compra_item_collection_fields(field) }}
+                            {{ _self.reposicion_item_collection_fields(field) }}
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -30,9 +30,9 @@
         </div>
 
     {% endspaceless %}
-{% endblock compra_items_collection_widget %}
+{% endblock reposicion_items_collection_widget %}
 
-{% macro compra_item_collection_fields(widget ) %}
+{% macro reposicion_item_collection_fields(widget ) %}
     {% if 'prototype' in widget.vars|keys %}
         {% set form = widget.vars.prototype %}
         {% set name = widget.vars.prototype.vars.name %}
