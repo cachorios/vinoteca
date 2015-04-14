@@ -1,7 +1,7 @@
 {% extends 'AppBundle:admin:layout.html.twig' %}
 
     {% block contenido -%}
-        {% embed '::portlet.html.twig' with {'titulo': 'Reposicion - factura N ' ~ entity} %}
+        {% embed '::portlet.html.twig' with {'titulo': 'Reposicion - Codigo:' ~ entity} %}
             {% block in_header %}
                 <div class='pull-right'>
                     <div class="row">
@@ -29,12 +29,26 @@
                 <table class="table table-show">
                     <tbody>
                     <tr>
-                        <th class="show-header">Numero de factura</th>
-                        <td>{{ entity }}</td>
+                        <th class="show-header">Codigo</th>
+                        <td>{{ entity.codigo }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Cuit</th>
-                        <td>{{ entity.cuit }}</td>
+                        <th class="show-header">Nombre Proveedor</th>
+                        <td>
+                            <a href="{{ path('proveedor_show', { 'id': entity.proveedor.id }) }}"
+                               title="Ver mas información del proveedor">
+                                {{ entity.proveedor.razonSocial }}
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Cuit Proveedor</th>
+                        <td>
+                            <a href="{{ path('proveedor_show', { 'id': entity.proveedor.id }) }}"
+                               title="Ver mas información del proveedor">
+                                {{ entity.proveedor.cuit }}
+                            </a>
+                        </td>
                     </tr>
                     <tr>
                         <th class="show-header">Fecha de alta</th>
@@ -78,7 +92,7 @@
                     </tbody>
                 </table>
 
-                <h4 class="content-title"><u>Actualizaciones</u></h4>
+                {#<h4 class="content-title"><u>Actualizaciones</u></h4>#}
             {% endblock %}
         {% endembed %}
     {% endblock contenido %}

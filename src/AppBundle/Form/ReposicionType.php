@@ -21,19 +21,17 @@ class ReposicionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('facturaNumero', null, array(
+            ->add('codigo', null, array(
                 'required' => true,
-                'label' => 'Numero de factura',
+                'label' => 'Codigo',
             ))
-            ->add('cuit', null, array(
-                'label' => 'CUIT',
-                'attr' => array(
-                    'prepend_input' => '@'
-                )
+            ->add('proveedor', null, array(
+                'label' => 'Proveedor',
+                'empty_value' => 'Seleccionar',
+//                'mapped' => false,
             ))
             ->add('fechaReposicion', 'app_datetime', array(
                 'label' => 'Fecha de reposicion',
-//                'help' => '! dia/mes/año',
                 'constraints' => new Assert\NotBlank(),
             ))
             ->add('items', 'reposicion_items_collection', array(

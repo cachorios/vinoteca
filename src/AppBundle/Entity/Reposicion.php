@@ -14,19 +14,13 @@ use RBSoft\UsuarioBundle\Entity\Usuario;
 /**
  * Reposicion
  *
- * @ORM\Table(
- *     name="reposicion",
- *     uniqueConstraints={@ORM\UniqueConstraint(name="uniq_idx", columns={"factura_numero","cuit"})}
- * )
- *
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ReposicionRepository")
- * @DoctrineAssert\UniqueEntity(fields={"facturaNumero", "cuit"},
- *      errorPath="facturaNumero",
- *      message="Este periodo ya existe.")
+ * @DoctrineAssert\UniqueEntity(fields={"codigo"},
+ *      message="El codigo ingresado ya existe.")
  *
  * @ORM\HasLifecycleCallbacks()
  */
-class Reposicion implements SecureControl
+class Reposicion  implements SecureControl
 {
     /**
      * @var integer
@@ -37,15 +31,20 @@ class Reposicion implements SecureControl
      */
     private $id;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="codigo", type="string", length=150, nullable=false)
+     */
+    private $codigo;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=11, nullable=true, name="cuit")
-     * @Assert\Regex("/^[0-9_]+$/")
-     * @UtilidadAssert\ContainsCuitValido()
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Proveedor")
+     * @ORM\JoinColumn(name="proveedor_id", referencedColumnName="id")
+     * @Assert\Type("AppBundle\Entity\Proveedor")
+     * @Assert\NotNull()
      */
-    private $cuit;
+    private $proveedor;
 
     /**
      * @var \DateTime
@@ -85,7 +84,7 @@ class Reposicion implements SecureControl
 
     public function __toString()
     {
-        return $this->getFacturaNumero();
+        return $this->getCodigo();
     }
 
     /**
@@ -99,33 +98,25 @@ class Reposicion implements SecureControl
     }
 
     /**
-     * Set facturaNumero
-     *
-     * @param string $facturaNumero
-     * @return Reposicion
+     * @ORM\PrePersist
      */
-    public function setFacturaNumero($facturaNumero)
+    public function PrePersist()
     {
-        $this->facturaNumero = $facturaNumero;
-
-        return $this;
+        $this->setFechaAlta(new \DateTime('now', new \DateTimeZone('UTC')));
     }
-
     /**
-     * Get facturaNumero
-     *
-     * @return string
+     * Constructor
      */
-    public function getFacturaNumero()
+    public function __construct()
     {
-        return $this->facturaNumero;
+        $this->items = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
 
     /**
      * Set fechaReposicion
      *
      * @param \DateTime $fechaReposicion
+     *
      * @return Reposicion
      */
     public function setFechaReposicion($fechaReposicion)
@@ -133,28 +124,6 @@ class Reposicion implements SecureControl
         $this->fechaReposicion = $fechaReposicion;
 
         return $this;
-    }
-
-    /**
-     * Set Usuario
-     *
-     * @param Usuario $usuario
-     * @return Producto
-     */
-    public function setUsuario(Usuario $usuario)
-    {
-        $this->usuario = $usuario;
-        return $this;
-    }
-
-    /**
-     * Get usuario
-     *
-     * @return usuario
-     */
-    public function getUsuario()
-    {
-        return $this->usuario;
     }
 
     /**
@@ -171,6 +140,7 @@ class Reposicion implements SecureControl
      * Set fechaAlta
      *
      * @param \DateTime $fechaAlta
+     *
      * @return Reposicion
      */
     public function setFechaAlta($fechaAlta)
@@ -191,58 +161,122 @@ class Reposicion implements SecureControl
     }
 
     /**
-     * Set cuit
+     * Set facturaNumero
      *
-     * @param string $cuit
+     * @param string $facturaNumero
+     *
      * @return Reposicion
      */
-    public function setCuit($cuit)
+    public function setFacturaNumero($facturaNumero)
     {
-        $this->cuit = $cuit;
+        $this->facturaNumero = $facturaNumero;
 
         return $this;
     }
 
     /**
-     * Get cuit
+     * Get facturaNumero
      *
      * @return string
      */
-    public function getCuit()
+    public function getFacturaNumero()
     {
-        return $this->cuit;
+        return $this->facturaNumero;
     }
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->items = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add items
+     * Set codigo
      *
-     * @param \AppBundle\Entity\ReposicionItem $items
+     * @param string $codigo
+     *
      * @return Reposicion
      */
-    public function addItem(\AppBundle\Entity\ReposicionItem $items)
+    public function setCodigo($codigo)
     {
-//        ld($items);
-        $items->setReposicion($this);
-        $this->items[] = $items;
+        $this->codigo = $codigo;
+
         return $this;
     }
 
     /**
-     * Remove items
+     * Get codigo
      *
-     * @param \AppBundle\Entity\ReposicionItem $items
+     * @return string
      */
-    public function removeItem(\AppBundle\Entity\ReposicionItem $items)
+    public function getCodigo()
     {
-        $this->items->removeElement($items);
+        return $this->codigo;
+    }
+
+    /**
+     * Set proveedor
+     *
+     * @param \AppBundle\Entity\Proveedor $proveedor
+     *
+     * @return Reposicion
+     */
+    public function setProveedor(\AppBundle\Entity\Proveedor $proveedor = null)
+    {
+        $this->proveedor = $proveedor;
+        return $this;
+    }
+
+    /**
+     * Get proveedor
+     *
+     * @return \AppBundle\Entity\Proveedor
+     */
+    public function getProveedor()
+    {
+        return $this->proveedor;
+    }
+
+    /**
+     * Set usuario
+     *
+     * @param \RBSoft\UsuarioBundle\Entity\Usuario $usuario
+     *
+     * @return Reposicion
+     */
+    public function setUsuario(\RBSoft\UsuarioBundle\Entity\Usuario $usuario = null)
+    {
+        $this->usuario = $usuario;
+
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \RBSoft\UsuarioBundle\Entity\Usuario
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    /**
+     * Add item
+     *
+     * @param \AppBundle\Entity\ReposicionItem $item
+     *
+     * @return Reposicion
+     */
+    public function addItem(\AppBundle\Entity\ReposicionItem $item)
+    {
+        $item->setReposicion($this);
+        $this->items[] = $item;
+        return $this;
+    }
+
+    /**
+     * Remove item
+     *
+     * @param \AppBundle\Entity\ReposicionItem $item
+     */
+    public function removeItem(\AppBundle\Entity\ReposicionItem $item)
+    {
+        $this->items->removeElement($item);
     }
 
     /**
@@ -253,13 +287,5 @@ class Reposicion implements SecureControl
     public function getItems()
     {
         return $this->items;
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function PrePersist()
-    {
-        $this->setFechaAlta(new \DateTime('now', new \DateTimeZone('UTC')));
     }
 }

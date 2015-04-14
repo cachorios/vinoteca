@@ -14,8 +14,8 @@ class ReposicionFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('cuit', 'filter_text')
-            ->add('facturaNumero', 'filter_text')
+            ->add('codigo', 'filter_text')
+//            ->add('facturaNumero', 'filter_text')
 
         ;
 

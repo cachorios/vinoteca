@@ -45,6 +45,7 @@ class Proveedor implements SecureControl
      * @var string
      *
      * @ORM\Column(name="nombre_fantasia", type="string", length=200, nullable=false)
+     * @Assert\NotBlank()
      */
     private $nombre_fantasia;
 
@@ -111,6 +112,7 @@ class Proveedor implements SecureControl
      *     message = "El email '{{ value }}' no es valido.",
      *     checkMX = false
      * )
+     * @Assert\NotBlank()
      */
     private $email;
 
@@ -178,14 +180,14 @@ class Proveedor implements SecureControl
     /**
      * @var string
      *
-     * @ORM\Column(name="tipo_pago", type="integer")
+     * @ORM\Column(name="tipo_pago", type="integer", nullable=true)
      */
     private $tipo_pago;
 
     /**
      * @var float
      *
-     * @ORM\Column(type="decimal", scale=2)
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
      */
     private $descuento = 0;
 
@@ -199,7 +201,8 @@ class Proveedor implements SecureControl
     /**
      * @var string
      *
-     * @ORM\Column(name="n_cuenta", type="string", length=80, nullable=true)
+     * @ORM\Column(name="nro_cuenta", type="string", length=80, nullable=true)
+     *
      */
     private $n_cuenta;
 
@@ -216,12 +219,12 @@ class Proveedor implements SecureControl
      */
     private $observacion;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_ingreso", type="datetime", nullable=false)
-     */
-    private $fechaIngreso;
+//    /**
+//     * @var \DateTime
+//     *
+//     * @ORM\Column(name="fecha_ingreso", type="datetime", nullable=false)
+//     */
+//    private $fechaIngreso;
 
     public function __toString()
     {
@@ -251,10 +254,6 @@ class Proveedor implements SecureControl
     {
         return $this->usuario;
     }
-
-
-
-
 
 
     /**
@@ -818,30 +817,30 @@ class Proveedor implements SecureControl
     {
         return $this->observacion;
     }
-
-    /**
-     * Set fechaIngreso
-     *
-     * @param \DateTime $fechaIngreso
-     *
-     * @return Proveedor
-     */
-    public function setFechaIngreso($fechaIngreso)
-    {
-        $this->fechaIngreso = $fechaIngreso;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaIngreso
-     *
-     * @return \DateTime
-     */
-    public function getFechaIngreso()
-    {
-        return $this->fechaIngreso;
-    }
+//
+//    /**
+//     * Set fechaIngreso
+//     *
+//     * @param \DateTime $fechaIngreso
+//     *
+//     * @return Proveedor
+//     */
+//    public function setFechaIngreso($fechaIngreso)
+//    {
+//        $this->fechaIngreso = $fechaIngreso;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get fechaIngreso
+//     *
+//     * @return \DateTime
+//     */
+//    public function getFechaIngreso()
+//    {
+//        return $this->fechaIngreso;
+//    }
 
     /**
      * Set localidad

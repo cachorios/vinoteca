@@ -47,31 +47,35 @@ class ProveedorType extends AbstractType
             ->add('codigo_postal',null, array(
                 'attr' => array('style' => 'width: auto')
             ))
-//            ->add('pais',null, array(
-//                'attr' => array('style' => 'width: auto')
-//            ))
-//            ->add('provincia',null, array(
-//                'attr' => array('style' => 'width: auto')
-//            ))
-//            ->add('localidad',null, array(
-//                'attr' => array('style' => 'width: auto')
-//            ))
+
             ->add('telefono',null, array())
-            ->add('email',null, array())
+            ->add('email',null, array(
+                'label' => 'Correo Electronico',
+            ))
 //            Datos del Contacto
-            ->add('contacto',null, array())
-            ->add('contacto_telefono',null, array())
+            ->add('contacto',null, array(
+                'help' => 'Nombres de personas de contacto (personal de ventas).',
+            ))
+            ->add('contacto_telefono',null, array(
+                'label' => 'Telefono',
+            ))
             ->add('contacto_int',null, array(
                 'attr' => array('style' => 'width: auto'),
-                'label' => 'Numero interno',
+                'label' => 'Interno',
+                'help' => 'Numero interno.',
 
             ))
-            ->add('contacto_fax',null, array())
+            ->add('contacto_fax',null, array(
+                'label' => 'Fax',
+            ))
             ->add('contacto_movil',null, array(
                 'label' => 'Móvil',
                 'help' => 'Escriba su teléfono móvil.',
             ))
-            ->add('contacto_email',null, array())
+            ->add('contacto_email',null, array(
+                'label' => 'Correo electronico',
+                'help' => 'Correo electronico del contacto',
+            ))
 //            Datos economicos
             ->add('moneda',null, array(
                 'attr' => array('style' => 'width: auto')
@@ -86,7 +90,7 @@ class ProveedorType extends AbstractType
             ))
             ->add('descuento',null, array(
                 'attr' => array('style' => 'width: auto'),
-                'help' => 'Indique un descuento en porcentaje sin el símbolo % para todas las reposicions al proveedor.',
+                'help' => 'Indique un descuento en porcentaje sin el símbolo %.',
             ))
             ->add('cond_iva','condicion_iva', array(
                 'attr' => array('style' => 'width: auto')
@@ -101,7 +105,7 @@ class ProveedorType extends AbstractType
                 'label' => 'Sitio web',
 
             ))
-            ->add('comentario',null, array())
+            ->add('observacion',null, array())
         ;
     }
     

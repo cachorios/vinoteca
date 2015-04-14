@@ -11,3 +11,10 @@ services:
         class: RBSoft\UsuarioBundle\Form\Type\RegistrationFormType
         tags:
             - { name: form.type, alias: usuario_registration }
+
+    usuario.listener.doctrine:
+        class: RBSoft\UsuarioBundle\Doctrine\EventListener\UsuarioListener
+        arguments: [@security.token_storage]
+        tags:
+            - { name: doctrine.event_listener, event: prePersist,   method: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate,    method: preUpdate }
