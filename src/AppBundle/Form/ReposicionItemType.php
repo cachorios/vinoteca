@@ -16,8 +16,12 @@ class ReposicionItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('cantidad', null, array())
-            ->add('precioUnitario', null, array())
+            ->add('cantidad', null, array(
+                'required' => true
+            ))
+            ->add('precioUnitario', 'money', array(
+                    'currency' => 'ARS'
+            ))
             ->add('producto_codigo', null, array(
             ))
             ->add('producto_nombre', null, array(

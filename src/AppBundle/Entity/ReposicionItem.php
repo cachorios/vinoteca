@@ -44,12 +44,7 @@ class ReposicionItem
 
     /**
      * @ORM\Column(type="decimal", nullable=true, name="precio_unitario", scale=2)
-     * @Assert\Regex(
-     *   pattern="/^\d+$/",
-     *   match=true,
-     *   message="no es numero"
-     * )
-     *
+     * @Assert\Type(type="decimal")
      */
     private $precioUnitario;
 

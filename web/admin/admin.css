@@ -1,3 +1,7 @@
+:required {
+    background-color: #d2d2ff !important;
+}
+
 .portlet-title, .content-title {
     margin-bottom: 0.5em;
 }

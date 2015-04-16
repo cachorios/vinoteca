@@ -29,8 +29,16 @@ class ProductoType extends AbstractType
     {
 
         $builder
-            ->add('nombre', null, array())
-            ->add('descripcion', null, array())
+            ->add('codigo', null, array(
+                'required' => true,
+                'attr' => array('style' => 'width: auto')
+            ))
+            ->add('nombre', null, array(
+                'required' => true,
+            ))
+            ->add('descripcion', null, array(
+                'required' => true,
+            ))
             ->add('precio', 'number', array(
                 'required' => true,
             ))
@@ -64,21 +72,13 @@ class ProductoType extends AbstractType
                         'class' => 'AppBundle:Categoria',
                         'empty_value' => '',
                         'property' => 'getStrAscentendeCategoria',
-                        'required' => false,
+                        'required' => true,
                         'multiple' => false,
                         'query_builder' => function (CategoriaRepository $repository) {
                             return $repository
                                 ->getCategoriasAsignables();
                         },))
-                        ->add('codigo', null, array(
-                            'required' => false,
-                            'attr' => array('style' => 'width: auto')
-                        ));
-                }else{
-                    $form->add('codigo', null, array(
-                        'required' => true,
-                        'attr' => array('style' => 'width: auto')
-                    ));
+                    ;
                 }
             }
         );
