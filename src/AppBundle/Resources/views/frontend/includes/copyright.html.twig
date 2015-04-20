@@ -1,0 +1,28 @@
+{#<!-- Container Starts -->#}
+<div class="container">
+    {#<!-- Starts -->#}
+    <p class="pull-left">
+        &nbsp; {{ "copyright.derechos" | trans({},'vista') | raw }}
+    </p>
+    {#<!-- Ends -->#}
+    {#<!-- Payment Gateway Links Starts -->#}
+    <ul class="pull-right list-inline">
+        <li>
+            <img src="{{ asset("images/payment-icon/cirrus.png") }}" alt="PaymentGateway"/>
+        </li>
+        <li>
+            <img src="{{ asset("images/payment-icon/paypal.png") }}" alt="PaymentGateway"/>
+        </li>
+        <li>
+            <img src="{{ asset("images/payment-icon/visa.png") }}" alt="PaymentGateway"/>
+        </li>
+        <li>
+            <img src="{{ asset("images/payment-icon/mastercard.png") }}" alt="PaymentGateway"/>
+        </li>
+        <li>
+            <img src="{{ asset("images/payment-icon/americanexpress.png") }}" alt="PaymentGateway"/>
+        </li>
+    </ul>
+    {#<!-- Payment Gateway Links Ends -->#}
+</div>
+{#<!-- Container Ends -->#}

@@ -1,0 +1,15 @@
+<div class="col1-banners">
+    <div class="container">
+        <ul class="row list-unstyled">
+            <li class="col-sm-12">
+                {% for detalle in contenido.contenidoDetalle  %}
+                    <div class="item {{ loop.index0 == 0 ? 'active' : "" }}">
+                        {#<img src="{{ asset("uploads/banners/" ~ detalle.imagen) }}" alt="Slider" class="img-responsive"/>#}
+                        <img class="img-responsive" alt="banners" src="{{ asset('uploads/banner/' ~ detalle.imagen) }}">
+                    </div>
+                {% endfor %}
+
+            </li>
+        </ul>
+    </div>
+</div>

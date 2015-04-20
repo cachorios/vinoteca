@@ -1,0 +1,11 @@
+empresa:
+  empresa: "Cabaña Wanfried"
+  leyenda: "Cabaña Wanfried"
+  direcccion: Chacabuco 5055, Posadas - Misiones, Argentina
+  email: cabana@wanfried.com
+  tel: +54-376-472545
+contacto:
+  label_contacto: Contactenos
+
+copyright:
+    derechos: '2015 Cabaña Wanfried. Diseñado por LAR & AEV -  <a href="#">RBSoft.com</a>. Derechos reservados.'
