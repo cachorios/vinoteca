@@ -15,7 +15,7 @@ security:
         # -> custom firewall for the admin area of the URL
         admin:
             context: user
-            pattern:            ^/admin/(.*)
+            pattern:            ^/admin(.*)
             form_login:
                 provider:       fos_userbundle
                 csrf_provider:  form.csrf_provider
