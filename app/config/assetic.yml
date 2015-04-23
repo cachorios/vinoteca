@@ -87,6 +87,8 @@ assetic:
                 - bundles/app/js/admin/plugins/moment/moment-with-locales.min.js
                 - bundles/app/js/admin/plugins/bootstrap-datepicker/bootstrap-datepicker.js
                 - bundles/app/js/admin/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.es.js
+                - bundles/app/js/admin/plugins/jquery.autosize/jquery.autosize.js
+
                 ##-- App JS --##
                 - bundles/app/js/admin/mvpready-core.js
                 - bundles/app/js/admin/mvpready-admin.js
