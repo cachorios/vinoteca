@@ -437,52 +437,5 @@ class Cliente
     {
         return $this->delPcia;
     }
-
-    /**
-     * Set delCiudad
-     *
-     * @param string $delCiudad
-     *
-     * @return Cliente
-     */
-    public function setDelCiudad($delCiudad)
-    {
-        $this->delCiudad = $delCiudad;
-
-        return $this;
-    }
-
-    /**
-     * Get delCiudad
-     *
-     * @return string
-     */
-    public function getDelCiudad()
-    {
-        return $this->delCiudad;
-    }
-
-    /**
-     * Set usuario
-     *
-     * @param \RBSoft\UsuarioBundle\Entity\Usuario $usuario
-     *
-     * @return Cliente
-     */
-    public function setUsuario(\RBSoft\UsuarioBundle\Entity\Usuario $usuario = null)
-    {
-        $this->usuario = $usuario;
-
-        return $this;
-    }
-
-    /**
-     * Get usuario
-     *
-     * @return \RBSoft\UsuarioBundle\Entity\Usuario
-     */
-    public function getUsuario()
-    {
-        return $this->usuario;
-    }
 }
+
