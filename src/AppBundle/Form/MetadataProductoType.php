@@ -21,7 +21,9 @@ class MetadataProductoType extends AbstractType
             ->add('orden',null , array(
             ))
             ->add('listaValores', 'textarea', array(
-                'required' => false
+                'required' => false,
+                'attr' => array('class' => 'lista-textarea')
+
             ))
             ->add('predeterminado', 'textarea', array(
                 'required' => false
@@ -31,10 +33,10 @@ class MetadataProductoType extends AbstractType
             ))
 
             ->add('filtrable', 'metadato_filter', array(
-//                'required' => false
             ))
 
             ->add('widget', 'widget_filter', array(
+                'attr' => array('class' => 'select-customwidget'),
                 'required' => true
             ))
         ;

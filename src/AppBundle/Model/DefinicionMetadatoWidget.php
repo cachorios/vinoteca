@@ -23,7 +23,7 @@ class DefinicionMetadatoWidget
         return array(
             1 => self::TEXT,
             2 => self::TEXTAREA,
-            4 => self::LISTA,
+            3 => self::LISTA,
         );
     }
 
