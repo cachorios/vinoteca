@@ -4,6 +4,7 @@ use Doctrine\ORM\Mapping AS ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
+ * @ORM\Table(name="contenido_detalle")
  * @ORM\Entity
  */
 class ContenidoDetalle

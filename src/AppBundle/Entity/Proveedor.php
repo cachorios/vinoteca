@@ -12,7 +12,7 @@ use RBSoft\UsuarioBundle\Entity\Usuario;
 /**
  * Proveedor
  *
- * @ORM\Table()
+ * @ORM\Table(name="proveedor")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ProveedorRepository")
  */
 class Proveedor implements SecureControl

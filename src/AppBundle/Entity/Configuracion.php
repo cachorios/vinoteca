@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Configuracion: Esta tabla tendra un solo registro.
- *
+ * @ORM\Table(name="configuracion")
  * 
  * @ORM\Entity
  */

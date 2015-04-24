@@ -16,7 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Producto
  *
- * 
+ * @ORM\Table(name="producto")
+ *
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ProductoRepository")
  * @DoctrineAssert\UniqueEntity(fields={"nombre", "codigo"})
  * 
