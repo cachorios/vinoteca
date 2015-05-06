@@ -5,58 +5,52 @@ namespace AppBundle\Form\DataTransformer;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManager;
-use Symfony\Component\Form\Exception\UnexpectedTypeException;
-use Symfony\Component\Form\Exception\FormException;
 
 class EntityToIdTransformer implements DataTransformerInterface
 {
     /**
-     * @var class
+     * @var ObjectManager
+     */
+    protected $objectManager;
+
+    /**
+     * @var string
      */
     protected $class;
 
-    /**
-     * @var ObjectManager
-     */
-    private $em;
-
-    /**
-     * @param ObjectManager $om
-     */
-    public function __construct(EntityManager $em, $class)
+    public function __construct(ObjectManager $objectManager, $class)
     {
-        $this->em = $em;
-        $this->unitOfWork = $this->em->getUnitOfWork();
+        $this->objectManager = $objectManager;
         $this->class = $class;
     }
 
     public function transform($entity)
     {
-        if (null === $entity || '' === $entity) {
-            return 'null';
+        if (null === $entity) {
+            return;
         }
-        if (!is_object($entity)) {
-            throw new UnexpectedTypeException($entity, 'object');
+        if (is_object($entity)) {
+            return $entity->getId();
         }
-        if (!$this->unitOfWork->isInIdentityMap($entity)) {
-            throw new FormException('Entities passed to field must be managed');
-        }
-        return $entity->getId();
+
+        return $entity;
     }
+
     public function reverseTransform($id)
     {
-        if ('' === $id || null === $id) {
+        if (!$id) {
             return null;
         }
 
-        if (!is_numeric($id)) {
-            throw new UnexpectedTypeException($id, 'numeric' . $id);
+        $entity = $this->objectManager
+            ->getRepository($this->class)
+            ->find($id);
+//        $entity = $this->em->getRepository($this->class)->findOneById($id);
+
+        if (null === $entity) {
+            throw new TransformationFailedException();
         }
-        $entity = $this->em->getRepository($this->class)->findOneById($id);
-        if ($entity === null) {
-            throw new TransformationFailedException(sprintf('The entity with key "%s" could not be found', $id));
-        }
+
         return $entity;
     }
 }

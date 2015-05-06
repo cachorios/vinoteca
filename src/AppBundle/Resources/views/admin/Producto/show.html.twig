@@ -46,16 +46,24 @@
                         <td>{{ entity.categoria | categoria_breadcrumd }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Descripcion</th>
+                        <th class="show-header">Descripción</th>
                         <td>{{ entity.descripcion }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Precio</th>
+                        <th class="show-header">Precio por Unidad</th>
                         <td>{{ entity.precio }}</td>
                     </tr>
                     <tr>
                         <th class="show-header">Iva</th>
                         <td>{{ entity.iva }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Stock</th>
+                        <td>{{ entity.stock }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Stock minimo</th>
+                        <td>{{ entity.limiteStock }}</td>
                     </tr>
                     <tr>
                         <th class="show-header">Actualizado por</th>
@@ -87,7 +95,7 @@
                                 class="col-sm-6 col-md-3 ui-state-default">
                                 <div class="thumbnail thumbnail-view-hover image-popup-vertical-fit">
                                     <img alt="imagen"
-                                         src="{{ image(imagen.getWebPath()).resize(200,100,"#ffffff",'center','center') }}">
+                                         src="{{ image(imagen.getWebPath()).resize(90,160,"#ffffff",'center','center') }}">
                                 </div>
                                 {% if imagen.primario %}
                                     <div class="btn-group">

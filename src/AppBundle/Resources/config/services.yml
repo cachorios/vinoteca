@@ -9,6 +9,12 @@ services:
         tags:
             - { name: twig.extension }
 
+    twig.extension.producto_imagen:
+        class: AppBundle\Twig\Extension\ImagenExtension
+        arguments: [@image.handling, @doctrine.orm.entity_manager]
+        tags:
+            - { name: twig.extension }
+
     categoria.listener.doctrine:
         class: AppBundle\EventListener\CategoriaListener
         arguments: [@service_container]

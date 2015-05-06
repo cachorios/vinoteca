@@ -63,7 +63,7 @@
                         <th class="{{ pager.isSorted('nombre') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'nombre '|trans|upper }} </th>
                         {#<th class="{{ pager.isSorted('slug') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'slug '|trans|upper }} </th>#}
                         {#<th class="{{ pager.isSorted('marca') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'marca '|trans|upper }} </th>#}
-                        {#<th class="{{ pager.isSorted('descripcion') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'descripcion '|trans|upper }} </th>#}
+                        <th class="{{ pager.isSorted('stock') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'stock'|trans|upper }} </th>
                         <th class="{{ pager.isSorted('precio') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'precio '|trans|upper }} </th>
                         <th class="{{ pager.isSorted('iva') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'iva '|trans|upper }} </th>
                         <th class="{{ pager.isSorted('activo') ? 'headerSortDown glyphicon-sort-by-attributes': 'headerSortUp' }}"> {{ 'activo '|trans|upper }} </th>
@@ -81,7 +81,7 @@
                             <td>{{ entity.nombre }}</td>
                             {#<td>{{ entity.slug }}</td>#}
                             {#<td>{{ entity.marca }}</td>#}
-                            {#<td>{{ entity.descripcion }}</td>#}
+                            <td>{{ entity.stock }}</td>
                             <td>{{ entity.precio }}</td>
                             <td>{{ entity.iva }}</td>
                             <td>{{ entity.activo? '<span class="label label-primary">Si</span>' : '<span class="label label-default">No</span>' }}</td>

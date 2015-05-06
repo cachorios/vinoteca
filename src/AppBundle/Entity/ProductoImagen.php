@@ -5,12 +5,13 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+
 /**
  * ProductoImagen
  *
  * @ORM\Table(name="producto_imagen")
- * @ORM\Entity
- * 
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ProductoImagenRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class ProductoImagen
 {
@@ -23,11 +24,7 @@ class ProductoImagen
      */
     private $id;
 
-    /**
-     */
-    private $file;
-
-    private $temp;
+    private $file = null;
     /**
      * @var string
      *
@@ -41,10 +38,18 @@ class ProductoImagen
      */
     private $producto;
 
-    public function __toString()
-    {
-        return $this->getFile();
-    }
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", nullable=true, name="orden")
+     *
+     */
+    private $orden = 0;
+
+    /**
+     * @var integer
+     */
+    private $delete = false;
 
     /**
      * @var string
@@ -52,6 +57,10 @@ class ProductoImagen
      */
     private $extension;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=false, name="created_at")
+     */
+    protected $createdAt;
 
     /**
      * Get id
@@ -61,6 +70,39 @@ class ProductoImagen
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return boolean
+     */
+    public function getDelete()
+    {
+        return $this->delete;
+    }
+
+    /**
+     * Get delete
+     *
+     * @return boolean
+     */
+    public function setDelete($delete)
+    {
+        $this->delete = $delete;
+        return $this;
     }
 
     /**
@@ -84,6 +126,29 @@ class ProductoImagen
     public function getPrimario()
     {
         return $this->primario;
+    }
+
+    /**
+     * Set orden
+     *
+     * @param integer $orden
+     * @return Categoria
+     */
+    public function setOrden($orden)
+    {
+        $this->orden = $orden;
+
+        return $this;
+    }
+
+    /**
+     * Get orden
+     *
+     * @return integer
+     */
+    public function getOrden()
+    {
+        return $this->orden;
     }
 
     /**
@@ -126,10 +191,9 @@ class ProductoImagen
      * @param string $file
      * @return ProductoImagen
      */
-    public function setFile($file)
+    public function setFile(UploadedFile $file)
     {
         $this->file = $file;
-
         return $this;
     }
 
@@ -155,21 +219,20 @@ class ProductoImagen
     }
 
     /**
-     * 
-     * 
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
      */
     public function preUpload()
     {
         if (null !== $this->getFile()) {
-            $this->extension = $this->file->guessExtension();
-
-            $this->temp = $this->getAbsolutePath();
+            $this->extension = $this->getFile()->guessExtension();
         }
+        $this->setCreatedAt(new \DateTime('now', new \DateTimeZone('UTC')));
     }
 
     /**
-     * 
-     * 
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
      */
     public function upload()
     {
@@ -177,37 +240,47 @@ class ProductoImagen
             return;
         }
 
-        // you must throw an exception here if the file cannot be moved
-        // so that the entity is not persisted to the database
-        // which the UploadedFile move() method does
+        $this->removeUpload();
+
         $this->getFile()->move(
             $this->getUploadRootDir(),
             $this->id . '.' . $this->getFile()->guessExtension()
         );
 
-        $this->setFile(null);
+        $this->file = null;
     }
 
+
     /**
-     * 
+     * @ORM\PostRemove()
      */
     public function removeUpload()
     {
-        if (isset($this->temp)) {
-            unlink($this->temp);
-        }
+        $t = $this->getUploadRootDir() . '/' . $this->id . '.' .  $this->extension;
+
+        if (file_exists($t))
+            unlink($t);
+
     }
 
     public function getAbsolutePath()
     {
-        return null === $this->temp
-            ? $this->getUploadRootDir() . '/' . $this->id . '.' . $this->extension
-            : null;
+        return null === $this->id
+            ? null
+            : $this->getUploadRootDir() . '/' . $this->id . '.' . $this->extension;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->id
+            ? null
+            : $this->getUploadDir() . '/' . $this->id . '.' . $this->extension;
+
     }
 
     private function getUploadRootDir()
     {
-        return __DIR__.'/../../../web' . '/' . $this->getUploadDir();
+        return __DIR__ . '/../../../web' . '/' . $this->getUploadDir();
     }
 
     public function getUploadDir()
@@ -217,11 +290,31 @@ class ProductoImagen
         return 'uploads/productos';
     }
 
-    public function getWebPath()
+    private function getNameFile()
     {
-        return null === $this->temp
-            ? $this->getUploadDir() . '/' . $this->id . '.' . $this->extension
-            : null;
+        return $this->id . '.' . $this->getFile()->guessExtension();
+    }
 
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Producto
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }

@@ -2,21 +2,20 @@
 
 namespace AppBundle\Controller\admin;
 
-use AppBundle\Entity\Categoria;
-use AppBundle\Entity\ProductoImagen;
-use AppBundle\Form\ExtencionType;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
-use Knp\Component\Pager\Paginator;
-
+use AppBundle\Entity\Categoria;
 use AppBundle\Entity\Producto;
-use AppBundle\Form\ProductoType;
+use AppBundle\Entity\ProductoImagen;
+use AppBundle\Form\ExtencionType;
 use AppBundle\Form\ProductoFilterType;
-
+use AppBundle\Form\ProductoType;
 
 /**
  * Producto controller.
@@ -67,11 +66,11 @@ class ProductoController extends Controller
         $session = $request->getSession();
         $filterForm = $this->createForm(new ProductoFilterType());
 
-        $queryBuilder =$this->get('producto.manager')->getList();
+        $queryBuilder = $this->get('producto.manager')->getList();
 
         // Reset filter
         if ($request->getMethod() == 'POST' && $request->get('submit-filter') == 'reset') {
-            $session->remove('ProductoControllerFilter'. $ajax ? 'Ajax' : '');
+            $session->remove('ProductoControllerFilter' . $ajax ? 'Ajax' : '');
         }
 
         // Filter action
@@ -85,12 +84,12 @@ class ProductoController extends Controller
                 $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
                 // Save filter to session
                 $filterData = $filterForm->getData();
-                $session->set('ProductoControllerFilter'. $ajax ? 'Ajax' : '' , $filterData);
+                $session->set('ProductoControllerFilter' . $ajax ? 'Ajax' : '', $filterData);
             }
         } else {
             // Get filter from session
             if ($session->has('ProductoControllerFilter')) {
-                $filterData = $session->get('ProductoControllerFilter'. $ajax ? 'Ajax' : '');
+                $filterData = $session->get('ProductoControllerFilter' . $ajax ? 'Ajax' : '');
                 $filterForm = $this->createForm(new ProductoFilterType(), $filterData);
                 $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
             }
@@ -118,6 +117,13 @@ class ProductoController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+
+            foreach($entity->getImagenes() as $imagen){
+                if(true == $imagen->getDelete()){
+                    $entity->removeImagene($imagen);
+                }
+            }
+
             $em->persist($entity);
             $em->flush();
 
@@ -128,7 +134,7 @@ class ProductoController extends Controller
             return $this->redirect($this->generateUrl('producto_new'));
         }
 
-        return $this->render('AppBundle:admin/Producto:new.html.twig',array(
+        return $this->render('AppBundle:admin/Producto:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
         ));
@@ -258,6 +264,11 @@ class ProductoController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            foreach($entity->getImagenes() as $imagen){
+                if(true == $imagen->getDelete()){
+                    $entity->removeImagene($imagen);
+                }
+            }
 
             $em->persist($entity);
             $em->flush();
@@ -347,46 +358,7 @@ class ProductoController extends Controller
         return $response;
     }
 
-    /**
-     * @Route("/api/imagen/{id}/{status}",
-     * name="producto_imagen",
-     * requirements = { "status" = "delete|primario", "id" = "\d+" },
-     *
-     * )
-     * @Method("GET")
-     *
-     */
-    public function apiImagenAction(Request $request)
-    {
-        if ($request->isXMLHttpRequest()) {
-            $id = $request->get('id');
-            $status = $request->get('status');
-
-            $em = $this->container->get('doctrine.orm.entity_manager');
-            $imagen = $em->getRepository('AppBundle:ProductoImagen')->find($id);
-
-            if (!$imagen) {
-                $response = new Response('error. ', Response::HTTP_NOT_FOUND);
-                return $response;
-            }
-
-            if ($status == 'delete') {
-                $mensage = $this->get('producto.manager')->deleteImagen($imagen);
-                $response = new Response($mensage, Response::HTTP_OK);
-                return $response;
-            }elseif($status == 'primario'){
-                $mensage = $this->get('producto.manager')->imagenSelectPrimaria($imagen);
-                $response = new Response($mensage, Response::HTTP_OK);
-                return $response;
-            }
-
-            return new Response('Accion no disponible', Response::HTTP_NOT_FOUND);
-        }
-
-        return new Response('This is not ajax!', Response::HTTP_BAD_REQUEST);
-    }
-
-    /**
+     /**
      * Lists all Producto entities.
      *
      * @Route("/api/list", name="producto_ajax_list")
@@ -405,5 +377,44 @@ class ProductoController extends Controller
         // create a simple Response with a 200 status code (the default)
         $response = new Response($html, Response::HTTP_OK);
         return $response;
+    }
+
+
+    /**
+     * @Route("/api/imagen/upload", name="producto_imagen_ajax")
+     *
+     */
+    public function apiImagenUpdateAction(Request $request)
+    {
+        if ($request->isXMLHttpRequest()) {
+            $data = $request->request->all();
+            $file = $request->files->get('file');
+
+            if (!isset($file)) {
+                return new Response('Invalid file.', Response::HTTP_BAD_REQUEST);
+            }
+            $em = $this->getDoctrine()->getManager();
+
+            $f = new ProductoImagen();
+            $f->setFile($file);
+            $em->persist($f);
+            $em->flush();
+
+            $imagenMin = $this->get('image.handling')->open($f->getWebPath())->resize(90, 160)->__toString();
+
+            return new JsonResponse(array(
+                'id' => $f->getId(),
+                'URLmax' => $this->getAssetUrl($f->getWebPath()),
+                'URLmin' => $imagenMin,
+            ), Response::HTTP_OK);
+
+        }
+
+        return new Response('This is not ajax!', Response::HTTP_BAD_REQUEST);
+    }
+
+    public function getAssetUrl($path, $packageName = null)
+    {
+        return $this->container->get('templating.helper.assets')->getUrl($path, $packageName);
     }
 }

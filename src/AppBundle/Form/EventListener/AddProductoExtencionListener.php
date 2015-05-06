@@ -66,8 +66,8 @@ class AddProductoExtencionListener implements EventSubscriberInterface
             $categoria = $data->getCategoria();
         }
 
-        $metadatos = $categoria->getMetadatos();
 
+        $metadatos = $categoria->getMetadatos();
         foreach ($metadatos as $metadato) {
             $valor = null;
             $requerido = is_bool($metadato->getRequerido()) ? $metadato->getRequerido() : false;
@@ -95,8 +95,6 @@ class AddProductoExtencionListener implements EventSubscriberInterface
                 'constraints' => $requerido ? array(new NotBlank()) : array(),
                 'data' => $valor
             )));
-
-
         }
     }
 
@@ -115,14 +113,5 @@ class AddProductoExtencionListener implements EventSubscriberInterface
         foreach ($metadatos as $metadato) {
             $data->procesarMetadato($metadato, $form->get(Util::getSlug($metadato->getNombre()))->getData());
         }
-
-        $imagenes = $form->get('images')->getData();
-
-        foreach ($imagenes as $file) {
-            if (!is_null($file)) {
-                $data->procesarImagen($file);
-            }
-        }
-
     }
 }

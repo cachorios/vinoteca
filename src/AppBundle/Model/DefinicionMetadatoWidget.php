@@ -9,7 +9,6 @@
 namespace AppBundle\Model;
 
 /*
-* no utilizado por el momento.
 */
 
 class DefinicionMetadatoWidget
@@ -23,7 +22,7 @@ class DefinicionMetadatoWidget
         return array(
             1 => self::TEXT,
             2 => self::TEXTAREA,
-            3 => self::LISTA,
+//            3 => self::LISTA,
         );
     }
 

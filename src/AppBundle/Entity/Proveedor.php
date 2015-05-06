@@ -168,7 +168,7 @@ class Proveedor implements SecureControl
      *
      * @ORM\Column(name="moneda", type="string", length=1, nullable=true)
      */
-    private $moneda;
+    private $moneda = 'Pesos';
 
     /**
      * @var string

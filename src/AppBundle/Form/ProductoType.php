@@ -11,6 +11,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Entity\CategoriaRepository;
 use RBSoft\UtilidadBundle\Form\DataTransformer\FileToStringTransformer;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use AppBundle\Form\DataTransformer\ManyToEntityTransformer;
 
 class ProductoType extends AbstractType
 {
@@ -46,16 +48,32 @@ class ProductoType extends AbstractType
                 'required' => false,
 
             ))
+            ->add('limiteStock', null, array(
+                'label' => 'Limite minimo de stock',
+                'required' => true,
+                'help' => 'Ingrese el minimo de productos disponibles en stock.',
+                'attr' => array('style' => 'width: auto')
+            ))
             ->add('activo', null, array(
                 'required' => false,
             ))
-            ->add('images', 'file', array(
-                "mapped" => false,
-                'required' => false,
-                'multiple' => true
-            ));
+            ->add('imagenes', 'producto_imagen_collection', array(
+                'type' => new ProductoImagenType(),
+                'allow_add' => true,
+                'allow_delete' => false,
+                'delete_empty' => true,
+                'prototype' => true,
+                'by_reference' => false,
+//                'mapped' => false,
+            ))
+//            ->add('images', 'file', array(
+//                "mapped" => false,
+//                'required' => false,
+//                'multiple' => true
+//            ))
+        ;
 
-        $builder->get("images")->addModelTransformer(new FileToStringTransformer());
+        $builder->get("imagenes")->addModelTransformer(new ManyToEntityTransformer($this->em,'AppBundle\Entity\ProductoImagen'));
         $builder->addEventSubscriber(new AddProductoExtencionListener($builder->getFormFactory(), $this->em));
 
         $builder->addEventListener(
@@ -87,7 +105,7 @@ class ProductoType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver
             ->setDefaults(array(

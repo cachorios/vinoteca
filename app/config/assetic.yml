@@ -28,8 +28,6 @@ assetic:
                 - bundles/app/css/frontend/style.css
                 - bundles/app/css/frontend/responsive.css
 
-#                - bundles/rbsoftabmgenerador/fileupload//css/fileinput.min.css
-
                 - @lesses
 
             filters:
@@ -38,17 +36,17 @@ assetic:
         stylesheets:
             inputs:
                 #-- Font Awesome CSS --#
-                - bundles/app/css/admin/font-awesome.min.css
+                - assets/css/font-awesome.min.css
                 #-- Bootstrap CSS --#
-                - bundles/app/css/admin/bootstrap.min.css
+                - assets/css/bootstrap.min.css
 
                 #-- App CSS --#>
                 - bundles/app/css/admin/mvpready-admin.css
                 - bundles/app/css/admin/mvpready-flat.css
 
-                - bundles/rbsoftabmgenerador/fileupload//css/fileinput.min.css
-                - bundles/app/js/admin/plugins/magnific/magnific-popup.css
-                - bundles/app/js/admin/plugins/bootstrap-datepicker/datepicker3.css
+                - bundles/rbsoftabmgenerador/fileupload/css/fileinput.min.css
+                - assets/js/plugins/magnific/magnific-popup.css
+                - assets/js/plugins/bootstrap-datepicker/datepicker3.css
 
                 - @lesses
 
@@ -72,22 +70,24 @@ assetic:
                 #-- Bootstrap core JavaScript
                 #-- Core JS --#
 
-                - bundles/app/js/libs/bootstrap.min.js
-
+                - assets/js/libs/bootstrap.min.js
+                - assets/js/plugins/jquery-ui-1.11.4.custom/jquery-ui.min.js
 #                Este lo sacamos de aqui porque el assetic modifica el path, es un error.
 #                - bundles/rbsoftabmgenerador/fileupload//js/fileinput.js
                 ##-- Plugin JS --##
+                - assets/js/libs/jquery.form.min.js
+                - assets/js/plugins/moment/moment.min.js
+                - assets/js/plugins/moment/moment-with-locales.min.js
+
 #                <script src="{{ asset('assets/js/plugins/flot/jquery.flot.js') }} "></script>
 #                <script src="{{ asset('assets/js/plugins/flot/jquery.flot.tooltip.min.js') }} "></script>
 #                <script src="{{ asset('assets./js/plugins/flot/jquery.flot.pie.js') }} "></script>
 #                <script src="{{ asset('assets/js/plugins/flot/jquery.flot.resize.js') }} "></script>
 
-                - bundles/app/js/admin/plugins/magnific/jquery.magnific-popup.min.js
-                - bundles/app/js/admin/plugins/moment/moment.min.js
-                - bundles/app/js/admin/plugins/moment/moment-with-locales.min.js
-                - bundles/app/js/admin/plugins/bootstrap-datepicker/bootstrap-datepicker.js
-                - bundles/app/js/admin/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.es.js
-                - bundles/app/js/admin/plugins/jquery.autosize/jquery.autosize.js
+                - assets/js/plugins/magnific/jquery.magnific-popup.min.js
+                - assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js
+                - assets/js/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.es.js
+                - assets/js/plugins/jquery.autosize/jquery.autosize.js
 
                 ##-- App JS --##
                 - bundles/app/js/admin/mvpready-core.js
@@ -106,10 +106,10 @@ assetic:
                 #-- Bootstrap core JavaScript
                 #-- Core JS --#
 
-                - bundles/app/js/libs/bootstrap.min.js
+                - assets/js/libs/bootstrap.min.js
+                - assets/js/libs/bootstrap-hover-dropdown.min.js
+                - assets/js/plugins/magnific/jquery.magnific-popup.min.js
 
-                - bundles/app/js/libs/bootstrap-hover-dropdown.min.js
-                - bundles/app/js/libs/jquery.magnific-popup.min.js
                 - bundles/app/js/frontend/custom.js
 
             filters:

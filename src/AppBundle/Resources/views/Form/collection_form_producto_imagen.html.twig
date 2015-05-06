@@ -1,0 +1,71 @@
+{% block producto_imagen_collection_widget %}
+    {% spaceless %}
+        <!-- Drop Zone -->
+        <h4></h4>
+        <div id="droparea" data-prototype="{{ _self.producto_imagen_collection_fields(form)|escape }}">
+            <div class="dropareainner">
+
+                <p class="dropfiletext">Soltar archivos aquí</p>
+
+                <p>o</p>
+
+                <p><input id="uploadbtn" class="uploadbtn" type="button" value="Select Files"/>
+                </p>
+
+                <p id="imagen-load" class=""></p>
+
+                <p id="err">Espera ahí! Debe habilitar JavaScript para que esto funciona !</p>
+            </div>
+        </div>
+
+        <div class="gallery">
+            <ul id="imagen-gallery" class="reorder_ul reorder-photos-list sortable">
+
+                {% for field in form.children %}
+                    <li class="ui-sortable-handle">
+                        {{ _self.producto_imagen_collection_fields(field) }}
+                    </li>
+
+                {% endfor %}
+            </ul>
+        </div>
+
+
+    {% endspaceless %}
+{% endblock producto_imagen_collection_widget %}
+
+
+{% macro producto_imagen_collection_fields(widget) %}
+    {% set prototype = true %}
+    {% if 'prototype' in widget.vars|keys %}
+        {% set form = widget.vars.prototype %}
+        {% set name = widget.vars.prototype.vars.name %}
+        {% set id = null %}
+        {% set delete = null %}
+    {% else %}
+        {% set prototype = false %}
+        {% set form = widget %}
+        {% set name = widget.vars.full_name %}
+        {% set id = widget.vars.data.id %}
+        {% set delete = widget.vars.data.id %}
+    {% endif %}
+
+    {% spaceless %}
+        {{ form_widget(form.orden) }}
+        {{ form_widget(form.delete) }}
+        {{ form_widget(form.id) }}
+        <a class="image_link {{ delete == 1 ? 'imagen-delete' : '' }}" style="float:none;"
+           href="{{ prototype != false ? '__urlmax__' : asset(imagenFull(id)) }} " target="_blank">
+            <img alt="s" src="{{ prototype != false ? '__urlmin__' : asset(imagenMin(id)) }} ">
+        </a>
+        <div class="btn-group">
+            <a class="image-delete image-delete-btn btn btn-default btn-xs"
+               data-href="/admin/producto/api/imagen/1/delete" href="#" data-error-message="Borrar">
+                <span class="glyphicon glyphicon-trash"></span>
+            </a>
+        </div>
+        {{ form_widget(form) }}
+    {% endspaceless %}
+{% endmacro %}
+
+

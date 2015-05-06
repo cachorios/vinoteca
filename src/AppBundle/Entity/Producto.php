@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use RBSoft\UsuarioBundle\Entity\SecureControl;
 use RBSoft\UsuarioBundle\Entity\Usuario;
 use RBSoft\UtilidadBundle\Libs\Util;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -96,7 +95,7 @@ class Producto implements SecureControl
      *     orphanRemoval=true,
      *     cascade={"persist","remove"}
      * )
-     * @ORM\OrderBy({"primario"="DESC"})
+     * @ORM\OrderBy({"orden"="DESC"})
      */
     private $imagenes;
 
@@ -148,6 +147,11 @@ class Producto implements SecureControl
      * @ORM\Column(type="integer", nullable=true, name="stock")
      */
     protected $stock = 0;
+
+    /**
+     * @ORM\Column(type="integer", name="limite_stock")
+     */
+    protected $limiteStock = 0;
 
     public function __toString()
     {
@@ -216,6 +220,28 @@ class Producto implements SecureControl
     public function getStock()
     {
         return $this->stock;
+    }
+
+    /**
+     * Set limite stock
+     *
+     * @param string $stock
+     * @return Producto
+     */
+    public function setLimiteStock($limiteStock)
+    {
+        $this->limiteStock = $limiteStock;
+        return $this;
+    }
+
+    /**
+     * Get limite stock
+     *
+     * @return integer
+     */
+    public function getLimiteStock()
+    {
+        return $this->limiteStock;
     }
 
     /**
@@ -387,10 +413,10 @@ class Producto implements SecureControl
      * @param \AppBundle\Entity\ProductoImagen $imagenes
      * @return Producto
      */
-    public function addImagene(\AppBundle\Entity\ProductoImagen $imagenes)
+    public function addImagene(\AppBundle\Entity\ProductoImagen $imagen)
     {
-        $this->imagenes[] = $imagenes;
-
+        $imagen->setProducto($this);
+        $this->imagenes[] = $imagen;
         return $this;
     }
 
@@ -399,9 +425,9 @@ class Producto implements SecureControl
      *
      * @param \AppBundle\Entity\ProductoImagen $imagenes
      */
-    public function removeImagene(\AppBundle\Entity\ProductoImagen $imagenes)
+    public function removeImagene(\AppBundle\Entity\ProductoImagen $imagen)
     {
-        $this->imagenes->removeElement($imagenes);
+        $this->imagenes->removeElement($imagen);
     }
 
     /**
@@ -564,6 +590,7 @@ class Producto implements SecureControl
      */
     public function addExtencion(\AppBundle\Entity\ProductoExtension $extencion)
     {
+
         $this->extencion[] = $extencion;
 
         return $this;
@@ -599,15 +626,6 @@ class Producto implements SecureControl
 
         $e = new ProductoExtension();
         $this->extencion[] = $e->add($this,$metadato, $valor);;
-        return $this;
-    }
-
-    public  function procesarImagen(UploadedFile $file){
-
-        $f = new ProductoImagen();
-        $f->setProducto($this);
-        $f->setFile($file);
-        $this->imagenes[] = $f;
         return $this;
     }
 
