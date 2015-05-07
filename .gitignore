@@ -1,4 +1,3 @@
-/web/bundles/
 /app/bootstrap.php.cache
 /app/cache/*
 /app/config/parameters.yml
@@ -21,7 +20,7 @@
 /web/js/*
 /web/css/*
 /web/uploads/productos/*
-
+/web/cache/*
 composer.lock
 composer.lock
 src/AppBundle/Entity/Proveedor.php
