@@ -12,7 +12,7 @@ use RBSoft\UsuarioBundle\Entity\Usuario;
 /**
  * Proveedor
  *
- * @ORM\Table()
+ * @ORM\Table(name="proveedor")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ProveedorRepository")
  */
 class Proveedor implements SecureControl
@@ -168,7 +168,7 @@ class Proveedor implements SecureControl
      *
      * @ORM\Column(name="moneda", type="string", length=1, nullable=true)
      */
-    private $moneda;
+    private $moneda = 'Pesos';
 
     /**
      * @var string

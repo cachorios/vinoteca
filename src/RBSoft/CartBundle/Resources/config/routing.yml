@@ -1,0 +1,7 @@
+
+rb_soft_cart:
+    resource: "@RBSoftCartBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+

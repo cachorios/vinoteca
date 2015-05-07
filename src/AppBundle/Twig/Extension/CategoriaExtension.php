@@ -31,4 +31,4 @@ class CategoriaExtension  extends \Twig_Extension
     {
         return 'categoria_extension';
     }
-} 
+}

@@ -14,6 +14,7 @@ use RBSoft\UsuarioBundle\Entity\Usuario;
 /**
  * Reposicion
  *
+ * @ORM\Table(name="reposicion")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ReposicionRepository")
  * @DoctrineAssert\UniqueEntity(fields={"codigo"},
  *      message="El codigo ingresado ya existe.")

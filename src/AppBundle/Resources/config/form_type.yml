@@ -10,6 +10,11 @@ services:
         tags:
           - { name: "form.type", alias: "reposicion_items_collection" }
 
+    form.type.producto_imagen_collection:
+        class: AppBundle\Form\Type\ProductoImagenCollectionType
+        tags:
+          - { name: "form.type", alias: "producto_imagen_collection" }
+
     form.type.metadato_filter:
         class: AppBundle\Form\Type\MetadatoFilterType
         tags:
@@ -39,3 +44,9 @@ services:
         class: AppBundle\Form\Type\MyCollectionType
         tags:
             - { name: "form.type", alias: "my_collection" }
+
+#    form.type.entity_hidden:
+#        class: AppBundle\Form\Type\EntityHiddenType
+#        arguments: ["@doctrine.orm.entity_manager"]
+#        tags:
+#            - { name: form.type, alias: entity_hidden }

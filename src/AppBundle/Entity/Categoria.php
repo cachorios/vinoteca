@@ -540,10 +540,4 @@ class Categoria implements SecureControl
         return $cad;
     }
 
-//    public function isImagenValid(ExecutionContextInterface $context)
-//    {
-//        if (is_null($this->getId()) && is_null($context)) {
-//            $context->addViolationAt('No dispone de imagen seleccionada', array(), null);
-//        }
-//    }
 }

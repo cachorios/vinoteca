@@ -13,7 +13,6 @@
                                     </div>
                                 </div>
 
-
                                 <a href="{{ path('producto') }}" class="btn btn-sm btn-default">
                                     Ir a la lista
                                 </a>
@@ -45,52 +44,10 @@
                         </ul>
                         <div id="myTab1Content" class="tab-content">
                             <div id="imagenes" class="tab-pane fade">
-
-                                {{ form_row(edit_form.images) }}
-
-
-                                <div class="existing-image">
-                                    <ul class="row list-unstyled ui-sortable" id="js-sort-image">
-
-                                        {% for imagen in entity.imagenes %}
-
-                                            <li id="{{ imagen.id }}"
-                                                class="col-sm-6 col-md-3 ui-state-default">
-                                                <a href="{{ asset(imagen.getWebPath() ) }}"
-                                                   class="thumbnail thumbnail-view-hover image-popup-vertical-fit">
-                                                    <img alt="imagen"
-                                                         src="{{ image(imagen.getWebPath()).resize(200,100,"#ffffff",'center','center') }}">
-
-                                                </a>
-
-                                                <div class="btn-group">
-
-
-                                                    <span class="btn btn-default btn-xs">
-
-                                                        <input type="radio" name="group1"
-                                                               data-href="{{ path('producto_imagen', {'id': imagen.id, 'status': 'primario'}) }}"
-                                                               value="{{ imagen.id }}" {{ imagen.primario == 1 ? 'checked="checked"' : '' }}
-                                                               class="radio-select-primario"></span>
-
-                                                    <a data-error-message="Borrar"
-                                                       href="#"
-
-                                                       data-href="{{ path('producto_imagen', {'id': imagen.id, 'status': 'delete'}) }}"
-                                                       class="image-delete image-delete-btn btn btn-default btn-xs">
-                                                        <span class="glyphicon glyphicon-trash"></span>
-                                                    </a>
-                                                </div>
-
-                                            </li>
-                                        {% endfor %}
-
-                                    </ul>
-                                </div>
+                                {{ form_row(edit_form.imagenes) }}
 
                             </div>
                             <div id="datos" class="tab-pane fade active in">
-
 
                                 {{ form_row(edit_form.codigo) }}
                                 {{ form_row(edit_form.nombre) }}
@@ -106,6 +63,7 @@
                                 {{ form_row(edit_form.descripcion) }}
                                 {{ form_row(edit_form.precio) }}
                                 {{ form_row(edit_form.iva) }}
+                                {{ form_row(edit_form.limiteStock) }}
                                 {{ form_row(edit_form.activo) }}
 
                                 <h4 class="content-title"><u>Información Adicional</u></h4>
@@ -130,6 +88,18 @@
 
                         {{ form_end(edit_form) }}
 
+                        <div class="upload_div" style="display: none">
+                            <input id="upload" type="file" multiple />
+                        </div>
+                        {#<form name="multiple_upload_form" id="multiple_upload_form" method="POST" enctype="multipart/form-data" action="{{ path('producto_imagen_ajax') }}">#}
+                            {#<input type="hidden" name="image_form_submit" value="1"/>#}
+                            {#<label>Choose Image</label>#}
+                            {#<input type="file" name="images[]" id="images" multiple >#}
+                            {#<div class="uploading none">#}
+                                {#<label>&nbsp;</label>#}
+                                {#<img src="uploading.gif" alt="uploading......"/>#}
+                            {#</div>#}
+                        {#</form>#}
                     {% endblock %}
                 {% endembed %}
 
@@ -137,6 +107,7 @@
             {% endblock contenido %}
 
         {% block javascript_footer %}
+            <link rel="canonical" href="http://www.inwebson.com/demo/html5-drag-and-drop-file-upload/" />
             {{ include('@App/admin/Producto/js.html.twig',{'form': edit_form}) }}
 
         {% endblock %}

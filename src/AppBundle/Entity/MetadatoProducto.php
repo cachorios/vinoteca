@@ -54,7 +54,7 @@ class MetadatoProducto
      *
      * @ORM\Column(type="boolean", nullable=true, name="requerido")
      */
-    private $requerido;
+    private $requerido = true;
 
     /**
      * @var integer
@@ -68,7 +68,7 @@ class MetadatoProducto
      *
      * @ORM\Column(type="integer", nullable=true, name="orden")
      */
-    private $orden;
+    private $orden = 0;
 
 
     /**
@@ -91,8 +91,6 @@ class MetadatoProducto
      */
     public function __construct()
     {
-        $this->setOrden(0);
-        $this->setRequerido(true);
     }
 
     /**

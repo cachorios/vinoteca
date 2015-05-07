@@ -35,7 +35,9 @@
                         </ul>
                         <div id="myTab1Content" class="tab-content">
                             <div id="imagenes" class="tab-pane fade">
-                                {{ form_row(form.images) }}
+                                {{ form_row(form.imagenes) }}
+                                {#{% include 'AppBundle:admin/Producto:imagen.html.twig' %}#}
+
                             </div>
                             <div id="datos" class="tab-pane fade active in">
                                 {{ form_row(form.categoria) }}
@@ -44,6 +46,7 @@
                                 {{ form_row(form.descripcion) }}
                                 {{ form_row(form.precio) }}
                                 {{ form_row(form.iva) }}
+                                {{ form_row(form.limiteStock) }}
                                 {{ form_row(form.activo) }}
 
                                 <h4 class="content-title"><u>Información Adicional</u></h4>
@@ -67,7 +70,9 @@
                         </div>
 
                         {{ form_end(form) }}
-
+                        <div class="upload_div" style="display: none">
+                            <input id="upload" type="file" multiple />
+                        </div>
                     {% endblock %}
                 {% endembed %}
 

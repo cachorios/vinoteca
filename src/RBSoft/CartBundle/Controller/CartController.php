@@ -96,6 +96,7 @@ class CartController extends Controller
                 )
             );
         }else{
+//                  $this->renderView('RBSoftCartBundle:Cart:displayBig          Cart.html.twig');
            return $this->renderView('RBSoftCartBundle:Cart:display' . $size . 'Cart.html.twig',
                array(
                    'cart' => $displayCart,

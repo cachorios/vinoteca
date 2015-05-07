@@ -1,62 +1,7 @@
 <script type="text/javascript">
-    $("#appbundle_producto_images").fileinput({
-        overwriteInitial: true,
-        showUpload: false,
-        showCaption: false,
-        browseClass: "btn btn-primary btn-sm",
-        fileType: "any",
-        allowedFileTypes: ['image'],
-        'allowedFileExtensions': ['jpg', 'png', 'gif'],
-        uploadLabel: 'Subir',
-        removeLabel: 'Quitar',
-        browseLabel: 'Explorar'
-    });
-</script>
 
-<script type="text/javascript">
     jQuery(document).ready(function () {
-        $('.image-delete').on('click', function(e) {
-            e.preventDefault();
-            var $anchor = $(this);
-            var url = $(this).data("href");
-            var li = $(this).parents('li');
-
-            $.ajax({
-                type: "GET",
-                url: url,
-                success: function (msg) {
-                    var message = msg.toString();
-                    li.remove();
-                },
-                error: function() {
-                    var message = msg.toString();
-                }
-            });
-        });
-
-        $('.radio-select-primario').on('change', function(e) {
-            e.preventDefault();
-            var $data = $(this).val();
-            var url = $(this).data("href");
-
-            $.ajax({
-                type: "GET",
-                url: url,
-                success: function (msg) {
-                    var message = msg.toString();
-                },
-                error: function() {
-                    var message = msg.toString();
-                }
-            });
-        });
-    })
-
-</script>
-
-<script type="text/javascript">
-    jQuery(document).ready(function () {
-        $('select[id$=appbundle_producto_categoria]').change(function () {
+        jQuery('select[id$=appbundle_producto_categoria]').change(function () {
             $('#info-acicional').html('Cargando...');
 
             $.ajax({
@@ -77,5 +22,242 @@
             });
         });
 
-})
+        jQuery(document).on('click', '.image-delete', function (e) {
+            e.preventDefault();
+            var parent = $(this).parent().parent();
+            var imput_delete = $(parent).find(".input-delete");
+            var imagen = $(parent).find(".image_link");
+
+            if (imput_delete.val() == 0) {
+                imagen.addClass("imagen-delete");
+                imput_delete.val(1);
+            } else {
+                imagen.removeClass("imagen-delete");
+                imput_delete.val(0);
+            }
+        });
+
+        jQuery("#imagen-gallery").sortable({
+            // configuration
+            delay: 100,
+            items: 'li',
+            update: function (event, ui) {
+                // Update order indexes
+                updateOrderIndexes();
+            },
+            stop: function (event, ui) {
+                // fire off the update method
+                postUpdateOrder();
+            }
+        });
+
+        {#});#}
+
+        {#</script>#}
+        {#<script type="text/javascript">#}
+        {#$(document).ready(function () {#}
+        /*****************************
+         Variables
+         *****************************/
+        var fieldCount = '{{ form.imagenes|length }}';
+
+        var imgWidth = 180,
+                imgHeight = 180,
+                zindex = 0;
+        dropzone = $('#droparea'),
+                uploadBtn = $('#uploadbtn'),
+                defaultUploadBtn = $('#upload');
+
+        var template = $('#droparea').attr('data-prototype');
+
+        /*****************************
+         Events Handler
+         *****************************/
+        dropzone.on('dragover', function () {
+            //add hover class when drag over
+            dropzone.addClass('hover');
+            return false;
+        });
+        dropzone.on('dragleave', function () {
+            //remove hover class when drag out
+            dropzone.removeClass('hover');
+            return false;
+        });
+        dropzone.on('drop', function (e) {
+            //prevent browser from open the file when drop off
+            e.stopPropagation();
+            e.preventDefault();
+            dropzone.removeClass('hover');
+
+            //retrieve uploaded files data
+            var files = e.originalEvent.dataTransfer.files;
+            processFiles(files);
+            updateOrderIndexes();
+            return false;
+        });
+
+        uploadBtn.on('click', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            //trigger default file upload button
+            defaultUploadBtn.click();
+        });
+        defaultUploadBtn.on('change', function () {
+            //retrieve selected uploaded files data
+            var files = $(this)[0].files;
+            processFiles(files);
+            updateOrderIndexes();
+            return false;
+        });
+
+        /*****************************
+         internal functions
+         *****************************/
+        //Bytes to KiloBytes conversion
+        function convertToKBytes(number) {
+            return (number / 1024).toFixed(1);
+        }
+
+        function dataURItoBlob(dataURI) {
+
+            // convert base64 to raw binary data held in a string
+            // doesn't handle URLEncoded DataURIs
+            var byteString;
+            if (dataURI.split(',')[0].indexOf('base64') >= 0)
+                byteString = atob(dataURI.split(',')[1]);
+            else
+                byteString = unescape(dataURI.split(',')[1]);
+
+            // separate out the mime component
+            var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+
+            // write the bytes of the string to an ArrayBuffer
+            var ab = new ArrayBuffer(byteString.length);
+            var ia = new Uint8Array(ab);
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+
+            //Passing an ArrayBuffer to the Blob constructor appears to be deprecated,
+            //so convert ArrayBuffer to DataView
+            var dataView = new DataView(ab);
+            var blob = new Blob([dataView], {type: mimeString});
+
+            return blob;
+        }
+
+        /*****************************
+         Process FileList
+         *****************************/
+        var processFiles = function (files) {
+            if (files && typeof FileReader !== "undefined") {
+                //process each files only if browser is supported
+                for (var i = 0; i < files.length; i++) {
+                    readFile(files[i]);
+                }
+
+            } else {
+                $('#err').text('*Error al procesar imagen!');
+
+            }
+        }
+
+
+        /*****************************
+         Read the File Object
+         *****************************/
+        var readFile = function (file) {
+            if ((/image/i).test(file.type)) {
+                //define FileReader object
+                var reader = new FileReader();
+
+                //init reader onload event handlers
+                reader.onload = function (e) {
+                    uploadToServer(file);
+
+                };
+                //begin reader read operation
+                reader.readAsDataURL(file);
+
+                $('#err').text('');
+            } else {
+                //some message for wrong file format
+                $('#err').text('*Selected file format not supported!');
+            }
+        }
+
+        /*****************************
+         Draw Image Preview
+         *****************************/
+        var createPreview = function (id, max, min) {
+            //populate jQuery Template binding object
+//            var imageObj = {};
+            var newWidget = template;
+            newWidget = newWidget.replace(/__name__/g, fieldCount);
+            newWidget = newWidget.replace(/__urlmax__/g, max);
+            newWidget = newWidget.replace(/__urlmin__/g, min);
+            var newLi = jQuery('<li class="ui-sortable-handle"></li>').html(newWidget);
+            newLi.appendTo('#imagen-gallery');
+            var imput_id = "#appbundle_producto_imagenes_" + fieldCount + "_id";
+            var imput_delete = "#appbundle_producto_imagenes_" + fieldCount + "_delete";
+            $(imput_id).val(id);
+            $(imput_delete).val(false);
+            fieldCount++;
+
+        }
+
+
+        /****************************
+         Upload Image to Server
+         ****************************/
+        var uploadToServer = function (oldFile) {
+            // prepare FormData
+            var formData = new FormData();
+            //we still have to use back old file
+            //since new file doesn't contains original file data
+            formData.append('filename', oldFile.name);
+            formData.append('filetype', oldFile.type);
+            formData.append('file', oldFile);
+
+            //submit formData using $.ajax
+            $.ajax({
+                url: '{{ path('producto_imagen_ajax') }}',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    console.log(data);
+                    createPreview(data.id, data.URLmax, data.URLmin);
+                }
+            });
+        }
+
+
+        /****************************
+         Browser compatible text
+         ****************************/
+        if (typeof FileReader === "undefined") {
+            //$('.extra').hide();
+            $('#err').html('Ops ! Su navegador no soporta <strong>HTML5 File API</strong> <br/>Trate de usar Chrome o Firefox que funciona!');
+        } else if (!Modernizr.draganddrop) {
+            $('#err').html('Ops ! Mira que tu navegador no soporta <strong>Drag and Drop API</strong>! <br/>Sin embargo, usted es capaz de utilizar \'<em>Select Files</em>\' button para subir el archivo =)');
+        } else {
+            $('#err').text('');
+        }
+
+        function updateOrderIndexes() {
+            // Update the order index on each item
+            var orderIndex = 1;
+            $("#imagen-gallery li").each(function () {
+
+                $(this).find("input[type=hidden]:first").val(orderIndex);
+                orderIndex++;
+            })
+        }
+
+
+    });
+
 </script>
+
