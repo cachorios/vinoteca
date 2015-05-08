@@ -35,5 +35,5 @@ admin_perfil_show:
     defaults: { _controller: UsuarioBundle:Profile:show}
 
 admin_perfil_change_password:
-    pattern: /admin/password
-    defaults: { _controller: UsuarioBundle:Profile:password}
+    pattern: /admin/cambiar_contraseña
+    defaults: { _controller: UsuarioBundle:ChangePassword:changePassword}

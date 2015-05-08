@@ -103,7 +103,7 @@
 
         <li class="dropdown navbar-profile">
             <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">
-                <img alt="" class="navbar-profile-avatar" src="{{ asset("uploads/usuarios/"~ usuario.foto ~".jpg" ) }}">
+                <img alt="" class="navbar-profile-avatar" src="{{ image('uploads/usuarios/'~ usuario.foto ~'.jpg').resize(20,20,"#ffffff",'center','center') }}">
                 <span class="navbar-profile-label">{{ usuario.nombre }} &nbsp;</span>
                 <i class="fa fa-caret-down"></i>
             </a>
@@ -111,13 +111,13 @@
             <ul role="menu" class="dropdown-menu">
 
                 <li>
-                    <a href={{ path('admin_perfil_edit') }}" id="user-perfil" >
+                    <a href="{{ path('admin_perfil_edit') }}" id="user-perfil" data-target="#modal-load" title="Perfil" data-tooltip>
                         <i class="fa fa-user"></i>
                         &nbsp;&nbsp;My Perfil
                     </a>
                 </li>
                 <li>
-                    <a href="{{ path('admin_perfil_change_password') }}" id="user-cambiar-contrasena">
+                    <a href="{{ path('admin_perfil_change_password') }}" id="user-cambiar-contrasena" data-target="#modal-load" title="Cambiar contraseña" data-tooltip>
                         <i class="fa fa-cogs"></i>
                         &nbsp;&nbsp;Cambiar contraseña
                     </a>
