@@ -1,8 +1,7 @@
 {% macro campo(nombre, requerido, valor, tipo, id) %}
-    <input type="{{ tipo|default('text') }}" name="{{ nombre }}" id="{{ id | default(nombre)}}" value="{{ valor }}" {{ requerido ? 'required="required"' : '' }} />
+    <input type="{{ tipo|default('text') }}" name="{{ nombre }}" id="{{ id | default(nombre) }}"
+           value="{{ valor }}" {{ requerido ? 'required="required"' : '' }} />
 {% endmacro %}
-
-
 
 {% macro  menu(label, ref) %}
 <ul class="mainnav-menu">
@@ -11,9 +10,9 @@
             {{ label }} <i class="mainnav-caret"></i>
         </a>
         <ul role="menu" class="dropdown-menu">
-{% endmacro %}
+            {% endmacro %}
 
-{% macro finmenu() %}
+            {% macro finmenu() %}
         </ul>
     </li>
 </ul>
@@ -27,9 +26,9 @@
         &nbsp;&nbsp;{{ label }}
     </a>
     <ul class="dropdown-menu">
-{% endmacro %}
+        {% endmacro %}
 
-{% macro finsubmenu() %}
+        {% macro finsubmenu() %}
     </ul>
 </li>
 

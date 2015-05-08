@@ -87,23 +87,27 @@
 
                 <h4 class="content-title"><u>Galeria</u></h4>
 
-                <div class="existing-image">
-                    <ul class="row list-unstyled ui-sortable" id="js-sort-image">
+
+                <div class="gallery">
+                    <ul class="reorder-photos-list">
 
                         {% for imagen in entity.imagenes %}
-                            <li id="{{ imagen.id }}"
-                                class="col-sm-6 col-md-3 ui-state-default">
-                                <div class="thumbnail thumbnail-view-hover image-popup-vertical-fit">
-                                    <img alt="imagen"
-                                         src="{{ image(imagen.getWebPath()).resize(90,160,"#ffffff",'center','center') }}">
-                                </div>
-                                {% if imagen.primario %}
-                                    <div class="btn-group">
-                                    <span class="btn btn-default btn-xs">
-                                        <span class="glyphicon glyphicon-ok"></span>
-                                    </span>
-                                    </div>
-                                {% endif %}
+                            <li class="ui-sortable-handle">
+                                <a class="image_link" style="float:none;"
+                                   href="{{asset(imagen.getWebPath()) }}" target="_blank">
+                                    <img alt="s"
+                                         src="{{ image(imagen.getWebPath()).resize(90,160,"#ffffff",'center','center') }} ">
+                                </a>
+
+                            </li>
+                        {% else %}
+                            <li class="ui-sortable-handle">
+                                <a class="image_link" style="float:none;"
+                                   href="#" target="_blank">
+                                    <img alt="s"
+                                         src="{{ image('images/sin_imagen_disponible.jpg').resize(90,160,"#ffffff",'center','center') }} ">
+                                </a>
+
                             </li>
                         {% endfor %}
                     </ul>

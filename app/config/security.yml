@@ -3,7 +3,7 @@ security:
         FOS\UserBundle\Model\UserInterface: sha512
 
     role_hierarchy:
-        ROLE_USUARIO:     ROLE_USER
+        ROLE_USUARIO: [ROLE_USER,ROLE_CLIENTE,ROLE_MODERATOR,ROLE_ADMIN]
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     providers:
@@ -53,14 +53,13 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
         # -> custom access control for the frontend area of the URL
-        - { path: ^/profile, role: [ROLE_USUARIO] }
+        - { path: ^/profile, role: [ROLE_USER] }
         # -> end
 
         # -> custom access control for the admin area of the URL
         - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/login-check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/profile, role: [ROLE_ADMIN] }
-
         - { path: ^/admin/*, roles:  [ROLE_ADMIN]  }
         # -> end
 

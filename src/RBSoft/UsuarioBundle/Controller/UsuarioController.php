@@ -8,7 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Knp\Component\Pager\Paginator;
 
 use RBSoft\UsuarioBundle\Entity\Usuario;
@@ -28,29 +29,29 @@ class UsuarioController extends Controller
      * Lists all Usuario entities.
      *
      * @Route("/", name="admin_usuario")
-     * @ Method("GET")
+     * @Method({"GET","POST"})
      * @Template()
      */
     public function indexAction(Request $request)
     {
-    list($filterForm, $queryBuilder) = $this->filter($request);
-    $pager = $this->getPager($queryBuilder);
+        list($filterForm, $queryBuilder) = $this->filter($request);
+        $pager = $this->getPager($queryBuilder);
 
         return array(
-            'pager'         => $pager,
-            'filterform'    => $filterForm->createView(),
+            'pager' => $pager,
+            'filterform' => $filterForm->createView(),
         );
     }
 
     /**
-    * Crea el paginador Pagerfanta
-    * @param Request $request
-    * @return SlidingPagination
-    * @throws NotFoundHttpException
-    */
+     * Crea el paginador Pagerfanta
+     * @param Request $request
+     * @return SlidingPagination
+     * @throws NotFoundHttpException
+     */
     private function getPager($q)
     {
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
 
         $pagination = $paginator->paginate(
             $q,
@@ -69,7 +70,11 @@ class UsuarioController extends Controller
         $filterForm = $this->createForm(new UsuarioFilterType());
 
         $em = $this->getDoctrine()->getManager();
-        $queryBuilder = $em->getRepository('UsuarioBundle:Usuario')->createQueryBuilder("q");
+//        $queryBuilder = $em->getRepository('UsuarioBundle:Usuario')->createQueryBuilder("q");
+        $queryBuilder = $em->createQueryBuilder()->select('q')
+            ->from('UsuarioBundle:Usuario', 'q')
+            ->where('q.roles LIKE :roles')
+            ->setParameter('roles', '%"' . 'ROLE_ADMIN' . '"%');
 
         // Reset filter
         if ($request->getMethod() == 'POST' && $request->get('submit-filter') == 'reset') {
@@ -95,7 +100,7 @@ class UsuarioController extends Controller
                 $filterData = $session->get('UsuarioControllerFilter');
                 $filterForm = $this->createForm(new UsuarioFilterType(), $filterData);
                 $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
-           }
+            }
         }
         return array($filterForm, $queryBuilder);
     }
@@ -119,39 +124,36 @@ class UsuarioController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        $entity->setPlainPassword( $this->getInicialPsw() );
-        $entity->addRole("ROLE_UTA");
+        $entity->setPlainPassword($this->getInicialPsw());
+        $entity->setUsername($entity->getEmail());
+        $entity->addRole("ROLE_ADMIN");
 
 
         if ($form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
             $userManager->updateUser($entity, true);
-            /*
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-            */
-            $this->get('session')->getFlashBag()->add('success',"El Usuario $entity se creó correctamente.");
-            if ($request->request->get('save_mode')== 'save_and_close') {
-                    return $this->redirect($this->generateUrl('admin_usuario'));
-                }
-                return $this->redirect($this->generateUrl('admin_usuario_new'));
+
+            $this->get('session')->getFlashBag()->add('success', "El Usuario $entity se creó correctamente.");
+            if ($request->request->get('save_mode') == 'save_and_close') {
+                return $this->redirect($this->generateUrl('admin_usuario'));
+            }
+            return $this->redirect($this->generateUrl('admin_usuario_new'));
         }
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
     /**
-    * Creates a form to create a Usuario entity.
-    *
-    * @param Usuario $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a Usuario entity.
+     *
+     * @param Usuario $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(Usuario $entity)
     {
         $form = $this->createForm(new UsuarioType(), $entity, array(
@@ -174,36 +176,11 @@ class UsuarioController extends Controller
     {
 
         $entity = new Usuario();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
-
-    /**
-     * Finds and displays a Usuario entity.
-     *
-     * @Route("/{id}", name="admin_usuario_show")
-     * @Method("GET")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('UsuarioBundle:Usuario')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Usuario entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -230,19 +207,19 @@ class UsuarioController extends Controller
 
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
 
     /**
-    * Creates a form to edit a Usuario entity.
-    *
-    * @param Usuario $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Usuario entity.
+     *
+     * @param Usuario $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Usuario $entity)
     {
         $form = $this->createForm(new UsuarioType(), $entity, array(
@@ -250,9 +227,10 @@ class UsuarioController extends Controller
             'method' => 'PUT',
         ));
 
-        
+
         return $form;
     }
+
     /**
      * Edits an existing Usuario entity.
      *
@@ -280,17 +258,18 @@ class UsuarioController extends Controller
             $manager = $this->container->get("fos_user.user_manager");
 
 
-            $manager->updateUser($entity,true);
-            $this->get('session')->getFlashBag()->add('success',"El Usuario $entity se actualizó correctamente.");
+            $manager->updateUser($entity, true);
+            $this->get('session')->getFlashBag()->add('success', "El Usuario $entity se actualizó correctamente.");
             return $this->redirect($this->generateUrl('admin_usuario'));
         }
 
         return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
+
     /**
      * Deletes a Usuario entity.
      *
@@ -331,19 +310,45 @@ class UsuarioController extends Controller
             ->setMethod('DELETE')
             ->add('submit', 'submit', array(
                 'label' => 'Delete',
-                'attr'  => array(
-                        'class' => 'btn btn-danger btn-sm'
+                'attr' => array(
+                    'class' => 'btn btn-danger btn-sm'
                 )
             ))
-            ->getForm()
-        ;
+            ->getForm();
     }
 
 
-    private function getInicialPsw(){
-        $prefijos = array("Lar","LAR", "LAr", "L_A_R","L-A-R","EA","eA","Taragui", "MunDo");
-
-        return $prefijos[rand(0,count($prefijos)-1)] . substr(microtime(),0,-5);
+    private function getInicialPsw()
+    {
+        $logitud = 8;
+        $psswd = substr( md5(microtime()), 1, $logitud);
+        return $psswd;
 
     }
+
+    /**
+     * Finds and displays a Usuario entity.
+     *
+     * @Route("/{id}", name="admin_usuario_show")
+     * @Method("GET")
+     * @Template()
+     */
+    public function showAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('UsuarioBundle:Usuario')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Usuario entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return array(
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),
+        );
+    }
+
 }

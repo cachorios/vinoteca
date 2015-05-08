@@ -47,14 +47,15 @@
         {% set form = widget %}
         {% set name = widget.vars.full_name %}
         {% set id = widget.vars.data.id %}
-        {% set delete = widget.vars.data.id %}
+        {% set delete = widget.vars.data.delete %}
     {% endif %}
 
     {% spaceless %}
+
         {{ form_widget(form.orden) }}
         {{ form_widget(form.delete) }}
         {{ form_widget(form.id) }}
-        <a class="image_link {{ delete == 1 ? 'imagen-delete' : '' }}" style="float:none;"
+        <a class="image_link {{ delete == true ? 'imagen-delete' : '' }}" style="float:none;"
            href="{{ prototype != false ? '__urlmax__' : asset(imagenFull(id)) }} " target="_blank">
             <img alt="s" src="{{ prototype != false ? '__urlmin__' : asset(imagenMin(id)) }} ">
         </a>

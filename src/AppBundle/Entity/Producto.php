@@ -95,7 +95,7 @@ class Producto implements SecureControl
      *     orphanRemoval=true,
      *     cascade={"persist","remove"}
      * )
-     * @ORM\OrderBy({"orden"="DESC"})
+     * @ORM\OrderBy({"orden"="ASC"})
      */
     private $imagenes;
 
@@ -567,18 +567,11 @@ class Producto implements SecureControl
 
     public function getImagenActiva()
     {
-        $imagenfirst = null;
-        //$img = "vino.png";
-        foreach ($this->getImagenes() as $imgen) {
-            if($imagenfirst == null)
-                $imagenfirst = $imgen->getId() . '.' . $imgen->getExtension();
-             
-            if ($imgen->getPrimario()) {
-                $img = $imgen->getId() . '.' . $imgen->getExtension();
-            }
+        $imagenes = $this->getImagenes();
+        if($imagenes->count() == 0){
+            return 'images/sin_imagen_disponible.jpg';
         }
-
-        return $img ? $img : $imagenfirst;
+        return $imagenes[0]->getWebPath() ;
     }
 
 

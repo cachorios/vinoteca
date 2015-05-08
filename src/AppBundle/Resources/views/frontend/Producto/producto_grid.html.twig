@@ -2,8 +2,9 @@
     <div class="product-col">
         <div class="image">
             {#<img src="{{ asset('uploads/productos/'~entity.imagenActiva) }}"  style="width: 230px"  alt="product" class="img-responsive">#}
-            imagen {{ entity.imagenActiva }}
-            <img src="{{ image('uploads/productos/'~entity.imagenActiva).zoomCrop(220,200,"#ffffff",'center','center') }}" class="img-responsive" />
+            {#imagen {{ entity.imagenActiva }}#}
+            {#<img src="{{ image('uploads/productos/'~entity.imagenActiva).zoomCrop(220,200,"#ffffff",'center','center') }}" class="img-responsive" />#}
+            <img src="{{ image(entity.imagenActiva()).resize(220,220,"#ffffff",'center','center') }}" class="img-responsive" />
         </div>
 
         <div class="caption">

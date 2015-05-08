@@ -14,7 +14,7 @@ class ProductoRepository extends EntityRepository
 {
     public function ListAll()
     {
-        $qb = $this->createQueryBuilder("q");
+        $qb = $this->createQueryBuilder("q")->orderBy('q.createdAt', 'ASC');
         return $qb;
 
     }

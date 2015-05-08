@@ -47,7 +47,7 @@
             },
             stop: function (event, ui) {
                 // fire off the update method
-                postUpdateOrder();
+//                postUpdateOrder();
             }
         });
 
@@ -249,13 +249,18 @@
         function updateOrderIndexes() {
             // Update the order index on each item
             var orderIndex = 1;
+            var imputtmp = '';
             $("#imagen-gallery li").each(function () {
-
-                $(this).find("input[type=hidden]:first").val(orderIndex);
+                imputtmp = $(this).find("input[type=hidden]:first");
+                imputtmp.val(orderIndex);
+                console.log(imputtmp+'<br />');
                 orderIndex++;
             })
         }
 
+        $( "form" ).submit(function( event ) {
+            updateOrderIndexes();
+        });
 
     });
 
