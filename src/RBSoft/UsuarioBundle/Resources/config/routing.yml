@@ -25,3 +25,15 @@ admin_login_check:
 admin_logout:
     pattern:  /admin/logout
     defaults: { _controller: FOSUserBundle:Security:logout }
+
+admin_perfil_edit:
+    pattern: /admin/perfil/edit
+    defaults: { _controller: UsuarioBundle:Profile:edit }
+
+admin_perfil_show:
+    pattern: /admin/perfil
+    defaults: { _controller: UsuarioBundle:Profile:show}
+
+admin_perfil_change_password:
+    pattern: /admin/cambiar_contraseña
+    defaults: { _controller: UsuarioBundle:ChangePassword:changePassword}

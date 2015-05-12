@@ -12,30 +12,19 @@
         <!-- Left Starts -->
         <div class="col-sm-4 images-block">
             <a href="images/product-images/big-pimg1.jpg">
-                <img src="{{ image('uploads/productos/'~producto.imagenActiva).zoomCrop(500,900,"#ffffff",'center','center').jpeg() }}" class="img-responsive" />
+                <img src="{{ image(producto.imagenActiva).resize(500,900,"#ffffff",'center','center') }}"
+                     class="img-responsive"/>
+                {#zoomCrop#}
                 {#<img src="{{ asset('uploads/productos/'~producto.imagenActiva) }}" style="width: 100%" alt="producto" class="img-responsive  thumbnail">#}
             </a>
             <ul class="list-unstyled list-inline">
-                <li>
-                    <a href="images/product-images/big-pimg2.jpg">
-                        <img class="img-responsive thumbnail" alt="Image" src="images/product-images/thumb1.jpg">
-                    </a>
-                </li>
-                <li>
-                    <a href="images/product-images/big-pimg3.jpg">
-                        <img class="img-responsive thumbnail" alt="Image" src="images/product-images/thumb2.jpg">
-                    </a>
-                </li>
-                <li>
-                    <a href="images/product-images/big-pimg4.jpg">
-                        <img class="img-responsive thumbnail" alt="Image" src="images/product-images/thumb3.jpg">
-                    </a>
-                </li>
-                <li>
-                    <a href="images/product-images/big-pimg4.jpg">
-                        <img class="img-responsive thumbnail" alt="Image" src="images/product-images/thumb4.jpg">
-                    </a>
-                </li>
+                {% for imagen in producto.imagenes %}
+                    <li>
+                        <a href="{{ asset(imagen.getWebPath()) }}">
+                            <img class="img-responsive thumbnail" alt="Image" src="{{ image(imagen.getWebPath()).resize(40,90,"#ffffff",'center','center') }} ">
+                        </a>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
         <!-- Left Ends -->
@@ -56,7 +45,8 @@
                     <li><span>Código:</span> {{ producto.codigo }}</li>
                     <li><span>Ranking:</span> 80</li>
                     <li>
-                        <span>Disponibilidad:</span>  <strong class="label {{ producto.stock>0 ? 'label-primary' : 'label-danger' }} ">  {{ producto.stock>0 ? 'Hay Stock' : 'Sin Sock' }}</strong>
+                        <span>Disponibilidad:</span> <strong
+                                class="label {{ producto.stock>0 ? 'label-primary' : 'label-danger' }} ">  {{ producto.stock>0 ? 'Hay Stock' : 'Sin Sock' }}</strong>
                     </li>
                 </ul>
                 <!-- Manufacturer Ends -->
@@ -81,10 +71,11 @@
                 <div class="options">
                     <h3>Mas información</h3>
                     <table class="table">
-                        {% for dato in producto.extencion  %}
+                        {% for dato in producto.extencion %}
                             <tr>
-                                <th class="col-md-3" style="background-color: #f7f7f7;">{{ dato.metadatoProducto.nombre }}</th>
-                                <td class="col-md-9">{{  dato.valor }}</td>
+                                <th class="col-md-3"
+                                    style="background-color: #f7f7f7;">{{ dato.metadatoProducto.nombre }}</th>
+                                <td class="col-md-9">{{ dato.valor }}</td>
 
                             </tr>
                         {% endfor %}
@@ -92,12 +83,13 @@
                 </div>
                 <hr>
                 <div class="options">
-                    {%  if producto.stock>0  %}
-                    <h3>Comprar</h3>
-                    <div class="form-group">
-                        <label for="input-quantity" class="control-label text-uppercase">Cantidad:</label>
-                        <input type="text" class="form-control" id="input-quantity" size="2" value="1" name="quantity">
-                    </div>
+                    {% if producto.stock>0 %}
+                        <h3>Comprar</h3>
+                        <div class="form-group">
+                            <label for="input-quantity" class="control-label text-uppercase">Cantidad:</label>
+                            <input type="text" class="form-control" id="input-quantity" size="2" value="1"
+                                   name="quantity">
+                        </div>
                     {% endif %}
 
                     <div class="cart-button button-group">
@@ -107,11 +99,11 @@
                         <button class="btn btn-compare" title="" type="button" data-original-title="Compare">
                             <i class="fa fa-bar-chart-o"></i>
                         </button>
-                        {%  if producto.stock>0  %}
-                        <button class="btn btn-cart" type="button">
-                            Agregar a la cesta
-                            <i class="fa fa-shopping-cart"></i>
-                        </button>
+                        {% if producto.stock>0 %}
+                            <button class="btn btn-cart" type="button">
+                                Agregar a la cesta
+                                <i class="fa fa-shopping-cart"></i>
+                            </button>
                         {% endif %}
                     </div>
                 </div>
