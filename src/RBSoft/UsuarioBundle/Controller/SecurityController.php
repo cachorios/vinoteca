@@ -63,16 +63,7 @@ class SecurityController extends Controller
     protected function renderLogin(array $data)
     {
         //$template = sprintf('SeguridadBundle:Security:login.html.%s', $this->container->getParameter('fos_user.template.engine'));
-
-        //Se agrega para controlar elteme del admin por separado.
-        $requestAttributes = $this->container->get('request')->attributes;
-        if ($requestAttributes->get('_route') == 'admin_login') {
-            $template = sprintf('UsuarioBundle:Security:adminLogin.html.%s', 'twig');
-        } else {
-            $template = sprintf('UsuarioBundle:Security:login.html.%s', 'twig');
-        }
-
-//        $template = sprintf('UsuarioBundle:Security:login.html.%s', 'twig');
+        $template = sprintf('UsuarioBundle:Security:login.html.%s', 'twig');
 
         return $this->container->get('templating')->renderResponse($template, $data);
     }

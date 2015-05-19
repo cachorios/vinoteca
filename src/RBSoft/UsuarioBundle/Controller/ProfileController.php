@@ -25,7 +25,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  * Controller managing the user profile
  *
  * @author Christophe Coevoet <stof@notk.org>
- *
  */
 class ProfileController extends Controller
 {
@@ -82,7 +81,7 @@ class ProfileController extends Controller
             $userManager->updateUser($user, true);
 
             if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('admin_perfil_edit');
+                $url = $this->generateUrl('fos_user_profile_show');
                 $response = new RedirectResponse($url);
             }
 
@@ -91,23 +90,8 @@ class ProfileController extends Controller
             return $response;
         }
 
-        return $this->render('UsuarioBundle:Usuario:edit_perfil.html.twig', array(
+        return $this->render('FOSUserBundle:Profile:edit.html.twig', array(
             'form' => $form->createView(),
-            'user' => $user
-        ));
-    }
-
-    /**
-     * Show the user
-     */
-    public function passwordAction()
-    {
-        $user = $this->getUser();
-        if (!is_object($user) || !$user instanceof UserInterface) {
-            throw new AccessDeniedException('This user does not have access to this section.');
-        }
-
-        return $this->render('FOSUserBundle:Profile:show.html.twig', array(
             'user' => $user
         ));
     }

@@ -33,6 +33,7 @@
         "whiteoctober/breadcrumbs-bundle": "dev-master",
         "stof/doctrine-extensions-bundle" : "1.x",
         "gregwar/image-bundle": "dev-master",
+        "oyejorge/less.php": "~1.5",
 
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "kartik-v/bootstrap-fileinput": "dev-master",

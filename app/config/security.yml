@@ -3,7 +3,7 @@ security:
         FOS\UserBundle\Model\UserInterface: sha512
 
     role_hierarchy:
-        ROLE_USUARIO: [ROLE_USER,ROLE_CLIENTE,ROLE_MODERATOR,ROLE_ADMIN]
+        ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     providers:
@@ -12,55 +12,23 @@ security:
             id: fos_user.user_provider.username_email
 
     firewalls:
-        # -> custom firewall for the admin area of the URL
-        admin:
-            context: user
-            pattern:            ^/admin(.*)
-            form_login:
-                provider:       fos_userbundle
-                csrf_provider:  form.csrf_provider
-                login_path:     /admin/login
-                check_path:     /admin/login_check
-                default_target_path: /admin/
-                always_use_default_target_path: true
-            logout:
-                path:           /admin/logout
-                target:         /admin/login
-                invalidate_session: false
-            anonymous:    true
-
-
-    # defaut login area for standard users
         main:
             pattern: ^/
-            context: user
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
                 default_target_path: /profile
                 always_use_default_target_path: true
-            logout:
-                path: /logout
-                target: /
-                invalidate_session: false
+            logout:       true
+
             anonymous:    true
-
-
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-
-        # -> custom access control for the frontend area of the URL
-        - { path: ^/profile, role: [ROLE_USER] }
-        # -> end
-
-        # -> custom access control for the admin area of the URL
-        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/login-check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/profile, role: [ROLE_ADMIN] }
-        - { path: ^/admin/*, roles:  [ROLE_ADMIN]  }
-        # -> end
-
-
+        - { path: ^/admin/, roles: [ROLE_ADMIN] }
+        - { path: ^/admin/usuario, role: ROLE_ADMIN }
+        - { path: ^/app/, role: ROLE_EMPLEADOR }
+        - { path: ^/profile/, roles: [ROLE_USER] }
+#        - { path: ^/, roles: [ROLE_USER] }

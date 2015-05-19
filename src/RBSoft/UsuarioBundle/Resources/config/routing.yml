@@ -1,3 +1,4 @@
+
 _usuario_admin:
     prefix:  /admin
     resource: "@UsuarioBundle/Controller"
@@ -28,12 +29,12 @@ admin_logout:
 
 admin_perfil_edit:
     pattern: /admin/perfil/edit
-    defaults: { _controller: UsuarioBundle:Profile:edit }
+    defaults: { _controller: UsuarioBundle:Security:login }
 
 admin_perfil_show:
     pattern: /admin/perfil
-    defaults: { _controller: UsuarioBundle:Profile:show}
+    defaults: { _controller: UsuarioBundle:Security:login}
 
 admin_perfil_change_password:
     pattern: /admin/cambiar_contraseña
-    defaults: { _controller: UsuarioBundle:ChangePassword:changePassword}
+    defaults: { _controller: UsuarioBundle:Security:login}
