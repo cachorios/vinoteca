@@ -21,6 +21,8 @@
 /web/js/*
 /web/css/*
 /web/uploads/productos/*
+/app/extras/*
+/web/cache/*
 
 composer.lock
 composer.lock
