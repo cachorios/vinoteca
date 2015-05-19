@@ -21,7 +21,7 @@
 /web/js/*
 /web/css/*
 /web/uploads/productos/*
-
-composer.lock
+/web/cache/*
+/app/extras/*
 composer.lock
 src/AppBundle/Entity/Proveedor.php
