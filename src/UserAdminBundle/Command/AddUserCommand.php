@@ -171,7 +171,7 @@ class AddUserCommand extends ContainerAwareCommand
         $isAdmin = $input->getOption('is-admin');
 
         // first check if a user with the same username already exists
-        $existingUser = $this->em->getRepository('AppBundle:User')->findOneBy(array('username' => $username));
+        $existingUser = $this->em->getRepository('UserAdminBundle:User')->findOneBy(array('username' => $username));
 
         if (null !== $existingUser) {
             throw new \RuntimeException(sprintf('There is already a user registered with the "%s" username.', $username));
@@ -181,7 +181,7 @@ class AddUserCommand extends ContainerAwareCommand
         $user = new User();
         $user->setUsername($username);
         $user->setEmail($email);
-        $user->setRoles(array($isAdmin ? 'ROLE_ADMIN' : 'ROLE_USER'));
+        $user->setRoles(array('ROLE_ADMIN'));
 
         // See http://symfony.com/doc/current/book/security.html#security-encoding-password
         $encoder = $this->getContainer()->get('security.password_encoder');
