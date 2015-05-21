@@ -253,7 +253,7 @@ class ContenidoController extends Controller
      * Edits an existing Contenido entity.
      *
      * @Route("/{id}/edit", name="contenido_update")
-     * @Method("PUT")
+     * @Method({"PUT","POST"})
      * @Template("AppBundle:admin/Contenido:edit.html.twig")
      */
     public function updateAction(Request $request, $id)

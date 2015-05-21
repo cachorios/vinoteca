@@ -190,7 +190,7 @@ class CategoriaController extends Controller
      * Displays a form to edit an existing Categoria entity.
      *
      * @Route("/{id}/edit", name="categoria_edit")
-     * @Method("GET")
+     * @Method({"PUT","POST"})
      */
     public function editAction($id)
     {

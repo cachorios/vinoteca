@@ -235,7 +235,7 @@ class ProveedorController extends Controller
      * Edits an existing Proveedor entity.
      *
      * @Route("/{id}/edit", name="proveedor_update")
-     * @Method("PUT")
+     * @Method({"PUT","POST"})
      */
     public function updateAction(Request $request, $id)
     {
