@@ -41,9 +41,10 @@ class DefaultController extends Controller
                 case 0:
                     $html .= $this->crearCarrusel($c);
                     break;
-                case 1:
-                case 2:
-                case 3:
+                case 1: //1 Imagen
+
+                case 2: // 2 Imagen
+                case 3: // 3 Imagen
                     break;
                 case 4:
 
