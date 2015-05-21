@@ -1,50 +1,44 @@
 security:
     encoders:
         FOS\UserBundle\Model\UserInterface: sha512
+        UserAdminBundle\Entity\User: bcrypt
 
     role_hierarchy:
-        ROLE_USUARIO: [ROLE_USER,ROLE_CLIENTE,ROLE_MODERATOR,ROLE_ADMIN]
+        ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     providers:
         fos_userbundle:
             #id: fos_user.user_provider.username
             id: fos_user.user_provider.username_email
+        admin_users:
+            entity: { class: UserAdminBundle:User, property: username }
 
     firewalls:
-        # -> custom firewall for the admin area of the URL
-        admin:
-            context: user
-            pattern:            ^/admin(.*)
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        secured_area:
+            pattern: ^/admin/
+            provider: admin_users
             form_login:
-                provider:       fos_userbundle
-                csrf_provider:  form.csrf_provider
-                login_path:     /admin/login
-                check_path:     /admin/login_check
-                default_target_path: /admin/
-                always_use_default_target_path: true
+                login_path: /admin/login
+                check_path: /admin/login_check
+            anonymous:    ~
             logout:
-                path:           /admin/logout
-                target:         /admin/login
-                invalidate_session: false
-            anonymous:    true
-
-
-    # defaut login area for standard users
+                path:   /admin/logout
+                target: /
         main:
             pattern: ^/
-            context: user
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
                 default_target_path: /profile
                 always_use_default_target_path: true
             logout:
-                path: /logout
-                target: /
-                invalidate_session: false
+                target: homepage
             anonymous:    true
-
 
 
     access_control:
@@ -52,15 +46,14 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
 
-        # -> custom access control for the frontend area of the URL
-        - { path: ^/profile, role: [ROLE_USER] }
-        # -> end
+          #fronten
+        - { path: ^/profile/, roles: [ROLE_USER] }
 
-        # -> custom access control for the admin area of the URL
+          #Admin
         - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/login-check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/profile, role: [ROLE_ADMIN] }
-        - { path: ^/admin/*, roles:  [ROLE_ADMIN]  }
-        # -> end
 
-
+        - { path: ^/admin/, roles: [ROLE_ADMIN] }
+        - { path: ^/admin/usuario, role: ROLE_ADMIN }
+#        - { path: ^/, roles: [ROLE_USER] }

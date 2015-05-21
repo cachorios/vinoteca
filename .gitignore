@@ -20,7 +20,13 @@
 /web/js/*
 /web/css/*
 /web/uploads/productos/*
+<<<<<<< HEAD
 /web/cache/*
+=======
+/app/extras/*
+/web/cache/*
+
+>>>>>>> 686900fca300187a872a73a2a7a3c5f8e2f3c926
 composer.lock
 composer.lock
 src/AppBundle/Entity/Proveedor.php

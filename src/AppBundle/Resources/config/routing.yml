@@ -13,3 +13,4 @@ app_admin:
 #    path:  /admin/
 #    defaults:  { _controller: UsuarioBundle:Usuario:Index}
 
+# Admin
