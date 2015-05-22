@@ -24,12 +24,12 @@ services:
             - { name: doctrine.event_listener, event: preUpdate,    method: preUpdate }
             - { name: doctrine.event_listener, event: postUpdate,   method: postUpdate }
 
-    producto.listener.doctrine:
-        class: AppBundle\EventListener\ProductoListener
-        arguments: [@service_container]
-        tags:
-            - { name: doctrine.event_listener, event: prePersist,   method: prePersist }
-            - { name: doctrine.event_listener, event: preUpdate,    method: preUpdate }
+#    producto.listener.doctrine:
+#        class: AppBundle\EventListener\ProductoListener
+#        arguments: [@service_container]
+#        tags:
+#            - { name: doctrine.event_listener, event: prePersist,   method: prePersist }
+#            - { name: doctrine.event_listener, event: preUpdate,    method: preUpdate }
 
     reposicion.listener.doctrine:
         class: AppBundle\EventListener\ReposicionListener

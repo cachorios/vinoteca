@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @DoctrineAssert\UniqueEntity(fields={"nombre", "codigo"})
  * 
  */
-class Producto implements SecureControl
+class Producto //implements SecureControl
 {
     /**
      * @var integer
@@ -247,10 +247,10 @@ class Producto implements SecureControl
     /**
      * Set Usuario
      *
-     * @param Usuario $usuario
+     * @param Usuario $usuario|null
      * @return Producto
      */
-    public function setUsuario(Usuario $usuario)
+    public function setUsuario($usuario = null)
     {
         $this->usuario = $usuario;
         return $this;

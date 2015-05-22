@@ -2,3 +2,27 @@ base:
     footer:
         derechos: "Derechos © 2015 RBSoft Ready."
 
+ ### producto index
+"Nuevo Producto": "Nuevo Producto"
+"Codigo": Código
+Nombre: Nombre
+Precio: Precio
+Iva: "I.V.A."
+Stock: Stock
+
+
+acciones: Acciones
+Activo: Activo
+
+### producto edit
+Imagenes: Imagenes
+Descripcion: "Descripción"
+"Limite minimo de stock": "Limite minimo de stock"
+"varietal": varietal
+cosecha: cosecha
+"Añejamiento": "Añejamiento"
+"Bodega": Bodega
+"volumen": "volumen"
+"Pais Origen": "Pais Origen"
+"Region Origen": "Region Origen"
+"Armonizacion": "Armonizacion"
