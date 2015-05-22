@@ -10,7 +10,8 @@
             <div class="col-md-3 col-sm-6">
                 <div class="product-col">
                     <div class="image">
-                        <img src="{{ image('uploads/productos/' ~ prod.imagenActiva).zoomCrop(220,200,"#ffffff",'center','center') }}" alt="producto"  class="img-responsive" />
+
+                        <img src="{{ image( prod.imagenActiva).resize(220,200,"#ffffff",'center','center') }}" alt="producto"  class="img-responsive" />
                     </div>
                     <div class="caption">
                         <h4><a href="{{ path('productofull',{'id': prod.id }) }}">{{ prod.nombre }}</a></h4>

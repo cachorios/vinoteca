@@ -9,11 +9,9 @@
                     <h3 class="panel-title">Ingresar</h3>
                 </div>
                 <div class="panel-body">
-                    {% if error %}
-                        <p style="color: #d9534f;">
-                            Error! {{ error |trans }}
-                        </p>
 
+                    {% if error %}
+                        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                     {% endif %}
                     <p>
                         Por favor, iniciar sesión, su cuenta debe existir
@@ -21,7 +19,8 @@
                     <!-- Login Form Starts -->
                     <form role="form" class="form-inline" method="POST" action="{{ path('fos_user_security_check') }}" >
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
-                        <input type="hidden" name="_target_path" value="/" />
+
+                        {#<input type="hidden" name="_target_path" value="/" />#}
 
                         <div class="form-group">
                             <label for="login-username" class="sr-only">Usuario</label>
@@ -33,7 +32,7 @@
                             <input type="password" class="form-control" id="login-password" placeholder="Clave" tabindex="2" name="_password" required>
                         </div> <!-- /.form-group -->
 
-                        <button class="btn btn-warning" type="submit">
+                        <button class="btn btn-warning" type="submit" id="_submit" name="_submit">
                             Ingresar
                         </button>
 

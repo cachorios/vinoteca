@@ -247,7 +247,7 @@ class ProductoController extends Controller
      * Edits an existing Producto entity.
      *
      * @Route("/{id}/edit", name="producto_update")
-     * @Method("PUT")
+     * @Method({"PUT","POST"})
      */
     public function updateAction(Request $request, $id)
     {
