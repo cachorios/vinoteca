@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2ac25d5ed5f12935a58c1ba7559f31fc",
+    "hash": "9d6e9aa762e27eff65fdab420d14d95a",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1441,12 +1441,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-                "reference": "24eefec8349f1ce228b44ab51f1814102270196a"
+                "reference": "089bf3a8da923c786027bdde7a957c62e81051a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/24eefec8349f1ce228b44ab51f1814102270196a",
-                "reference": "24eefec8349f1ce228b44ab51f1814102270196a",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/089bf3a8da923c786027bdde7a957c62e81051a7",
+                "reference": "089bf3a8da923c786027bdde7a957c62e81051a7",
                 "shasum": ""
             },
             "type": "library",
@@ -1457,7 +1457,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD 3-Clause"
+                "BSD-3-Clause"
             ],
             "authors": [
                 {
@@ -1481,7 +1481,7 @@
                 "progress",
                 "upload"
             ],
-            "time": "2015-05-15 14:07:24"
+            "time": "2015-05-21 19:05:55"
         },
         {
             "name": "knplabs/doctrine-behaviors",

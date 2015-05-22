@@ -1,0 +1,15 @@
+registro:
+  eMail: eMail
+  "Nombre Usuario":  Nombre Usuario
+  "Contraseña": Contraseña
+  "Repita Contraseña": Repita Contraseña
+  condicion:
+    titulo: Condición
+    texto: "condiciones generales"
+
+registration:
+  submit: Registrate
+
+
+
+

@@ -9,8 +9,8 @@ security:
 
     providers:
         fos_userbundle:
-            #id: fos_user.user_provider.username
-            id: fos_user.user_provider.username_email
+            id: fos_user.user_provider.username
+#            id: fos_user.user_provider.username_email
         admin_users:
             entity: { class: UserAdminBundle:User, property: username }
 
