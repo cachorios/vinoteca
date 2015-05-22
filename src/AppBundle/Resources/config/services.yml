@@ -53,3 +53,9 @@ services:
     utilidad.service:
             class: AppBundle\Servicios\Utilidad
             arguments: [@service_container]
+
+    app_registration_listener:
+          class: AppBundle\EventListener\AddDefaultRoleListener
+          arguments: []
+          tags:
+              - { name: kernel.event_subscriber }
