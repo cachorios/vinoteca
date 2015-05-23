@@ -142,8 +142,16 @@
             </div>
             <!-- Header Links Ends -->
             <!-- Currency & Languages Starts -->
-            {#<div class="col-sm-4 col-xs-12">#}
-                {#<div class="pull-right">#}
+            {% if is_granted('ROLE_ADMIN') %}
+
+            <div class="col-sm-4 col-xs-12">
+                <div class="pull-right">
+                    {#área de Administración#}
+
+                    <a class="button_nuevo btn btn-sm btn-primary" href="{{ path('homepage_admin') }}">
+                        Ingresar al área de Administración
+                    </a>
+
                     {#<!-- Currency Starts -->#}
                     {#<div class="btn-group">#}
                         {#<button class="btn btn-link dropdown-toggle" data-toggle="dropdown">#}
@@ -173,8 +181,10 @@
                         {#</ul>#}
                     {#</div>#}
                     {#<!-- Languages Ends -->#}
-                {#</div>#}
-            {#</div>#}
+                </div>
+
+            </div>
+            {% endif %}
             <!-- Currency & Languages Ends -->
         </div>
     </div>

@@ -81,6 +81,10 @@
                             <th class="show-header">{{ dato.metadatoProducto.nombre }}</th>
                             <td>{{ dato.valor }}</td>
                         </tr>
+                    {% else %}
+                        <tr>
+                            <td>Sin información</td>
+                        </tr>
                     {% endfor %}
                     </tbody>
                 </table>

@@ -190,7 +190,7 @@ class CategoriaController extends Controller
      * Displays a form to edit an existing Categoria entity.
      *
      * @Route("/{id}/edit", name="categoria_edit")
-     * @Method({"PUT","POST"})
+     * @Method("GET")
      */
     public function editAction($id)
     {
@@ -223,7 +223,7 @@ class CategoriaController extends Controller
     {
         $form = $this->createForm(new CategoriaType(), $entity, array(
             'action' => $this->generateUrl('categoria_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
 
@@ -234,7 +234,7 @@ class CategoriaController extends Controller
      * Edits an existing Categoria entity.
      *
      * @Route("/{id}/edit", name="categoria_update")
-     * @Method("PUT")
+     * @Method({"POST","PUT"})
      */
     public function updateAction(Request $request, $id)
     {

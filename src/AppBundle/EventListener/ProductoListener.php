@@ -22,7 +22,6 @@ class ProductoListener
 
         if ($entity instanceof Producto) {
             $entity->setUpdatedAt( new \DateTime('now', new \DateTimeZone('UTC')));
-            $this->procesarImagenes($entity);
             $em->getUnitOfWork()->recomputeSingleEntityChangeSet($em->getClassMetadata(get_class($entity)), $entity);
         }
     }
@@ -36,16 +35,7 @@ class ProductoListener
             $entity->setUpdatedAt( new \DateTime('now', new \DateTimeZone('UTC')));
             $entity->setCreatedAt( new \DateTime('now', new \DateTimeZone('UTC')));
             $entity->setSlug(Util::getSlug($entity->getNombre()));
-            $this->procesarImagenes($entity);
         }
-    }
-
-    private function procesarImagenes(Producto $entity){
-//        $entity->getImagenes();
-//        foreach ($entity->getImagenes() as $imagen) {
-//            $imagen->setCreatedAt(new \DateTime('now', new \DateTimeZone('UTC')));
-//        }
-//        return $this;
     }
 
 }

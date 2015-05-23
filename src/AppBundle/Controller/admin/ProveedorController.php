@@ -225,7 +225,7 @@ class ProveedorController extends Controller
     {
         $form = $this->createForm(new ProveedorType(), $entity, array(
             'action' => $this->generateUrl('proveedor_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
         
