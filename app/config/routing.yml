@@ -16,6 +16,3 @@ fos_user:
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
-_admin:
-    resource: @UserAdminBundle/Controller/
-    type:     annotation

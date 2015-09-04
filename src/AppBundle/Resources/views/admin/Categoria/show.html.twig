@@ -57,11 +57,32 @@
                         <th class="show-header">Visible</th>
                         <td>{{ entity.visible? '<span class="label label-success">Activo</span>' : '<span class="label label-default">Desactivado</span>' }}</td>
                     </tr>
+                    <tr>
+                        <th class="show-header">Imagen</th>
+                        <td><img src="{{ image("uploads/categorias/"~ entity.imagen).resize(189,189) }}" class="img-responsive img-thumbnail" /></td>
+                    </tr>
 
                     </tbody>
                 </table>
 
+                <h4 class="content-title">
+                    <u>Metadatos</u>
+                </h4>
 
+                <table class="table">
+                    <tbody>
+                    {% for dato in entity.metadatos %}
+                        <tr>
+                            <td >{{ dato.nombre }}</td>
+
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>Sin información</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
             {% endblock %}
         {% endembed %}

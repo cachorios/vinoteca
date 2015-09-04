@@ -103,7 +103,9 @@
 
         <li class="dropdown navbar-profile">
             <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle">
-                {#<img alt="" class="navbar-profile-avatar" src="{{ image('uploads/usuarios/'~ usuario.foto ~'.jpg').resize(20,20,"#ffffff",'center','center') }}">#}
+                {% set imagen = usuario.foto == '' ? 'images/profile.png' : 'uploads/usuarios/'~ usuario.foto ~'.jpg' %}
+
+                <img alt="" class="navbar-profile-avatar" src="{{ image(imagen).resize(20,20,"#ffffff",'center','center') }}">
                 {#<span class="navbar-profile-label">{{ usuario.nombre }} &nbsp;</span>#}
                 <i class="fa fa-caret-down"></i>
             </a>
@@ -126,7 +128,7 @@
                 <li class="divider"></li>
 
                 <li>
-                    <a href=" {{ path('security_logout')  }} ">
+                    <a href=" {{ path('usuario_logout')  }} ">
 
                         <i class="fa fa-sign-out"></i>
                         &nbsp;&nbsp;Logout

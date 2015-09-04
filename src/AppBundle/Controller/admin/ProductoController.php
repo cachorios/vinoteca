@@ -236,7 +236,7 @@ class ProductoController extends Controller
     {
         $form = $this->createForm(new ProductoType($this->getDoctrine()->getManager()), $entity, array(
             'action' => $this->generateUrl('producto_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
 
@@ -247,7 +247,7 @@ class ProductoController extends Controller
      * Edits an existing Producto entity.
      *
      * @Route("/{id}/edit", name="producto_update")
-     * @Method({"PUT","POST"})
+     * @Method({"POST","PUT"})
      */
     public function updateAction(Request $request, $id)
     {
@@ -263,7 +263,7 @@ class ProductoController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        if ($editForm->isValid()) {
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
             foreach($entity->getImagenes() as $imagen){
                 if(true == $imagen->getDelete()){
                     $entity->removeImagene($imagen);

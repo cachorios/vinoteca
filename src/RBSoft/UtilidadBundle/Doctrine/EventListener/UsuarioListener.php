@@ -6,7 +6,7 @@
  * Time: 15:39
  */
 
-namespace RBSoft\UsuarioBundle\Doctrine\EventListener;
+namespace RBSoft\UtilidadBundle\Doctrine\EventListener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use RBSoft\UsuarioBundle\Entity\SecureControl;

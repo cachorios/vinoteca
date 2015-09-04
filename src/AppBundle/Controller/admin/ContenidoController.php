@@ -243,7 +243,7 @@ class ContenidoController extends Controller
     {
         $form = $this->createForm(new ContenidoType(), $entity, array(
             'action' => $this->generateUrl('contenido_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
         
