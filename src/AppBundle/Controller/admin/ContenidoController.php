@@ -4,6 +4,7 @@ namespace AppBundle\Controller\admin;
 
 use AppBundle\Entity\ContenidoDetalle;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -266,6 +267,11 @@ class ContenidoController extends Controller
             throw $this->createNotFoundException('Unable to find Contenido entity.');
         }
 
+        $contenidoDetalleOriginal= new ArrayCollection();
+        foreach($entity->getContenidoDetalle() as $contenidoDet){
+            $contenidoDetalleOriginal->add($contenidoDet);
+        }
+
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -273,6 +279,7 @@ class ContenidoController extends Controller
         if ($editForm->isValid()) {
 
             $entity->upload("uploads/banners/");
+            $this->removerContenido($entity, $contenidoDetalleOriginal, $em);
             $em->flush();
             $this->get('session')->getFlashBag()->add('success',"El Contenido $entity se actualizó correctamente.");
             return $this->redirect($this->generateUrl('contenido'));
@@ -283,6 +290,16 @@ class ContenidoController extends Controller
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
+    }
+
+    private function removerContenido(Contenido $contenido, ArrayCollection $cdetalles, EntityManager $em){
+        foreach( $cdetalles as $cd){
+            if(false === $contenido->getContenidoDetalle()->contains($cd)){
+
+                $em->remove($cd);
+                //$em->persist($cd);
+            }
+        }
     }
     /**
      * Deletes a Contenido entity.

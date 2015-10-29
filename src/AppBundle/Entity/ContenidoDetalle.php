@@ -34,7 +34,7 @@ class ContenidoDetalle
     /**
      * @ORM\ManyToOne(
      *      targetEntity="AppBundle\Entity\Contenido",
-     *      inversedBy="contenidoDetalle", cascade={"all"}
+     *      inversedBy="contenidoDetalle", cascade={"detach"}
      * )
      * @ORM\JoinColumn(
      *      name="contenido_id",

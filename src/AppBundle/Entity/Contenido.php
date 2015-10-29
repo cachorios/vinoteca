@@ -55,7 +55,6 @@ class Contenido
      */
     private $tipo;
 
-
     /**
      * @var boolean
      *
@@ -67,7 +66,7 @@ class Contenido
      * @ORM\OneToMany(
      *      targetEntity="AppBundle\Entity\ContenidoDetalle",
      *      mappedBy="contenido",
-     *      cascade={"all"}
+     *      cascade={"persist"}
      *  )
      * @ORM\OrderBy({"orden"="ASC"})
      */
@@ -250,6 +249,7 @@ class Contenido
     public function removeContenidoDetalle(\AppBundle\Entity\ContenidoDetalle $contenidoDetalle)
     {
         $this->contenidoDetalle->removeElement($contenidoDetalle);
+        return;
     }
 
     /**
