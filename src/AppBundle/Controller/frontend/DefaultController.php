@@ -78,20 +78,29 @@ class DefaultController extends Controller
     public function menufrontendAction()
     {
         $dir = $this->container->get('kernel')->getCacheDir();
+
         $file = $dir . DIRECTORY_SEPARATOR . 'RBSoft'.DIRECTORY_SEPARATOR.  'menu.html';
+
 
         if (!file_exists($dir)) {
             mkdir($dir);
         }
 
+
         $cache = new ConfigCache($file, false); // $this->container->get('kernel')->isDebug());
+
+
+
 
         if (!$cache->isFresh()) {
             $menu = $this->get("menu.service")->makeMenu();
             $cache->write($menu);
         } else {
-            $menu = file_get_contents((string) $cache);
+
+            $menu = file_get_contents( $cache->getPath());
         }
+
+             
 
         return $this->render("AppBundle:frontend/Menu:menufrontend.html.twig", array(
                 "menu" => $menu

@@ -1,8 +1,8 @@
 services:
-    twig.extension.text:
-         class: Twig_Extensions_Extension_Text
-         tags:
-             - { name: twig.extension }
+#    twig.extension.text:
+#         class: Twig_Extensions_Extension_Text
+#         tags:
+#             - { name: twig.extension }
 
     twig.extension.categoria:
         class: AppBundle\Twig\Extension\CategoriaExtension
@@ -11,13 +11,13 @@ services:
 
     twig.extension.producto_imagen:
         class: AppBundle\Twig\Extension\ImagenExtension
-        arguments: [@image.handling, @doctrine.orm.entity_manager]
+        arguments: ['@image.handling', '@doctrine.orm.entity_manager']
         tags:
             - { name: twig.extension }
 
     categoria.listener.doctrine:
         class: AppBundle\EventListener\CategoriaListener
-        arguments: [@service_container]
+        arguments: ['@service_container']
         tags:
             - { name: doctrine.event_listener, event: prePersist,   method: prePersist }
             - { name: doctrine.event_listener, event: postPersist,  method: postPersist }
@@ -26,20 +26,20 @@ services:
 
     producto.listener.doctrine:
         class: AppBundle\EventListener\ProductoListener
-        arguments: [@service_container]
+        arguments: ['@service_container']
         tags:
             - { name: doctrine.event_listener, event: prePersist,   method: prePersist }
             - { name: doctrine.event_listener, event: preUpdate,    method: preUpdate }
 
     reposicion.listener.doctrine:
         class: AppBundle\EventListener\ReposicionListener
-        arguments: [@service_container]
+        arguments: ['@service_container']
         tags:
             - { name: doctrine.event_listener, event: postPersist,  method: postPersist }
 
     menu.service:
         class: AppBundle\Servicios\MenuService
-        arguments: [@service_container]
+        arguments: ['@service_container']
 
 #    app.cache_warmer:
 #        class: AppBundle\Servicios\CacheWarmer\AppCacheWarmer
@@ -48,11 +48,11 @@ services:
 
     setting.service:
             class: AppBundle\Servicios\Setting
-            arguments: [@doctrine.orm.entity_manager]
+            arguments: ['@doctrine.orm.entity_manager']
 
     utilidad.service:
             class: AppBundle\Servicios\Utilidad
-            arguments: [@service_container]
+            arguments: ['@service_container']
 
     app_registration_listener:
           class: AppBundle\EventListener\AddDefaultRoleListener

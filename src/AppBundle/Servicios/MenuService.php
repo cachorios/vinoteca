@@ -74,13 +74,16 @@ class MenuService
         $em = $this->contenedor->get("doctrine.orm.entity_manager");
 
         // 1ro la barra
+        $menuFull="";
         $cats = $em->getRepository("AppBundle:Categoria")->getBarraMenu();
-        foreach ($cats as $cat) {
-            $menu .= $this->makeBarra($em, $cat[0], $cat[1]);
+        if (count($cats) > 0) {
+            foreach ($cats as $cat) {
+                $menu .= $this->makeBarra($em, $cat[0], $cat[1]);
+            }
+            $menuFull = str_replace("###MENU###", $menu, self::MENU_STR);
         }
-        $menuFull = str_replace("###MENU###", $menu, self::MENU_STR);
-
         return $menuFull;
+
     }
 
     private function makeBarra(EntityManager $em, Categoria $CatBarra, $maxLevel)
@@ -90,11 +93,11 @@ class MenuService
         if ($maxLevel == 0) {
 
             //Directamente en barra
-            $menu = str_replace("###URL###", $route->generate('productos',array('id' => $CatBarra->getId())) , self::MENU_NAVBAR_ITEM);
+            $menu = str_replace("###URL###", $route->generate('productos', array('id' => $CatBarra->getId())), self::MENU_NAVBAR_ITEM);
             $menu = str_replace("###LABEL###", $CatBarra->getNombre(), $menu);
 
         } else {
-            $menu = str_replace("###URL###", $route->generate('productos',array('id' => $CatBarra->getId())), self::MENU_NAVBAR_SUBMENU);
+            $menu = str_replace("###URL###", $route->generate('productos', array('id' => $CatBarra->getId())), self::MENU_NAVBAR_SUBMENU);
             $menu = str_replace("###LABEL###", $CatBarra->getNombre(), $menu);
 
             $menu = str_replace("###SUBMENU###", $this->makeSubmenu($em, $CatBarra, $maxLevel), $menu);
@@ -113,37 +116,37 @@ class MenuService
         $submenu2 = "";
         foreach ($cats as $cat) {
             if ($maxLevel == 1) {
-                $item = str_replace("###URL###", $route->generate('productos',array('id' => $cat->getId())) , self::MENU_NAVBAR_ITEM);
+                $item = str_replace("###URL###", $route->generate('productos', array('id' => $cat->getId())), self::MENU_NAVBAR_ITEM);
                 $item = str_replace("###LABEL###", $cat->getNombre(), $item);
                 $menu .= $item;
             } else { //nivel = 2
 
                 //Si tiene hijo se agrega subtitulo
                 if ($em->getRepository("AppBundle:Categoria")->tieneHijo($cat->getId())) {
-                    $subAux = str_replace("###URL###", $route->generate('productos',array('id' => $cat->getId())), self::MENU_ITEM_CON_TITULO);
+                    $subAux = str_replace("###URL###", $route->generate('productos', array('id' => $cat->getId())), self::MENU_ITEM_CON_TITULO);
                     $subAux = str_replace("###TITULO###", $cat->getNombre(), $subAux);
                     $catHijos = $em->getRepository("AppBundle:Categoria")->getCategoriaItem($cat->getId());
                     $itemHijo = "";
                     foreach ($catHijos as $hijo) {
-                        $item = str_replace("###URL###", $route->generate('productos',array('id' => $hijo->getId())) , self::MENU_NAVBAR_ITEM);
+                        $item = str_replace("###URL###", $route->generate('productos', array('id' => $hijo->getId())), self::MENU_NAVBAR_ITEM);
                         $item = str_replace("###LABEL###", $hijo->getNombre(), $item);
                         $itemHijo .= $item;
                     }
                     $submenu2 .= str_replace('###SUBMENU###', $itemHijo, $subAux);
 
                 } else {
-                    $item = str_replace("###URL###", $route->generate('productos',array('id' => $cat->getId())), self::MENU_NAVBAR_ITEM);
+                    $item = str_replace("###URL###", $route->generate('productos', array('id' => $cat->getId())), self::MENU_NAVBAR_ITEM);
                     $item = str_replace("###LABEL###", $cat->getNombre(), $item);
                     $submenu1 .= $item;
 
                 }
             }
         }
-        if ($maxLevel ==  1) {
+        if ($maxLevel == 1) {
             $menu = str_replace("###SUBMENU###", $menu, self::MENU_SUBMENU_SIMPLE);
-        }else {
+        } else {
 
-            if ( strlen($submenu1) > 0) {
+            if (strlen($submenu1) > 0) {
                 $subAux = str_replace("###TITULO###", "&nbsp;", self::MENU_ITEM_CON_TITULO);
                 $submenu1 = str_replace("###SUBMENU###", $submenu1, $subAux);
 

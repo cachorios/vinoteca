@@ -2,20 +2,20 @@ services:
     categoria.manager:
         class: AppBundle\Manager\CategoriaManager
         arguments:
-            - @doctrine.orm.entity_manager
-            - @security.token_storage
-            - @request_stack
+            - '@doctrine.orm.entity_manager'
+            - '@security.token_storage'
+            - '@request_stack'
 
     producto.manager:
         class: AppBundle\Manager\ProductoManager
         arguments:
-            - @doctrine.orm.entity_manager
-            - @security.token_storage
-            - @request_stack
+            - '@doctrine.orm.entity_manager'
+            - '@security.token_storage'
+            - '@request_stack'
 
     reposicion.manager:
         class: AppBundle\Manager\ReposicionManager
         arguments:
-            - @doctrine.orm.entity_manager
-            - @security.token_storage
-            - @request_stack
+            - '@doctrine.orm.entity_manager'
+            - '@security.token_storage'
+            - '@request_stack'

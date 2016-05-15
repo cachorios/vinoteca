@@ -6,7 +6,7 @@ app_frontend:
 
 app_admin:
     prefix:  /admin/
-    resource: @AppBundle/Controller/admin
+    resource: '@AppBundle/Controller/admin'
     type:     annotation
 
 #admin_homepage:
