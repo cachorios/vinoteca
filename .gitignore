@@ -1,10 +1,8 @@
-/app/bootstrap.php.cache
-/app/cache/*
-/app/config/parameters.yml
-/app/logs/*
-!app/cache/.gitkeep
-!app/logs/.gitkeep
-/app/phpunit.xml
+/var/*
+!var/cache/.gitkeep
+!var/logs/.gitkeep
+!var/sessions/.gitkeep
+
 /build/
 /vendor/
 /bin/
@@ -12,7 +10,7 @@
 
 /.idea/*
 /.idea/workspace.xml
-/composer.lock
+
 .idea/workspace.xml
 
 /web/bundles/*
@@ -20,14 +18,9 @@
 /web/js/*
 /web/css/*
 /web/uploads/productos/*
-<<<<<<< HEAD
-/web/cache/*
-=======
-/app/extras/*
-/web/cache/*
 
->>>>>>> 686900fca300187a872a73a2a7a3c5f8e2f3c926
+/web/cache/*
+/app/extras/*
+
 composer.lock
-composer.lock
-src/AppBundle/Entity/Proveedor.php
-composer.lock
+
