@@ -2,11 +2,14 @@
     var fieldCount = '{{ form.contenidoDetalle | length }}';
     jQuery(document).ready(function () {
         $(document).on('click', '#add-new', function (e) {
+
             var strField = "appbundle_contenido_contenidoDetalle___name___imagen";
 
             e.preventDefault();
-            var fieldList = jQuery('#item_list_contenidoDetalle_collection');
+            var fieldList = jQuery('#appbundle_contenido_contenidoDetalle');
+
             var newWidget = fieldList.attr('data-prototype');
+
             newWidget = newWidget.replace(/__name__/g, fieldCount);
 
             var newLi = jQuery('<li></li>').html(newWidget);

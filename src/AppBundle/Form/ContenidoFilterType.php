@@ -9,17 +9,19 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormError;
 
+use Lexik\Bundle\FormFilterBundle\Filter\Form\Type as Filters;
+
 class ContenidoFilterType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id', 'filter_number_range')
-            ->add('nombre', 'filter_text')
-            ->add('ubicacion', 'filter_number_range')
-            ->add('orden', 'filter_number_range')
-            ->add('tipo', 'filter_number_range')
-            ->add('activo', 'filter_choice')
+            ->add('id', Filters\NumberRangeFilterType::class)
+            ->add('nombre', Filters\TextFilterType::class)
+            ->add('ubicacion', Filters\NumberRangeFilterType::class )
+            ->add('orden', Filters\NumberRangeFilterType::class)
+            ->add('tipo', Filters\NumberRangeFilterType::class)
+            ->add('activo', Filters\ChoiceFilterType::class)
         ;
 
         $listener = function(FormEvent $event)

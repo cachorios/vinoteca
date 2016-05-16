@@ -5,6 +5,9 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Contenido;
 use AppBundle\Entity\ContenidoDetalle;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,18 +21,26 @@ class ContenidoType extends AbstractType
     {
         $builder
             ->add('nombre')
-            ->add('ubicacion','choice',array('choices' => Contenido::$UBICACIONES))
-            ->add('orden')
-            ->add('tipo','choice',array('choices' => Contenido::$TIPO_CONTENIDOS))
+            ->add('ubicacion', ChoiceType::class ,array('choices' => Contenido::$UBICACIONES))
+            ->add('orden', NumberType::class)
+            ->add('tipo',ChoiceType::class,array('choices' => Contenido::$TIPO_CONTENIDOS))
 
-            ->add('contenidoDetalle','my_collection',array(
-                'type' => new ContenidoDetalleType(),
-                'allow_add' => true,
-                'allow_delete' => true,
-                'delete_empty' => true,
-                'prototype' => true,
-//                'prototype_data' => new ContenidoDetalle(),
-                'by_reference' => false,
+//            ->add('contenidoDetalle',my_collection::class,array(
+//                'type' => ContenidoDetalleType::class,
+//                'allow_add' => true,
+//                'allow_delete' => true,
+//                'delete_empty' => true,
+//                'prototype' => true,
+////                'prototype_data' => new ContenidoDetalle(),
+//                'by_reference' => false,
+//                ))
+
+            ->add('contenidoDetalle', CollectionType::class,array(
+                    'entry_type' => ContenidoDetalleType::class,
+                    'by_reference' => false,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'delete_empty' => true,
                 ))
 
             ->add('activo',null,array('required' => false))
@@ -43,14 +54,14 @@ class ContenidoType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Contenido',
-            'cascade_validation' => true
+           // 'cascade_validation' => true
         ));
     }
 
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_contenido';
     }

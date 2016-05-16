@@ -1,0 +1,112 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use RBSoft\UtilidadBundle\Libs\Util;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Contenido
+ *
+ * @ORM\Table(name="contenido", uniqueConstraints={@ORM\UniqueConstraint(name="contenido_name_idx", columns={"nombre"})})
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ContenidoRepository")
+ *
+ * @UniqueEntity(fields={"nombre"},
+ *     errorPath="nombre",
+ *     message="Ya existe contenido con el mismo nombre.")
+ */
+class Contenido
+{
+    static $UBICACIONES = array("Inicio" => 0, "Producto" =>1);
+    static $TIPO_CONTENIDOS = array('Carrusel' =>0,'1 Imagen' => 1,'2 Imagen' => 2,'3 Imagen' =>3,'Acción' =>4);
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", name="id")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string $nombre
+     * @ORM\Column(type="string", length=64, nullable=true, name="nombre")
+     */
+    private $nombre;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", nullable=true, name="ubicacion")
+     */
+    private $ubicacion;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", nullable=true, name="orden")
+     */
+    private $orden;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", nullable=true, name="tipo")
+     */
+    private $tipo;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", nullable=true, name="activo")
+     */
+    private $activo;
+
+    /**
+     * @ORM\OneToMany(
+     *      targetEntity="AppBundle\Entity\ContenidoDetalle",
+     *      mappedBy="contenido",
+     *      cascade={"persist"}
+     *  )
+     * @ORM\OrderBy({"orden"="ASC"})
+     */
+    private $contenidoDetalle;
+
+
+
+
+    public function __construct(){
+        $this->contenidoDetalle = new ArrayCollection();
+        $this->activo = true;
+    }
+
+
+    public function __toString(){
+        return $this->nombre;
+    }
+
+    public function getUbicacionString($i){
+        if(isset(self::$UBICACIONES[$i]))
+            return self::$UBICACIONES[$i];
+        else
+            return $i;
+    }
+
+    public function getTipoString($i){
+        if(isset(self::$TIPO_CONTENIDOS[$i]))
+            return self::$TIPO_CONTENIDOS[$i];
+        else
+            return $i;
+    }
+
+
+    public function upload($dir){
+        foreach($this->getContenidoDetalle() as $det){
+            $det->upload( Util::getSlug($this->getNombre()) ,$dir);
+        }
+    }
+
+    
+
+}

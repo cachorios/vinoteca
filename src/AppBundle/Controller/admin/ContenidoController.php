@@ -5,6 +5,7 @@ namespace AppBundle\Controller\admin;
 use AppBundle\Entity\ContenidoDetalle;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -37,8 +38,8 @@ class ContenidoController extends Controller
      */
     public function indexAction(Request $request)
     {
-    list($filterForm, $queryBuilder) = $this->filter($request);
-    $pager = $this->getPager($queryBuilder);
+        list($filterForm, $queryBuilder) = $this->filter($request);
+        $pager = $this->getPager($queryBuilder, $request);
 
         return array(
             'pager'         => $pager,
@@ -47,18 +48,18 @@ class ContenidoController extends Controller
     }
 
     /**
-    * Crea el paginador Pagerfanta
+    * Crea el paginador
     * @param Request $request
     * @return SlidingPagination
     * @throws NotFoundHttpException
     */
-    private function getPager($q)
+    private function getPager($q, Request $request)
     {
         $paginator  = $this->get('knp_paginator');
 
         $pagination = $paginator->paginate(
             $q,
-            $this->get('request')->query->get('page', 1)/*page number*/,
+            $request->query->get('page', 1)/*page number*/,
             8,/*limit per page*/
             array('distinct' => false)
         );
@@ -69,7 +70,7 @@ class ContenidoController extends Controller
     private function filter(Request $request)
     {
         $session = $request->getSession();
-        $filterForm = $this->createForm(new ContenidoFilterType());
+        $filterForm = $this->createForm( ContenidoFilterType::class );
 
         $em = $this->getDoctrine()->getManager();
         $queryBuilder = $em->getRepository('AppBundle:Contenido')->createQueryBuilder("q");
@@ -96,7 +97,7 @@ class ContenidoController extends Controller
             // Get filter from session
             if ($session->has('ContenidoControllerFilter')) {
                 $filterData = $session->get('ContenidoControllerFilter');
-                $filterForm = $this->createForm(new ContenidoFilterType(), $filterData);
+                $filterForm = $this->createForm(ContenidoFilterType::class, $filterData);
                 $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
            }
         }
@@ -114,6 +115,7 @@ class ContenidoController extends Controller
     {
         $entity = new Contenido();
         $form = $this->createCreateForm($entity);
+
 
         $form->handleRequest($request);
 
@@ -145,7 +147,7 @@ class ContenidoController extends Controller
     */
     private function createCreateForm(Contenido $entity)
     {
-        $form = $this->createForm(new ContenidoType(), $entity, array(
+        $form = $this->createForm(ContenidoType::class, $entity, array(
             'action' => $this->generateUrl('contenido_create'),
             'method' => 'POST',
         ));
@@ -163,13 +165,18 @@ class ContenidoController extends Controller
      */
     public function newAction($tipo)
     {
-//        $newd = new ContenidoDetalle();
+        $new1 = new ContenidoDetalle();
+        $new1->setOrden(1);
+        $new1->setLink("Hola");
+
+        $new2 = new ContenidoDetalle();
+        $new1->setOrden(2);
+        $new2->setLink("Hola 2");
 
         $entity = new Contenido();
-//        $entity->addContenidoDetalle($newd);
-//        $arr = new ArrayCollection();
-//        $arr->add($newd);
-//        $entity->setContenidoDetalle($arr);
+
+        $entity->addContenidoDetalle($new1);
+        $entity->addContenidoDetalle($new2);
 
         $form   = $this->createCreateForm($entity);
 
@@ -242,7 +249,7 @@ class ContenidoController extends Controller
     */
     private function createEditForm(Contenido $entity)
     {
-        $form = $this->createForm(new ContenidoType(), $entity, array(
+        $form = $this->createForm(ContenidoType::class, $entity, array(
             'action' => $this->generateUrl('contenido_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
@@ -268,6 +275,7 @@ class ContenidoController extends Controller
         }
 
         $contenidoDetalleOriginal= new ArrayCollection();
+
         foreach($entity->getContenidoDetalle() as $contenidoDet){
             $contenidoDetalleOriginal->add($contenidoDet);
         }
@@ -280,6 +288,8 @@ class ContenidoController extends Controller
 
             $entity->upload("uploads/banners/");
             $this->removerContenido($entity, $contenidoDetalleOriginal, $em);
+
+            $em->persist($entity);
             $em->flush();
             $this->get('session')->getFlashBag()->add('success',"El Contenido $entity se actualizó correctamente.");
             return $this->redirect($this->generateUrl('contenido'));
@@ -297,7 +307,7 @@ class ContenidoController extends Controller
             if(false === $contenido->getContenidoDetalle()->contains($cd)){
 
                 $em->remove($cd);
-                //$em->persist($cd);
+                $em->persist($cd);
             }
         }
     }
@@ -339,7 +349,7 @@ class ContenidoController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('contenido_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array(
+            ->add('submit', SubmitType::class, array(
                 'label' => 'Delete',
                 'attr'  => array(
                         'class' => 'btn btn-danger btn-sm'

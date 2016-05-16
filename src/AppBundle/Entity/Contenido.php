@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use RBSoft\UtilidadBundle\Libs\Util;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Contenido
@@ -18,8 +19,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Contenido
 {
-    static $UBICACIONES = array("Inicio", "Producto");
-    static $TIPO_CONTENIDOS = array('Carrusel','1 Imagen','2 Imagen','3 Imagen','Acción');
+    static $UBICACIONES = array("Inicio" => 0, "Producto" =>1);
+    static $TIPO_CONTENIDOS = array('Carrusel' =>0,'1 Imagen' => 1,'2 Imagen' => 2,'3 Imagen' =>3,'Acción' =>4);
     /**
      * @var integer
      *
@@ -62,6 +63,7 @@ class Contenido
      */
     private $activo;
 
+
     /**
      * @ORM\OneToMany(
      *      targetEntity="AppBundle\Entity\ContenidoDetalle",
@@ -76,7 +78,7 @@ class Contenido
 
 
     public function __construct(){
-        $this->contenidoDetalle = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->contenidoDetalle = new ArrayCollection();
         $this->activo = true;
     }
 
@@ -100,12 +102,19 @@ class Contenido
     }
 
 
+    public function upload($dir){
+        foreach($this->getContenidoDetalle() as $det){
+            $det->upload( Util::getSlug($this->getNombre()) ,$dir);
+        }
+    }
+
+    
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -116,6 +125,7 @@ class Contenido
      * Set nombre
      *
      * @param string $nombre
+     *
      * @return Contenido
      */
     public function setNombre($nombre)
@@ -128,7 +138,7 @@ class Contenido
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -139,6 +149,7 @@ class Contenido
      * Set ubicacion
      *
      * @param integer $ubicacion
+     *
      * @return Contenido
      */
     public function setUbicacion($ubicacion)
@@ -151,7 +162,7 @@ class Contenido
     /**
      * Get ubicacion
      *
-     * @return integer 
+     * @return integer
      */
     public function getUbicacion()
     {
@@ -162,6 +173,7 @@ class Contenido
      * Set orden
      *
      * @param integer $orden
+     *
      * @return Contenido
      */
     public function setOrden($orden)
@@ -174,7 +186,7 @@ class Contenido
     /**
      * Get orden
      *
-     * @return integer 
+     * @return integer
      */
     public function getOrden()
     {
@@ -185,6 +197,7 @@ class Contenido
      * Set tipo
      *
      * @param integer $tipo
+     *
      * @return Contenido
      */
     public function setTipo($tipo)
@@ -197,7 +210,7 @@ class Contenido
     /**
      * Get tipo
      *
-     * @return integer 
+     * @return integer
      */
     public function getTipo()
     {
@@ -208,6 +221,7 @@ class Contenido
      * Set activo
      *
      * @param boolean $activo
+     *
      * @return Contenido
      */
     public function setActivo($activo)
@@ -220,7 +234,7 @@ class Contenido
     /**
      * Get activo
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActivo()
     {
@@ -231,12 +245,14 @@ class Contenido
      * Add contenidoDetalle
      *
      * @param \AppBundle\Entity\ContenidoDetalle $contenidoDetalle
+     *
      * @return Contenido
      */
     public function addContenidoDetalle(\AppBundle\Entity\ContenidoDetalle $contenidoDetalle)
     {
+
         $contenidoDetalle->setContenido($this);
-        $this->contenidoDetalle[] = $contenidoDetalle;
+        $this->contenidoDetalle->add($contenidoDetalle);
 
         return $this;
     }
@@ -249,23 +265,15 @@ class Contenido
     public function removeContenidoDetalle(\AppBundle\Entity\ContenidoDetalle $contenidoDetalle)
     {
         $this->contenidoDetalle->removeElement($contenidoDetalle);
-        return;
     }
 
     /**
      * Get contenidoDetalle
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getContenidoDetalle()
     {
         return $this->contenidoDetalle;
-    }
-
-
-    public function upload($dir){
-        foreach($this->getContenidoDetalle() as $det){
-            $det->upload( Util::getSlug($this->getNombre()) ,$dir);
-        }
     }
 }

@@ -5,11 +5,13 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Contenido;
 use RBSoft\UtilidadBundle\Form\DataTransformer\FileToStringTransformer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use AppBundle\Form\Type\MyCollectionType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Translation\Catalogue\OperationInterface;
+
+
 
 
 class ContenidoDetalleType extends AbstractType
@@ -22,28 +24,30 @@ class ContenidoDetalleType extends AbstractType
     {
 
         $builder
-            ->add("orden","hidden",array("attr" => array('class'=>'orden')))
-            ->add('imagen', 'file', array(
+            ->add("orden", HiddenType::class ,array("attr" => array('class'=>'orden')))
+            ->add('imagen', FileType::class, array(
                 'attr' =>array("class" => "fileimg"),
                 'required' => false,
                 'multiple' => false
             ))
-            ->add('link', 'text', array(
+            ->add('link', TextType::class, array(
                 'required' => false,
             ))
         ;
         $builder->get("imagen")->addModelTransformer(new FileToStringTransformer());
     }
     
+
     /**
-     * @ param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\ContenidoDetalle',
         ));
     }
+
 
     /**
      * @param OptionsResolverInterface $resolver
@@ -52,7 +56,9 @@ class ContenidoDetalleType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+
+
+    public function getBlockPrefix()
     {
         return 'appbundle_contenidoDetalle';
     }
