@@ -44,18 +44,18 @@
                         {{ form_row(form.orden) }}
                         {{ form_row(form.tipo) }}
 
-                    <h4>Detalle</h4>
-                    <ul class="detalle" data-prototype="{{ form_widget(form.contenidoDetalle.vars.prototype)|e }}">
-                        {% for detalle in form.contenidoDetalle%}
-                            <li>
-                                {{ form_widget(detalle) }}
-                                {{ form_row(detalle.imagen) }}
-                                {{ form_row(detalle.link) }}
+                    {#<h4>Detalle</h4>#}
+                    {#<ul class="detalle" data-prototype="{{ form_widget(form.contenidoDetalle.vars.prototype)|e }}">#}
+                        {#{% for detalle in form.contenidoDetalle%}#}
+                            {#<li>#}
+                                {#{{ form_widget(detalle) }}#}
+                                {#{{ form_row(detalle.imagen) }}#}
+                                {#{{ form_row(detalle.link) }}#}
 
 
-                            </li>
-                        {% endfor %}
-                    </ul>
+                            {#</li>#}
+                        {#{% endfor %}#}
+                    {#</ul>#}
 
 
                     {{ form_widget(form) }}
@@ -82,72 +82,72 @@
 
         {% block javascript_footer %}
             {{ include('@App/admin/Contenido/js.html.twig',{'form': form}) }}
-            <script>
+            {#<script>#}
 
-                var $collectionHolder;
-                // Agregar el link "Agreagr Elemento"
-                var $addDetalleLink = $('<a href="#" class="add_detalle_link">Agreagr Elemento</a>');
-                var $newLinkLi = $('<li></li>').append($addDetalleLink);
+                {#var $collectionHolder;#}
+                {#// Agregar el link "Agreagr Elemento"#}
+                {#var $addDetalleLink = $('<a href="#" class="add_detalle_link">Agreagr Elemento</a>');#}
+                {#var $newLinkLi = $('<li></li>').append($addDetalleLink);#}
 
-                jQuery(document).ready(function() {
-                    // obtener el ul que contiene al detalle
-                    $collectionHolder = $('ul.detalle');
+                {#jQuery(document).ready(function() {#}
+                    {#// obtener el ul que contiene al detalle#}
+                    {#$collectionHolder = $('ul.detalle');#}
 
-                    $collectionHolder.find('li').each(function() {
-                        addDetalleFormDeleteLink($(this));
-                    });
+                    {#$collectionHolder.find('li').each(function() {#}
+                        {#addDetalleFormDeleteLink($(this));#}
+                    {#});#}
 
 
-                    // add the "add a tag" anchor and li to the tags ul
-                    $collectionHolder.append($newLinkLi);
-                    // contar la cantidad de elementos que hay
-                    // guardarlo en index
-                    $cantidad = $collectionHolder.find('li').length;
+                    {#// add the "add a tag" anchor and li to the tags ul#}
+                    {#$collectionHolder.append($newLinkLi);#}
+                    {#// contar la cantidad de elementos que hay#}
+                    {#// guardarlo en index#}
+                    {#$cantidad = $collectionHolder.find('li').length;#}
 
-                    $collectionHolder.data('index', $cantidad );
+                    {#$collectionHolder.data('index', $cantidad );#}
 
-                    $addDetalleLink.on('click', function(e) {
-                        // prevent the link from creating a "#" on the URL
-                        e.preventDefault();
+                    {#$addDetalleLink.on('click', function(e) {#}
+                        {#// prevent the link from creating a "#" on the URL#}
+                        {#e.preventDefault();#}
 
-                        // add a new tag form (see next code block)
-                        addDetalleForm($collectionHolder, $newLinkLi);
-                    });
+                        {#// add a new tag form (see next code block)#}
+                        {#addDetalleForm($collectionHolder, $newLinkLi);#}
+                    {#});#}
 
-                });
+                {#});#}
 
-                function addDetalleForm($collectionHolder, $newLinkLi) {
-                    // Obtener el prototipo de detalle
-                    var prototype = $collectionHolder.data('prototype');
-                    //Obtener la cantiad de elementos que hay en la actualidad
-                    var index = $collectionHolder.data('index');
+                {#function addDetalleForm($collectionHolder, $newLinkLi) {#}
+                    {#// Obtener el prototipo de detalle#}
+                    {#var prototype = $collectionHolder.data('prototype');#}
+                    {#//Obtener la cantiad de elementos que hay en la actualidad#}
+                    {#var index = $collectionHolder.data('index');#}
 
-                    // Reemplazar'__name__' en el prototipo por numero de elemento
-                    // que tiene
-                    var newForm = prototype.replace(/__name__/g, index);
-                    //Incrementar los elementos
-                    $collectionHolder.data('index', index + 1);
+                    {#// Reemplazar'__name__' en el prototipo por numero de elemento#}
+                    {#// que tiene#}
+                    {#var newForm = prototype.replace(/__name__/g, index);#}
+                    {#//Incrementar los elementos#}
+                    {#$collectionHolder.data('index', index + 1);#}
 
-                    //mostrar el formulario en un li, antes del "Agregar Elemento"
-                    var $newFormLi = $('<li></li>').append(newForm);
-                    $newLinkLi.before($newFormLi);
-                    addDetalleFormDeleteLink($newFormLi);
+                    {#//mostrar el formulario en un li, antes del "Agregar Elemento"#}
+                    {#var $newFormLi = $('<li></li>').append(newForm);#}
+                    {#$newLinkLi.before($newFormLi);#}
+                    {#addDetalleFormDeleteLink($newFormLi);#}
 
-                }
+                {#}#}
 
-                function addDetalleFormDeleteLink($detalleFormLi) {
-                    var $removeFormA = $('<a href="#">Quitar</a>');
-                    $detalleFormLi.append($removeFormA);
+                {#function addDetalleFormDeleteLink($detalleFormLi) {#}
+                    {#var $removeFormA = $('<a href="#">Quitar</a>');#}
+                    {#$detalleFormLi.append($removeFormA);#}
 
-                    $removeFormA.on('click', function(e) {
-                        // prevent the link from creating a "#" on the URL
-                        e.preventDefault();
+                    {#$removeFormA.on('click', function(e) {#}
+                        {#// prevent the link from creating a "#" on the URL#}
+                        {#e.preventDefault();#}
 
-                        // remove the li for the tag form
-                        $detalleFormLi.remove();
-                    });
-                }
+                        {#// remove the li for the tag form#}
+                        {#$detalleFormLi.remove();#}
+                    {#});#}
+                {#}#}
 
-            </script>
+            {#</script>#}
 
         {% endblock %}

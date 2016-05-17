@@ -179,6 +179,7 @@ class ContenidoDetalle
 
     public function __toString()
     {
-        return $this->getImagen();
+
+        return $this->getImagen() != null ? $this->getImagen() : "" ;
     }
 }

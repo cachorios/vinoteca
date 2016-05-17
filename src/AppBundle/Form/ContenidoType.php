@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Contenido;
 use AppBundle\Entity\ContenidoDetalle;
+use AppBundle\Form\Type\MyCollectionType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -25,23 +26,23 @@ class ContenidoType extends AbstractType
             ->add('orden', NumberType::class)
             ->add('tipo',ChoiceType::class,array('choices' => Contenido::$TIPO_CONTENIDOS))
 
-//            ->add('contenidoDetalle',my_collection::class,array(
-//                'type' => ContenidoDetalleType::class,
-//                'allow_add' => true,
-//                'allow_delete' => true,
-//                'delete_empty' => true,
-//                'prototype' => true,
-////                'prototype_data' => new ContenidoDetalle(),
-//                'by_reference' => false,
-//                ))
-
-            ->add('contenidoDetalle', CollectionType::class,array(
-                    'entry_type' => ContenidoDetalleType::class,
-                    'by_reference' => false,
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'delete_empty' => true,
+            ->add('contenidoDetalle',MyCollectionType::class,array(
+                'entry_type' => ContenidoDetalleType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'delete_empty' => true,
+                'prototype' => true,
+//                'prototype_data' => new ContenidoDetalle(),
+                'by_reference' => false,
                 ))
+
+//            ->add('contenidoDetalle', CollectionType::class,array(
+//                    'entry_type' => ContenidoDetalleType::class,
+//                    'by_reference' => false,
+//                    'allow_add' => true,
+//                    'allow_delete' => true,
+//                    'delete_empty' => true,
+//                ))
 
             ->add('activo',null,array('required' => false))
         ;

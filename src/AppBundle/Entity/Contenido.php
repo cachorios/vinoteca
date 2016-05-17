@@ -68,7 +68,7 @@ class Contenido
      * @ORM\OneToMany(
      *      targetEntity="AppBundle\Entity\ContenidoDetalle",
      *      mappedBy="contenido",
-     *      cascade={"persist"}
+     *      cascade={"persist", "remove"}
      *  )
      * @ORM\OrderBy({"orden"="ASC"})
      */

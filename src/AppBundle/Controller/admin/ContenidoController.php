@@ -165,18 +165,18 @@ class ContenidoController extends Controller
      */
     public function newAction($tipo)
     {
-        $new1 = new ContenidoDetalle();
-        $new1->setOrden(1);
-        $new1->setLink("Hola");
-
-        $new2 = new ContenidoDetalle();
-        $new1->setOrden(2);
-        $new2->setLink("Hola 2");
+//        $new1 = new ContenidoDetalle();
+//        $new1->setOrden(1);
+//        $new1->setLink("Hola");
+//
+//        $new2 = new ContenidoDetalle();
+//        $new1->setOrden(2);
+//        $new2->setLink("Hola 2");
 
         $entity = new Contenido();
 
-        $entity->addContenidoDetalle($new1);
-        $entity->addContenidoDetalle($new2);
+//        $entity->addContenidoDetalle($new1);
+//        $entity->addContenidoDetalle($new2);
 
         $form   = $this->createCreateForm($entity);
 
@@ -280,17 +280,40 @@ class ContenidoController extends Controller
             $contenidoDetalleOriginal->add($contenidoDet);
         }
 
+
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
+
+        //ld($contenidoDetalleOriginal, $entity->getContenidoDetalle());
+
+
         if ($editForm->isValid()) {
 
             $entity->upload("uploads/banners/");
-            $this->removerContenido($entity, $contenidoDetalleOriginal, $em);
 
-            $em->persist($entity);
-            $em->flush();
+//            // remove the relationship between the tag and the Task
+//            foreach ($contenidoDetalleOriginal as $det) {
+//                /** @var ContenidoDetalle $det */
+//                if (false === $entity->getContenidoDetalle()->contains($det)) {
+//
+//                    // remove the Task from the Tag
+//
+//                    $em->remove($det);
+//
+//                }
+//            }
+//
+//            $em->persist($entity);
+//            $em->flush();
+
+
+              $this->removerContenido($entity, $contenidoDetalleOriginal, $em);
+
+              $em->persist($entity);
+              $em->flush();
+
             $this->get('session')->getFlashBag()->add('success',"El Contenido $entity se actualizó correctamente.");
             return $this->redirect($this->generateUrl('contenido'));
         }
@@ -305,9 +328,7 @@ class ContenidoController extends Controller
     private function removerContenido(Contenido $contenido, ArrayCollection $cdetalles, EntityManager $em){
         foreach( $cdetalles as $cd){
             if(false === $contenido->getContenidoDetalle()->contains($cd)){
-
                 $em->remove($cd);
-                $em->persist($cd);
             }
         }
     }
