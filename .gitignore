@@ -6,7 +6,6 @@ var/*
 
 /build/
 /vendor/
-/bin/
 /composer.phar
 
 /.idea/*
@@ -25,3 +24,4 @@ var/*
 
 composer.lock
 
+app/config/parameters.yml
