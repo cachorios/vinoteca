@@ -81,7 +81,7 @@ class CategoriaType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_categoria';
     }

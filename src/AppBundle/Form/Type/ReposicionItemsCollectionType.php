@@ -24,7 +24,7 @@ class ReposicionItemsCollectionType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'reposicion_items_collection';
     }

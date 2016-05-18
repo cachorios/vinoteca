@@ -4,7 +4,8 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Lexik\Bundle\FormFilterBundle\Filter\Form\Type as Filters;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormError;
@@ -41,7 +42,7 @@ class ProductoFilterType extends AbstractType
         $builder->addEventListener(FormEvents::POST_SUBMIT, $listener);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_productofiltertype';
     }

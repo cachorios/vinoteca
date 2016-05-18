@@ -21,7 +21,7 @@ class MetadatoCollectionType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'metadato_collection';
     }

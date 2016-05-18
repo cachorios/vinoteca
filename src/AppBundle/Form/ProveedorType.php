@@ -7,7 +7,7 @@ use RBSoft\UtilidadBundle\Form\EventListener\AddPaisFieldSubscriber;
 use RBSoft\UtilidadBundle\Form\EventListener\AddProvinciaFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProveedorType extends AbstractType
 {
@@ -109,7 +109,7 @@ class ProveedorType extends AbstractType
         ;
     }
     
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Proveedor'
@@ -118,7 +118,7 @@ class ProveedorType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_proveedor';
     }

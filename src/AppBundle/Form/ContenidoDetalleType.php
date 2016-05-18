@@ -12,8 +12,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
-
-
 class ContenidoDetalleType extends AbstractType
 {
         /**

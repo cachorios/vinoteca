@@ -15,7 +15,7 @@ use Symfony\Component\Form\AbstractType;
 class CondicionIvaType extends AbstractType
 {
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'choices' => DefinicionConIva::getDefType(),
@@ -28,7 +28,7 @@ class CondicionIvaType extends AbstractType
         return 'choice';
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'condicion_iva';
     }

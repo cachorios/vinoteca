@@ -21,7 +21,7 @@ class ProductoImagenCollectionType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'producto_imagen_collection';
     }

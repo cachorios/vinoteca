@@ -15,7 +15,7 @@ use Symfony\Component\Form\AbstractType;
 class FormaPagoType extends AbstractType
 {
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'choices' => DefinicionFormaPago::getDefType(),
@@ -28,7 +28,7 @@ class FormaPagoType extends AbstractType
         return 'choice';
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'forma_pago';
     }

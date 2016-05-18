@@ -5,10 +5,11 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormError;
-
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type as Filters;
 
 class ContenidoFilterType extends AbstractType
@@ -43,7 +44,7 @@ class ContenidoFilterType extends AbstractType
         $builder->addEventListener(FormEvents::POST_SUBMIT, $listener);
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_contenidofiltertype';
     }

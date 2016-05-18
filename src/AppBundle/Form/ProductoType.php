@@ -11,7 +11,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Entity\CategoriaRepository;
 use RBSoft\UtilidadBundle\Form\DataTransformer\FileToStringTransformer;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use AppBundle\Form\DataTransformer\ManyToEntityTransformer;
 
 class ProductoType extends AbstractType
@@ -105,7 +104,7 @@ class ProductoType extends AbstractType
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
             ->setDefaults(array(
@@ -117,7 +116,7 @@ class ProductoType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'appbundle_producto';
     }

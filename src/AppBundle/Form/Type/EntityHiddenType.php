@@ -32,7 +32,7 @@ class EntityHiddenType extends AbstractType
         $builder->addModelTransformer($transformer);
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
             ->setRequired(array('class'))
@@ -47,7 +47,7 @@ class EntityHiddenType extends AbstractType
         return 'hidden';
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'entity_hidden';
     }
