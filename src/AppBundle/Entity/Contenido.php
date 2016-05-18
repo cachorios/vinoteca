@@ -20,7 +20,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Contenido
 {
     static $UBICACIONES = array("Inicio" => 0, "Producto" =>1);
-    static $TIPO_CONTENIDOS = array('Carrusel' =>0,'1 Imagen' => 1,'2 Imagen' => 2,'3 Imagen' =>3,'Acción' =>4);
+    static $TIPO_CONTENIDOS = array(
+        'Carrusel' =>0,
+        '1 Imagen' => 1,
+        '2 Imagen 50-50' => 2,
+        '2 Imagen 33-66' => 3,
+        '2 Imagen 66-33' => 4,
+        '3 Imagen' =>5,
+        'Acción' =>6);
     /**
      * @var integer
      *

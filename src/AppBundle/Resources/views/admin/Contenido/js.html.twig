@@ -1,6 +1,6 @@
 <script type="text/javascript">
     var fieldCount = '{{ form.contenidoDetalle | length }}';
-
+    var aImagenes = [6,1,2,2,2,3,0];
     jQuery(document).ready(function () {
 
         $(document).on('click', '#add-new', function (e) {
@@ -70,9 +70,9 @@
             $("#item_list_contenidoDetalle_collection").html("");
             fieldCount = 0;
             chkCountImg()
-            if (opc == 0)
+            if (opc < 6)
                 $("#add-new").show();
-            if (opc == 4)
+            if (opc == 6)
                 $("#add-new").hide();
         });
 
@@ -94,13 +94,14 @@
     });
     chkCountImg = function () {
         opc = $("#appbundle_contenido_tipo").val();
-        if (opc > 0 && opc < 4) {
-            if (opc <= fieldCount) {
+
+
+            if ( aImagenes[opc]  <= fieldCount) {
                 $("#add-new").hide();
             } else {
                 $("#add-new").show();
             }
-        }
+
     }
 
     setImgTheme = function (tagName) {
@@ -127,6 +128,9 @@
         $(".orden", "#item_list_contenidoDetalle_collection").each(function () {
             $(this).val(orden++);
         });
+
+
+
     }
 
 </script>

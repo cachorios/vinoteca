@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\frontend;
 
 use AppBundle\Entity\Categoria;
+use AppBundle\Entity\Contenido;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -31,25 +32,25 @@ class DefaultController extends Controller
         return array("myContent" => $html);
     }
 
-    private function makeContent($cs){
+    private function makeContent($cs)
+    {
 
         $html = "";
 
-        foreach($cs as $c){
+        foreach ($cs as $c) {
 
-            switch($c->getTipo()){
+            switch ($c->getTipo()) {
                 case 0:
                     $html .= $this->crearCarrusel($c);
                     break;
                 case 1: //1 Imagen
-
                 case 2: // 2 Imagen
                 case 3: // 3 Imagen
+                    $html .= $this->crearBanner($c);
                     break;
                 case 4:
 
-                    switch(strtolower($c->getNombre()))
-                    {
+                    switch (strtolower($c->getNombre())) {
 
                         case "ultimos-productos":
                             $html .= $this->ultimosProductos();
@@ -67,11 +68,19 @@ class DefaultController extends Controller
 
     }
 
-    private function crearCarrusel( $c){
+    private function crearCarrusel($c)
+    {
 
-        $html = $this->renderView("@App/frontend/includes/carrusel.html.twig",array("contenido" => $c))."\n";
+        $html = $this->renderView("@App/frontend/includes/carrusel.html.twig", array("contenido" => $c)) . "\n";
         return $html;
     }
+
+    private function crearBanner(Contenido $c)
+    {
+        $html = $this->renderView("@App/frontend/includes/banner.html.twig", array("contenido" => $c)) . "\n";
+        return $html;
+    }
+
     /**
      * @Route("/getmenu", name="menu_frontend")
      */
@@ -79,7 +88,7 @@ class DefaultController extends Controller
     {
         $dir = $this->container->get('kernel')->getCacheDir();
 
-        $file = $dir . DIRECTORY_SEPARATOR . 'RBSoft'.DIRECTORY_SEPARATOR.  'menu.html';
+        $file = $dir . DIRECTORY_SEPARATOR . 'RBSoft' . DIRECTORY_SEPARATOR . 'menu.html';
 
 
         if (!file_exists($dir)) {
@@ -90,17 +99,14 @@ class DefaultController extends Controller
         $cache = new ConfigCache($file, false); // $this->container->get('kernel')->isDebug());
 
 
-
-
         if (!$cache->isFresh()) {
             $menu = $this->get("menu.service")->makeMenu();
             $cache->write($menu);
         } else {
 
-            $menu = file_get_contents( $cache->getPath());
+            $menu = file_get_contents($cache->getPath());
         }
 
-             
 
         return $this->render("AppBundle:frontend/Menu:menufrontend.html.twig", array(
                 "menu" => $menu
@@ -111,12 +117,12 @@ class DefaultController extends Controller
     }
 
 
-
-    private function ultimosProductos(){
+    private function ultimosProductos()
+    {
 
         $em = $this->getDoctrine()->getManager();
         $prods = $em->getRepository("AppBundle:Producto")->getUltimos();
-        $html = $this->renderView("@App/frontend/Default/ultimosProductos.html.twig" ,array("prods" => $prods));
+        $html = $this->renderView("@App/frontend/Default/ultimosProductos.html.twig", array("prods" => $prods));
 //        ld("--->",$html);
         return $html;
     }
@@ -124,9 +130,10 @@ class DefaultController extends Controller
     /**
      * @Route("/ultimosproductos", name="ultimosproductos")
      *
-     *  @Template()
+     * @Template()
      */
-    public function ultimosProductosAction(){
+    public function ultimosProductosAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $prods = $em->getRepository("AppBundle:Producto")->getUltimos();
 
@@ -141,7 +148,7 @@ class DefaultController extends Controller
     public function filtroProducto(Categoria $categoria)
     {
         $dir = $this->container->get('kernel')->getCacheDir();
-        $file = $dir . DIRECTORY_SEPARATOR . 'RBSoft'.DIRECTORY_SEPARATOR.  'filtroproducto_'.$categoria->getId().'.html';
+        $file = $dir . DIRECTORY_SEPARATOR . 'RBSoft' . DIRECTORY_SEPARATOR . 'filtroproducto_' . $categoria->getId() . '.html';
 
         if (!file_exists($dir)) {
             mkdir($dir);
@@ -169,13 +176,13 @@ class DefaultController extends Controller
                 ->getArrayResult();
 
             $slidebar = $this->renderView("AppBundle:frontend/Producto:slidebar_filtro.html.twig", array(
-                    "datos" => $this->arrToStrSlider($res)));
+                "datos" => $this->arrToStrSlider($res)));
             $cache->write($slidebar);
         } else {
-            $slidebar = file_get_contents((string) $cache);
+            $slidebar = file_get_contents((string)$cache);
         }
 
-        return  new Response($slidebar);
+        return new Response($slidebar);
 
     }
 
@@ -184,12 +191,12 @@ class DefaultController extends Controller
         $slider = array();
         $id = 'ninguno';
         $nombre = 'ninguno';
-        foreach($dato as $d){
-            if($nombre != $d['nombre'] ){
+        foreach ($dato as $d) {
+            if ($nombre != $d['nombre']) {
                 $nombre = $d['nombre'];
                 $id = $d['id'];
             }
-            $slider[$d['nombre']][] = array('id' =>$id, 'valor' => $d['valor'], 'cant' => $d['cant']);
+            $slider[$d['nombre']][] = array('id' => $id, 'valor' => $d['valor'], 'cant' => $d['cant']);
         }
         return $slider;
     }

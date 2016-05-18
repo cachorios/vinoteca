@@ -1,0 +1,70 @@
+{% if contenido.tipo == 1 %}
+
+<section class="">
+    <div class="container">
+        <ul class="row list-unstyled">
+            <li class="col-sm-12">
+                <img src="{{ asset("uploads/banners/" ~ contenido.contenidoDetalle[0].imagen) }}" alt="banner" class="img-responsive"  />
+            </li>
+        </ul>
+    </div>
+</section>
+
+    '1 Imagen' => 1,
+    '2 Imagen 50-50' => 2,
+    '2 Imagen 33-66' => 3,
+    '2 Imagen 66-33' => 4,
+    '3 Imagen' =>5,
+
+{% elseif contenido.tipo == 2 %}
+        <section class="col2-banners">
+            <div class="container">
+                <ul class="row list-unstyled">
+                    {% for detalle in contenido.contenidoDetalle %}
+                    <li class="col-sm-6">
+                        <img src="{{ asset("uploads/banners/" ~ detalle.imagen) }}" alt="banner" class="img-responsive" />
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </section>
+
+{% elseif contenido.tipo == 3 %}
+    <section class="col2-banners">
+        <div class="container">
+            <ul class="row list-unstyled">
+                {% for detalle in contenido.contenidoDetalle %}
+                    <li class="col-sm-{{ loop.index0 == 0 ? '4': '8' }}">
+                        <img src="{{ asset("uploads/banners/" ~ detalle.imagen) }}" alt="banner" class="img-responsive" />
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+{% elseif contenido.tipo == 4 %}
+    <section class="col2-banners">
+        <div class="container">
+            <ul class="row list-unstyled">
+                {% for detalle in contenido.contenidoDetalle %}
+                    <li class="col-sm-{{ loop.index0 == 0 ? '8': '4' }}">
+                        <img src="{{ asset("uploads/banners/" ~ detalle.imagen) }}" alt="banner" class="img-responsive" />
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+{% elseif contenido.tipo == 5 %}
+    <section class="col2-banners">
+        <div class="container">
+            <ul class="row list-unstyled">
+                {% for detalle in contenido.contenidoDetalle %}
+                    <li class="col-sm-4">
+                        <img src="{{ asset("uploads/banners/" ~ detalle.imagen) }}" alt="banner" class="img-responsive" />
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+{% endif %}
