@@ -8,8 +8,8 @@
 
         <div class='row'>
             <div class='col-sm-12'>
-                <ul id="item_list_{{ name }}_collection"
-                    data-prototype="{{ _self.carrusel_collection_fields(form, false)|escape }}">
+                <ol id="item_list_{{ name }}_collection"
+                    data-prototype="{{ _self.carrusel_collection_fields(form, false)|escape }}" class="coleccion-sortable">
 
                     {% for field in form.children %}
                         <li>
@@ -18,7 +18,7 @@
                     {% endfor %}
 
 
-                </ul>
+                </ol>
             </div>
         </div>
 
@@ -47,6 +47,7 @@
 
     <div class="row ">
         <div class="col-md-12">
+            <i class="glyphicon glyphicon-move" style="cursor: pointer;"></i>
             <fieldset class="coolfieldset">
                 <legend class="collection-collapsed">
                     {#<span class="collapsible-indicator {{  collapsed == true ? "glyphicon glyphicon-plus" : "glyphicon glyphicon-minus" }}"></span>Elemento#}

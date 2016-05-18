@@ -85,6 +85,8 @@ assetic:
                 - assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js
                 - assets/js/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.es.js
                 - assets/js/plugins/jquery.autosize/jquery.autosize.js
+                - assets/js/plugins/jquery-sortable/jquery-sortable.js
+
 
                 ##-- App JS --##
                 - bundles/app/js/admin/mvpready-core.js

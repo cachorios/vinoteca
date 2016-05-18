@@ -26,7 +26,7 @@
             e.preventDefault();
             var collectionHolder = $($(this)).parents('li');
             collectionHolder.remove();
-            fieldCount --;
+            fieldCount--;
             setOrden()
             chkCountImg();
         });
@@ -49,9 +49,9 @@
         });
 
         $(".fileimg").each(function () {
-            fileImg = "{{asset("uploads/banners/") }}" + $(this).data("image");
-            $("#"+this.id).fileinput({
-                initialPreview: ["<img src='"+fileImg+"' class='file-preview-image'>"],
+            fileImg = "{{ asset("uploads/banners/") }}" + $(this).data("image");
+            $("#" + this.id).fileinput({
+                initialPreview: ["<img src='" + fileImg + "' class='file-preview-image'>"],
                 overwriteInitial: true,
                 showUpload: false,
                 showCaption: false,
@@ -65,26 +65,39 @@
             });
         })
 
-        $("#appbundle_contenido_tipo").change(function(){
+        $("#appbundle_contenido_tipo").change(function () {
             opc = $("#appbundle_contenido_tipo").val();
             $("#item_list_contenidoDetalle_collection").html("");
             fieldCount = 0;
             chkCountImg()
-            if(opc == 0)
+            if (opc == 0)
                 $("#add-new").show();
-            if(opc == 4)
+            if (opc == 4)
                 $("#add-new").hide();
         });
 
 
     })
 
-    chkCountImg = function(){
+    $(function () {
+        $("ol.coleccion-sortable").sortable({
+                    group: 'no-drop',
+                    handle: 'i.glyphicon-move',
+                    onDrop: function (item, container, _super) {
+
+                        setOrden();
+                        _super(item, container)
+
+                    }
+                }
+        );
+    });
+    chkCountImg = function () {
         opc = $("#appbundle_contenido_tipo").val();
-        if( opc >0 && opc <4 ){
-            if(opc <= fieldCount ){
+        if (opc > 0 && opc < 4) {
+            if (opc <= fieldCount) {
                 $("#add-new").hide();
-            }else{
+            } else {
                 $("#add-new").show();
             }
         }
@@ -118,3 +131,24 @@
 
 </script>
 
+<style>
+    body.dragging, body.dragging * {
+        cursor: move !important;
+    }
+
+    .dragged {
+        position: absolute;
+        opacity: 0.5;
+        z-index: 2000;
+    }
+
+    ol.coleccion-sortable li.placeholder {
+        position: relative;
+        /** More li styles **/
+    }
+
+    ol.coleccion-sortable li.placeholder:before {
+        position: absolute;
+        /** Define arrowhead **/
+    }
+</style>
