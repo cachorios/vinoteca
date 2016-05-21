@@ -8,7 +8,7 @@
 
 namespace AppBundle\Form\DataTransformer;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\PersistentCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\DataTransformerInterface;
@@ -18,9 +18,9 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 class ManyToEntityTransformer implements DataTransformerInterface
 {
     /**
-     * @var EntityManager
+     * @var ObjectManager
      */
-    private $em;
+    private $manager;
 
     /**
      * @var string
@@ -30,9 +30,9 @@ class ManyToEntityTransformer implements DataTransformerInterface
     /**
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em, $class)
+    public function __construct(ObjectManager $manager, $class)
     {
-        $this->em = $em;
+        $this->manager = $manager;
         $this->class = $class;
     }
 
@@ -45,6 +45,8 @@ class ManyToEntityTransformer implements DataTransformerInterface
     public function transform($array)
     {
         $newArray = array();
+
+
 
         if (!($array instanceof PersistentCollection)) {
             return new ArrayCollection();
@@ -72,7 +74,7 @@ class ManyToEntityTransformer implements DataTransformerInterface
         }
 
         foreach ($array as $key => $value) {
-            $item = $this->em
+            $item = $this->manager
                 ->getRepository($this->class)
                 ->findOneBy(array('id' => $value))
             ;
@@ -82,6 +84,6 @@ class ManyToEntityTransformer implements DataTransformerInterface
             }
         }
 
-        return new PersistentCollection($this->em, $this->class, new ArrayCollection($newArray));
+        return new PersistentCollection( $this->manager, $this->class, new ArrayCollection($newArray));
     }
 }

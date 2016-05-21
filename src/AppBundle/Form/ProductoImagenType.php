@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,11 +19,11 @@ class ProductoImagenType extends AbstractType
             ->add('delete', null, array(
                 'attr' => array('class' => 'input-delete')
             ))
-            ->add('orden', 'hidden', array(
+            ->add('orden', HiddenType::class, array(
                 'property_path' => 'orden',
                 'attr' => array('class' => 'input-position')
             ))
-            ->add('id', 'hidden', array(
+            ->add('id', HiddenType::class, array(
                 'property_path' => 'id',
                 'attr' => array('class' => 'input-temp-id')
             ))

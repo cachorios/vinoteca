@@ -10,8 +10,10 @@ namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use AppBundle\Form\DataTransformer\EntityToIdTransformer;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
 use Doctrine\Common\Persistence\ObjectManager;
 
 class EntityHiddenType extends AbstractType
@@ -44,7 +46,7 @@ class EntityHiddenType extends AbstractType
 
     public function getParent()
     {
-        return 'hidden';
+        return HiddenType::class;
     }
 
     public function getBlockPrefix()

@@ -3,7 +3,11 @@
 namespace AppBundle\Form;
 
 use AppBundle\Form\EventListener\AddProductoExtencionListener;
-use Doctrine\ORM\EntityManager;
+use AppBundle\Form\Type\ProductoImagenCollectionType;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\PercentType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
@@ -15,12 +19,14 @@ use AppBundle\Form\DataTransformer\ManyToEntityTransformer;
 
 class ProductoType extends AbstractType
 {
-    protected $em;
 
-    function __construct(EntityManager $em)
+    private $manager;
+
+    public function __construct(ObjectManager $manager)
     {
-        $this->em = $em;
+        $this->manager = $manager;
     }
+
 
     /**
      * @param FormBuilderInterface $builder
@@ -40,40 +46,34 @@ class ProductoType extends AbstractType
             ->add('descripcion', null, array(
                 'required' => true,
             ))
-            ->add('precio', 'number', array(
+            ->add('precio', NumberType::class, array(
                 'required' => true,
             ))
-            ->add('iva', 'percent', array(
+            ->add('iva', PercentType::class, array(
                 'required' => false,
 
             ))
             ->add('limiteStock', null, array(
                 'label' => 'Limite minimo de stock',
                 'required' => true,
-                'help' => 'Ingrese el minimo de productos disponibles en stock.',
+//                'help' => 'Ingrese el minimo de productos disponibles en stock.',
                 'attr' => array('style' => 'width: auto')
             ))
             ->add('activo', null, array(
                 'required' => false,
             ))
-            ->add('imagenes', 'producto_imagen_collection', array(
-                'type' => new ProductoImagenType(),
+            ->add('imagenes', ProductoImagenCollectionType::class, array(
+                'entry_type' => ProductoImagenType::class,
                 'allow_add' => true,
                 'allow_delete' => false,
                 'delete_empty' => true,
                 'prototype' => true,
                 'by_reference' => false,
 //                'mapped' => false,
-            ))
-//            ->add('images', 'file', array(
-//                "mapped" => false,
-//                'required' => false,
-//                'multiple' => true
-//            ))
-        ;
+            ));
 
-        $builder->get("imagenes")->addModelTransformer(new ManyToEntityTransformer($this->em,'AppBundle\Entity\ProductoImagen'));
-        $builder->addEventSubscriber(new AddProductoExtencionListener($builder->getFormFactory(), $this->em));
+        $builder->get("imagenes")->addModelTransformer(new ManyToEntityTransformer($this->manager, 'AppBundle\Entity\ProductoImagen'));
+        $builder->addEventSubscriber(new AddProductoExtencionListener($builder->getFormFactory(), $this->manager));
 
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
@@ -84,18 +84,16 @@ class ProductoType extends AbstractType
                 $id = $data->getId();
                 if (is_null($id)) {
 
-                    $form->add('categoria', 'entity', array(
+                    $form->add('categoria', EntityType::class, array(
                         'label' => 'Categoria',
                         'class' => 'AppBundle:Categoria',
-                        'empty_value' => '',
-                        'property' => 'getStrAscentendeCategoria',
+//                        'property' => 'getStrAscentendeCategoria',
                         'required' => true,
                         'multiple' => false,
                         'query_builder' => function (CategoriaRepository $repository) {
                             return $repository
                                 ->getCategoriasAsignables();
-                        },))
-                    ;
+                        },));
                 }
             }
         );

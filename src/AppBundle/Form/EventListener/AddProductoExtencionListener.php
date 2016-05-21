@@ -8,8 +8,11 @@
 
 namespace AppBundle\Form\EventListener;
 
+use AppBundle\Entity\Categoria;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\ExpressionLanguage\Tests\Node\Obj;
 use Symfony\Component\Form\FormFactoryInterface;
-use Doctrine\ORM\EntityManager;
+
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -25,17 +28,17 @@ class AddProductoExtencionListener implements EventSubscriberInterface
     private $factory;
 
     /**
-     * @var EntityManager
+     * @var ObjectManager
      */
-    private $em;
+    private $manager;
 
     /**
      * @param factory FormFactoryInterface
      */
-    public function __construct(FormFactoryInterface $factory, EntityManager $em)
+    public function __construct(FormFactoryInterface $factory, ObjectManager $manager = null)
     {
         $this->factory = $factory;
-        $this->em = $em;
+        $this->manager = $manager;
     }
 
     public static function getSubscribedEvents()
@@ -53,6 +56,7 @@ class AddProductoExtencionListener implements EventSubscriberInterface
         $data = $event->getData();
         $form = $event->getForm();
 
+
         // check if the product object is "new"
         // If you didn't pass any data to the form, the data is "null".
         // This should be considered a new "Product"
@@ -66,9 +70,16 @@ class AddProductoExtencionListener implements EventSubscriberInterface
             $categoria = $data->getCategoria();
         }
 
+        /**
+         * @var Categoria $categoria
+         */
+
 
         $metadatos = $categoria->getMetadatos();
+
+
         foreach ($metadatos as $metadato) {
+
             $valor = null;
             $requerido = is_bool($metadato->getRequerido()) ? $metadato->getRequerido() : false;
             $extencions = $data->getExtencion();

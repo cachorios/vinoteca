@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,7 +35,7 @@ class ProductoController extends Controller
     public function indexAction(Request $request)
     {
         list($filterForm, $queryBuilder) = $this->filter($request);
-        $pager = $this->getPager($queryBuilder);
+        $pager = $this->getPager($queryBuilder, $request);
 
         return $this->render('AppBundle:admin/Producto:index.html.twig', array(
             'pager' => $pager,
@@ -48,12 +49,12 @@ class ProductoController extends Controller
      * @return SlidingPagination
      * @throws NotFoundHttpException
      */
-    private function getPager($q)
+    private function getPager($q, Request $request)
     {
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $q,
-            $this->get('request')->query->get('page', 1)/*page number*/,
+            $request->query->get('page', 1)/*page number*/,
             8,/*limit per page*/
             array('distinct' => false)
         );
@@ -64,7 +65,7 @@ class ProductoController extends Controller
     private function filter(Request $request, $ajax = false)
     {
         $session = $request->getSession();
-        $filterForm = $this->createForm(new ProductoFilterType());
+        $filterForm = $this->createForm(ProductoFilterType::class);
 
         $queryBuilder = $this->get('producto.manager')->getList();
 
@@ -90,7 +91,7 @@ class ProductoController extends Controller
             // Get filter from session
             if ($session->has('ProductoControllerFilter')) {
                 $filterData = $session->get('ProductoControllerFilter' . $ajax ? 'Ajax' : '');
-                $filterForm = $this->createForm(new ProductoFilterType(), $filterData);
+                $filterForm = $this->createForm(ProductoFilterType::class, $filterData);
                 $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
             }
         }
@@ -149,7 +150,7 @@ class ProductoController extends Controller
      */
     private function createCreateForm(Producto $entity)
     {
-        $form = $this->createForm(new ProductoType($this->getDoctrine()->getManager()), $entity, array(
+        $form = $this->createForm(ProductoType::class, $entity, array(
             'action' => $this->generateUrl('producto_create'),
             'method' => 'POST',
         ));
@@ -168,7 +169,7 @@ class ProductoController extends Controller
     {
         $entity = new Producto();
         $form = $this->createCreateForm($entity);
-
+        
         return $this->render('AppBundle:admin/Producto:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
@@ -191,6 +192,7 @@ class ProductoController extends Controller
             throw $this->createNotFoundException('Unable to find Producto entity.');
         }
 
+
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('AppBundle:admin/Producto:show.html.twig', array(
@@ -211,9 +213,11 @@ class ProductoController extends Controller
 
         $entity = $em->getRepository('AppBundle:Producto')->find($id);
 
+
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Producto entity.');
         }
+
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
@@ -234,7 +238,7 @@ class ProductoController extends Controller
      */
     private function createEditForm(Producto $entity)
     {
-        $form = $this->createForm(new ProductoType($this->getDoctrine()->getManager()), $entity, array(
+        $form = $this->createForm(ProductoType::class, $entity, array(
             'action' => $this->generateUrl('producto_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
@@ -321,7 +325,7 @@ class ProductoController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('producto_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array(
+            ->add('submit', SubmitType::class, array(
                 'label' => 'Delete',
                 'attr' => array(
                     'class' => 'btn btn-danger btn-sm'
@@ -349,7 +353,7 @@ class ProductoController extends Controller
             $entity = new Producto();
             $entity->setCategoria($categoria);
 
-            $form = $this->createForm(new ExtencionType($this->getDoctrine()->getManager()), $entity, array());
+            $form = $this->createForm(ExtencionType::class, $entity, array());
             $html = $this->renderView('AppBundle:admin/Producto/ajax:extencionForm.html.twig', array('form' => $form->createView()));
         }
 

@@ -1,4 +1,5 @@
 var/*
+/var/apache2/project_access.log
 /var/apache2/*
 !var/cache/.gitkeep
 !var/logs/.gitkeep

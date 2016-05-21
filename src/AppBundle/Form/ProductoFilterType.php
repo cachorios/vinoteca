@@ -15,11 +15,11 @@ class ProductoFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('codigo', 'filter_text')
-            ->add('nombre', 'filter_text')
-            ->add('precio', 'filter_number_range')
-            ->add('iva', 'filter_number')
-            ->add('activo', 'filter_boolean')
+            ->add('codigo', Filters\TextFilterType::class)
+            ->add('nombre', Filters\TextFilterType::class)
+            ->add('precio', Filters\NumberRangeFilterType::class)
+            ->add('iva',    Filters\NumberFilterType::class)
+            ->add('activo', Filters\BooleanFilterType::class)
         ;
 
         $listener = function(FormEvent $event)

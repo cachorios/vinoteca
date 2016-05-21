@@ -432,7 +432,7 @@ class Categoria implements SecureControl
     /**
      * Get metadatos
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return  ArrayCollection
      */
     public function getMetadatos()
     {
