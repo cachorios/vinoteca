@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\admin;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -31,7 +32,7 @@ class CategoriaController extends Controller
     {
 
         list($filterForm, $queryBuilder) = $this->filter($request);
-        $pager = $this->getPager($queryBuilder);
+        $pager = $this->getPager($queryBuilder, $request);
 
         return $this->render('AppBundle:admin/Categoria:index.html.twig',array(
             'pager' => $pager,
@@ -45,13 +46,13 @@ class CategoriaController extends Controller
      * @return SlidingPagination
      * @throws NotFoundHttpException
      */
-    private function getPager($q)
+    private function getPager($q, Request $request)
     {
         $paginator = $this->get('knp_paginator');
 
         $pagination = $paginator->paginate(
             $q,
-            $this->get('request')->query->get('page', 1)/*page number*/,
+            $request->query->get('page', 1)/*page number*/,
             8,/*limit per page*/
             array('distinct' => false)
         );
@@ -62,7 +63,7 @@ class CategoriaController extends Controller
     private function filter(Request $request)
     {
         $session = $request->getSession();
-        $filterForm = $this->createForm(new CategoriaFilterType());
+        $filterForm = $this->createForm(CategoriaFilterType::class);
 
         $queryBuilder = $this->get('categoria.manager')->getList();
 
@@ -88,7 +89,7 @@ class CategoriaController extends Controller
             // Get filter from session
             if ($session->has('CategoriaControllerFilter')) {
                 $filterData = $session->get('CategoriaControllerFilter');
-                $filterForm = $this->createForm(new CategoriaFilterType(), $filterData);
+                $filterForm = $this->createForm( CategoriaFilterType::class, $filterData);
                 $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
             }
         }
@@ -136,7 +137,7 @@ class CategoriaController extends Controller
      */
     private function createCreateForm(Categoria $entity)
     {
-        $form = $this->createForm(new CategoriaType(), $entity, array(
+        $form = $this->createForm( CategoriaType::class, $entity, array(
             'action' => $this->generateUrl('categoria_create'),
             'method' => 'POST',
         ));
@@ -221,7 +222,7 @@ class CategoriaController extends Controller
      */
     private function createEditForm(Categoria $entity)
     {
-        $form = $this->createForm(new CategoriaType(), $entity, array(
+        $form = $this->createForm( CategoriaType::class, $entity, array(
             'action' => $this->generateUrl('categoria_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
@@ -318,7 +319,7 @@ class CategoriaController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('categoria_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array(
+            ->add('submit', SubmitType::class, array(
                 'label' => 'Delete',
                 'attr' => array(
                     'class' => 'btn btn-danger btn-sm'

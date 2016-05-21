@@ -2,7 +2,10 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Form\Type\MetadatoFilterType;
+use AppBundle\Form\Type\MetadatoWidgetType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,22 +22,22 @@ class MetadataProductoType extends AbstractType
             ->add('nombre')
             ->add('orden',null , array(
             ))
-            ->add('listaValores', 'textarea', array(
+            ->add('listaValores', TextareaType::class, array(
                 'required' => false,
                 'attr' => array('class' => 'lista-textarea')
 
             ))
-            ->add('predeterminado', 'textarea', array(
+            ->add('predeterminado', TextareaType::class, array(
                 'required' => false
             ))
             ->add('requerido',null , array(
                 'required' => false
             ))
 
-            ->add('filtrable', 'metadato_filter', array(
+            ->add('filtrable', MetadatoFilterType::class, array(
             ))
 
-            ->add('widget', 'widget_filter', array(
+            ->add('widget', MetadatoWidgetType::class, array(
                 'attr' => array('class' => 'select-customwidget'),
                 'required' => true
             ))

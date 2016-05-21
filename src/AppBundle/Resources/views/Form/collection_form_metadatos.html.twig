@@ -47,6 +47,7 @@
 
 
     <div class="row fields">
+
         <div class="col-md-4">
             {{ form_row(form.nombre) }}
             <fieldset class="coolfieldset">
@@ -61,13 +62,14 @@
             </fieldset>
         </div>
 
+
         <div class="col-md-8">
             <fieldset class="coolfieldset">
                 <legend class="collection-collapsed"><span
                             class="collapsible-indicator {{ collapsed == true ? "glyphicon glyphicon-plus" : "glyphicon glyphicon-minus" }}"></span>Filtrable
                 </legend>
                 <div class="collapsible" style="{{ collapsed == true ? "display: none;" : "display: block;" }}">
-                    {{ form_row(form.filtrable) }}
+                    {#{{ form_row(form.filtrable) }}#}
                 </div>
             </fieldset>
             <fieldset class="coolfieldset">
@@ -75,11 +77,12 @@
                             class="collapsible-indicator {{ collapsed == true ? "glyphicon glyphicon-plus" : "glyphicon glyphicon-minus" }} "></span>Valores
                 </legend>
                 <div class="collapsible" style="{{ collapsed == true ? "display: none;" : "display: block;" }}">
-                    {#{{ dump(form.widget.vars.value) }}#}
-                    <div class="form-group lista_valor" style="{{ form.widget.vars.value == 3 ? "" : "display: none;" }}">
-                          {{ form_label(form.listaValores) }}
+
+                    <div class="form-group lista_valor"
+                         style="{{ form.widget.vars.value == 3 ? "" : "display: none;" }}">
+                        {{ form_label(form.listaValores) }}
                         <div class="col-sm-10">
-                          {{ form_widget(form.listaValores) }}
+                            {{ form_widget(form.listaValores) }}
                         </div>
                     </div>
                     {{ form_row(form.predeterminado) }}
