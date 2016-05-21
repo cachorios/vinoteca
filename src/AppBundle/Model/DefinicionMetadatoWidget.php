@@ -11,18 +11,22 @@ namespace AppBundle\Model;
 /*
 */
 
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 class DefinicionMetadatoWidget
 {
-    const TEXT = 'Text';
-    const TEXTAREA = 'Textarea';
+    const TEXT = "Texto";
+    const TEXTAREA = 'Area de Texto';
     const LISTA = 'Lista';
 
     static function getWidget()
     {
         return array(
-            1 => self::TEXT,
-            2 => self::TEXTAREA,
-//            3 => self::LISTA,
+            self::TEXT =>1,
+            self::TEXTAREA => 2,
+            self::LISTA =>3,
         );
     }
 
@@ -30,9 +34,9 @@ class DefinicionMetadatoWidget
     {
 
         $tipos = array(
-            1 => 'text',
-            2 => 'textarea',
-            3 => 'choice',
+            1 => TextType::class,
+            2 => TextareaType::class,
+            3 => ChoiceType::class,
         );
 
         return $tipos[$tipo];

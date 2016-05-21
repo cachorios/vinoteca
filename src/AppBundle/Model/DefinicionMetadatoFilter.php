@@ -15,9 +15,9 @@ class DefinicionMetadatoFilter {
 
     static function getMetadatoFilterType(){
         return array(
-            0 => 'No',
-            1 => 'Radio',
-            2 => 'Check',
+            'No' => 0,
+            'Radio' => 1,
+            'Check' => 2,
         );
     }
 } 

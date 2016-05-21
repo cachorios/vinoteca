@@ -46,12 +46,12 @@
                             {{ form_row(form.activo) }}
 
                         </div>
-                        {#<div id="metadatos" class="tab-pane fade">#}
-                            {#{% include'AppBundle:admin/Categoria:_metadato_list.html.twig' %}#}
-                            {#<div>#}
-                                {#{{ form_widget(form.metadatos) }}#}
-                            {#</div>#}
-                        {#</div>#}
+                        <div id="metadatos" class="tab-pane fade">
+                            {% include'AppBundle:admin/Categoria:_metadato_list.html.twig' %}
+                            <div>
+                                {{ form_widget(form.metadatos) }}
+                            </div>
+                        </div>
                     </div>
 
                     <div class="col-sm-offset-2 inner-actions">
