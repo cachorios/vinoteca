@@ -203,8 +203,7 @@ class CategoriaController extends Controller
             throw $this->createNotFoundException('Unable to find Categoria entity.');
         }
 
-        ld($entity->getMetadatos());
-
+        
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 

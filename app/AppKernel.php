@@ -19,7 +19,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
 
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
-
+                        
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
             new RaulFraile\Bundle\LadybugBundle\RaulFraileLadybugBundle(),

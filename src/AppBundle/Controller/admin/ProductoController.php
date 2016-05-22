@@ -34,6 +34,9 @@ class ProductoController extends Controller
      */
     public function indexAction(Request $request)
     {
+
+
+
         list($filterForm, $queryBuilder) = $this->filter($request);
         $pager = $this->getPager($queryBuilder, $request);
 
@@ -419,6 +422,7 @@ class ProductoController extends Controller
 
     public function getAssetUrl($path, $packageName = null)
     {
-        return $this->container->get('templating.helper.assets')->getUrl($path, $packageName);
+        return $this->get('assets.packages')->getUrl($path, $packageName);
+
     }
 }

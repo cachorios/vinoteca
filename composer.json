@@ -31,6 +31,8 @@
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "doctrine/data-fixtures": "dev-master",
 
+        "symfony/assetic-bundle": "^2.7",
+
         "stof/doctrine-extensions-bundle": "1.x",
 
 
@@ -47,7 +49,6 @@
 
 
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "symfony/assetic-bundle": "^2.7",
 
         "oyejorge/less.php": "~1.5"
 
