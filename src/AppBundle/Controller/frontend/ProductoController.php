@@ -48,7 +48,7 @@ class ProductoController extends  Controller {
         $hijos = $em->getRepository("AppBundle:Categoria")->getDescendientes($categoria);
 
         $queryBuilder = $this->filter($request, $hijos, $orden,$toFilter);
-        $pager = $this->getPager($queryBuilder, $ver);
+        $pager = $this->getPager($queryBuilder, $ver, $request);
 
         $this->setFallbackImage();
 
@@ -73,13 +73,13 @@ class ProductoController extends  Controller {
      * @return SlidingPagination
      * @throws NotFoundHttpException
      */
-    private function getPager($q,$ver)
+    private function getPager($q,$ver, Request $request)
     {
         $paginator = $this->get('knp_paginator');
 
         $pagination = $paginator->paginate(
             $q,
-            $this->get('request')->query->get('page', 1)/*page number*/,
+            $request->query->get('page', 1)/*page number*/,
             $ver,
             array(
                 'distinct' => false,

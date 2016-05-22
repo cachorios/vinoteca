@@ -45,11 +45,11 @@ class DefaultController extends Controller
                     break;
                 case 1: //1 Imagen
                 case 2: // 2 Imagen
-                case 3: // 3 Imagen
+                case 4: // 3 Imagen
+                case 5: // 3 Imagen
                     $html .= $this->crearBanner($c);
                     break;
-                case 4:
-
+                case 6:
                     switch (strtolower($c->getNombre())) {
 
                         case "ultimos-productos":
@@ -59,7 +59,7 @@ class DefaultController extends Controller
                     }
                     break;
                 default:
-                    $html .= "Tipo de contenido>4 no existe";
+                    $html .= "Tipo de contenido>6 no existe";
             }
         }
 

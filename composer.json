@@ -50,7 +50,8 @@
 
         "friendsofsymfony/user-bundle": "~2.0@dev",
 
-        "oyejorge/less.php": "~1.5"
+        "oyejorge/less.php": "~1.5",
+        "twig/extensions": "^1.3"
 
     },
     "require-dev": {

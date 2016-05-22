@@ -10,14 +10,15 @@
             <div class="col-md-3 col-sm-6">
                 <div class="product-col">
                     <div class="image">
-
-                        <img src="{{ image( prod.imagenActiva).resize(220,200,"#ffffff",'center','center') }}" alt="producto"  class="img-responsive" />
+                        <img src="{{ image( prod.imagenActiva).resize(220,200,"#ffffff",'center','center') }}" alt="producto"  class="img-responsive"  style="width:220px;height:200px;" />
                     </div>
                     <div class="caption">
+                        <div style="min-height: 100px; max-height: 100px">
                         <h4><a href="{{ path('productofull',{'id': prod.id }) }}">{{ prod.nombre }}</a></h4>
                         <div class="description">
-                            {{ prod.descripcion |truncate(70, false, '...') }}
+                            {{ prod.descripcion |truncate(100, false, '...') }}
 
+                        </div>
                         </div>
                         <div class="price">
                             <span class="price-new">{{ prod.precio }}</span>
