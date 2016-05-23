@@ -12,8 +12,8 @@
         <div class="col-md-9">
             {#<!-- Breadcrumb Starts -->#}
             {#<ol class="breadcrumb">#}
-                {#<li><a href="index.html">Home</a></li>#}
-                {#<li class="active">Spices &amp; Herbs</li>#}
+            {#<li><a href="index.html">Home</a></li>#}
+            {#<li class="active">Spices &amp; Herbs</li>#}
             {#</ol>#}
             {{ wo_render_breadcrumbs() }}
             {#<!-- Breadcrumb Ends -->#}
@@ -26,8 +26,9 @@
             <div class="row cat-intro">
                 <div class="col-sm-3">
                     {#<img src="{{ asset("uploads/categorias/"~ cat.imagen) }}" width="189" height="189" alt="Image"#}
-                         {#class="img-responsive img-thumbnail">#}
-                    <img src="{{ image("uploads/categorias/"~ cat.imagen).resize(189,189) }}" class="img-responsive img-thumbnail" />
+                    {#class="img-responsive img-thumbnail">#}
+                    <img src="{{ image("uploads/categorias/"~ cat.imagen).resize(189,189) }}"
+                         class="img-responsive img-thumbnail"/>
                 </div>
                 <div class="col-sm-9 cat-body">
                     {{ cat.descripcion | raw }}
@@ -39,10 +40,12 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="display">
-                            <a href="#"  class="{{ vista == 'lista' ? 'active' }}" data-modo="lista" data-categoria="{{ cat.id }}" >
+                            <a href="#" class="{{ vista == 'lista' ? 'active' }}" data-modo="lista"
+                               data-categoria="{{ cat.id }}">
                                 <i class="fa fa-th-list" title="" data-original-title="List View"></i>
                             </a>
-                            <a href="#" class="{{ vista == 'grid' ? 'active' }}" data-modo="grid"  data-categoria="{{ cat.id }}"  >
+                            <a href="#" class="{{ vista == 'grid' ? 'active' }}" data-modo="grid"
+                               data-categoria="{{ cat.id }}">
                                 <i class="fa fa-th" title="" data-original-title="Grid View"></i>
                             </a>
                         </div>
@@ -87,20 +90,20 @@
 
     <script type="text/javascript">
 
-        $(function(){
-           $('body').on('click','[data-modo]',function(e){
-               $(this).siblings().removeClass('active');
-               $(this).addClass('active');
+        $(function () {
+            $('body').on('click', '[data-modo]', function (e) {
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
                 ProductochangeView();
                 e.preventDefault();
             });
 
 
-            $('#cboOrden').change(function(e){
+            $('#cboOrden').change(function (e) {
                 ProductochangeView();
             });
 
-            $('#cboLargo').change(function(e){
+            $('#cboLargo').change(function (e) {
                 ProductochangeView();
             });
 
@@ -114,10 +117,10 @@
          * @returns {boolean}
          * @constructor
          */
-        ProductochangeView = function(){
+        ProductochangeView = function () {
             var modo = "", cat = '';
-            $('[data-modo]').each(function(index){
-                if($(this).hasClass('active')){
+            $('[data-modo]').each(function (index) {
+                if ($(this).hasClass('active')) {
                     modo = $(this).data('modo');
                     cat = $(this).data('categoria');
                 }
@@ -126,13 +129,18 @@
             //ProductochangeView(cat, modo, $("#cboOrden").val(), $("#cboLargo").val());
             $("#cargando").css("display", "inline");
             $.ajax({
-                url: Routing.generate('productos',{'id': cat, 'vista': modo, 'orden': $("#cboOrden").val(), 'ver':  $("#cboLargo").val()}),
+                url: Routing.generate('productos', {
+                    'id': cat,
+                    'vista': modo,
+                    'orden': $("#cboOrden").val(),
+                    'ver': $("#cboLargo").val()
+                }),
                 context: document.body,
-                success: function(data){
+                success: function (data) {
                     $(".lista_producto").html(data);
                 }
 
-            }).done(function() {
+            }).done(function () {
 //                hideIndocador();
 
             });
@@ -140,25 +148,26 @@
             return false;
         }
 
-        $(document).ready(function(e){
+        $(document).ready(function (e) {
 
-            {% for k,v in filtro  %}
-                {% if k == 'precio' %}
-                    $("#id{{ v }}",'#form_filtro').prop('checked',true);
-                {% else  %}
-                    $("input",'#form_filtro').each(function(i){
+            {% for k,v in filtro %}
+            {% if k == 'precio' %}
+            $("#id{{ v }}", '#form_filtro').prop('checked', true);
+            {% else %}
+            $("input", '#form_filtro').each(function (i) {
 
-                        if($(this).prop('name') == 'filtro[{{ k }}][]'){
-                            {% for l in v %}
-                                if($(this).val() == '{{ l }}'){
-                                    $(this).prop('checked',true);
-                                }
-                            {% endfor %}
-                        }
+                if ($(this).prop('name') == 'filtro[{{ k }}][]') {
+                    {% for l in v %}
+                    if ($(this).val() == '{{ l }}') {
+                        $(this).prop('checked', true);
+                    }
+                    {% endfor %}
+                }
 
-                    });
-                {% endif %}
+            });
+            {% endif %}
             {% endfor %}
         });
     </script>
 {% endblock %}
+

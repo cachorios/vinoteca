@@ -9,10 +9,12 @@
 namespace AppBundle\Servicios\CacheWarmer;
 
 
+use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmer;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
 
 class AppCacheWarmer implements CacheWarmerInterface
 {
+    private $contenido;
 
     /**
      * Checks whether this warmer is optional or not.
@@ -28,6 +30,11 @@ class AppCacheWarmer implements CacheWarmerInterface
     {
         return true;
     }
+
+
+    public function setContenido($contenido){
+        $this->contenido = $contenido;
+    }
     /**
      * Warms up the cache.
      *
@@ -35,8 +42,11 @@ class AppCacheWarmer implements CacheWarmerInterface
      */
     public function warmUp($cacheDir)
     {
-        // TODO: Implement warmUp() method.
         $cacheContent = 'Content to be cached';
-        file_put_contents($cacheDir.'/miCache.php', $cacheContent);
+
+        // Stores the cache
+        //ld($cacheDir);
+        file_put_contents($cacheDir, $cacheContent);
+
     }
 }

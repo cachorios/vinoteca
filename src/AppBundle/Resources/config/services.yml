@@ -41,6 +41,7 @@ services:
         class: AppBundle\Servicios\MenuService
         arguments: ['@service_container']
 
+## Este cache no lo estoy usando
 #    app.cache_warmer:
 #        class: AppBundle\Servicios\CacheWarmer\AppCacheWarmer
 #        tags:

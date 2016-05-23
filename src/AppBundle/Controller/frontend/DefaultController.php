@@ -148,13 +148,21 @@ class DefaultController extends Controller
     public function filtroProducto(Categoria $categoria)
     {
         $dir = $this->container->get('kernel')->getCacheDir();
-        $file = $dir . DIRECTORY_SEPARATOR . 'RBSoft' . DIRECTORY_SEPARATOR . 'filtroproducto_' . $categoria->getId() . '.html';
+        $dir  = $dir . DIRECTORY_SEPARATOR . 'RBSoft' . DIRECTORY_SEPARATOR ;
+        $file = 'filtroproducto_' . $categoria->getId() . '.html';
 
+        /*
         if (!file_exists($dir)) {
             mkdir($dir);
-        }
+        }*/
 
-        $cache = new ConfigCache($file, false);
+//        $cw = $this->get("app.cache_warmer");
+//        $cw->setContenido("Esto es una prueba");
+//        //$cw->warmUp($dir);
+//        ld($cw, $file);
+//    die;
+
+        $cache = new ConfigCache($dir.$file, true);
 
         if (!$cache->isFresh()) {
             /**
@@ -179,8 +187,9 @@ class DefaultController extends Controller
                 "datos" => $this->arrToStrSlider($res)));
             $cache->write($slidebar);
         } else {
-            $slidebar = file_get_contents((string)$cache);
+            $slidebar = file_get_contents( $cache->getPath());
         }
+
 
         return new Response($slidebar);
 
