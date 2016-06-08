@@ -14,7 +14,7 @@ En la parte superior de productos se muestran opciones de vista, como mostrar(li
 a la izquierda (slidebar) mostrara condiciones de filtro
 estos se agruoaran en:
 precios:
-	0 - 99.99
+	000 - 99.99
 	100 - 199.99
 	200 - 299.99
 	300 - 399.99

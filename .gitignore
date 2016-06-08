@@ -1,9 +1,8 @@
-var/*
-/var/apache2/project_access.log
-/var/apache2/*
+
 !var/cache/.gitkeep
 !var/logs/.gitkeep
 !var/sessions/.gitkeep
+!var/apache2/.gitkeep
 
 /build/
 /vendor/
@@ -20,9 +19,23 @@ var/*
 /web/css/*
 /web/uploads/productos/*
 
-/web/cache/*
+
 /app/extras/*
 
 composer.lock
 
 app/config/parameters.yml
+app/cache/
+web/assetic/
+web/bundles/
+web/cache/
+web/css/
+web/js/
+web/uploads/productos/
+
+var/cache/Nueva carpeta/
+var/cache/dev/
+var/cache/prod/
+var/logs/dev.log
+var/logs/prod.log
+var/apache2/.gitkeep
