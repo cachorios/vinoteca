@@ -11,12 +11,12 @@
 
 namespace RBSoft\UsuarioBundle\Form\Type;
 
-
+use FOS\UserBundle\Util\LegacyFormHelper;
 use RBSoft\UtilidadBundle\Form\DataTransformer\FileToStringTransformer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
@@ -36,51 +36,39 @@ class ProfileFormType extends AbstractType
     {
         $this->buildUserForm($builder, $options);
 
-
-        $builder
-            ->add("email")
-//            ->add("username", null, array('label' => "Usuario"))
-            ->add("nombre")
-            ->add("telefono")
-            ->add("movil",null,array("label" => "Teléfono Móvil"))
-            ;
-        if ($builder->getData()) {
-            $builder
-                ->add('foto', 'file', array('required' => false, 'attr' => array("data-imagen" => $builder->getData()->getFoto())));
-        } else {
-            $builder
-                ->add('foto', 'file', array('required' => false));
-        }
-
-
-        $builder
-            ->add(
-                'current_password',
-                'password',
-                array(
-                    'label' => 'form.current_password',
-                    'translation_domain' => 'FOSUserBundle',
-                    'mapped' => false,
-                    'constraints' => new UserPassword(),
-                )
-            );
-
-        $builder->get("foto")->addModelTransformer(new FileToStringTransformer());
+        $builder->add('current_password', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\PasswordType'), array(
+            'label' => 'form.current_password',
+            'translation_domain' => 'FOSUserBundle',
+            'mapped' => false,
+            'constraints' => new UserPassword(),
+        ));
     }
 
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => $this->class,
+            'csrf_token_id' => 'profile',
+            // BC for SF < 2.8
+            'intention' => 'profile',
+        ));
+    }
+
+    // BC for SF < 2.7
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(
-            array(
-                'data_class' => $this->class,
-                'intention' => 'profile',
-            )
-        );
+        $this->configureOptions($resolver);
     }
 
+    // BC for SF < 3.0
     public function getName()
     {
-        return 'usuario_profile';
+        return $this->getBlockPrefix();
+    }
+
+    public function getBlockPrefix()
+    {
+        return 'fos_user_profile';
     }
 
     /**
@@ -92,9 +80,17 @@ class ProfileFormType extends AbstractType
     protected function buildUserForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            //->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
-            ->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'));
+            ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
+            ->add('email', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\EmailType'), array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
+            ->add("nombre")
+            ->add("telefono")
+            ->add("movil", null, array("label" => "Teléfono Móvil"))
+            ->add('foto', FileType::class, array(
+                    'attr' =>array("class" => "fileimg"),
+                    'required' => false,
+                    'multiple' => false
+        ));
+
+        $builder->get("foto")->addModelTransformer(new FileToStringTransformer());
     }
-
-
 }

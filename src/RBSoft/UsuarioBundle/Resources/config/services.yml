@@ -2,13 +2,15 @@ parameters:
 #    usuario.example.class: RBSoft\UsuarioBundle\Example
 
 services:
-    rbsoft.profile.form.type:
+    rbsoft.profile.form:
         class: RBSoft\UsuarioBundle\Form\Type\ProfileFormType
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: usuario_profile }
 #        arguments: [@service_id, "plain_value", %parameter%]
-    rbsoft.registration.form.type:
+
+
+    rbsoft.registration.form:
         class: RBSoft\UsuarioBundle\Form\Type\RegistrationFormType
         tags:
             - { name: form.type, alias: usuario_registration }

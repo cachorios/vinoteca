@@ -13,8 +13,8 @@ fos_user:
 
     profile:
         form:
-            type:               usuario_profile
-            name:               fos_user_profile_form
+            type:               RBSoft\UsuarioBundle\Form\Type\ProfileFormType
+            name:               fos_user_profile_form #Como se llamaran las variables en el form
             validation_groups:  [Profile, Default]
     change_password:
         form:
@@ -30,12 +30,12 @@ fos_user:
             from_email:
                 address: vinoteca@gmail.com%
                 sender_name: "Vinoteca"
-            enabled:    true
-            template: UsuarioBundle:Registration:email.html.twig
+#            enabled:    true
+#            template: UsuarioBundle:Registration:email.html.twig
         form:
-            type:               usuario_registration
-            name:               fos_user_registration_form
-            validation_groups:  [Registration, Default]
+            type:               RBSoft\UsuarioBundle\Form\Type\RegistrationFormType
+#            #name:               fos_user_registration_form
+#            #validation_groups:  [Registration, Default]
 
     resetting:
         token_ttl: 86400
