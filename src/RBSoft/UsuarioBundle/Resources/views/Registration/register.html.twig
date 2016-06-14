@@ -11,12 +11,8 @@
             <div class="row">
                 <div class="col-sm-7">
                     <div class="panel panel-smart">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Nueva Cuenta</h3>
-                        </div>
-                        <div class="panel-body">
-                            {% include "FOSUserBundle:Registration:register_content.html.twig" %}
-                        </div>
+                        {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+
                     </div>
                 </div>
                 <div class="col-sm-5">
@@ -27,11 +23,14 @@
                             </h3>
                         </div>
                         <div class="panel-body">
-                            {{ "registro.condicion.texto" | trans({},"registro") }}
+                            <div class="text-justify">
+                            {{ "registro.condicion.texto" | trans({},"registro") | raw }}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
 
         </section>
 

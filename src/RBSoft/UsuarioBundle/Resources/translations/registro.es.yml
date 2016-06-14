@@ -1,11 +1,12 @@
 registro:
-  eMail: eMail
-  "Nombre Usuario":  Nombre Usuario
-  "Contraseña": Contraseña
-  "Repita Contraseña": Repita Contraseña
+  nombre: Apellido y Nombre
+  telefono: Nro. Teléfono
+  movil: Teléfono Móvil
+  email: eMail
+
   condicion:
     titulo: Condición
-    texto: "condiciones generales"
+    texto: "Para ser un Usuario de <strong>Cabaña Wanfried</strong> no es obligatorio completar el formulario de registración adjunto.</br></br> Sin perjuicio de ello, en caso de que el Usuario elija o deba registrarse para utilizar algún servicio ('Usuario Registrado') deberá completar el formulario con su información personal de manera exacta y precisa. </br></br>Salvo en los campos en que se indique lo contrario, las respuestas a las preguntas sobre Datos de Registro son voluntarias, sin que la falta de contestación implique una merma en la calidad o cantidad de los servicios correspondientes, a menos que se indique otra cosa.</br></br>El Usuario Registrado deberá actualizar los Datos de Registro conforme resulte necesario.</br></br> El Usuario Registrado accederá a sus Datos de Registro mediante el ingreso de su nombre de usuario, que será un código compuesto por letras y números de entre 4 y 15 caracteres elegido por el Usuario Registrado, y una clave de seguridad personal elegida por el Usuario Registrado (la 'Clave'), que conjuntamente con el Nombre de Usuario y los Datos de Registro conforman la 'Cuenta'. </br></br>El Usuario Registrado se obliga a mantener la confidencialidad de su Clave.</br></br> El Usuario Registrado será responsable por todos los cambios efectuad os en su Cuenta, pues el acceso a la misma está restringido al ingreso y uso de su Clave, de conocimiento exclusivo del Usuario Registrado."
 
 registration:
   submit: Registrate

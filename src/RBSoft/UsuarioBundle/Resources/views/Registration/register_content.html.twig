@@ -1,39 +1,49 @@
 {% trans_default_domain 'registro' %}
 
-
-{#{% trans_default_domain 'FOSUserBundle' %}#}
-
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 
 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+<div class="panel-heading">
+    <h3 class="panel-title">Datos Personales</h3>
+</div>
+<div class="panel-body">
+    <div class="row">
 
-<div class="row">
+        <div class="col-md-12">
+            {{ form_row(form['nombre']) }}
+            {{ form_row(form['telefono']) }}
+            {{ form_row(form['movil']) }}
+            {{ form_row(form['foto']) }}
 
-    <div class="col-md-12">
 
-        {{ form_row(form['email']) }}
-        {{ form_row(form['username']) }}
-        {{ form_row(form['nombre']) }}
-        {{ form_row(form['telefono']) }}
-        {{ form_row(form['movil']) }}
+        </div>
+    </div>
 
-        {{ form_row(form['foto']) }}
-        {{ form_widget(form)  }}
+</div>
+
+<div class="panel-heading">
+    <h3 class="panel-title">Datos de la cuenta</h3>
+</div>
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form['username']) }}
+            {{ form_row(form['email']) }}
+
+            {{ form_widget(form) }}
+        </div>
+    </div>
+
+    <div class="col-sm-4"></div>
+
+    <div class="col-sm-8">
+        <input type="submit" value="{{ 'registration.submit'|trans }}" class="btn btn-primary pull-right"/>
+        {#<input type="submit" value="{{ 'profile.edit.submit'|trans }}" class="btn btn-primary pull-right"/>#}
+        </br></br>
     </div>
 </div>
 
-
-<div class="col-sm-4"></div>
-
-<div class="col-sm-8">
-
-    <input type="submit" value="{{ 'profile.edit.submit'|trans }}" class="btn btn-primary pull-right"/>
-    </br></br>
-</div>
-
-
 {{ form_end(form) }}
-
 <script>
 
     $(document).ready(function () {

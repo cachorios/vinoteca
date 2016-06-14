@@ -23,9 +23,9 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
             ->add('email', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\EmailType'), array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
-            ->add("nombre")
-            ->add("telefono")
-            ->add("movil", null, array("label" => "Teléfono Móvil"))
+            ->add("nombre", null, array('label' => 'registro.nombre', 'translation_domain' => 'registro'))
+            ->add("telefono", null, array('label' => 'registro.telefono', 'translation_domain' => 'registro'))
+            ->add("movil", null, array('label' => 'registro.movil', 'translation_domain' => 'registro'))
             ->add('foto', FileType::class, array(
                 'attr' =>array("class" => "fileimg"),
                 'required' => false,

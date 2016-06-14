@@ -87,8 +87,8 @@ layout:
 # Form field labels
 form:
     group_name: "Nombre de grupo:"
-    username: "Nombre de usuario:"
-    email: "Email:"
+    username: "Usuario:"
+    email: "eMail:"
     current_password: "Contraseña actual:"
     password: "Contraseña:"
     password_confirmation: "Repita la contraseña:"
@@ -97,4 +97,4 @@ form:
 
 
 
-"Error! User account is disabled.": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+"Error! User account is disabled.": "Esta cuenta esta desactivada!"

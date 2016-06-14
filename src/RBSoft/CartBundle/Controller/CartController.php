@@ -68,24 +68,6 @@ class CartController extends Controller
         );
 
 
-//        foreach ($cart->getLineList() as $line) {
-//            $displayCart['items'][$line->getId()] = array(
-//                "shopCategory" => $line->getCartable()->getShopCategory(),
-//                "shopName" => $line->getCartable()->getShopName(),
-//                "shopDescription" => $line->getCartable()->getShopDescription(),
-//                "shopReference" => $line->getCartable()->getShopReference(),
-//                "shopData" => $line->getCartable()->getShopData(),
-//                "quantity" => $line->getQuantity(),
-//                "price" => $cartManager->getLinePrice($line->getId()),
-//                "deleteLinkUrl" => $this->generateUrl(
-//                    "KitpagesShopBundle_cart_deleteLine",
-//                    array(
-//                        "lineId"=>$line->getId(),
-//                        "kitpages_shop_target_url" => $_SERVER["REQUEST_URI"]
-//                    )
-//                )
-//            );
-//        }
         if(!$toHtml) {
            return $this->render(
                 'RBSoftCartBundle:Cart:display' . $size . 'Cart.html.twig',
