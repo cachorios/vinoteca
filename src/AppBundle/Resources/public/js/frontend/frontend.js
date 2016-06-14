@@ -35,7 +35,7 @@ $(function () {
         padre = $(this).parent().parent();
         cantidad = $("input[name='cantidad']",padre).val();
         lineId = $(this).data("cart-updatebtn");
-        urlLink = Routing.generate('cartupdateitem',{'lineId': lineId, 'cantidad': cantidad  });
+        urlLink = Routing.generate('cartupdateitem',{'lineId': lineId, 'cantidad': cantidad ,'modo': 'big' });
 
         llamarAjaxRefresh(urlLink)
 

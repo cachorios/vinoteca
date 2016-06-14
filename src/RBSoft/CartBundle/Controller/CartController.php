@@ -44,7 +44,7 @@ class CartController extends Controller
         }
         $size = ucfirst($size);
 
-        if($size == 'Big'){
+        if($size == 'big'){
             $breadcrumbs = $this->get("white_october_breadcrumbs");
             $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
             $breadcrumbs->addItem("Carro de Compra");
@@ -54,6 +54,8 @@ class CartController extends Controller
         $cartManager = $this->get('rbsoft.cartManager');
         $cart = $cartManager->getCart();
 
+
+        $this->get('ladybug')->log("tres",$cart);
         //preciso recargar los productos para que se vean las iamagenes
         $cartManager->refreshProductos();
 //        $logger = $this->get('logger');
@@ -78,7 +80,7 @@ class CartController extends Controller
                 )
             );
         }else{
-//                  $this->renderView('RBSoftCartBundle:Cart:displayBig          Cart.html.twig');
+
            return $this->renderView('RBSoftCartBundle:Cart:display' . $size . 'Cart.html.twig',
                array(
                    'cart' => $displayCart,
@@ -121,7 +123,7 @@ class CartController extends Controller
 
     /**
      * @Route(
-     *  "/cartupdateitem/{lineId}/{cantidad}",
+     *  "/cartupdateitem/{lineId}/{cantidad}/{modo}",
      *  name="cartupdateitem",
      *  options={"expose"=true} )
      *
@@ -129,15 +131,16 @@ class CartController extends Controller
      * @param int $cantidad
      * @return mixed
      */
-    public function UpdateLineAction($lineId, $cantidad = 0)
+    public function UpdateLineAction($lineId, $cantidad = 0, $modo='small')
     {
         //$targetUrl = $request->query->get('rbsoft_cart_target_url');
         $cartManager = $this->get('rbsoft.cartManager');
         $cart = $cartManager->getCart();
         $cart->UdateItemCantidad($lineId, $cantidad);
 
+        $this->get('ladybug')->log("Unooooo",$cart);
         $contenido = array(
-                "#cart"     => $this->displayCartAction('small',true),
+                $modo == 'samll' ? "#cart" : '#cartBig'     => $this->displayCartAction($modo,true),
                 "#subtotal" => sprintf(' $ %10.2f', $cartManager->getCarroTotal()),
                 //"#total" => $this->displayCartAction('big',true),
             );
