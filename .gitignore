@@ -24,7 +24,7 @@
 
 composer.lock
 
-app/config/parameters.yml
+/app/config/parameters.yml
 app/cache/
 web/assetic/
 web/bundles/

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c2e5960cd01a9deb4465daa35b92e82d",
+    "hash": "bbc397b87ca676ebea73207e944eaf96",
     "content-hash": "9147a4248e0efc1ea3f7bfd124a84577",
     "packages": [
         {
@@ -973,7 +973,7 @@
                     "homepage": "https://github.com/friendsofsymfony/FOSJsRoutingBundle/contributors"
                 },
                 {
-                    "name": "William DURAND",
+                    "name": "William Durand",
                     "email": "william.durand1@gmail.com"
                 }
             ],
