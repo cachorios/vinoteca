@@ -10,7 +10,8 @@
     </h2>
     <!-- Main Heading Ends -->
     <!-- Shopping Cart Table Starts -->
-    <div class="table-responsive shopping-cart-table">
+
+    <div class="table-responsive shopping-cart-table" id="shopping-cart-table">
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -41,7 +42,7 @@
                 <tr>
                     <td class="text-center">
                         <a href="{{ path('productofull',{'id': item.producto.id }) }}">
-                            <img src="{{ asset('uploads/productos/' ~ item.producto.imagenActiva) }}" style="height: 80px;"
+                            <img src="{{ asset( item.producto.imagenActiva) }}" style="height: 80px;"
                                  alt="product" class="img-thumbnail img-responsive">
                         </a>
                     </td>
@@ -52,16 +53,19 @@
                     </td>
                     <td class="text-right">
                         <div class="input-group btn-block">
-                            <input type="text" name="cantidad" value="{{ item.cantidad }}" size="1" class="form-control"/>
+                            <input type="text" name="cantidad" value="{{ item.cantidad }}" size="1"
+                                   class="form-control"/>
                         </div>
                     </td>
-                    <td class="text-right">${{  "%10.2f" | format(item.producto.precio) }}</td>
+                    <td class="text-right">${{ "%10.2f" | format(item.producto.precio) }}</td>
                     <td class="text-right">${{ "%10.2f" | format(item.cantidad * item.producto.precio) }}</td>
                     <td class="text-center">
-                        <button type="submit" title="{{ "Actualizar" | trans }}" class="btn btn-default tool-tip" data-cart-updatebtn="{{ item.lineId }}">
+                        <button type="submit" title="{{ "Actualizar" | trans }}" class="btn btn-default tool-tip"
+                                data-cart-updatebtn="{{ item.lineId }}">
                             <i class="fa fa-refresh"></i>
                         </button>
-                        <button type="button" title="{{ 'Remover' | trans }}" class="btn btn-default tool-tip" data-cart-removebtn="{{ item.lineId }}">
+                        <button type="button" title="{{ 'Remover' | trans }}" class="btn btn-default tool-tip"
+                                data-cart-removebtn="{{ item.lineId }}">
                             <i class="fa fa-times-circle"></i>
                         </button>
                     </td>
@@ -74,7 +78,8 @@
                 <td colspan="4" class="text-right">
                     <strong>Total :</strong>
                 </td>
-                <td colspan="2" class="text-left"><strong id="subtotal">&nbsp;$ {{ "%10.2f" | format(cart.total) }}</strong>
+                <td colspan="2" class="text-left"><strong id="subtotal">
+                        &nbsp;$ {{ "%10.2f" | format(cart.total) }}</strong>
 
                 </td>
 
@@ -85,171 +90,142 @@
     <!-- Shopping Cart Table Ends -->
     <!-- Shipping Section Starts -->
     <section class="registration-area">
-    <div class="row">
-    <!-- Shipping & Shipment Block Starts -->
-    <div class="col-sm-6">
-        <!-- Taxes Block Starts -->
-        <div class="panel panel-smart">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    Shipping &amp; Taxes
-                </h3>
-            </div>
-            <div class="panel-body">
-                <!-- Form Starts -->
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label for="inputCountry" class="col-sm-3 control-label">Country :</label>
-
-                        <div class="col-sm-9">
-                            <select class="form-control" id="inputCountry">
-                                <option>- All Countries -</option>
-                                <option>India</option>
-                                <option>USA</option>
-                                <option>UK</option>
-                                <option>China</option>
-                            </select>
-                        </div>
+        <div class="row">
+            <!-- Shipping & Shipment Block Starts -->
+            <div class="col-sm-6">
+                <!-- Taxes Block Starts -->
+                <div class="panel panel-smart">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Shipping &amp; Taxes
+                        </h3>
                     </div>
-                    <div class="form-group">
-                        <label for="inputRegion" class="col-sm-3 control-label">Region :</label>
+                    <div class="panel-body">
+                        <!-- Form Starts -->
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="inputCountry" class="col-sm-3 control-label">Country :</label>
 
-                        <div class="col-sm-9">
-                            <select class="form-control" id="inputRegion">
-                                <option>- All Regions -</option>
-                            </select>
-                        </div>
+                                <div class="col-sm-9">
+                                    <select class="form-control" id="inputCountry">
+                                        <option>- All Countries -</option>
+                                        <option>India</option>
+                                        <option>USA</option>
+                                        <option>UK</option>
+                                        <option>China</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputRegion" class="col-sm-3 control-label">Region :</label>
+
+                                <div class="col-sm-9">
+                                    <select class="form-control" id="inputRegion">
+                                        <option>- All Regions -</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputZipCode" class="col-sm-3 control-label">Zip Code :</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="inputZipCode"
+                                           placeholder="Zip Code">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-default">
+                                        Get Info
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Form Ends -->
                     </div>
-                    <div class="form-group">
-                        <label for="inputZipCode" class="col-sm-3 control-label">Zip Code :</label>
-
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="inputZipCode" placeholder="Zip Code">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-9">
-                            <button type="submit" class="btn btn-default">
-                                Get Info
-                            </button>
-                        </div>
-                    </div>
-                </form>
-                <!-- Form Ends -->
-            </div>
-        </div>
-        <!-- Taxes Block Ends -->
-
-        <!-- Shipment Information Block Starts -->
-        <div class="panel panel-smart">
-            ///
-        </div>
-        <!-- Shipment Information Block Ends -->
-    </div>
-
-    <!-- Shipping & Shipment Block Ends -->
-    <!-- Discount & Conditions Blocks Starts -->
-    <div class="col-sm-6">
-        <!-- Discount Coupon Block Starts -->
-        {#<div class="panel panel-smart">#}
-            {#<div class="panel-heading">#}
-                {#<h3 class="panel-title">#}
-                    {#Discount Coupon Code#}
-                {#</h3>#}
-            {#</div>#}
-            {#<div class="panel-body">#}
-                {#<!-- Form Starts -->#}
-                {#<form class="form-horizontal" role="form">#}
-                    {#<div class="form-group">#}
-                        {#<label for="inputCouponCode" class="col-sm-3 control-label">Coupon Code :</label>#}
-
-                        {#<div class="col-sm-9">#}
-                            {#<input type="text" class="form-control" id="inputCouponCode" placeholder="Coupon Code">#}
-                        {#</div>#}
-                    {#</div>#}
-                    {#<div class="form-group">#}
-                        {#<div class="col-sm-offset-3 col-sm-9">#}
-                            {#<button type="submit" class="btn btn-default">#}
-                                {#Apply Coupon#}
-                            {#</button>#}
-                        {#</div>#}
-                    {#</div>#}
-                {#</form>#}
-                {#<!-- Form Ends -->#}
-            {#</div>#}
-        {#</div>#}
-        <!-- Discount Coupon Block Ends -->
-        <!-- Conditions Panel Starts -->
-        <div class="panel panel-smart">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    Terms &amp; Conditions
-                </h3>
-            </div>
-            <div class="panel-body">
-                <p>
-                    HTML Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis
-                    sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate
-                    vehicula.
-                </p>
-
-                <p>
-                    Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod
-                    turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum.
-                    Pellentesque malesuada nulla a mi.
-                </p>
-
-                <p>
-                    Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum
-                    aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque
-                    nunc. Nullam arcu. Aliquam consequat.
-                </p>
-            </div>
-        </div>
-        <!-- Conditions Panel Ends -->
-        <!-- Total Panel Starts -->
-        <div class="panel panel-smart">
-            <div class="panel-heading">
-                <h3 class="panel-title">
-                    Total
-                </h3>
-            </div>
-            <div class="panel-body">
-                <dl class="dl-horizontal">
-                    <dt>Coupon Discount :</dt>
-                    <dd>$-25.00</dd>
-                    <dt>Subtotal :</dt>
-                    <dd>$300.00</dd>
-                    <dt>Payment Fee :</dt>
-                    <dd>$10.00</dd>
-                    <dt>Shipment Fee :</dt>
-                    <dd>$15.00</dd>
-                    <dt>Tax Total :</dt>
-                    <dd>$315.00</dd>
-                </dl>
-                <hr/>
-                <dl class="dl-horizontal total">
-                    <dt>Total :</dt>
-                    <dd>$325.00</dd>
-                </dl>
-                <hr/>
-                <div class="text-uppercase clearfix">
-                    <a href="#" class="btn btn-default pull-left">
-                        <span class="hidden-xs">Continue Shopping</span>
-                        <span class="visible-xs">Continue</span>
-                    </a>
-                    <a href="#" class="btn btn-default pull-right">
-                        Checkout
-                    </a>
                 </div>
+                <!-- Taxes Block Ends -->
+
+                <!-- Shipment Information Block Starts -->
+                <div class="panel panel-smart">
+                    ///
+                </div>
+                <!-- Shipment Information Block Ends -->
             </div>
+
+            <!-- Shipping & Shipment Block Ends -->
+            <!-- Discount & Conditions Blocks Starts -->
+            <div class="col-sm-6">
+                <!-- Discount Coupon Block Starts -->
+                <div class="panel panel-smart">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Cupón de Descuento
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <!-- Form Starts -->
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="inputCouponCode" class="col-sm-3 control-label">Codigo del cupón :</label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="inputCouponCode"
+                                           placeholder="Código del cupón">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-default">
+                                        Aplicar el cupón
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Form Ends -->
+                    </div>
+                </div>
+                <!-- Discount Coupon Block Ends -->
+
+                <!-- Conditions Panel Ends -->
+                <!-- Total Panel Starts -->
+                <div class="panel panel-smart">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Total
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <dl class="dl-horizontal">
+                            <dt>Descuento por Cupón :</dt>
+                            <dd>$-25.00</dd>
+                            <dt>Subtotal :</dt>
+                            <dd>$300.00</dd>
+                            <dt>Envio :</dt>
+                            <dd>$15.00</dd>
+                        </dl>
+                        <hr/>
+                        <dl class="dl-horizontal total">
+                            <dt>Total General:</dt>
+                            <dd>$325.00</dd>
+                        </dl>
+                        <hr/>
+                        <div class="text-uppercase clearfix">
+                            <a href="{{ path('homepage') }}" class="btn btn-default pull-left">
+                                <span class="hidden-xs">Continuar compra</span>
+                                <span class="visible-xs">Continue</span>
+                            </a>
+                            <a href="#" class="btn btn-default pull-right">
+                                Comprar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Total Panel Ends -->
+            </div>
+            <!-- Discount & Conditions Blocks Ends -->
         </div>
-        <!-- Total Panel Ends -->
-    </div>
-    <!-- Discount & Conditions Blocks Ends -->
-    </div>
     </section>
     <!-- Shipping Section Ends -->
     </div>
-
 {% endblock %}

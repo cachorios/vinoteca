@@ -14,7 +14,7 @@
                     <a href="{{ path('productofull',{'id': item.producto.id }) }}">
                         {#<img src="{{ image('uploads/productos/' ~ item.producto.imagenActiva) }}"#}
                              {#alt="product" class="img-thumbnail img-responsive">#}
-                        <img src="{{ image('uploads/productos/'~item.producto.imagenActiva).zoomCrop(70,45,"#ffffff",'center','center') }}" class="img-responsive" />
+                        <img src="{{ image(item.producto.imagenActiva).zoomCrop(70,45,"#ffffff",'center','center') }}" class="img-responsive" />
                     </a>
                 </td>
                 <td class="text-left">
@@ -53,7 +53,7 @@
                 {{ 'Ver Carro' | trans }}
             </a>
             <a href="#">
-                {{ 'Pagar' | trans }}
+                {{ 'Compar' | trans }}
             </a>
         </p>
     </li>

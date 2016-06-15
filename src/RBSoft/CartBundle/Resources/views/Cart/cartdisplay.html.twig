@@ -1,0 +1,76 @@
+    {#<div class="table-responsive shopping-cart-table">#}
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <td class="text-center">
+                    Imagen
+                </td>
+                <td class="text-center">
+                    {{ "Detalle de producto" | trans }}
+                </td>
+                <td class="text-center">
+                    {{ "Cantidad" | trans }}
+                </td>
+                <td class="text-center">
+                    {{ "Precio" | trans }}
+
+                </td>
+                <td class="text-center">
+                    {{ "Total" | trans }}
+
+                </td>
+                <td class="text-center">
+                    {{ "Acción" | trans }}
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in cartModel.items %}
+                <tr>
+                    <td class="text-center">
+                        <a href="{{ path('productofull',{'id': item.producto.id }) }}">
+                            <img src="{{ asset( item.producto.imagenActiva) }}" style="height: 80px;"
+                                 alt="product" class="img-thumbnail img-responsive">
+                        </a>
+                    </td>
+                    <td class="text-left">
+                        <a href="{{ path('productofull',{'id': item.producto.id }) }}">
+                            {{ item.producto.nombre }}
+                        </a>
+                    </td>
+                    <td class="text-right">
+                        <div class="input-group btn-block">
+                            <input type="text" name="cantidad" value="{{ item.cantidad }}" size="1"
+                                   class="form-control"/>
+                        </div>
+                    </td>
+                    <td class="text-right">${{ "%10.2f" | format(item.producto.precio) }}</td>
+                    <td class="text-right">${{ "%10.2f" | format(item.cantidad * item.producto.precio) }}</td>
+                    <td class="text-center">
+                        <button type="submit" title="{{ "Actualizar" | trans }}" class="btn btn-default tool-tip"
+                                data-cart-updatebtn="{{ item.lineId }}">
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                        <button type="button" title="{{ 'Remover' | trans }}" class="btn btn-default tool-tip"
+                                data-cart-removebtn="{{ item.lineId }}">
+                            <i class="fa fa-times-circle"></i>
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4" class="text-right">
+                    <strong>Total :</strong>
+                </td>
+                <td colspan="2" class="text-left"><strong id="subtotal">
+                        &nbsp;$ {{ "%10.2f" | format(cart.total) }}</strong>
+
+                </td>
+
+            </tr>
+            </tfoot>
+        </table>
+
