@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 class CartController extends Controller
 {
 
@@ -30,6 +31,7 @@ class CartController extends Controller
         return $this->displayCartAction('small');
 
     }
+
     /**
      * Mostrar carro
      * @param string $size ('big'|'medium'|'small')
@@ -44,7 +46,7 @@ class CartController extends Controller
         }
         $size = ucfirst($size);
 
-        if($size == 'big'){
+        if ($size == 'big') {
             $breadcrumbs = $this->get("white_october_breadcrumbs");
             $breadcrumbs->addItem("Inicio", $this->get("router")->generate("homepage"));
             $breadcrumbs->addItem("Carro de Compra");
@@ -62,22 +64,21 @@ class CartController extends Controller
 
         // build view object
         $displayCart = array(
-            "total" => $cartManager->getCarroTotal() ,
+            "total" => $cartManager->getCarroSumaItem(),
             "cantidad" => $cartManager->getCantidad(),
-            'items' => array(
-            )
+            'items' => array()
         );
 
 
         //if( $size == 'Big' ) {
-           return $this->render(
-                'RBSoftCartBundle:Cart:display' . $size . 'Cart.html.twig',
-                array(
-                    'cart' => $displayCart,
-                    'cartModel' => $cart,
-                    'cartManagerModel' => $cartManager
-                )
-            );
+        return $this->render(
+            'RBSoftCartBundle:Cart:display' . $size . 'Cart.html.twig',
+            array(
+                'cart' => $displayCart,
+                'cartModel' => $cart,
+                'cartManagerModel' => $cartManager
+            )
+        );
 //        }else{
 //           return $this->renderView('RBSoftCartBundle:Cart:display' . $size . 'Cart.html.twig',
 //               array(
@@ -108,10 +109,9 @@ class CartController extends Controller
         $cart->deleteItem($lineId);
 
         $displayCart = array(
-            "total" => $cartManager->getCarroTotal() ,
+            "total" => $cartManager->getCarroTotal(),
             "cantidad" => $cartManager->getCantidad(),
-            'items' => array(
-            )
+            'items' => array()
         );
         $contenido = array(
             '#cart' => $this->renderView('RBSoftCartBundle:Cart:displaySmallCart.html.twig',
@@ -152,34 +152,125 @@ class CartController extends Controller
 
         // build view object
         $displayCart = array(
-            "total" => $cartManager->getCarroTotal() ,
+            "total" => $cartManager->getCarroTotal(),
             "cantidad" => $cartManager->getCantidad(),
-            'items' => array(
-            )
+            'items' => array()
         );
 
         $contenido = array(
-                '#shopping-cart-table'     => $this->renderView('RBSoftCartBundle:Cart:cartdisplay.html.twig',
-                    array(
-                        'cart' => $displayCart,
-                        'cartModel' => $cart,
-                        'cartManagerModel' => $cartManager
-                    )),
-                '#cart' => $this->renderView('RBSoftCartBundle:Cart:displaySmallCart.html.twig',
-                    array(
-                        'cart' => $displayCart,
-                        'cartModel' => $cart,
-                        'cartManagerModel' => $cartManager
-                    )),
-                "#subtotal" => sprintf(' $ %10.2f', $cartManager->getCarroTotal()),
+            '#shopping-cart-table' => $this->renderView('RBSoftCartBundle:Cart:cartdisplay.html.twig',
+                array(
+                    'cart' => $displayCart,
+                    'cartModel' => $cart,
+                    'cartManagerModel' => $cartManager
+                )),
+            '#cart' => $this->renderView('RBSoftCartBundle:Cart:displaySmallCart.html.twig',
+                array(
+                    'cart' => $displayCart,
+                    'cartModel' => $cart,
+                    'cartManagerModel' => $cartManager
+                )),
+            "#subtotal" => sprintf(' $ %10.2f', $cartManager->getCarroTotal()),
+            '#cupon-total' => $this->getTotalView($cartManager)
 
-            );
+        );
 
         $response = new Response(json_encode($contenido));
         return $response;
     }
-    
-    
 
+    /**
+     * @Route(
+     *  "/cartcuponapply/{codigo}",
+     *  name="cartcuponaplly",
+     *  options={"expose"=true} )
+     * @param Request $request
+     * @param $codigo
+     */
+    public function aplicarCuponAction(Request $request, $codigo)
+    {
+
+        $cartManager = $this->get('rbsoft.cartManager');
+
+        $displayCart = array(
+            "total" => $cartManager->getCarroSumaItem(),
+            "cantidad" => $cartManager->getCantidad(),
+            'items' => array()
+        );
+        if ($cartManager->aplicarCupon($codigo)) {
+            $contenido = array(
+                '.form-cupon' => $this->renderView('@RBSoftCart/Cart/_cart_cupon_utilizando.html.twig', array('cartModel' => $cartManager->getCart())),
+                '#cupon-total' => $this->getTotalView($cartManager),
+                '#cart' => $this->renderView('RBSoftCartBundle:Cart:displaySmallCart.html.twig',
+                    array(
+                        'cart' => $displayCart,
+                        'cartModel' => $cartManager->getCart(),
+                        'cartManagerModel' => $cartManager
+                    )),
+            );
+        } else {
+            $contenido = array(
+
+                'callback' => array("Cupon inexistente o y aplicado!")
+            );
+
+        }
+
+
+        $response = new Response(json_encode($contenido));
+        return $response;
+
+    }
+
+    /**
+     * @Route(
+     *  "/cartcuponremove/",
+     *  name="cartcuponremove",
+     *  options={"expose"=true} )
+     */
+    public function quitarCuponAction()
+    {
+        $cartManager = $this->get('rbsoft.cartManager');
+        $displayCart = array(
+            "total" => $cartManager->getCarroSumaItem(),
+            "cantidad" => $cartManager->getCantidad(),
+            'items' => array()
+        );
+
+        if ($cartManager->tieneCupon()) {
+            $cartManager->quitarCupon();
+            $contenido = array(
+                '.form-cupon' => $this->renderView('@RBSoftCart/Cart/_cart_cupon_utilizando.html.twig', array('cartModel' => $cartManager->getCart())),
+                '#cupon-total' => $this->getTotalView($cartManager),
+                '#cart' => $this->renderView('RBSoftCartBundle:Cart:displaySmallCart.html.twig',
+                    array(
+                        'cart' => $displayCart,
+                        'cartModel' => $cartManager->getCart(),
+                        'cartManagerModel' => $cartManager
+                    )),
+            );
+        } else {
+            $contenido = array(
+                'callback' => array("No tiene cupon aplicado!")
+            );
+
+        }
+
+        $response = new Response(json_encode($contenido));
+        return $response;
+
+
+    }
+
+    private function getTotalView(CartManagerInterface $cartManager)
+    {
+        return $this->renderView('@RBSoftCart/Cart/_cupon_total.html.twig',
+            array(
+                'cartManagerModel' => $cartManager
+            )
+        );
+
+
+    }
 
 }

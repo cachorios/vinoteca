@@ -9,6 +9,6 @@
 namespace RBSoft\CartBundle\Model;
 
 
-class CartManagerInterface {
+interface CartManagerInterface {
 
 }

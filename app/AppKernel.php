@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(),
 
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+
             new Gregwar\ImageBundle\GregwarImageBundle(),
 
             new FOS\UserBundle\FOSUserBundle(),

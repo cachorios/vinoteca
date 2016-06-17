@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bbc397b87ca676ebea73207e944eaf96",
-    "content-hash": "9147a4248e0efc1ea3f7bfd124a84577",
+    "hash": "b9a662b03411df85fb231449d7f1a589",
+    "content-hash": "2c502770f57978ce44eae28e8b47e73b",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -973,7 +973,7 @@
                     "homepage": "https://github.com/friendsofsymfony/FOSJsRoutingBundle/contributors"
                 },
                 {
-                    "name": "William Durand",
+                    "name": "William DURAND",
                     "email": "william.durand1@gmail.com"
                 }
             ],

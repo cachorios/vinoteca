@@ -11,6 +11,7 @@ namespace RBSoft\CartBundle\Model;
 
 use AppBundle\Entity\Producto;
 use Proxies\__CG__\RBSoft\CartBundle\Entity\Item;
+use RBSoft\CartBundle\Entity\Cupon;
 
 class Cart implements CartInterface
 {
@@ -19,6 +20,7 @@ class Cart implements CartInterface
     ////
     protected $items = array();
     protected $itemsecuencia = 1;
+    protected $cupon = null;
 
     /**
      * @param Producto $producto
@@ -63,11 +65,6 @@ class Cart implements CartInterface
      */
     public function deleteItem($lineId)
     {
-//        foreach($this->items as $item){
-//            if($item->getLineId() === $lineId){
-//
-//            }
-//        }
 
         if (array_key_exists($lineId, $this->items) ) {
             unset($this->items[$lineId]);
@@ -81,8 +78,11 @@ class Cart implements CartInterface
      */
     public function UdateItemCantidad($lineId, $newCantidad = 0)
     {
-        $item = $this->getItem($lineId);
-        $item->setCantidad($newCantidad);
+        if($newCantidad>0){
+            $item = $this->getItem($lineId);
+            $item->setCantidad($newCantidad);
+        }else
+            $this->deleteItem($lineId);
 
     }
 
@@ -113,6 +113,29 @@ class Cart implements CartInterface
     public function getItems()
     {
         return $this->items;
+    }
+
+    public function setCupon($cupon){
+        $this->cupon = $cupon;
+        return $this;
+    }
+
+    /**
+     * @return Cupon
+     */
+    public function getCupon()
+    {
+        return $this->cupon;
+    }
+
+
+    /**
+     * Tiene Cupon?
+     * @return bool
+     */
+    public function tieneCupon()
+    {
+        return !$this->cupon == null ;
     }
 
 

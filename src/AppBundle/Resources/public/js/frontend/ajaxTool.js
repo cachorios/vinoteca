@@ -56,20 +56,26 @@ $(window).load(function () {
 });
 
 
-var refresContent = function (data) {
+var refresContent = function (data, callback) {
     var key;
     for (key in data) {
-        $(key).html(data[key]);
+        if(key == 'callback')
+            callback(data[key]);
+        else
+            $(key).html(data[key]);
     }
 }
 
-var llamarAjaxRefresh = function (urlLink) {
+var llamarAjaxRefresh = function (urlLink, callbak) {
     $.ajax({
         url: urlLink,
         context: document.body,
         dataType: 'json',
         success: function (data) {
-            refresContent(data);
+            refresContent(data, callbak);
+
+            // if( callbak != 'undefined' && typeof callbak == 'function' )
+            //     callbak();
 
         }
 

@@ -102,6 +102,7 @@ assetic:
                 - assets/js/plugins/magnific/jquery.magnific-popup.min.js
 
                 - bundles/app/js/frontend/custom.js
+                - bundles/rbsoftcart/js/cart.js
 
             filters:
                 - cssrewrite

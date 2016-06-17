@@ -105,3 +105,10 @@ white_october_breadcrumbs:
 
 gregwar_image: ~
 #    fallback_image: %kernel.root_dir%/../web/images/vino.png
+
+#stof_doctrine_extensions:
+#    default_locale: es_AR
+#    orm:
+#        default:
+##            tree: true
+#            timestampable: true # not needed: listeners are not enabled by default
