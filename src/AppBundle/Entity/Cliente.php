@@ -21,47 +21,7 @@ class Cliente
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="apellido", type="string", length=64)
-     */
-    private $apellido;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nombre", type="string", length=64)
-     */
-    private $nombre;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="telefono", type="string", length=64)
-     */
-    private $telefono;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="movil", type="string", length=64)
-     */
-    private $movil;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="fax", type="string", length=64)
-     */
-    private $fax;
+    
 
     /**
      * @var string
