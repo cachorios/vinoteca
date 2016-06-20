@@ -70,6 +70,12 @@ $(function () {
 
     }
 
+    cartError = function (data) {
+        alert(data);
+
+    }
+
+
     /**
      * Quitar cupon de descuento
      */
@@ -81,6 +87,20 @@ $(function () {
         
         e.preventDefault();
         
+    })
+
+    /**
+     * Comprar
+     */
+    $('body').on('click','a.btn-comprar',function (e) {
+
+
+        urlLink = Routing.generate('cartcomprar');
+
+        llamarAjaxRefresh(urlLink,cartError)
+
+        e.preventDefault();
+
     })
 
 });

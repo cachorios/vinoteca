@@ -39,7 +39,7 @@ class Orden
     /**
      * @var Cupon
      *
-     * @ORM\OneToOne(targetEntity="Cupon" , cascade={"persist"} )
+     * @ORM\OneToOne(targetEntity="Cupon")
      */
     private $cupon;
 
@@ -229,45 +229,5 @@ class Orden
     public function getCliente()
     {
         return $this->cliente;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->detalle = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add detalle
-     *
-     * @param \RBSoft\CartBundle\Entity\OrdenDetalle $detalle
-     *
-     * @return Orden
-     */
-    public function addDetalle(\RBSoft\CartBundle\Entity\OrdenDetalle $detalle)
-    {
-        $this->detalle[] = $detalle;
-        return $this;
-    }
-
-    /**
-     * Remove detalle
-     *
-     * @param \RBSoft\CartBundle\Entity\OrdenDetalle $detalle
-     */
-    public function removeDetalle(\RBSoft\CartBundle\Entity\OrdenDetalle $detalle)
-    {
-        $this->detalle->removeElement($detalle);
-    }
-
-    /**
-     * Get detalle
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDetalle()
-    {
-        return $this->detalle;
     }
 }

@@ -92,6 +92,14 @@ class Cupon
 
 
     /**
+     * Valor del cupon aplicado
+     * @var string
+     * @ORM\Column(name="valor", type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $valor = 0;
+
+
+    /**
      * @var boolean
      * @ORM\Column(name="utilizado", type="boolean")
      */
@@ -355,5 +363,29 @@ class Cupon
     public function getUtilizado()
     {
         return $this->utilizado;
+    }
+
+    /**
+     * Set valor
+     *
+     * @param string $valor
+     *
+     * @return Cupon
+     */
+    public function setValor($valor)
+    {
+        $this->valor = $valor;
+
+        return $this;
+    }
+
+    /**
+     * Get valor
+     *
+     * @return string
+     */
+    public function getValor()
+    {
+        return $this->valor;
     }
 }

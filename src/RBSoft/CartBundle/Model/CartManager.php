@@ -10,12 +10,15 @@ namespace RBSoft\CartBundle\Model;
 
 
 use Doctrine\ORM\EntityManager;
+use FOS\UserBundle\Model\UserInterface;
 use RBSoft\CartBundle\Entity\Cupon;
 use RBSoft\CartBundle\Event\CartEvent;
 use RBSoft\CartBundle\RBSoftCartEvent;
+use RBSoft\UsuarioBundle\Entity\Usuario;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class CartManager implements CartManagerInterface
 {
@@ -24,23 +27,22 @@ class CartManager implements CartManagerInterface
     /** @var null|EventDispatcherInterface */
     protected $dispatcher = null;
 
+    /** @@var null | Usuario */
+    protected $user = null;
     /** @var null|EntityManager */
     protected $em = null;
-
-
-    protected $cupon = null;
 
     /**
      * Constructor del servicio
      * @param Session current session
      * @param CartInterface|null $cart
      */
-    public function __construct(Session $session, EventDispatcherInterface $dispatcher, EntityManager $em, CartInterface $cart = null)
+    public function __construct(Session $session, EventDispatcherInterface $dispatcher, EntityManager $em, TokenStorage $ts, CartInterface $cart = null)
     {
         $this->dispatcher = $dispatcher;
         $this->session = $session;
         $this->em = $em;
-
+        $this->user = $ts->getToken()->getUser();
         if ($cart === null) {
             $cart = $this->session->get('rbsoft_cart', new Cart());
         }
@@ -55,6 +57,13 @@ class CartManager implements CartManagerInterface
         }
 
         $this->session->set('rbsoft_cart', $cart);
+    }
+
+    public function iniciar()
+    {
+        $cart = new Cart();
+        $this->session->set('rbsoft_cart', $cart);
+
     }
 
     /**
@@ -132,7 +141,7 @@ class CartManager implements CartManagerInterface
         /**
          * @var Cupon $cupon
          */
-        $cupon = $this->em->getRepository("RBSoftCartBundle:Cupon")->findOneBy(array('codigo' =>$codigo, 'utilizado' => false));
+        $cupon = $this->em->getRepository("RBSoftCartBundle:Cupon")->findOneBy(array('codigo' => $codigo, 'utilizado' => false));
 
 
         if ($cupon && $cupon->getVencimiento()->setTime(0, 0, 0) >= (new \DateTime('now'))->setTime(0, 0, 0)) {
@@ -143,14 +152,24 @@ class CartManager implements CartManagerInterface
         return false;
     }
 
+    public function refresacarCupon()
+    {
+        if ($this->tieneCupon()) {
+            $this->getCart()->setCupon($this->em->getRepository("RBSoftCartBundle:Cupon")->find($this->getCart()->getCupon()->getId()));
+        }
+
+    }
+
     /**
      * @return bool
      */
-    public function tieneCupon(){
+    public function tieneCupon()
+    {
         return $this->getCart()->tieneCupon();
     }
 
-    public function quitarCupon(){
+    public function quitarCupon()
+    {
         $this->getCart()->setCupon(null);
         return $this;
     }
@@ -158,16 +177,16 @@ class CartManager implements CartManagerInterface
 
     public function getDescuentoCupon()
     {
-        $descuento  = 0;
+        $descuento = 0;
 
-        if( $this->tieneCupon()){
+        if ($this->tieneCupon()) {
             $cupon = $this->getCart()->getCupon();
-            switch ($cupon->getTipo()){
+            switch ($cupon->getTipo()) {
                 case 1:
                     $descuento = $cupon->getValor1();
                     break;
                 case 2:
-                    $descuento = round($this->getCarroSumaItem() * $cupon->getValor1()/100,2);
+                    $descuento = round($this->getCarroSumaItem() * $cupon->getValor1() / 100, 2);
                     break;
                 case 3:
                 case 4:
@@ -177,8 +196,40 @@ class CartManager implements CartManagerInterface
 
     }
 
-    public function getEnvio(){
+    public function getEnvio()
+    {
         return 0;
+    }
+
+    /**
+     * @return UserInterface|null|Usuario
+     */
+    public function getUsuario()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @return EntityManager|null
+     */
+    public function getManager()
+    {
+        return $this->em;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function comprar()
+    {
+        try {
+            $orden = new OrdenModel();
+            $orden->saveOrder($this);
+        } catch (\Exception $e) {
+            throw  $e;
+        }
+
+
     }
 
 }

@@ -19,4 +19,6 @@ final class RBSoftCartEvent {
     const AFTER_TRANSACTION_REFUSED = 'rbsoft_cart.event.after_transaction_refused';
 
     const AFTER_TRANSACTION_EXPIRED = 'rbsoft_cart.event.after_transaction_expired';
+
+    
 }

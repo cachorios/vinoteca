@@ -9,6 +9,11 @@ app_admin:
     resource: '@AppBundle/Controller/admin'
     type:     annotation
 
+#
+#frontend:
+#    resource: "@AppBundle/Controller/frontend"
+#    type:     annotation
+
 #admin_homepage:
 #    path:  /admin/
 #    defaults:  { _controller: UsuarioBundle:Usuario:Index}

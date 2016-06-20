@@ -55,6 +55,13 @@ class Usuario extends BaseUser {
         // your own logic
     }
 
+
+    public function __toString()
+    {
+        return $this->getNombre() . ' ('. $this->getUsername() .')';
+    }
+
+
     /**
      * Get id
      *

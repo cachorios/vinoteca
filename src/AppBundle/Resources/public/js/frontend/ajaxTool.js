@@ -61,6 +61,8 @@ var refresContent = function (data, callback) {
     for (key in data) {
         if(key == 'callback')
             callback(data[key]);
+        if(key == 'redirect')
+            window.location.href = data[key];
         else
             $(key).html(data[key]);
     }

@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : MySqlConneccion
-Source Server Version : 50626
+Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : vinoteca
 
 Target Server Type    : MYSQL
-Target Server Version : 50626
+Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2016-05-21 23:00:37
+Date: 2016-06-17 12:52:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -76,12 +76,6 @@ DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE `cliente` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `usuario_id` int(11) DEFAULT NULL,
-  `apellido` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `nombre` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `telefono` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `movil` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `fax` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `del_nombre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `del_dir1` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `del_dir2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -132,7 +126,7 @@ CREATE TABLE `contenido` (
 -- ----------------------------
 -- Records of contenido
 -- ----------------------------
-INSERT INTO `contenido` VALUES ('1', 'ultimos-productos', '0', '2', '4', '1');
+INSERT INTO `contenido` VALUES ('1', 'ultimos-productos', '0', '0', '6', '1');
 INSERT INTO `contenido` VALUES ('2', 'Carrusel Principal1', '0', '1', '0', '1');
 INSERT INTO `contenido` VALUES ('3', 'Imagen Oferta 1111', '0', '3', '0', '1');
 INSERT INTO `contenido` VALUES ('4', 'Imagen xx', '0', '4', '1', '1');
@@ -177,6 +171,33 @@ CREATE TABLE `contenido_detalle` (
 INSERT INTO `contenido_detalle` VALUES ('1', '2', '1', 'carrusel-principal-555dda1b6602c.jpg', '#1');
 INSERT INTO `contenido_detalle` VALUES ('2', '2', '2', 'carrusel-principal-555dda1b66dfc.jpg', '#2');
 INSERT INTO `contenido_detalle` VALUES ('5', '4', '1', 'imagen-xx-555ddace9e738.jpg', '1');
+
+-- ----------------------------
+-- Table structure for `cupon`
+-- ----------------------------
+DROP TABLE IF EXISTS `cupon`;
+CREATE TABLE `cupon` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `vencimiento` date NOT NULL,
+  `tipo` int(11) NOT NULL,
+  `rango1` decimal(10,2) NOT NULL,
+  `valor1` decimal(10,2) NOT NULL,
+  `rango2` decimal(10,2) DEFAULT NULL,
+  `valor2` decimal(10,2) DEFAULT NULL,
+  `rango3` decimal(10,2) DEFAULT NULL,
+  `valor3` decimal(10,2) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `utilizado` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_58CFF94920332D99` (`codigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of cupon
+-- ----------------------------
+INSERT INTO `cupon` VALUES ('1', '00010001000100010001', '2016-07-31', '2', '0.00', '20.00', null, null, null, null, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0');
 
 -- ----------------------------
 -- Table structure for `factura`
@@ -224,7 +245,7 @@ CREATE TABLE `fos_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_957A647992FC23A8` (`username_canonical`),
   UNIQUE KEY `UNIQ_957A6479A0D96FBF` (`email_canonical`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of fos_user
@@ -233,7 +254,9 @@ INSERT INTO `fos_user` VALUES ('1', 'albertoe2003@gmail.com', 'albertoe2003@gmai
 INSERT INTO `fos_user` VALUES ('2', 'lmanfredini@expresojet.com.ar', 'lmanfredini@expresojet.com.ar', 'lmanfredini@expresojet.com.ar', 'lmanfredini@expresojet.com.ar', '1', 'to55dz2qyas0k8g84c8osww8scgc80c', 'Zf1PpPo9yJmtSfGyaJ1m2HVQtqIkd8/hQaVUWAMXO/iveAs8MfURsM/a8pNUvnGEL+k7y0B9X9nU9F+Ea/9ZVA==', '2015-05-07 12:29:34', '0', '0', null, null, null, 'a:2:{i:0;s:12:\"ROLE_USUARIO\";i:1;s:10:\"ROLE_ADMIN\";}', '0', null, 'Luis Manfredini', null, null, null);
 INSERT INTO `fos_user` VALUES ('3', 'alfa@expresojet.com.ar', 'alfa@expresojet.com.ar', 'alfa@expresojet.com.ar', 'alfa@expresojet.com.ar', '1', 'bkxh9vzlczs4kcc0kgs08wgog4cckk0', '56DSOaxptzU/QIOVaHX1d4pn+vrvCuucNIWEFuKs7ol3tYWwnCOPbqfTJozGHGtKtXszSVA/AYcQEhWryHwIXQ==', '2015-05-07 12:28:54', '0', '0', null, null, null, 'a:2:{i:0;s:12:\"ROLE_USUARIO\";i:1;s:10:\"ROLE_ADMIN\";}', '0', null, '11', '3764-720204', null, null);
 INSERT INTO `fos_user` VALUES ('4', 'roberto', 'roberto', 'roberto@gmail.com', 'roberto@gmail.com', '0', 'q4x3dys848gss8g00gwscgwo0csccg0', '+eOyYfITD3rn9TlHdvQUK8UmU1o5p7N0IeLu0vQVIj1ZRYdwyaECXt3az+bcw21I18EE7PxiiViPuMhCFdxJ9g==', null, '0', '0', null, '7-V3dmzSSOxQrwTxACF68fOOf6oH37pTR4pDsqdndRE', null, 'a:0:{}', '0', null, null, null, null, null);
-INSERT INTO `fos_user` VALUES ('6', 'cachorios', 'cachorios', 'cachorios@gmail.com', 'cachorios@gmail.com', '1', '10dd23nynnk00cw8g0ks0w0k0c4cc4w', 'GN7HJezvWszTEDQLbqC7puY56pylY3mhh1NKW/wvk6O+OXiaYOZyGCykL3j6KDwhI/sraYz0uLHqdaOC4HYXmg==', '2015-10-19 17:41:05', '0', '0', null, null, null, 'a:1:{i:0;s:10:\"ROLE_ADMIN\";}', '0', null, null, null, null, null);
+INSERT INTO `fos_user` VALUES ('6', 'cachorios', 'cachorios', 'cachorios2@gmail.com', 'cachorios2@gmail.com', '1', '10dd23nynnk00cw8g0ks0w0k0c4cc4w', '$2y$13$.S3uctel2tHQqLS.xgXQsuK4XJsXaiWiNhCXIFiFS/Y.R0nsLn.E6', '2016-06-17 01:57:50', '0', '0', null, null, null, 'a:1:{i:0;s:10:\"ROLE_ADMIN\";}', '0', null, null, null, 'cachorios', 'user575f1a5d2b7a4.jpg');
+INSERT INTO `fos_user` VALUES ('15', 'cacho', 'cacho', 'cachorios@gmail.com', 'cachorios@gmail.com', '1', 'b49dm3kv8e80k0o080gg04s0wswk0go', '$2y$13$HC1AKCZl7OaSF7XLfw0b9e5zxs6VqrD40Dj4JDcbreykp9jyf87ry', '2016-06-13 22:41:43', '0', '0', null, null, null, 'a:1:{i:0;s:12:\"ROLE_CLIENTE\";}', '0', null, 'Luis Rios', '154720300', '154720300', 'user575e1c4cacedf.png');
+INSERT INTO `fos_user` VALUES ('16', 'negro', 'negro', 'lmanfredini@cabanawanfried.com.ar', 'lmanfredini@cabanawanfried.com.ar', '1', 'k5pdl9ozl1sc0owck888kgsk4kswkso', '$2y$13$EsLTeapwl8gjtxQRwylTsuBv1YQnGpbXL3SPRaeHr6VtitRILnayK', '2016-06-16 02:40:34', '0', '0', null, null, null, 'a:0:{}', '0', null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `item`
@@ -2798,7 +2821,7 @@ CREATE TABLE `producto` (
 -- ----------------------------
 INSERT INTO `producto` VALUES ('2', '2', '36', 'DV Catena Malbec - Malbec', '112233', 'Domingo Vicente Catena Malbec 2006 es un blend proveniente de uvas Malbec de dos diferentes viñedos. El viñedo Angelica aporta aromas de mermeladas de ciruelas maduras y moras negras, suavidad y volumen al paladar. La Pirámide entrega aromas de frutos negros de carozo y notas de especias como pimienta negra y clavo de olor. Se conjugan de manera excepcional para dar origen a este vino, intenso y concentrado, de final largo y muy persistente.\r\n \r\nAlejandro Vigil, Enólogo Jefe', '230.00', '100.00', '0.21', '1', '2015-02-17 00:38:17', '2015-05-21 23:11:21', '4', '0');
 INSERT INTO `producto` VALUES ('3', '1', '36', 'DV Catena Malbec - Cabernet1', '112244', 'DV Catena Cabernet Sauvignon-Malbec 2008 es un vino elegante y complejo, de color rojo rubi con reflejos violetas. A la nariz, intenso y concentrado, presenta notas de especias aportadas por el Cabernet Sauvignon del viñedo La Pirámide, y notas de moras maduras y ciruelas, características del Malbec del viñedo Angélica, acompañadas por vainilla, tabaco y licor aportadas por la crianza en roble. En boca, de impacto dulce y gran complejidad, con taninos integrados y redondos, de final largo y persistente. Ideal para acompañar carnes de caza, como el ciervo y el jabalí.\r\n \r\nAlejandro Vigil, Enólogo Jefe', '330.00', '90.00', '0.21', '1', '2015-02-17 01:34:42', '2015-05-05 17:09:41', '5', '0');
-INSERT INTO `producto` VALUES ('4', '1', '36', 'DV Catena Syrah - Syrah', '112255', 'DV Catena Syrah-Syrah 2006, es un vino elegante y complejo, de gran concentración, color violeta oscuro con matices negros. A la nariz, intenso y complejo, presenta aromas de moras maduras, ciruelas y cuero, con notas ligeras de vainilla, tabaco y licor. En boca, de impacto dulce en un comienzo y gran complejidad, es amplio, con taninos suaves y redondos que le otorgan una gran armonía final. Un vino ideal para acompañar pastas y carnes rojas como el cordero, o simplemente para beberlo y disfrutarlo con frutas secas y chocolate.\r\n \r\nAlejandro Vigil, Enólogo Jefe', '270.00', '85.00', '0.21', '1', '2015-02-17 01:58:31', '2015-05-05 21:12:27', '6', '0');
+INSERT INTO `producto` VALUES ('4', '6', '36', 'DV Catena Syrah - Syrah', '112255', 'DV Catena Syrah-Syrah 2006, es un vino elegante y complejo, de gran concentración, color violeta oscuro con matices negros. A la nariz, intenso y complejo, presenta aromas de moras maduras, ciruelas y cuero, con notas ligeras de vainilla, tabaco y licor. En boca, de impacto dulce en un comienzo y gran complejidad, es amplio, con taninos suaves y redondos que le otorgan una gran armonía final. Un vino ideal para acompañar pastas y carnes rojas como el cordero, o simplemente para beberlo y disfrutarlo con frutas secas y chocolate.\r\n \r\nAlejandro Vigil, Enólogo Jefe', '270.10', '85.00', '0.21', '1', '2015-02-17 01:58:31', '2016-05-23 21:37:01', '6', '0');
 INSERT INTO `producto` VALUES ('5', '1', '37', 'callia amable', '112255', 'Callia Amable, es un producto fácil de beber, para varias ocasiones de consumo. Contiene bajo contenido alcohólico 10%, ideal para tomarse como aperitivo o acompañar sushi, pescados, dulces o postres.\r\n\r\n \r\n\r\nA la vista se manifiesta de color amarillo con reflejos dorados y verdosos. Su aroma es a manzanas y membrillos con toques de miel y flores blancas. Mientras que en boca es redondo, aterciopelado, de acidez equilibrada y destacada persistencia.', '50.00', '50.00', '0.21', '1', '2015-02-17 02:01:48', '2015-05-05 21:29:33', '7', '0');
 INSERT INTO `producto` VALUES ('7', '1', '36', 'El GRAN ENEMIGO', '112266', 'Corte de Cabernet Franc, Petit Verdot y Malbec (no tenemos los porcentajes). En vista un púrpura profundo con reflejos rubí. En nariz dulce, fruta en compota y notas de chocolate y vainilla.  En boca ataca dulce, algo astringente, de gran cuerpo y marcada acidez\r\n\r\nElaborado con Cabernet Franc, Malbec y otras uvas que el enólogo no develó. Sólo se elaboran 3.200 botellas. “Lleva mucho trabajo de cosecha, las uvas se levantan en 7 momentos diferentes de la temporada”, dijo Vigil.', '700.00', '500.00', '0.21', '1', '2015-02-18 13:30:37', '2015-05-05 21:40:24', '8', '0');
 INSERT INTO `producto` VALUES ('8', '1', '36', 'SIESTA  - CAVERNET FRANC', '112277', 'Rojo Carmín muy intenso. Aroma: muy frutado, con notas de frutos rojos, zarzamora, cassis y guindas negras. Especiado.', '260.00', '0.00', '0.21', '1', '2015-02-18 14:07:49', '2015-05-05 21:49:10', '14', '0');
@@ -2963,7 +2986,7 @@ INSERT INTO `producto_extension` VALUES ('27', '4', 'CATENA ZAPATA', '63');
 INSERT INTO `producto_extension` VALUES ('28', '4', '750 cm3', '64');
 INSERT INTO `producto_extension` VALUES ('29', '4', 'Argentina', '65');
 INSERT INTO `producto_extension` VALUES ('30', '4', 'Mendoza', '66');
-INSERT INTO `producto_extension` VALUES ('31', '4', null, '67');
+INSERT INTO `producto_extension` VALUES ('31', '4', '15', '67');
 INSERT INTO `producto_extension` VALUES ('32', '7', 'Cabernet Franc  Malbec y Petit Verdot', '61');
 INSERT INTO `producto_extension` VALUES ('33', '7', '2008', '62');
 INSERT INTO `producto_extension` VALUES ('34', '7', '24 meses en barricas de roble frances de primer uso.-', '68');
@@ -3473,7 +3496,7 @@ CREATE TABLE `producto_imagen` (
 -- Records of producto_imagen
 -- ----------------------------
 INSERT INTO `producto_imagen` VALUES ('3', '3', '1', 'jpeg', '1', '2015-05-23 04:22:33');
-INSERT INTO `producto_imagen` VALUES ('4', '4', '1', 'jpeg', null, '0000-00-00 00:00:00');
+INSERT INTO `producto_imagen` VALUES ('4', '4', '1', 'jpeg', '1', '2016-05-23 21:37:01');
 INSERT INTO `producto_imagen` VALUES ('5', '5', '1', 'jpeg', null, '0000-00-00 00:00:00');
 INSERT INTO `producto_imagen` VALUES ('7', '7', '1', 'jpeg', null, '0000-00-00 00:00:00');
 INSERT INTO `producto_imagen` VALUES ('8', '8', '1', 'jpeg', null, '0000-00-00 00:00:00');

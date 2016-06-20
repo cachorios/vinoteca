@@ -21,9 +21,9 @@
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,300,700">
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
 
-    {##-- Bootstrap CSS --##}
+    {#-- Bootstrap CSS --#}
     <link href='{{ asset("bundles/app/css/frontend/bootstrap.min.css") }}' rel='stylesheet' type='text/css'>
-    {##-- Font Awesome CSS --##}
+    {#-- Font Awesome CSS --#}
     <link href='{{ asset("assets/css/font-awesome.min.css") }}' rel='stylesheet' type='text/css'>
 
     {% stylesheets '@stylesheets_frontend' %}
@@ -118,10 +118,10 @@
                         </li>
                         {% else %}
                         <li>
-                            <a href="{{ path('fos_user_profile_show') }}">
+                            <a href="{{ path('mi_cuenta') }}">
                                 <i class="fa fa-user" title="My Account"></i>
 											<span class="hidden-sm hidden-xs">
-												{{ "Perfil" | trans }}
+												{{ "Mi Cuenta" | trans }}
 											</span>
                             </a>
                         </li>

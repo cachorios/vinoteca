@@ -23,7 +23,7 @@ class DefaultController extends Controller
         /**
          * @var \Doctrine\ORM\EntityManager $em
          */
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
 
         $c = $em->getRepository("AppBundle:Contenido")->getContenido();
 
@@ -168,7 +168,7 @@ class DefaultController extends Controller
             /**
              * @var Doctrine/EntityManager
              */
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $hijos = $em->getRepository("AppBundle:Categoria")->getDescendientes($categoria);
 
             $res = $em->createQuery("

@@ -1,0 +1,66 @@
+{% extends 'AppBundle:frontend:base.html.twig' %}
+
+{% block body %}
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <h2 class="main-heading text-center">
+                    {{ app.user }}
+                </h2>
+                <div class="col-md-3">
+
+                    <h3 class="side-heading">Compras</h3>
+                    <div class="list-group">
+                        <a href="category-grid.html" class="list-group-item">
+                            <i class="fa fa-chevron-right"></i>
+                            Pendiente de Entrega
+                        </a>
+                        <a href="category-grid.html" class="list-group-item">
+                            <i class="fa fa-chevron-right"></i>
+                            Entregao
+                        </a>
+                        <a href="category-grid.html" class="list-group-item">
+                            <i class="fa fa-chevron-right"></i>
+                            Lista para comptar
+                        </a>
+                        <a href="category-grid.html" class="list-group-item">
+                            <i class="fa fa-chevron-right"></i>
+                            Ofertas
+                        </a>
+
+                    </div>
+
+                    <h3 class="side-heading">Cuenta</h3>
+                    <div class="list-group">
+                        <a href="category-grid.html" class="list-group-item">
+                            <i class="fa fa-chevron-right"></i>
+                            Perfil
+                        </a>
+                        <a href="category-grid.html" class="list-group-item">
+                            <i class="fa fa-chevron-right"></i>
+                            Editar perfil
+                        </a>
+                        <a href="category-grid.html" class="list-group-item">
+                            <i class="fa fa-chevron-right"></i>
+                            Cambiar clave
+                        </a>
+
+                    </div>
+
+                </div>
+                <div class="col-md-9" id="{% block contentId "" %}">
+
+                    {% block workarea %}{% endblock %}
+                    {% block contenido %}{% endblock %}
+                </div>
+
+
+            </div><!-- /.col -->
+
+
+        </div><!-- /.row -->
+
+    </div>
+    </div>
+{% endblock %}
+

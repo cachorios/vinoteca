@@ -22,6 +22,15 @@ class Cart implements CartInterface
     protected $itemsecuencia = 1;
     protected $cupon = null;
 
+
+    public function __construct()
+    {
+        $this->items = array();
+        $this->cupon = null;
+        $this->itemsecuencia = 1;
+
+    }
+
     /**
      * @param Producto $producto
      * @param int $cantidad

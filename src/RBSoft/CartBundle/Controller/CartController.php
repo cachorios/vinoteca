@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use RBSoft\CartBundle\Model\CartManagerInterface;
 use RBSoft\CartBundle\Model\CartInterface;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -152,7 +153,7 @@ class CartController extends Controller
 
         // build view object
         $displayCart = array(
-            "total" => $cartManager->getCarroTotal(),
+            "total" => $cartManager->getCarroSumaItem(),
             "cantidad" => $cartManager->getCantidad(),
             'items' => array()
         );
@@ -170,7 +171,7 @@ class CartController extends Controller
                     'cartModel' => $cart,
                     'cartManagerModel' => $cartManager
                 )),
-            "#subtotal" => sprintf(' $ %10.2f', $cartManager->getCarroTotal()),
+            "#subtotal" => sprintf(' $ %10.2f', $cartManager->getCarroSumaItem()),
             '#cupon-total' => $this->getTotalView($cartManager)
 
         );
@@ -260,6 +261,36 @@ class CartController extends Controller
         return $response;
 
 
+    }
+
+    /**
+     * @Route(
+     *     "/cartcomprar/",
+     *     name="cartcomprar",
+     *     options={"expose"=true}
+     * )
+     */
+    public function comprarAction()
+    {
+        $cartManager = $this->get('rbsoft.cartManager');
+
+        try{
+            $cartManager->comprar();
+
+            $cartManager->iniciar();
+            $this->get('session')->getFlashBag()->add('success',"La compra se realizo correctamente.");
+
+            $contenido = array('redirect' => $this->generateUrl('homepage'));
+
+        }catch (\Exception $e){
+            $contenido = array(
+                'callback' => array($e->getMessage())
+            );
+        }
+
+        $response = new Response(json_encode($contenido));
+
+        return $response;
     }
 
     private function getTotalView(CartManagerInterface $cartManager)

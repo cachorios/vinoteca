@@ -3,20 +3,19 @@
 namespace RBSoft\CartBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Factura
  *
- * 
- * @ORM\Entity(repositoryClass="RBSoft\CartBundle\Entity\FacturaRepository")
+ * @ORM\Table(name="factura")
+ * @ORM\Entity(repositoryClass="RBSoft\CartBundle\Repository\FacturaRepository")
  */
 class Factura
 {
     /**
-     * @var integer
+     * @var int
      *
-     * @ORM\Column(type="integer", name="id")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -25,43 +24,64 @@ class Factura
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=15, nullable=true, name="referencia")
+     * @ORM\Column(name="letra", type="string", length=1)
      */
-    private $referencia;
+    private $letra;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="sucursal", type="integer")
+     */
+    private $sucursal;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=16000, nullable=true, name="contenidoHtml")
+     * @ORM\Column(name="numero", type="string", length=255)
      */
-    private $contenidoHtml;
+    private $numero;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime", nullable=true, name="createdAt")
-     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="fecha", type="date")
      */
-    private $createdAt;
+    private $fecha;
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(type="datetime", nullable=true, name="updatedAt")
-     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="importe", type="decimal", precision=10, scale=2)
      */
-    private $updatedAt;
+    private $importe;
 
     /**
-     * @ORM\OneToOne(targetEntity="RBSoft\CartBundle\Entity\Orden", mappedBy="factura")
+     * @var string
+     *
+     * @ORM\Column(name="iva", type="decimal", precision=10, scale=2)
      */
-    private $orden;
+    private $iva;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bonificacion", type="decimal", precision=10, scale=2)
+     */
+    private $bonificacion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="felete", type="decimal", precision=10, scale=2)
+     */
+    private $felete;
 
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -69,117 +89,195 @@ class Factura
     }
 
     /**
-     * Set referencia
+     * Set letra
      *
-     * @param string $referencia
+     * @param string $letra
+     *
      * @return Factura
      */
-    public function setReferencia($referencia)
+    public function setLetra($letra)
     {
-        $this->referencia = $referencia;
+        $this->letra = $letra;
 
         return $this;
     }
 
     /**
-     * Get referencia
+     * Get letra
      *
-     * @return string 
+     * @return string
      */
-    public function getReferencia()
+    public function getLetra()
     {
-        return $this->referencia;
+        return $this->letra;
     }
 
     /**
-     * Set contenidoHtml
+     * Set sucursal
      *
-     * @param string $contenidoHtml
+     * @param integer $sucursal
+     *
      * @return Factura
      */
-    public function setContenidoHtml($contenidoHtml)
+    public function setSucursal($sucursal)
     {
-        $this->contenidoHtml = $contenidoHtml;
+        $this->sucursal = $sucursal;
 
         return $this;
     }
 
     /**
-     * Get contenidoHtml
+     * Get sucursal
      *
-     * @return string 
+     * @return int
      */
-    public function getContenidoHtml()
+    public function getSucursal()
     {
-        return $this->contenidoHtml;
+        return $this->sucursal;
     }
 
     /**
-     * Set createdAt
+     * Set numero
      *
-     * @param \DateTime $createdAt
+     * @param string $numero
+     *
      * @return Factura
      */
-    public function setCreatedAt($createdAt)
+    public function setNumero($numero)
     {
-        $this->createdAt = $createdAt;
+        $this->numero = $numero;
 
         return $this;
     }
 
     /**
-     * Get createdAt
+     * Get numero
      *
-     * @return \DateTime 
+     * @return string
      */
-    public function getCreatedAt()
+    public function getNumero()
     {
-        return $this->createdAt;
+        return $this->numero;
     }
 
     /**
-     * Set updatedAt
+     * Set fecha
      *
-     * @param \DateTime $updatedAt
+     * @param \DateTime $fecha
+     *
      * @return Factura
      */
-    public function setUpdatedAt($updatedAt)
+    public function setFecha($fecha)
     {
-        $this->updatedAt = $updatedAt;
+        $this->fecha = $fecha;
 
         return $this;
     }
 
     /**
-     * Get updatedAt
+     * Get fecha
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getUpdatedAt()
+    public function getFecha()
     {
-        return $this->updatedAt;
+        return $this->fecha;
     }
 
     /**
-     * Set orden
+     * Set importe
      *
-     * @param integer $orden
+     * @param string $importe
+     *
      * @return Factura
      */
-    public function setOrden($orden)
+    public function setImporte($importe)
     {
-        $this->orden = $orden;
+        $this->importe = $importe;
 
         return $this;
     }
 
     /**
-     * Get orden
+     * Get importe
      *
-     * @return integer 
+     * @return string
      */
-    public function getOrden()
+    public function getImporte()
     {
-        return $this->orden;
+        return $this->importe;
+    }
+
+    /**
+     * Set iva
+     *
+     * @param string $iva
+     *
+     * @return Factura
+     */
+    public function setIva($iva)
+    {
+        $this->iva = $iva;
+
+        return $this;
+    }
+
+    /**
+     * Get iva
+     *
+     * @return string
+     */
+    public function getIva()
+    {
+        return $this->iva;
+    }
+
+    /**
+     * Set bonificacion
+     *
+     * @param string $bonificacion
+     *
+     * @return Factura
+     */
+    public function setBonificacion($bonificacion)
+    {
+        $this->bonificacion = $bonificacion;
+
+        return $this;
+    }
+
+    /**
+     * Get bonificacion
+     *
+     * @return string
+     */
+    public function getBonificacion()
+    {
+        return $this->bonificacion;
+    }
+
+    /**
+     * Set felete
+     *
+     * @param string $felete
+     *
+     * @return Factura
+     */
+    public function setFelete($felete)
+    {
+        $this->felete = $felete;
+
+        return $this;
+    }
+
+    /**
+     * Get felete
+     *
+     * @return string
+     */
+    public function getFelete()
+    {
+        return $this->felete;
     }
 }
+

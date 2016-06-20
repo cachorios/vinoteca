@@ -1,15 +1,26 @@
 # This file is auto-generated during the composer install
 parameters:
-    database_driver: pdo_mysql
-    database_host: 127.0.0.1
-    database_port: null
-    database_name: vinoteca
-    database_user: root
-    database_password: 7219
+
+    prod_database_driver: pdo_mysql
+    prod_database_host: 127.0.0.1
+    prod_database_port: null
+    prod_database_name: vinoteca_prod
+    prod_database_user: root
+    prod_database_password: 7219
+
+
+    dev_database_driver: pdo_mysql
+    dev_database_host: 127.0.0.1
+    dev_database_port: null
+    dev_database_name: vinoteca_dev
+    dev_database_user: root
+    dev_database_password: 7219
+
+
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
     mailer_password: null
-    locale: es
     secret: asasasasasasd2222222222eeeeeeeessssssssd676
     java_path: 'C:\Program Files (x86)\Java\jre7\bin'
+    locale: es
