@@ -16,11 +16,12 @@ fos_user:
             type:               RBSoft\UsuarioBundle\Form\Type\ProfileFormType
             name:               fos_user_profile_form #Como se llamaran las variables en el form
             validation_groups:  [Profile, Default]
-    change_password:
-        form:
-            type:               fos_user_change_password
-            name:               fos_user_change_password_form
-            validation_groups:  [ChangePassword, Default]
+
+#    change_password:
+#        form:
+#            type:               fos_user_change_password
+#            name:               fos_user_change_password_form
+#            validation_groups:  [ChangePassword, Default]
 #
 ##    service:
 ##            mailer: fos_user.mailer.twig_swift

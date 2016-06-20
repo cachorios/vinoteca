@@ -1,13 +1,14 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
 
 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4">
         {{ form_row(form['foto']) }}
     </div>
-    <div class="col-md-9">
+    <div class="col-md-8">
         {{ form_row(form['email']) }}
         {{ form_row(form['username']) }}
         {{ form_row(form['nombre']) }}

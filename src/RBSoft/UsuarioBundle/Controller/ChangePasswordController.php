@@ -67,7 +67,7 @@ class ChangePasswordController extends Controller
             $userManager->updateUser($user);
 
             if (null === $response = $event->getResponse()) {
-                $url = $this->generateUrl('admin_perfil_change_password');
+                $url = $this->generateUrl('fos_user_profile_show');
                 $response = new RedirectResponse($url);
             }
 
@@ -76,7 +76,7 @@ class ChangePasswordController extends Controller
             return $response;
         }
 
-        return $this->render('UsuarioBundle:Usuario:changePassword.html.twig', array(
+        return $this->render('FOSUserBundle:ChangePassword:changePassword.html.twig', array(
             'form' => $form->createView(),
             'user' => $user
         ));
