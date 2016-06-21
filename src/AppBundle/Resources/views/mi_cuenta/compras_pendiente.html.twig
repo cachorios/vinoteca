@@ -1,0 +1,73 @@
+{% extends 'AppBundle:frontend:mi_cuentaLayout.html.twig' %}
+
+{% block workarea %}
+    {{ wo_render_breadcrumbs() }}
+    <div class="panel panel-smart">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                Compras en proceso
+            </h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="table-responsive shopping-cart-table">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <td class="text-center">
+                            Nro. de Orden
+                        </td>
+                        <td class="text-center">
+                            Fecha
+                        </td>
+
+                        <td class="text-center">
+                            Productos
+                        </td>
+
+                        <td class="text-center">
+                            Importe
+                        </td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for orden in compras %}
+                    <tr>
+                        <td class="text-center">
+                            {{ orden.id }}
+                        </td>
+                        <td class="text-center">
+                            {{ orden.fecha |date('d/m/Y H:i:s') }}
+                        </td>
+                        <td class="text-center">
+                            {{ '%04d' |format(orden.cantidadProductos) }}
+                        </td>
+
+                        <td class="text-right">
+                            {{ '%10.2f' | format(orden.total) }}
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-default tool-tip" title="" type="submit" data-original-title="Update">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                            <button class="btn btn-default tool-tip" title="" type="button" data-original-title="Remove">
+                                <i class="fa fa-times-circle"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                    <tfoot>
+
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock  %}
+

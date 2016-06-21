@@ -32,7 +32,7 @@ class Orden
     /**
      * @var OrdenEstado
      *
-     * @ORM\ManyToOne(targetEntity="OrdenEstado")
+     * @ORM\OneToMany(targetEntity="OrdenEstado", mappedBy="orden" )
      */
     private $estado;
 
@@ -110,30 +110,6 @@ class Orden
         return $this->fecha;
     }
 
-
-    /**
-     * Set estado
-     *
-     * @param \RBSoft\CartBundle\Entity\OrdenEstado $estado
-     *
-     * @return Orden
-     */
-    public function setEstado(\RBSoft\CartBundle\Entity\OrdenEstado $estado = null)
-    {
-        $this->estado = $estado;
-
-        return $this;
-    }
-
-    /**
-     * Get estado
-     *
-     * @return \RBSoft\CartBundle\Entity\OrdenEstado
-     */
-    public function getEstado()
-    {
-        return $this->estado;
-    }
 
     /**
      * Set cupon
@@ -230,6 +206,7 @@ class Orden
     {
         return $this->cliente;
     }
+
     /**
      * Constructor
      */
@@ -270,4 +247,71 @@ class Orden
     {
         return $this->detalle;
     }
+
+    /**
+     * Add estado
+     *
+     * @param \RBSoft\CartBundle\Entity\OrdenEstado $estado
+     *
+     * @return Orden
+     */
+    public function addEstado(\RBSoft\CartBundle\Entity\OrdenEstado $estado)
+    {
+        $this->estado[] = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Remove estado
+     *
+     * @param \RBSoft\CartBundle\Entity\OrdenEstado $estado
+     */
+    public function removeEstado(\RBSoft\CartBundle\Entity\OrdenEstado $estado)
+    {
+        $this->estado->removeElement($estado);
+    }
+
+    /**
+     * Get estado
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+    public function cantidadProductos()
+    {
+        $cnt = 0;
+        /**
+         * @var OrdenDetalle $item
+         */
+        foreach ($this->getDetalle() as $item){
+            $cnt += $item->getCantidad();
+        }
+        return $cnt;
+    }
+
+    public function total()
+    {
+        $total = 0;
+        /**
+         * @var OrdenDetalle $item
+         */
+        foreach ($this->getDetalle() as $item){
+            $total += $item->getCantidad() * $item->getPrecio() ;
+        }
+
+        if($this->getFlete())
+            $total += $this->getFlete()->getImporte();
+
+        if($this->getCupon())
+            $total -= $this->getCupon()->getValor();
+
+        return $total;
+    }
+
+
 }

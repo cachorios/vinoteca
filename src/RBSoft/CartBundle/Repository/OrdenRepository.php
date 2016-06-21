@@ -1,6 +1,7 @@
 <?php
 
 namespace RBSoft\CartBundle\Repository;
+use RBSoft\UsuarioBundle\Entity\Usuario;
 
 /**
  * OrdenRepository
@@ -10,4 +11,16 @@ namespace RBSoft\CartBundle\Repository;
  */
 class OrdenRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getComprasPendientesByUser(Usuario $usuario)
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->join('o.estado','e','WITH','e.estado = 0','o.id')
+            ->where('o.cliente = :cliente')
+            ->setParameter('cliente', $usuario->getId());
+
+        return $qb->getQuery()->getResult();
+
+    }
+
 }

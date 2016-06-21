@@ -32,14 +32,14 @@ class Orden
     /**
      * @var OrdenEstado
      *
-     * @ORM\ManyToOne(targetEntity="OrdenEstado")
+     * @ORM\OneToMany(targetEntity="OrdenEstado", mappedBy="orden" )
      */
     private $estado;
 
     /**
      * @var Cupon
      *
-     * @ORM\OneToOne(targetEntity="Cupon")
+     * @ORM\OneToOne(targetEntity="Cupon" , cascade={"persist"} )
      */
     private $cupon;
 
@@ -111,30 +111,7 @@ class Orden
     }
 
 
-    /**
-     * Set estado
-     *
-     * @param \RBSoft\CartBundle\Entity\OrdenEstado $estado
-     *
-     * @return Orden
-     */
-    public function setEstado(\RBSoft\CartBundle\Entity\OrdenEstado $estado = null)
-    {
-        $this->estado = $estado;
-
-        return $this;
-    }
-
-    /**
-     * Get estado
-     *
-     * @return \RBSoft\CartBundle\Entity\OrdenEstado
-     */
-    public function getEstado()
-    {
-        return $this->estado;
-    }
-
+    
     /**
      * Set cupon
      *
@@ -229,5 +206,45 @@ class Orden
     public function getCliente()
     {
         return $this->cliente;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->detalle = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add detalle
+     *
+     * @param \RBSoft\CartBundle\Entity\OrdenDetalle $detalle
+     *
+     * @return Orden
+     */
+    public function addDetalle(\RBSoft\CartBundle\Entity\OrdenDetalle $detalle)
+    {
+        $this->detalle[] = $detalle;
+        return $this;
+    }
+
+    /**
+     * Remove detalle
+     *
+     * @param \RBSoft\CartBundle\Entity\OrdenDetalle $detalle
+     */
+    public function removeDetalle(\RBSoft\CartBundle\Entity\OrdenDetalle $detalle)
+    {
+        $this->detalle->removeElement($detalle);
+    }
+
+    /**
+     * Get detalle
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDetalle()
+    {
+        return $this->detalle;
     }
 }

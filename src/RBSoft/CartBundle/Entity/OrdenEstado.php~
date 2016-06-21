@@ -99,28 +99,5 @@ class OrdenEstado
     {
         return $this->fecha;
     }
-
-    /**
-     * Set orden
-     *
-     * @param \RBSoft\CartBundle\Entity\Orden $orden
-     *
-     * @return OrdenEstado
-     */
-    public function setOrden(\RBSoft\CartBundle\Entity\Orden $orden = null)
-    {
-        $this->orden = $orden;
-
-        return $this;
-    }
-
-    /**
-     * Get orden
-     *
-     * @return \RBSoft\CartBundle\Entity\Orden
-     */
-    public function getOrden()
-    {
-        return $this->orden;
-    }
 }
+
