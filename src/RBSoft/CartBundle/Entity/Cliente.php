@@ -24,7 +24,7 @@ class Cliente
     private $id;
 
     /**
-     * @var Usuario
+     * @var \RBSoft\UsuarioBundle\Entity\Usuario $usuario
      *
      * @ORM\OneToOne(targetEntity="\RBSoft\UsuarioBundle\Entity\Usuario")
      */
@@ -451,7 +451,7 @@ class Cliente
      *
      * @return Cliente
      */
-    public function setUsuario(\RBSoft\CartBundle\Entity\Usuario $usuario = null)
+    public function setUsuario(Usuario $usuario = null)
     {
         $this->usuario = $usuario;
 

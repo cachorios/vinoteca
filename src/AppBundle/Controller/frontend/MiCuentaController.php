@@ -22,10 +22,12 @@ class MiCuentaController extends Controller
         /**
          * @var \Doctrine\ORM\EntityManager $em
          */
-        $em = $this->getDoctrine()->getManager();
+        //$em = $this->getDoctrine()->getManager();
 
 
-        return $this->render("@App/mi_cuenta/mi_cuenta.html.twig");
+        //return $this->render("@App/mi_cuenta/mi_cuenta.html.twig");
+
+        return $this->redirect($this->generateUrl("fos_user_profile_show"      ));
     }
 
 
