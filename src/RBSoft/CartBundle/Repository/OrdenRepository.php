@@ -12,12 +12,13 @@ use RBSoft\UsuarioBundle\Entity\Usuario;
 class OrdenRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function getComprasPendientesByUser(Usuario $usuario)
+    public function getComprasByUserAndEstado(Usuario $usuario, $estado)
     {
         $qb = $this->createQueryBuilder('o')
-            ->join('o.estado','e','WITH','e.estado = 0','o.id')
+            ->join('o.estado','e','WITH','e.estado = :estado','o.id')
             ->where('o.cliente = :cliente')
-            ->setParameter('cliente', $usuario->getId());
+            ->setParameter('cliente', $usuario->getId())
+            ->setParameter('estado', $estado );
 
         return $qb->getQuery()->getResult();
 

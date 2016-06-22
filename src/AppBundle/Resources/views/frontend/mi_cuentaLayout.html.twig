@@ -9,23 +9,23 @@
 
                     <h3 class="side-heading">Compras</h3>
                     <div class="list-group">
-                        <a href="{{ path("compras_pendiente") }}" class="list-group-item">
+                        <a href="{{ path("compras", { 'modo': 'pendiente'}) }}" class="list-group-item">
                             <i class="fa fa-chevron-right"></i>
                             En Proceso
                         </a>
-                        <a href="category-grid.html" class="list-group-item">
+                        <a href="{{ path("compras", { 'modo': 'transito'}) }}" class="list-group-item">
                             <i class="fa fa-chevron-right"></i>
                             En Transisto
                         </a>
-                        <a href="category-grid.html" class="list-group-item">
+                        <a href="{{ path("compras", { 'modo': 'terminado'}) }}" class="list-group-item">
                             <i class="fa fa-chevron-right"></i>
                             Entregado
                         </a>
-                        <a href="category-grid.html" class="list-group-item">
+                        <a href="#" class="list-group-item">
                             <i class="fa fa-chevron-right"></i>
                             Lista para comptar
                         </a>
-                        <a href="category-grid.html" class="list-group-item">
+                        <a href="#" class="list-group-item">
                             <i class="fa fa-chevron-right"></i>
                             Ofertas
                         </a>

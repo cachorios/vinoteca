@@ -12,6 +12,7 @@ namespace RBSoft\CartBundle\Model;
 use Doctrine\ORM\EntityManager;
 use RBSoft\CartBundle\Entity\Orden;
 use RBSoft\CartBundle\Entity\OrdenDetalle;
+use RBSoft\CartBundle\Entity\OrdenEstado;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class OrdenModel
@@ -45,6 +46,10 @@ class OrdenModel
         if (count($cartManager->getCart()->getItems()) == 0) {
             throw new \Exception("El Carro esta vacio.");
         }
+
+        $estado = new OrdenEstado();
+        $estado->setFecha(new \DateTime('now'));
+        $estado->setEstado(0);
 
         $cupon = null;
         if ($cartManager->tieneCupon()) {
@@ -86,7 +91,13 @@ class OrdenModel
         
          $em = $cartManager->getManager();
 
+
+
         $em->persist($orden);
+
+        $estado->setOrden($orden);
+        $em->persist($estado);
+
         $em->flush();
 
     }

@@ -32,11 +32,14 @@ class MiCuentaController extends Controller
 
 
     /**
-     * @Route("/compras_pendiente", name="compras_pendiente")
+     * @Route("/compras_{modo}", name="compras")
      *
      */
-    public function compras_pendienteAction()
+    public function comprasAction($modo)
     {
+        $aModoss = array('pendiente','transito','terminado');
+        if(! in_array($modo,$aModoss))
+            throw new \Exception("Accion invalida");
         /**
          * @var Usuario $usuario
          */
@@ -46,11 +49,14 @@ class MiCuentaController extends Controller
             throw new \Exception("Falta un usuario registrado.");
         }
 
+        
+        
         $em = $this->getDoctrine()->getManager();
-        $compras = $em->getRepository("RBSoftCartBundle:Orden")->getComprasPendientesByUser($usuario);
+        $compras = $em->getRepository("RBSoftCartBundle:Orden")->getComprasByUserAndEstado($usuario, array_search($modo,$aModoss));
 
-        return $this->render("@App/mi_cuenta/compras_pendiente.html.twig",
+        return $this->render("@App/mi_cuenta/compras.html.twig",
             array(
+                'modo' => $modo,
                 'compras' => $compras
             )
 
