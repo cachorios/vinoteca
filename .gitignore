@@ -2,12 +2,7 @@
 !var/cache/.gitkeep
 !var/logs/.gitkeep
 !var/sessions/.gitkeep
-!var/apache2/.gitkeep
-
-/build/
 /vendor/
-/composer.phar
-
 /.idea/*
 /.idea/workspace.xml
 
@@ -19,23 +14,18 @@
 /web/css/*
 /web/uploads/productos/*
 
-
-/app/extras/*
-
-composer.lock
-
 /app/config/parameters.yml
-app/cache/
 web/assetic/
 web/bundles/
-web/cache/
+/web/cache/*
 web/css/
 web/js/
 web/uploads/productos/
 
-var/cache/Nueva carpeta/
-var/cache/dev/
-var/cache/prod/
-var/logs/dev.log
-var/logs/prod.log
-var/apache2/.gitkeep
+/var/cache/*
+/var/logs/*
+/var/apache2/*
+/app/extras/*
+
+/composer.lock
+/composer.phar
