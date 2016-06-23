@@ -9,10 +9,11 @@
 namespace RBSoft\UtilidadBundle\Form\Type;
 
 use AppBundle\Form\DataTransformer\EntityToIdTransformer;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class EntityIdType extends AbstractType
 {
@@ -31,11 +32,13 @@ class EntityIdType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * Add the image_path option
+     *
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setOptional(array('class'));
+        $resolver->setDefined(array('class'));
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -44,13 +47,18 @@ class EntityIdType extends AbstractType
         $builder->addModelTransformer($transformer);
     }
 
+    /**
+     * Returns the name of the type being extended.
+     *
+     * @return string The name of the type being extended
+     */
+    public function getExtendedType()
+    {
+        return TextType::class;
+    }
 
     public function getName()
     {
         return 'entity_id';
-    }
-    public function getParent()
-    {
-        return 'text';
     }
 }

@@ -2,6 +2,7 @@
 
 namespace RBSoft\CartBundle\Entity;
 
+use AppBundle\Utils\Utils;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
@@ -13,11 +14,13 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  */
 class Cupon
 {
+
     /**
     * Hook timestampable behavior
     * updates createdAt, updatedAt fields
     */
     use TimestampableEntity;
+
     /**
      * @var int
      *
@@ -33,6 +36,13 @@ class Cupon
      * @ORM\Column(name="codigo", type="string", length=20, unique=true)
      */
     private $codigo;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="inicio", type="date")
+     */
+    private $inicio;
 
     /**
      * @var \DateTime
@@ -104,7 +114,20 @@ class Cupon
      * @ORM\Column(name="utilizado", type="boolean")
      */
     private $utilizado;
-    
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="enabled", type="boolean", nullable=true)
+     */
+    protected $enabled;
+
+
+    public function __construct(){
+        $this->codigo = Utils::getUniqueCode();
+        $this->enabled = true;
+    }
+
     /**
      * Get id
      *
@@ -140,6 +163,30 @@ class Cupon
     }
 
     /**
+     * Set inicio
+     *
+     * @param \DateTime $inicio
+     *
+     * @return Cupon
+     */
+    public function setInicio($inicio)
+    {
+        $this->inicio = $inicio;
+
+        return $this;
+    }
+
+    /**
+     * Get inicio
+     *
+     * @return \DateTime
+     */
+    public function getInicio()
+    {
+        return $this->inicio;
+    }
+
+    /**
      * Set vencimiento
      *
      * @param \DateTime $vencimiento
@@ -166,7 +213,7 @@ class Cupon
     /**
      * Set tipo
      *
-     * @Doc el tipo es:
+     *  el tipo es:
      *  1 -> Importe : el valor de descuenta esta en valor1
      *  2 -> Porcentaje : el porcentaje esta en valor 1
      *  3 -> Rango Importe: de  Rango 1 a Rango 2 => valor 1, >rango 2 a  rango 3 => valor 2, > rango 2 y >rango3 => valor 3
@@ -387,5 +434,49 @@ class Cupon
     public function getValor()
     {
         return $this->valor;
+    }
+
+    /**
+     * Set if is enabled
+     *
+     * @param boolean $enabled enabled value
+     *
+     * @return $this Self object
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Get is enabled
+     *
+     * @return boolean is enabled
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * Enable
+     *
+     * @return $this Self object
+     */
+    public function enable()
+    {
+        return $this->setEnabled(true);
+    }
+
+    /**
+     * Disable
+     *
+     * @return $this Self object
+     */
+    public function disable()
+    {
+        return $this->setEnabled(false);
     }
 }

@@ -2,14 +2,15 @@
 
 namespace AppBundle\Controller\admin;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Knp\Component\Pager\Paginator;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use AppBundle\Entity\Proveedor;
 use AppBundle\Form\ProveedorType;
@@ -31,8 +32,8 @@ class ProveedorController extends Controller
      */
     public function indexAction(Request $request)
     {
-    list($filterForm, $queryBuilder) = $this->filter($request);
-    $pager = $this->getPager($queryBuilder);
+        list($filterForm, $queryBuilder) = $this->filter($request);
+        $pager = $this->getPager($queryBuilder, $request);
 
         return $this->render('AppBundle:admin/Proveedor:index.html.twig', array(
             'pager' => $pager,
@@ -41,18 +42,17 @@ class ProveedorController extends Controller
     }
 
     /**
-    * Crea el paginador Pagerfanta
-    * @param Request $request
-    * @return SlidingPagination
-    * @throws NotFoundHttpException
-    */
-    private function getPager($q)
+     * Crea el paginador Pagerfanta
+     * @param Request $request
+     * @return SlidingPagination
+     * @throws NotFoundHttpException
+     */
+    private function getPager($q,  Request $request)
     {
-        $paginator  = $this->get('knp_paginator');
-
+        $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $q,
-            $this->get('request')->query->get('page', 1)/*page number*/,
+            $request->query->get('page', 1)/*page number*/,
             8,/*limit per page*/
             array('distinct' => false)
         );
@@ -63,7 +63,7 @@ class ProveedorController extends Controller
     private function filter(Request $request)
     {
         $session = $request->getSession();
-        $filterForm = $this->createForm(new ProveedorFilterType());
+        $filterForm = $this->createForm(ProveedorFilterType::class);
 
         $em = $this->getDoctrine()->getManager();
         $queryBuilder = $em->getRepository('AppBundle:Proveedor')->createQueryBuilder("q");
@@ -90,7 +90,7 @@ class ProveedorController extends Controller
             // Get filter from session
             if ($session->has('ProveedorControllerFilter')) {
                 $filterData = $session->get('ProveedorControllerFilter');
-                $filterForm = $this->createForm(new ProveedorFilterType(), $filterData);
+                $filterForm = $this->createForm(ProveedorFilterType::class, $filterData);
                 $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
            }
         }
@@ -108,7 +108,6 @@ class ProveedorController extends Controller
         $entity = new Proveedor();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-//        ld($entity);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
@@ -137,7 +136,7 @@ class ProveedorController extends Controller
     */
     private function createCreateForm(Proveedor $entity)
     {
-        $form = $this->createForm(new ProveedorType(), $entity, array(
+        $form = $this->createForm(ProveedorType::class, $entity, array(
             'action' => $this->generateUrl('proveedor_create'),
             'method' => 'POST',
         ));
@@ -223,7 +222,7 @@ class ProveedorController extends Controller
     */
     private function createEditForm(Proveedor $entity)
     {
-        $form = $this->createForm(new ProveedorType(), $entity, array(
+        $form = $this->createForm(ProveedorType::class, $entity, array(
             'action' => $this->generateUrl('proveedor_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
@@ -301,7 +300,7 @@ class ProveedorController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('proveedor_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array(
+            ->add('submit', SubmitType::class, array(
                 'label' => 'Delete',
                 'attr'  => array(
                         'class' => 'btn btn-danger btn-sm'

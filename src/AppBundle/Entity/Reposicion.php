@@ -76,7 +76,7 @@ class Reposicion  implements SecureControl
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\ReposicionItem", mappedBy="reposicion", cascade={"persist","remove"})
      * @Assert\Count(
      *      min = "1",
-     *      max = "50",
+     *      max = "30",
      *      minMessage = "Debe especificar al menos un item",
      *      maxMessage = "No se puede especificar más de {{ limit }} items"
      * )

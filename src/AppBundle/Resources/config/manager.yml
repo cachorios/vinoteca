@@ -19,3 +19,10 @@ services:
             - '@doctrine.orm.entity_manager'
             - '@security.token_storage'
             - '@request_stack'
+
+    cupon.manager:
+        class: AppBundle\Manager\CuponManager
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@security.token_storage'
+            - '@request_stack'

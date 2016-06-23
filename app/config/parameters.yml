@@ -6,7 +6,7 @@ parameters:
     prod_database_port: null
     prod_database_name: vinoteca_prod
     prod_database_user: root
-    prod_database_password: 7219
+    prod_database_password: ~
 
 
     dev_database_driver: pdo_mysql
@@ -14,7 +14,7 @@ parameters:
     dev_database_port: null
     dev_database_name: vinoteca_dev
     dev_database_user: root
-    dev_database_password: 7219
+    dev_database_password: ~
 
 
     mailer_transport: smtp

@@ -2,12 +2,15 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Form\Type\CondicionIvaType;
 use RBSoft\UtilidadBundle\Form\EventListener\AddLocalidadFieldSubscriber;
 use RBSoft\UtilidadBundle\Form\EventListener\AddPaisFieldSubscriber;
 use RBSoft\UtilidadBundle\Form\EventListener\AddProvinciaFieldSubscriber;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Form\Type\FormaPagoType;
 
 class ProveedorType extends AbstractType
 {
@@ -26,10 +29,10 @@ class ProveedorType extends AbstractType
 
         $builder
 //            datos generales
-//            ->add('codigo',null, array(
-//                'attr' => array('style' => 'width: auto')
-//
-//            ))
+            ->add('codigo',IntegerType::class, array(
+                'attr' => array('style' => 'width: auto')
+
+            ))
             ->add('razon_social',null, array(
                 'help' => 'Escriba el nombre del proveedor.',
             ))
@@ -81,19 +84,25 @@ class ProveedorType extends AbstractType
                 'attr' => array('style' => 'width: auto')
             ))
             ->add('limite_credito',null, array(
-                'attr' => array('style' => 'width: auto')
+                'attr' => array('style' => 'width: auto'),
+                'required'  => false,
             ))
-            ->add('tipo_pago','forma_pago', array(
+            ->add('tipo_pago',FormaPagoType::class, array(
                 'label' => 'Forma de pago habitual',
                 'attr' => array('style' => 'width: auto'),
                 'help' => 'Seleccione la forma de pago habitual para el proveedor.',
+                'required'  => false,
+                'empty_data'  => null
+
             ))
             ->add('descuento',null, array(
                 'attr' => array('style' => 'width: auto'),
                 'help' => 'Indique un descuento en porcentaje sin el símbolo %.',
             ))
-            ->add('cond_iva','condicion_iva', array(
-                'attr' => array('style' => 'width: auto')
+            ->add('cond_iva',CondicionIvaType::class, array(
+                'attr' => array('style' => 'width: auto'),
+                'required'    => false,
+                'empty_data'  => null
             ))
             ->add('n_cuenta',null, array(
                 'label' => 'Nº de Cuenta',

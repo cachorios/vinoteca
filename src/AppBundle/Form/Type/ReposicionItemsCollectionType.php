@@ -5,9 +5,6 @@ namespace AppBundle\Form\Type;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\AbstractType;
 
-
-
-
 class ReposicionItemsCollectionType extends AbstractType
 {
 

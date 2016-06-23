@@ -1,0 +1,72 @@
+<script type="text/javascript">
+
+    var fieldCount = '{{ form.metadatos|length }}';
+
+    jQuery(document).ready(function () {
+        jQuery(document).on('click', '#add-metadato', function (e) {
+            e.preventDefault();
+            var fieldList = jQuery('#iten_list_metadatos_collection');
+            var newWidget = fieldList.attr('data-prototype');
+            newWidget = newWidget.replace(/__name__/g, fieldCount);
+            fieldCount++;
+            var newLi = jQuery('<li></li>').html(newWidget);
+            newLi.appendTo(fieldList);
+
+        });
+
+        jQuery(document).on('click', '.remove-list-item', function (e) {
+            e.preventDefault();
+            var collectionHolder = $($(this)).parents('li');
+            collectionHolder.remove();
+        });
+
+        jQuery(document).on('click', '.collection-collapsed', function (e) {
+            e.preventDefault();
+            var fieldset = $(this).parent();
+            var legend = $(this);
+            var span = legend.children('span');
+            var div = fieldset.children('div.collapsible');
+
+            if (div.css('display') == "none") {
+                span.removeClass("glyphicon glyphicon-plus");
+                span.addClass("glyphicon glyphicon-minus")
+            } else {
+                span.removeClass("glyphicon glyphicon-minus");
+                span.addClass("glyphicon glyphicon-plus")
+            }
+            div.toggle();
+        });
+
+        //verificar index en widget type.
+        jQuery(document).on('change', '.select-customwidget', function (e) {
+            e.preventDefault();
+            var fieldset = $(this).closest("li");
+            var div = fieldset.find('div.lista_valor');
+
+            if (3 == this.options[this.selectedIndex].value) {
+                jQuery(div.parent()).show()
+                jQuery(div).show()
+            } else
+                jQuery(div).hide()
+        });
+    })
+
+
+    $("#appbundle_categoria_imagen").fileinput({
+        {% set imagen_src = entity.imagen == null ? asset("images/default-image.png" ) : asset("uploads/categorias/" ~ entity.imagen  ) %}
+
+        initialPreview: ["<img src='{{ imagen_src }}' class='file-preview-image'>"],
+        overwriteInitial: true,
+        showUpload: false,
+        showCaption: false,
+        browseClass: "btn btn-primary btn-sm",
+        fileType: "any",
+        allowedFileTypes: ['image'],
+        'allowedFileExtensions': ['jpg', 'png', 'gif'],
+        uploadLabel: 'Subir',
+        removeLabel: 'Quitar',
+        browseLabel: 'Explorar'
+    });
+
+</script>
+

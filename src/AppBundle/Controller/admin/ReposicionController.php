@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use AppBundle\Form\ReposicionFilterType;
 
@@ -25,7 +26,7 @@ class ReposicionController extends Controller
     public function indexAction(Request $request)
     {
         list($filterForm, $queryBuilder) = $this->filter($request);
-        $pager = $this->getPager($queryBuilder);
+        $pager = $this->getPager($queryBuilder, $request);
 
         return $this->render('AppBundle:admin/Reposicion:index.html.twig',array(
             'pager' => $pager,
@@ -39,13 +40,12 @@ class ReposicionController extends Controller
      * @return SlidingPagination
      * @throws NotFoundHttpException
      */
-    private function getPager($q)
+    private function getPager($q,  Request $request)
     {
         $paginator = $this->get('knp_paginator');
-
         $pagination = $paginator->paginate(
             $q,
-            $this->get('request')->query->get('page', 1)/*page number*/,
+            $request->query->get('page', 1)/*page number*/,
             8,/*limit per page*/
             array('distinct' => false)
         );
@@ -56,7 +56,7 @@ class ReposicionController extends Controller
     private function filter(Request $request)
     {
         $session = $request->getSession();
-        $filterForm = $this->createForm(new ReposicionFilterType());
+        $filterForm = $this->createForm(ReposicionFilterType::class);
 
         $queryBuilder = $this->get('reposicion.manager')->getList();
 
@@ -82,7 +82,7 @@ class ReposicionController extends Controller
             // Get filter from session
             if ($session->has('ReposicionControllerFilter')) {
                 $filterData = $session->get('ReposicionControllerFilter');
-                $filterForm = $this->createForm(new CategoriaFilterType(), $filterData);
+                $filterForm = $this->createForm(ReposicionFilterType::class, $filterData);
                 $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
             }
         }
@@ -129,7 +129,7 @@ class ReposicionController extends Controller
      */
     private function createCreateForm(Reposicion $entity)
     {
-        $form = $this->createForm(new ReposicionType(), $entity, array(
+        $form = $this->createForm(ReposicionType::class, $entity, array(
             'action' => $this->generateUrl('reposicion_create'),
             'method' => 'POST',
         ));

@@ -10,4 +10,10 @@ namespace RBSoft\CartBundle\Repository;
  */
 class CuponRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function ListAll()
+    {
+        $qb = $this->createQueryBuilder("q")->orderBy('q.createdAt', 'ASC');
+        return $qb;
+
+    }
 }

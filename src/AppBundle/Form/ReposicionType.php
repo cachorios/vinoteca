@@ -3,6 +3,8 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\ReposicionItem;
+use AppBundle\Form\Type\AppDateTimeType;
+use AppBundle\Form\Type\ReposicionItemsCollectionType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
@@ -25,15 +27,16 @@ class ReposicionType extends AbstractType
             ))
             ->add('proveedor', null, array(
                 'label' => 'Proveedor',
-                'empty_value' => 'Seleccionar',
+                'placeholder' => 'Seleccionar',
 //                'mapped' => false,
             ))
-            ->add('fechaReposicion', 'app_datetime', array(
+            ->add('fechaReposicion', AppDateTimeType::class, array(
                 'label' => 'Fecha de reposicion',
                 'constraints' => new Assert\NotBlank(),
             ))
-            ->add('items', 'reposicion_items_collection', array(
-                'type' => new ReposicionItemType(),
+            ->add('items', ReposicionItemsCollectionType::class, array(
+                'entry_type' => ReposicionItemType::class,
+
                 'by_reference'   => false,
                 'allow_add' => true,
                 'allow_delete' => true,

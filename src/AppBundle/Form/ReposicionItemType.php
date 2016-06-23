@@ -2,7 +2,9 @@
 
 namespace AppBundle\Form;
 
+use RBSoft\UtilidadBundle\Form\Type\EntityIdType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,7 +20,7 @@ class ReposicionItemType extends AbstractType
             ->add('cantidad', null, array(
                 'required' => true
             ))
-            ->add('precioUnitario', 'money', array(
+            ->add('precioUnitario', MoneyType::class, array(
                     'currency' => 'ARS'
             ))
             ->add('producto_codigo', null, array(
@@ -27,7 +29,7 @@ class ReposicionItemType extends AbstractType
             ))
         ;
 
-           $builder->add('producto', 'entity_id', array(
+           $builder->add('producto', EntityIdType::class, array(
                 'class' => 'AppBundle:Producto',
            ));
     }

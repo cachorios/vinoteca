@@ -10,7 +10,7 @@ namespace AppBundle\Form\Type;
 
 use AppBundle\Model\DefinicionFormaPago;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
 
 class FormaPagoType extends AbstractType
@@ -20,7 +20,7 @@ class FormaPagoType extends AbstractType
     {
         $resolver->setDefaults(array(
             'choices' => DefinicionFormaPago::getDefType(),
-            'empty_value' => 'Seleccionar',
+            'placeholder' => 'Seleccionar',
         ));
     }
 

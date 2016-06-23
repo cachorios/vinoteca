@@ -10,18 +10,20 @@ namespace AppBundle\Model;
 /*
 *
 */
-class DefinicionConIva {
+class DefinicionConIva
+{
 
-    static function getDefType(){
+    static function getDefType()
+    {
         return array(
-            0 => 'Consumidor Final',
-            1 => 'Responsable Inscripto',
-            2 => 'Responsable No Inscripto',
-            3 => 'No responsable',
-            4 => 'Exento',
-            5 => 'Responsable No Identificado',
-            6 => 'Responsable Monotributo',
-            7 => 'Responsable Incripto RG',
+            'Consumidor Final' => 0,
+            'Responsable Inscripto' => 1,
+            'Responsable No Inscripto' => 2,
+            'No responsable' => 3,
+            'Exento' => 4,
+            'Responsable No Identificado' => 5,
+            'Responsable Monotributo' => 6,
+            'Responsable Incripto RG' => 7,
         );
     }
 

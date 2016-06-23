@@ -1,0 +1,89 @@
+{% extends 'AppBundle:admin:layout.html.twig' %}
+
+    {% block contenido -%}
+        {% embed '::portlet.html.twig' with {'titulo': 'Ver Categoria: ' ~ entity} %}
+            {% block in_header %}
+                <div class='pull-right'>
+                    <div class="row">
+                        <div class="col-md-1 ">
+                            <div class="pull-right">
+                                {{ form(delete_form) }}
+                            </div>
+                        </div>
+                        <a href="{{ path('categoria_edit', { 'id': entity.id }) }}"
+                           class="btn btn-sm btn-default">
+                            Editar
+                        </a>
+
+
+                        <a href="{{ path('categoria') }}" class="btn btn-sm btn-default">
+                            Ir a la lista
+                        </a>
+
+
+                    </div>
+                </div>
+            {% endblock %}
+            {% block cuerpo %}
+                <p></p>
+
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th class="show-header">Nombre</th>
+                        <td>{{ entity.nombre }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Slug</th>
+                        <td>{{ entity.slug }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Ubicación</th>
+                        <td>{{ entity | categoria_breadcrumd }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Actualizado por</th>
+                        <td>{{ entity.usuario }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Orden</th>
+                        <td>{{ entity.orden }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Activo</th>
+                        <td>{{ entity.activo? '<span class="label label-success">Activo</span>' : '<span class="label label-default">Desactivado</span>' }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Visible</th>
+                        <td>{{ entity.visible? '<span class="label label-success">Activo</span>' : '<span class="label label-default">Desactivado</span>' }}</td>
+                    </tr>
+                    <tr>
+                        <th class="show-header">Imagen</th>
+                        <td><img src="{{ image("uploads/categorias/"~ entity.imagen).resize(189,189) }}" class="img-responsive img-thumbnail" /></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+                <h4 class="content-title">
+                    <u>Metadatos</u>
+                </h4>
+
+                <table class="table">
+                    <tbody>
+                    {% for dato in entity.metadatos %}
+                        <tr>
+                            <td >{{ dato.nombre }}</td>
+
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td>Sin información</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            {% endblock %}
+        {% endembed %}
+    {% endblock contenido %}

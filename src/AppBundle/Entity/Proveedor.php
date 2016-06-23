@@ -14,6 +14,8 @@ use RBSoft\UsuarioBundle\Entity\Usuario;
  *
  * @ORM\Table(name="proveedor")
  * @ORM\Entity(repositoryClass="AppBundle\Entity\ProveedorRepository")
+ * @DoctrineAssert\UniqueEntity(fields="codigo", message="Codigo de proveedor duplicado")
+ *
  */
 class Proveedor implements SecureControl
 {
@@ -28,8 +30,11 @@ class Proveedor implements SecureControl
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="codigo", type="integer", nullable=true)
+     * @ORM\Column(name="codigo", type="integer", nullable=false)
+     * @Assert\Type(
+     *     type="integer",
+     *     message="El valor ingresado {{ value }} no es valido {{ type }}."
+     * )
      */
     private $codigo;
 
@@ -49,12 +54,13 @@ class Proveedor implements SecureControl
      */
     private $nombre_fantasia;
 
+    //     * @Assert\Regex("/^[0-9_]+$/")
+//     * @UtilidadAssert\ContainsCuitValido()
+
     /**
      * @var string
      *
-     * @ORM\Column(name="cuit", type="string", length=11, nullable=false)
-     * @Assert\Regex("/^[0-9_]+$/")
-     * @UtilidadAssert\ContainsCuitValido()
+     * @ORM\Column(name="cuit", type="string", length=11, nullable=true)
      */
     private $cuit;
 
@@ -166,14 +172,14 @@ class Proveedor implements SecureControl
     /**
      * @var string
      *
-     * @ORM\Column(name="moneda", type="string", length=1, nullable=true)
+     * @ORM\Column(name="moneda", type="string", length=60, nullable=true)
      */
     private $moneda = 'Pesos';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="limite_credito", type="float", nullable=false)
+     * @ORM\Column(name="limite_credito", type="float", nullable=true)
      */
     private $limite_credito = 0;
 
@@ -194,7 +200,7 @@ class Proveedor implements SecureControl
     /**
      * @var string
      *
-     * @ORM\Column(name="cond_iva", type="string", length=255)
+     * @ORM\Column(name="cond_iva", type="string", length=255, nullable=true)
      */
     private $cond_iva;
 
@@ -817,30 +823,6 @@ class Proveedor implements SecureControl
     {
         return $this->observacion;
     }
-//
-//    /**
-//     * Set fechaIngreso
-//     *
-//     * @param \DateTime $fechaIngreso
-//     *
-//     * @return Proveedor
-//     */
-//    public function setFechaIngreso($fechaIngreso)
-//    {
-//        $this->fechaIngreso = $fechaIngreso;
-//
-//        return $this;
-//    }
-//
-//    /**
-//     * Get fechaIngreso
-//     *
-//     * @return \DateTime
-//     */
-//    public function getFechaIngreso()
-//    {
-//        return $this->fechaIngreso;
-//    }
 
     /**
      * Set localidad

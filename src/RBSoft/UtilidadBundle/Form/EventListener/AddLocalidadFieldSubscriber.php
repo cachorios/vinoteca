@@ -8,6 +8,7 @@
 
 namespace RBSoft\UtilidadBundle\Form\EventListener;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -34,7 +35,7 @@ class AddLocalidadFieldSubscriber implements EventSubscriberInterface{
     {
         $formOptions = array(
             'class' => 'UtilidadBundle:Localidad',
-            'empty_value' => 'Selecciona una Localidad',
+            'placeholder' => 'Selecciona una Localidad',
             'label' => 'Localidad',
             'attr' => array(
                 'class' => 'localidad_selector',
@@ -48,7 +49,7 @@ class AddLocalidadFieldSubscriber implements EventSubscriberInterface{
                 return $qb;
             }
         );
-        $form->add($this->propertyPathToLocalidad, 'entity', $formOptions);
+        $form->add($this->propertyPathToLocalidad, EntityType::class, $formOptions);
     }
     public function preSetData(FormEvent $event)
     {

@@ -1,0 +1,44 @@
+{% extends 'AppBundle:admin:layout.html.twig' %}
+    {% block id 'Cupon' %}
+        {% block contenido -%}
+            {% embed '::portlet.html.twig' with {'titulo': 'Nuevo Cupon' } %}
+                {% block in_header %}
+                    <div class='pull-right'>
+                        <div class="row">
+
+                            <a href="{{ path('cupon') }}" class="btn btn-sm btn-default">
+                                Ir a la lista
+                            </a>
+
+                        </div>
+                    </div>
+                {% endblock %}
+
+                {% block cuerpo %}
+                    {% for type, flashMessages in app.session.flashbag.all() %}
+                        {% for flashMessage in flashMessages %}
+                            <div class='alert alert-{{ type }}'>
+                                {{ flashMessage }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    <p></p>
+
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    {{ form_end(form) }}
+
+
+                {% endblock %}
+            {% endembed %}
+
+        {% endblock contenido %}
+
+    {% block stylesheets_header %}
+
+    {% endblock %}
+
+
+    {% block javascript_footer %}
+        <script src="{{ asset('assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.js') }} "></script>
+    {% endblock %}

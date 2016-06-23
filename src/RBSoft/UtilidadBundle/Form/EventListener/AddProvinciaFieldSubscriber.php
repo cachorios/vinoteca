@@ -8,6 +8,7 @@
 
 namespace RBSoft\UtilidadBundle\Form\EventListener;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -33,7 +34,7 @@ class AddProvinciaFieldSubscriber implements EventSubscriberInterface{
     {
         $formOptions = array(
             'class' => 'UtilidadBundle:Provincia',
-            'empty_value' => 'Seleccionar una provincia',
+            'placeholder' => 'Seleccionar una provincia',
             'label' => 'Provincia',
             'mapped' => false,
             'attr' => array(
@@ -51,7 +52,7 @@ class AddProvinciaFieldSubscriber implements EventSubscriberInterface{
         if ($provincia) {
             $formOptions['data'] = $provincia;
         }
-        $form->add('provincia','entity', $formOptions);
+        $form->add('provincia',EntityType::class, $formOptions);
     }
     public function preSetData(FormEvent $event)
     {
@@ -60,7 +61,7 @@ class AddProvinciaFieldSubscriber implements EventSubscriberInterface{
         if (null === $data) {
             return;
         }
-        $accessor = PropertyAccess::getPropertyAccessor();
+        $accessor = PropertyAccess::createPropertyAccessor();
         $localidad = $accessor->getValue($data, $this->propertyPathToLocalidad);
         $provincia = ($localidad) ? $localidad->getProvincia() : null;
         $pais_id = ($provincia) ? $provincia->getPais()->getId() : null;

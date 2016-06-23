@@ -9,8 +9,9 @@
 namespace AppBundle\Form\Type;
 
 use AppBundle\Model\DefinicionConIva;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class CondicionIvaType extends AbstractType
 {
@@ -19,13 +20,13 @@ class CondicionIvaType extends AbstractType
     {
         $resolver->setDefaults(array(
             'choices' => DefinicionConIva::getDefType(),
-            'empty_value' => 'Seleccionar',
+            'placeholder' => 'Seleccionar',
         ));
     }
 
     public function getParent()
     {
-        return 'choice';
+        return ChoiceType::class;
     }
 
     public function getBlockPrefix()

@@ -8,10 +8,11 @@
 
 namespace RBSoft\UtilidadBundle\Form\Extension;
 
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class HelpMessageTypeExtension extends AbstractTypeExtension
 {
@@ -27,11 +28,13 @@ class HelpMessageTypeExtension extends AbstractTypeExtension
     }
 
     /**
-     * {@inheritdoc}
+     * Add the image_path option
+     *
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setOptional(array('help'));
+        $resolver->setDefined(array('help'));
     }
 
     /**
@@ -39,6 +42,6 @@ class HelpMessageTypeExtension extends AbstractTypeExtension
      */
     public function getExtendedType()
     {
-        return 'form';
+        return FormType::class;
     }
 }

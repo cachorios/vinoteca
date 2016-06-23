@@ -14,8 +14,6 @@
                            class="btn btn-sm btn-default">
                             Editar
                         </a>
-
-
                         <a href="{{ path('proveedor') }}" class="btn btn-sm btn-default">
                             Ir a la lista
                         </a>
@@ -26,23 +24,18 @@
             {% endblock %}
             {% block cuerpo %}
                 <p></p>
-
                 <table class="table">
                     <tbody>
-                    <tr>
-                        <th class="show-header">Id</th>
-                        <td>{{ entity.id }}</td>
-                    </tr>
                     <tr>
                         <th class="show-header">Codigo</th>
                         <td>{{ entity.codigo }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Razon_social</th>
+                        <th class="show-header">Razon social</th>
                         <td>{{ entity.razonsocial }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Nombre_fantasia</th>
+                        <th class="show-header">Nombre fantasia</th>
                         <td>{{ entity.nombrefantasia }}</td>
                     </tr>
                     <tr>
@@ -50,27 +43,24 @@
                         <td>{{ entity.cuit }}</td>
                     </tr>
                     <tr>
+                        <th class="show-header" colspan="2"><h3 class="panel-title pull-left ">Datos de la Empresa</h3></th>
+                    </tr>
+
+
+                    <tr>
                         <th class="show-header">Domicilio</th>
                         <td>{{ entity.domicilio }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Codigo_postal</th>
+                        <th class="show-header">Codigo postal</th>
                         <td>{{ entity.codigopostal }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Provincia</th>
-                        <td>{{ entity.provincia }}</td>
+                        <th class="show-header">Localidad</th>
+                        <td>{{ entity.localidad.nombre }} ({{entity.localidad.provincia.nombre }}, {{entity.localidad.provincia.pais.nombre }})</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Ciudad</th>
-                        <td>{{ entity.ciudad }}</td>
-                    </tr>
-                    <tr>
-                        <th class="show-header">Pais</th>
-                        <td>{{ entity.pais }}</td>
-                    </tr>
-                    <tr>
-                        <th class="show-header">Pagina_web</th>
+                        <th class="show-header">Web</th>
                         <td>{{ entity.paginaweb }}</td>
                     </tr>
                     <tr>
@@ -82,43 +72,51 @@
                         <td>{{ entity.fax }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Mail</th>
-                        <td>{{ entity.mail }}</td>
+                        <th class="show-header">Correo Electronico</th>
+                        <td>{{ entity.email }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Contacto</th>
+                        <th class="show-header" colspan="2"><h3 class="panel-title pull-left ">Datos del Contacto</h3></th>
+                    </tr>
+
+                    <tr>
+                        <th class="show-header">Persona de Contacto</th>
                         <td>{{ entity.contacto }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Contacto_telefono</th>
+                        <th class="show-header">Telefono</th>
                         <td>{{ entity.contactotelefono }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Contacto_int</th>
+                        <th class="show-header">Numero Int.</th>
                         <td>{{ entity.contactoint }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Contacto_fax</th>
+                        <th class="show-header">Fax</th>
                         <td>{{ entity.contactofax }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Contacto_movil</th>
+                        <th class="show-header">movil</th>
                         <td>{{ entity.contactomovil }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Contacto_mail</th>
-                        <td>{{ entity.contactomail }}</td>
+                        <th class="show-header">Mail</th>
+                        <td>{{ entity.contactoemail }}</td>
                     </tr>
+                    <tr>
+                        <th class="show-header" colspan="2"><h3 class="panel-title pull-left ">Datos económicos</h3></th>
+                    </tr>
+
                     <tr>
                         <th class="show-header">Moneda</th>
                         <td>{{ entity.moneda }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Limite_credito</th>
+                        <th class="show-header">Limite de Credito</th>
                         <td>{{ entity.limitecredito }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Tipo_pago</th>
+                        <th class="show-header">Tipo de Pago</th>
                         <td>{{ entity.tipopago }}</td>
                     </tr>
                     <tr>
@@ -126,16 +124,20 @@
                         <td>{{ entity.descuento }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Cond_iva</th>
+                        <th class="show-header">Cond. Iva</th>
                         <td>{{ entity.condiva }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">N_cuenta</th>
+                        <th class="show-header">N de Cuenta</th>
                         <td>{{ entity.ncuenta }}</td>
                     </tr>
                     <tr>
-                        <th class="show-header">Comentario</th>
-                        <td>{{ entity.comentario }}</td>
+                        <th class="show-header" colspan="2"><h3 class="panel-title pull-left ">Otros Datos</h3></th>
+                    </tr>
+
+                    <tr>
+                        <th class="show-header">Observación</th>
+                        <td>{{ entity.observacion }}</td>
                     </tr>
                     </tbody>
                 </table>
